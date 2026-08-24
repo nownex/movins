@@ -43,11 +43,9 @@ def load_movies():
     if not os.path.exists(
         MOVIES_FILE
     ):
-
         raise RuntimeError(
             "movies.json not found"
         )
-
 
     with open(
         MOVIES_FILE,
@@ -56,7 +54,6 @@ def load_movies():
     ) as file:
 
         data = json.load(file)
-
 
     return data.get(
         "items",
@@ -73,9 +70,7 @@ def load_posted():
     if not os.path.exists(
         POSTED_FILE
     ):
-
         return set()
-
 
     try:
 
@@ -87,22 +82,17 @@ def load_posted():
 
             data = json.load(file)
 
-
         if isinstance(
             data,
             list
         ):
-
             return set(
                 str(x)
                 for x in data
             )
 
-
     except Exception:
-
         pass
-
 
     return set()
 
@@ -130,10 +120,14 @@ def save_posted(posted):
 
 
 # =========================================================
-# BUILD CAPTION
+# BUILD FACEBOOK CAPTION
 # =========================================================
 
 def build_caption(item):
+
+    # -----------------------------------------------------
+    # TITLE
+    # -----------------------------------------------------
 
     title = (
         item.get("title")
@@ -141,16 +135,40 @@ def build_caption(item):
     )
 
 
+    # -----------------------------------------------------
+    # OVERVIEW
+    # -----------------------------------------------------
+
+    overview = (
+        item.get("overview")
+        or "لا يوجد ملخص متوفر حاليًا."
+    )
+
+    overview = str(
+        overview
+    ).strip()
+
+
+    # -----------------------------------------------------
+    # TYPE
+    # -----------------------------------------------------
+
     detailed_type = (
-        item.get(
-            "detailed_type"
-        )
+        item.get("detailed_type")
         or item.get(
             "type",
             "عمل"
         )
     )
 
+    detailed_type = str(
+        detailed_type
+    ).strip()
+
+
+    # -----------------------------------------------------
+    # GENRES
+    # -----------------------------------------------------
 
     genres = item.get(
         "genres",
@@ -158,77 +176,118 @@ def build_caption(item):
     )
 
 
+    if isinstance(
+        genres,
+        list
+    ):
+
+        clean_genres = [
+            str(g).strip()
+            for g in genres
+            if str(g).strip()
+        ]
+
+        genre_text = (
+            " • ".join(
+                clean_genres[:5]
+            )
+            if clean_genres
+            else "غير محدد"
+        )
+
+    else:
+
+        genre_text = str(
+            genres
+        ).strip()
+
+        if not genre_text:
+            genre_text = "غير محدد"
+
+
+    # -----------------------------------------------------
+    # YEAR
+    # -----------------------------------------------------
+
     year = (
         item.get("year")
         or "—"
     )
 
 
-    rating = float(
-        item.get(
-            "rating"
+    # -----------------------------------------------------
+    # RATING
+    # -----------------------------------------------------
+
+    try:
+
+        rating = float(
+            item.get(
+                "rating"
+            )
+            or 0
         )
-        or 0
-    )
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        rating = 0
 
 
-    overview = (
-        item.get("overview")
-        or "لا يوجد ملخص متوفر حاليًا."
-    )
-
+    # -----------------------------------------------------
+    # HASHTAGS
+    # -----------------------------------------------------
 
     hashtags = (
         item.get("hashtags")
         or "#MOVINS #Movies"
     )
 
-
-    if genres:
-
-        genre_text = (
-            " • ".join(
-                genres[:4]
-            )
-        )
-
-    else:
-
-        genre_text = (
-            "غير محدد"
-        )
+    hashtags = str(
+        hashtags
+    ).strip()
 
 
-    return f"""🎬 {title}
+    # =====================================================
+    # FACEBOOK POST
+    #
+    # IMPORTANT:
+    #
+    # The story starts immediately after the title.
+    # Rating / genre / year / link come AFTER the story.
+    #
+    # Facebook itself decides where to display "See more".
+    # =====================================================
 
-📌 النوع: {detailed_type}
-
-🎭 التصنيف:
-{genre_text}
-
-📅 السنة: {year}
-
-⭐ التقييم: {rating:.1f}/10
-
-📝 القصة:
+    caption = f"""🎬 {title}
 
 {overview}
 
-━━━━━━━━━━━━━━
+⭐ التقييم: {rating:.1f}/10
+🎭 النوع: {detailed_type}
+🎞️ التصنيف: {genre_text}
+📅 السنة: {year}
 
-🍿 اكتشف المزيد من الأفلام والمسلسلات على MOVINS
-
-🌐 https://nownex.github.io/movins/
+🌐 اكتشف القصة والتفاصيل:
+https://nownex.github.io/movins/
 
 {hashtags}
 """
 
+    return caption
+
 
 # =========================================================
-# PUBLISH
+# PUBLISH TO FACEBOOK
 # =========================================================
 
 def publish_to_facebook(item):
+
+    # -----------------------------------------------------
+    # POSTER
+    # -----------------------------------------------------
 
     poster = (
         item.get("poster")
@@ -245,10 +304,18 @@ def publish_to_facebook(item):
         return False
 
 
+    # -----------------------------------------------------
+    # CAPTION
+    # -----------------------------------------------------
+
     caption = build_caption(
         item
     )
 
+
+    # -----------------------------------------------------
+    # PAYLOAD
+    # -----------------------------------------------------
 
     payload = {
 
@@ -266,32 +333,50 @@ def publish_to_facebook(item):
     }
 
 
-    print(
-        "--------------------------------------"
-    )
-
-    print(
-        "Publishing:"
-    )
-
-    print(
-        item.get("title")
-    )
-
-    print(
-        "Type:"
-    )
-
-    print(
-        item.get(
-            "detailed_type"
-        )
-    )
+    # -----------------------------------------------------
+    # LOG
+    # -----------------------------------------------------
 
     print(
         "--------------------------------------"
     )
 
+    print(
+        "Publishing to Facebook:"
+    )
+
+    print(
+        f"Title: {item.get('title')}"
+    )
+
+    print(
+        f"Type: {item.get('detailed_type', item.get('type'))}"
+    )
+
+    print(
+        f"Rating: {item.get('rating')}"
+    )
+
+    print(
+        "--------------------------------------"
+    )
+
+    print(
+        "Caption:"
+    )
+
+    print(
+        caption
+    )
+
+    print(
+        "--------------------------------------"
+    )
+
+
+    # -----------------------------------------------------
+    # FACEBOOK REQUEST
+    # -----------------------------------------------------
 
     response = requests.post(
         GRAPH_URL,
@@ -299,6 +384,10 @@ def publish_to_facebook(item):
         timeout=60
     )
 
+
+    # -----------------------------------------------------
+    # ERROR
+    # -----------------------------------------------------
 
     if not response.ok:
 
@@ -313,6 +402,10 @@ def publish_to_facebook(item):
         response.raise_for_status()
 
 
+    # -----------------------------------------------------
+    # RESULT
+    # -----------------------------------------------------
+
     result = response.json()
 
 
@@ -326,7 +419,9 @@ def publish_to_facebook(item):
         result.get(
             "post_id"
         )
-        or result.get("id")
+        or result.get(
+            "id"
+        )
     )
 
 
@@ -338,6 +433,10 @@ def publish_to_facebook(item):
 # =========================================================
 
 def main():
+
+    # -----------------------------------------------------
+    # LOAD
+    # -----------------------------------------------------
 
     movies = load_movies()
 
@@ -357,7 +456,7 @@ def main():
 
 
     # -----------------------------------------------------
-    # Newest first
+    # NEWEST FIRST
     # -----------------------------------------------------
 
     movies.sort(
@@ -371,7 +470,7 @@ def main():
 
 
     # -----------------------------------------------------
-    # Find new items
+    # FIND NEW ITEMS
     # -----------------------------------------------------
 
     new_items = []
@@ -402,7 +501,7 @@ def main():
 
 
     # -----------------------------------------------------
-    # Nothing new
+    # NOTHING NEW
     # -----------------------------------------------------
 
     if not new_items:
@@ -415,7 +514,7 @@ def main():
 
 
     # -----------------------------------------------------
-    # Publish
+    # PUBLISH
     # -----------------------------------------------------
 
     published_count = 0
@@ -427,7 +526,6 @@ def main():
             published_count
             >= MAX_POSTS_PER_RUN
         ):
-
             break
 
 
@@ -453,6 +551,10 @@ def main():
             published_count += 1
 
 
+    # -----------------------------------------------------
+    # RESULT
+    # -----------------------------------------------------
+
     print(
         f"Published this run: "
         f"{published_count}"
@@ -464,6 +566,8 @@ def main():
     )
 
 
+# =========================================================
+# START
 # =========================================================
 
 if __name__ == "__main__":
