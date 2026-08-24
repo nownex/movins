@@ -1,12 +1,13 @@
 import json
 import os
+import re
 from datetime import datetime, timezone
 
 import requests
 
 
 # =========================================================
-# MOVINS — TMDB MOVIE & TV UPDATE ENGINE
+# MOVINS — TMDB UPDATE ENGINE
 # =========================================================
 
 API_KEY = os.environ.get("TMDB_API_KEY")
@@ -16,9 +17,7 @@ if not API_KEY:
 
 
 BASE_URL = "https://api.themoviedb.org/3"
-
 IMAGE_BASE = "https://image.tmdb.org/t/p/w500"
-
 
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",
@@ -27,7 +26,7 @@ HEADERS = {
 
 
 # =========================================================
-# TMDB GENRES
+# GENRES
 # =========================================================
 
 MOVIE_GENRES = {
@@ -74,19 +73,177 @@ TV_GENRES = {
 
 
 # =========================================================
+# LANGUAGE DETECTION
+# =========================================================
+
+def contains_arabic(text):
+
+    if not text:
+        return False
+
+    return bool(
+        re.search(
+            r"[\u0600-\u06FF]",
+            str(text)
+        )
+    )
+
+
+def contains_french_chars(text):
+
+    if not text:
+        return False
+
+    return bool(
+        re.search(
+            r"[àâçéèêëîïôùûüÿœæÀÂÇÉÈÊËÎÏÔÙÛÜŸŒÆ]",
+            str(text)
+        )
+    )
+
+
+def contains_latin(text):
+
+    if not text:
+        return False
+
+    return bool(
+        re.search(
+            r"[A-Za-z]",
+            str(text)
+        )
+    )
+
+
+def contains_non_latin(text):
+
+    if not text:
+        return False
+
+    text = str(text)
+
+    # Remove spaces, numbers and punctuation
+    cleaned = re.sub(
+        r"[\s\d\W_]+",
+        "",
+        text,
+        flags=re.UNICODE
+    )
+
+    if not cleaned:
+        return False
+
+    # Arabic is handled separately
+    if contains_arabic(text):
+        return False
+
+    # Latin languages are handled separately
+    if contains_latin(text):
+        return False
+
+    # Remaining scripts such as:
+    # Japanese
+    # Korean
+    # Chinese
+    # Russian
+    # etc.
+    return True
+
+
+# =========================================================
+# CHOOSE TITLE
+# =========================================================
+
+def choose_title(item, media_type):
+
+    if media_type == "movie":
+
+        original = (
+            item.get("original_title")
+            or ""
+        ).strip()
+
+        arabic = (
+            item.get("title")
+            or ""
+        ).strip()
+
+    else:
+
+        original = (
+            item.get("original_name")
+            or ""
+        ).strip()
+
+        arabic = (
+            item.get("name")
+            or ""
+        ).strip()
+
+
+    # -----------------------------------------------------
+    # Arabic
+    # -----------------------------------------------------
+
+    if contains_arabic(original):
+
+        return original
+
+
+    # -----------------------------------------------------
+    # English / French / Latin
+    #
+    # Keep original.
+    # -----------------------------------------------------
+
+    if contains_latin(original):
+
+        return original
+
+
+    # -----------------------------------------------------
+    # Japanese / Korean / Chinese / etc.
+    #
+    # Use TMDB Arabic title if available.
+    # -----------------------------------------------------
+
+    if arabic and contains_arabic(arabic):
+
+        return arabic
+
+
+    # -----------------------------------------------------
+    # Fallback
+    # -----------------------------------------------------
+
+    if original:
+
+        return original
+
+
+    if arabic:
+
+        return arabic
+
+
+    return "بدون عنوان"
+
+
+# =========================================================
 # GET TRENDING
 # =========================================================
 
 def get_trending(media_type):
 
-    url = f"{BASE_URL}/trending/{media_type}/week"
+    url = (
+        f"{BASE_URL}/trending/"
+        f"{media_type}/week"
+    )
 
     params = {
-        # الملخص باللغة العربية
+        # This makes the overview Arabic.
+        # Title selection is handled separately.
         "language": "ar-SA",
-
-        # لا نطلب ترجمة العنوان.
-        # العنوان الأصلي سنأخذه من original_title/original_name.
     }
 
     response = requests.get(
@@ -130,6 +287,7 @@ def get_genres(item, media_type):
         )
 
         if name and name not in genres:
+
             genres.append(name)
 
     return genres
@@ -150,68 +308,38 @@ def get_detailed_type(
         else "مسلسل"
     )
 
-
-    # =====================================================
-    # PRIORITY GENRES
-    # =====================================================
-
     priority = [
-
         "أكشن",
         "أكشن ومغامرة",
-
         "كوميديا",
-
         "دراما",
-
         "رعب",
-
         "خيال علمي",
-
         "خيال علمي وفانتازيا",
-
         "رومانسي",
-
         "غموض",
-
         "جريمة",
-
         "مغامرة",
-
         "إثارة",
-
         "وثائقي",
-
         "رسوم متحركة",
-
         "تاريخي",
-
         "عائلي",
-
         "حرب",
-
         "حرب وسياسة",
-
         "موسيقى",
-
         "غربي",
-
     ]
-
-
-    # =====================================================
-    # FIND MOST IMPORTANT GENRE
-    # =====================================================
 
     selected = None
 
-    for genre in priority:
+    for wanted in priority:
 
-        for item in genres:
+        for genre in genres:
 
-            if genre in item:
+            if wanted in genre:
 
-                selected = item
+                selected = genre
 
                 break
 
@@ -221,8 +349,6 @@ def get_detailed_type(
 
     if selected:
 
-        # تبسيط بعض التصنيفات الطويلة
-
         if selected == "أكشن ومغامرة":
             selected = "أكشن"
 
@@ -231,7 +357,6 @@ def get_detailed_type(
 
         elif selected == "حرب وسياسة":
             selected = "حرب"
-
 
         return f"{prefix} {selected}"
 
@@ -244,96 +369,65 @@ def get_detailed_type(
 # =========================================================
 
 def create_hashtags(
-    title,
     media_type,
     genres
 ):
 
-    hashtags = []
-
-
-    # =====================================================
-    # BASE HASHTAGS
-    # =====================================================
-
-    hashtags.append("#MOVINS")
+    hashtags = [
+        "#MOVINS"
+    ]
 
     if media_type == "movie":
-        hashtags.append("#أفلام")
-        hashtags.append("#فيلم")
+
+        hashtags.extend([
+            "#فيلم",
+            "#أفلام",
+            "#Movies"
+        ])
+
     else:
-        hashtags.append("#مسلسلات")
-        hashtags.append("#مسلسل")
 
+        hashtags.extend([
+            "#مسلسل",
+            "#مسلسلات",
+            "#TVShows"
+        ])
 
-    # =====================================================
-    # GENRE HASHTAGS
-    # =====================================================
 
     genre_hashtags = {
 
         "أكشن": "#أكشن",
-
         "أكشن ومغامرة": "#أكشن",
-
         "مغامرة": "#مغامرة",
-
         "كوميديا": "#كوميديا",
-
         "دراما": "#دراما",
-
         "رعب": "#رعب",
-
         "خيال علمي": "#خيال_علمي",
-
         "خيال علمي وفانتازيا": "#خيال_علمي",
-
         "رومانسي": "#رومانسي",
-
         "غموض": "#غموض",
-
         "جريمة": "#جريمة",
-
         "إثارة": "#إثارة",
-
         "وثائقي": "#وثائقي",
-
         "رسوم متحركة": "#رسوم_متحركة",
-
         "تاريخي": "#تاريخي",
-
         "عائلي": "#عائلي",
-
         "حرب": "#حرب",
-
         "حرب وسياسة": "#حرب",
-
         "موسيقى": "#موسيقى",
-
         "غربي": "#ويسترن",
-
     }
 
 
     for genre in genres:
 
-        hashtag = genre_hashtags.get(
+        tag = genre_hashtags.get(
             genre
         )
 
-        if hashtag and hashtag not in hashtags:
+        if tag and tag not in hashtags:
 
-            hashtags.append(
-                hashtag
-            )
-
-
-    # =====================================================
-    # ENGLISH GENERIC HASHTAGS
-    # =====================================================
-
-    hashtags.append("#Movies")
-    hashtags.append("#TVShows")
+            hashtags.append(tag)
 
 
     return " ".join(
@@ -350,78 +444,47 @@ def clean_item(
     media_type
 ):
 
-    # =====================================================
-    # ORIGINAL TITLE
-    #
-    # مهم جداً:
-    #
-    # لا نستخدم title / name وحدهما
-    # لأن TMDB قد يعيدهما مترجمين حسب اللغة.
-    #
-    # نستخدم:
-    #
-    # movie  -> original_title
-    # tv     -> original_name
-    #
-    # وبالتالي:
-    #
-    # English -> يبقى English
-    # Korean  -> يبقى Korean
-    # Arabic  -> يبقى Arabic
-    # French  -> يبقى French
-    #
-    # =====================================================
+    title = choose_title(
+        item,
+        media_type
+    )
+
 
     if media_type == "movie":
 
-        title = (
+        original_title = (
             item.get("original_title")
-            or item.get("title")
-            or "بدون عنوان"
+            or ""
         )
 
-        date = item.get(
-            "release_date"
+        date = (
+            item.get("release_date")
+            or ""
         )
 
     else:
 
-        title = (
+        original_title = (
             item.get("original_name")
-            or item.get("name")
-            or "بدون عنوان"
+            or ""
         )
 
-        date = item.get(
-            "first_air_date"
+        date = (
+            item.get("first_air_date")
+            or ""
         )
 
 
-    # =====================================================
-    # YEAR
-    # =====================================================
-
-    year = ""
-
-    if date:
-
-        try:
-
-            year = date[:4]
-
-        except Exception:
-
-            year = ""
+    year = (
+        date[:4]
+        if date
+        else ""
+    )
 
 
-    # =====================================================
-    # ARABIC OVERVIEW
-    #
-    # لأن طلب TMDB يستخدم language=ar-SA
-    # فإن overview سيكون بالعربية عندما تكون
-    # الترجمة متوفرة لدى TMDB.
-    #
-    # =====================================================
+    # -----------------------------------------------------
+    # Arabic overview
+    # -----------------------------------------------------
 
     overview = (
         item.get("overview")
@@ -436,9 +499,9 @@ def clean_item(
         )
 
 
-    # =====================================================
-    # GENRES
-    # =====================================================
+    # -----------------------------------------------------
+    # Genres
+    # -----------------------------------------------------
 
     genres = get_genres(
         item,
@@ -446,9 +509,9 @@ def clean_item(
     )
 
 
-    # =====================================================
-    # DETAILED TYPE
-    # =====================================================
+    # -----------------------------------------------------
+    # Detailed type
+    # -----------------------------------------------------
 
     detailed_type = get_detailed_type(
         media_type,
@@ -456,18 +519,18 @@ def clean_item(
     )
 
 
-    # =====================================================
-    # RATING
-    # =====================================================
+    # -----------------------------------------------------
+    # Rating
+    # -----------------------------------------------------
 
     try:
 
         rating = round(
             float(
                 item.get(
-                    "vote_average",
-                    0
-                ) or 0
+                    "vote_average"
+                )
+                or 0
             ),
             1
         )
@@ -477,9 +540,9 @@ def clean_item(
         rating = 0
 
 
-    # =====================================================
-    # POSTER
-    # =====================================================
+    # -----------------------------------------------------
+    # Poster
+    # -----------------------------------------------------
 
     poster = ""
 
@@ -491,27 +554,21 @@ def clean_item(
         )
 
 
-    # =====================================================
-    # HASHTAGS
-    # =====================================================
+    # -----------------------------------------------------
+    # Hashtags
+    # -----------------------------------------------------
 
     hashtags = create_hashtags(
-        title,
         media_type,
         genres
     )
 
-
-    # =====================================================
-    # RESULT
-    # =====================================================
 
     return {
 
         "id":
             item.get("id"),
 
-        # النوع الأساسي
         "type":
             (
                 "فيلم"
@@ -519,29 +576,24 @@ def clean_item(
                 else "مسلسل"
             ),
 
-        # النوع التفصيلي
-        #
-        # مثال:
-        # فيلم أكشن
-        # فيلم كوميديا
-        # مسلسل دراما
-        # مسلسل أكشن
-        #
         "detailed_type":
             detailed_type,
 
-        # جميع التصنيفات
         "genres":
             genres,
 
-        # العنوان الأصلي
+        # Display title
         "title":
             title,
+
+        # Keep original title internally
+        "original_title":
+            original_title,
 
         "year":
             year,
 
-        # الملخص العربي
+        # Arabic summary
         "overview":
             overview,
 
@@ -551,7 +603,6 @@ def clean_item(
         "poster":
             poster,
 
-        # هاشتاقات فيسبوك
         "hashtags":
             hashtags,
 
@@ -573,7 +624,7 @@ def main():
     )
 
     print(
-        "MOVINS — Updating TMDB data"
+        "MOVINS — TMDB UPDATE"
     )
 
     print(
@@ -581,30 +632,8 @@ def main():
     )
 
 
-    # =====================================================
-    # GET MOVIES
-    # =====================================================
-
-    print(
-        "Getting trending movies..."
-    )
-
     movies = get_trending(
         "movie"
-    )
-
-
-    print(
-        f"Movies received: {len(movies)}"
-    )
-
-
-    # =====================================================
-    # GET TV
-    # =====================================================
-
-    print(
-        "Getting trending TV shows..."
     )
 
     tv = get_trending(
@@ -612,21 +641,12 @@ def main():
     )
 
 
-    print(
-        f"TV shows received: {len(tv)}"
-    )
-
-
-    # =====================================================
-    # BUILD RESULTS
-    # =====================================================
-
     results = []
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # MOVIES
-    # =====================================================
+    # -----------------------------------------------------
 
     for item in movies:
 
@@ -635,16 +655,13 @@ def main():
         ):
             continue
 
-
         try:
 
-            cleaned = clean_item(
-                item,
-                "movie"
-            )
-
             results.append(
-                cleaned
+                clean_item(
+                    item,
+                    "movie"
+                )
             )
 
         except Exception as error:
@@ -655,9 +672,9 @@ def main():
             )
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # TV
-    # =====================================================
+    # -----------------------------------------------------
 
     for item in tv:
 
@@ -666,16 +683,13 @@ def main():
         ):
             continue
 
-
         try:
 
-            cleaned = clean_item(
-                item,
-                "tv"
-            )
-
             results.append(
-                cleaned
+                clean_item(
+                    item,
+                    "tv"
+                )
             )
 
         except Exception as error:
@@ -686,9 +700,9 @@ def main():
             )
 
 
-    # =====================================================
-    # REMOVE DUPLICATES
-    # =====================================================
+    # -----------------------------------------------------
+    # Remove duplicates
+    # -----------------------------------------------------
 
     unique = {}
 
@@ -707,16 +721,16 @@ def main():
     )
 
 
-    # =====================================================
-    # LIMIT
-    # =====================================================
+    # -----------------------------------------------------
+    # Limit
+    # -----------------------------------------------------
 
     results = results[:30]
 
 
-    # =====================================================
-    # FINAL DATA
-    # =====================================================
+    # -----------------------------------------------------
+    # SAVE
+    # -----------------------------------------------------
 
     data = {
 
@@ -733,10 +747,6 @@ def main():
     }
 
 
-    # =====================================================
-    # SAVE JSON
-    # =====================================================
-
     with open(
         "movies.json",
         "w",
@@ -751,44 +761,34 @@ def main():
         )
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # LOG
-    # =====================================================
-
-    print(
-        "======================================"
-    )
+    # -----------------------------------------------------
 
     print(
         f"MOVINS: {len(results)} items saved."
     )
 
+
+    print(
+        "Sample titles:"
+    )
+
+
+    for item in results[:10]:
+
+        print(
+            f"{item['title']} | "
+            f"{item['detailed_type']} | "
+            f"{item['rating']}"
+        )
+
+
     print(
         "======================================"
     )
 
 
-    # =====================================================
-    # SHOW SAMPLE
-    # =====================================================
-
-    if results:
-
-        print(
-            "Sample:"
-        )
-
-        for item in results[:5]:
-
-            print(
-                f"- {item['title']} | "
-                f"{item['detailed_type']} | "
-                f"{item['rating']}"
-            )
-
-
-# =========================================================
-# START
 # =========================================================
 
 if __name__ == "__main__":
