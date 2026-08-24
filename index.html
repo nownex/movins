@@ -18,6 +18,7 @@
     <title>MOVINS — اكتشف قصتك القادمة</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -41,10 +42,15 @@
             overflow-x: hidden;
         }
 
+        body.modal-open {
+            overflow: hidden;
+        }
+
         button,
         input {
             font-family: inherit;
         }
+
 
         /* =====================================================
            HEADER
@@ -80,6 +86,7 @@
             padding: 15px 35px;
         }
 
+
         /* LOGO */
 
         .logo {
@@ -109,6 +116,7 @@
 
             letter-spacing: 1px;
         }
+
 
         /* SEARCH */
 
@@ -162,6 +170,7 @@
         #searchInput::placeholder {
             color: #777d8a;
         }
+
 
         /* =====================================================
            HERO
@@ -289,6 +298,7 @@
             border-color: #ff1018;
         }
 
+
         /* HERO CARD */
 
         .hero-card {
@@ -374,6 +384,7 @@
             font-size: 14px;
         }
 
+
         /* =====================================================
            MAIN
         ===================================================== */
@@ -410,6 +421,7 @@
             color: #777d89;
             font-size: 14px;
         }
+
 
         /* =====================================================
            FILTERS
@@ -464,6 +476,7 @@
             color: white;
         }
 
+
         /* =====================================================
            MOVIE GRID
         ===================================================== */
@@ -494,6 +507,8 @@
                 box-shadow 0.25s;
 
             min-width: 0;
+
+            cursor: pointer;
         }
 
         .movie-card:hover {
@@ -644,6 +659,7 @@
             overflow: hidden;
         }
 
+
         /* =====================================================
            STATES
         ===================================================== */
@@ -670,6 +686,254 @@
             color: #ff5c62;
         }
 
+
+        /* =====================================================
+           MOVIE DETAILS MODAL
+        ===================================================== */
+
+        .movie-modal {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(0, 0, 0, 0.82);
+
+            backdrop-filter: blur(12px);
+
+            opacity: 0;
+
+            transition:
+                opacity 0.25s ease;
+        }
+
+        .movie-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+
+            width: min(900px, 100%);
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #151821,
+                    #0c0e14
+                );
+
+            border: 1px solid #292e3a;
+
+            border-radius: 26px;
+
+            box-shadow:
+                0 35px 100px rgba(0,0,0,0.65);
+
+            transform:
+                translateY(20px)
+                scale(0.97);
+
+            transition:
+                transform 0.25s ease;
+        }
+
+        .movie-modal.show .modal-content {
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+
+            top: 15px;
+            left: 15px;
+
+            z-index: 10;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            background: rgba(0,0,0,0.65);
+
+            color: white;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #ff1018;
+            border-color: #ff1018;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            display: grid;
+
+            grid-template-columns:
+                280px 1fr;
+
+            gap: 30px;
+
+            padding: 30px;
+        }
+
+        .modal-poster-wrap {
+            position: relative;
+
+            width: 100%;
+
+            aspect-ratio: 2 / 3;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            background: #0a0b10;
+
+            border: 1px solid #252a34;
+        }
+
+        .modal-poster {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .modal-info {
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            min-width: 0;
+        }
+
+        .modal-type {
+            color: #ff3037;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: clamp(28px, 4vw, 44px);
+
+            line-height: 1.25;
+
+            font-weight: 900;
+
+            margin-bottom: 15px;
+        }
+
+        .modal-meta {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #999eaa;
+
+            font-size: 14px;
+
+            margin-bottom: 22px;
+        }
+
+        .modal-rating {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            background: #0b0d12;
+
+            border: 1px solid #292e38;
+
+            padding: 8px 12px;
+
+            border-radius: 10px;
+        }
+
+        .modal-rating strong {
+            color: #ffd54a;
+        }
+
+        .modal-divider {
+            color: #4d525d;
+        }
+
+        .modal-heading {
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+        }
+
+        .modal-overview {
+            color: #b8bcc6;
+
+            font-size: 16px;
+
+            line-height: 2;
+
+            white-space: normal;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #20242d;
+
+            padding: 18px 30px;
+
+            color: #666c78;
+
+            font-size: 12px;
+
+            text-align: center;
+        }
+
+
         /* =====================================================
            FOOTER
         ===================================================== */
@@ -691,6 +955,7 @@
         footer .red {
             color: #ff1018;
         }
+
 
         /* =====================================================
            TABLET
@@ -715,6 +980,7 @@
                 padding-inline: 22px;
             }
         }
+
 
         /* =====================================================
            MOBILE
@@ -815,7 +1081,78 @@
 
                 padding: 6px 8px;
             }
+
+
+            /* MODAL MOBILE */
+
+            .movie-modal {
+                padding: 10px;
+            }
+
+            .modal-content {
+                max-height: 94vh;
+
+                border-radius: 20px;
+            }
+
+            .modal-body {
+                grid-template-columns: 120px 1fr;
+
+                gap: 18px;
+
+                padding: 20px;
+            }
+
+            .modal-poster-wrap {
+                width: 120px;
+            }
+
+            .modal-title {
+                font-size: 23px;
+            }
+
+            .modal-type {
+                font-size: 12px;
+                margin-bottom: 7px;
+            }
+
+            .modal-meta {
+                font-size: 12px;
+
+                gap: 6px;
+
+                margin-bottom: 15px;
+            }
+
+            .modal-rating {
+                padding: 6px 9px;
+            }
+
+            .modal-heading {
+                font-size: 16px;
+            }
+
+            .modal-overview {
+                font-size: 13px;
+
+                line-height: 1.85;
+            }
+
+            .modal-footer {
+                padding: 14px 20px;
+            }
+
+            .modal-close {
+                width: 38px;
+                height: 38px;
+
+                top: 8px;
+                left: 8px;
+
+                font-size: 22px;
+            }
         }
+
 
         /* =====================================================
            SMALL PHONES
@@ -838,12 +1175,41 @@
             .hero-card {
                 min-height: 350px;
             }
+
+
+            /* Very small screens */
+
+            .modal-body {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+            }
+
+            .modal-poster-wrap {
+                width: 170px;
+
+                margin: 0 auto;
+            }
+
+            .modal-info {
+                align-items: center;
+            }
+
+            .modal-overview {
+                text-align: right;
+            }
+
+            .modal-meta {
+                justify-content: center;
+            }
         }
 
     </style>
 </head>
 
+
 <body>
+
 
 <!-- =========================================================
      HEADER
@@ -854,18 +1220,23 @@
     <div class="header-inner">
 
         <a href="#" class="logo">
+
             MOV<span class="red">INS</span>
 
             <span class="logo-sub">
                 داخل القصة
             </span>
+
         </a>
+
 
         <div class="top-search">
 
             <div class="search-box">
 
-                <span class="search-icon">⌕</span>
+                <span class="search-icon">
+                    ⌕
+                </span>
 
                 <input
                     id="searchInput"
@@ -1019,9 +1390,12 @@
     </div>
 
 
-    <!-- MOVIES -->
+    <!-- MOVIE GRID -->
 
-    <section id="movieGrid" class="movie-grid">
+    <section
+        id="movieGrid"
+        class="movie-grid"
+    >
 
         <div class="state">
 
@@ -1042,6 +1416,125 @@
     </section>
 
 </main>
+
+
+<!-- =========================================================
+     MOVIE DETAILS MODAL
+========================================================= -->
+
+<div
+    id="movieModal"
+    class="movie-modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <button
+            id="modalClose"
+            class="modal-close"
+            type="button"
+            aria-label="إغلاق"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-body">
+
+            <div class="modal-poster-wrap">
+
+                <img
+                    id="modalPoster"
+                    class="modal-poster"
+                    src=""
+                    alt=""
+                >
+
+            </div>
+
+
+            <div class="modal-info">
+
+                <div
+                    id="modalType"
+                    class="modal-type"
+                >
+                    فيلم
+                </div>
+
+
+                <h2
+                    id="modalTitle"
+                    class="modal-title"
+                >
+                    —
+                </h2>
+
+
+                <div class="modal-meta">
+
+                    <span id="modalYear">
+                        —
+                    </span>
+
+                    <span class="modal-divider">
+                        •
+                    </span>
+
+                    <span>
+                        MOVINS
+                    </span>
+
+                    <span class="modal-divider">
+                        •
+                    </span>
+
+                    <span class="modal-rating">
+
+                        ⭐
+
+                        <strong id="modalRating">
+                            0.0
+                        </strong>
+
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <div class="modal-heading">
+                        القصة
+                    </div>
+
+                    <p
+                        id="modalOverview"
+                        class="modal-overview"
+                    >
+                        لا يوجد ملخص متوفر حاليًا.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+            المعلومات والصور مقدمة بواسطة TMDB.
+        </div>
+
+    </div>
+
+</div>
 
 
 <!-- =========================================================
@@ -1066,6 +1559,7 @@
 
 
 <script>
+
 
     /* =====================================================
        MOVINS DATA
@@ -1092,6 +1586,36 @@
         document.getElementById("resultCount");
 
 
+    /* MODAL ELEMENTS */
+
+    const movieModal =
+        document.getElementById("movieModal");
+
+    const modalContent =
+        document.querySelector(".modal-content");
+
+    const modalClose =
+        document.getElementById("modalClose");
+
+    const modalPoster =
+        document.getElementById("modalPoster");
+
+    const modalTitle =
+        document.getElementById("modalTitle");
+
+    const modalType =
+        document.getElementById("modalType");
+
+    const modalYear =
+        document.getElementById("modalYear");
+
+    const modalRating =
+        document.getElementById("modalRating");
+
+    const modalOverview =
+        document.getElementById("modalOverview");
+
+
     /* =====================================================
        LOAD MOVIES.JSON
     ===================================================== */
@@ -1100,17 +1624,13 @@
 
         try {
 
-            /*
-             * timestamp prevents browser cache
-             * after GitHub Actions updates movies.json
-             */
-
             const response = await fetch(
                 "movies.json?t=" + Date.now(),
                 {
                     cache: "no-store"
                 }
             );
+
 
             if (!response.ok) {
 
@@ -1121,11 +1641,15 @@
 
             }
 
+
             const data =
                 await response.json();
 
 
-            if (!data.items || !Array.isArray(data.items)) {
+            if (
+                !data.items ||
+                !Array.isArray(data.items)
+            ) {
 
                 throw new Error(
                     "Invalid movies.json format"
@@ -1161,8 +1685,10 @@
 
             movieGrid.innerHTML = `
 
-                <div class="state error"
-                     style="grid-column:1/-1;">
+                <div
+                    class="state error"
+                    style="grid-column:1/-1;"
+                >
 
                     <div class="state-icon">
                         ⚠️
@@ -1182,6 +1708,7 @@
 
             `;
 
+
             resultCount.textContent =
                 "حدث خطأ أثناء تحميل البيانات";
 
@@ -1198,10 +1725,6 @@
 
         currentFilter = filter;
 
-
-        /*
-         * Update active button
-         */
 
         document
             .querySelectorAll(".filter-btn")
@@ -1233,6 +1756,7 @@
                     .trim()
                     .toLowerCase();
 
+
             renderMovies();
 
         }
@@ -1248,9 +1772,7 @@
         let items = [...allItems];
 
 
-        /*
-         * TYPE FILTER
-         */
+        /* TYPE FILTER */
 
         if (currentFilter === "movie") {
 
@@ -1272,9 +1794,7 @@
         }
 
 
-        /*
-         * RATING
-         */
+        /* RATING */
 
         if (currentFilter === "rating") {
 
@@ -1287,9 +1807,7 @@
         }
 
 
-        /*
-         * LATEST
-         */
+        /* LATEST */
 
         if (currentFilter === "latest") {
 
@@ -1306,9 +1824,7 @@
         }
 
 
-        /*
-         * SEARCH
-         */
+        /* SEARCH */
 
         if (currentSearch) {
 
@@ -1319,15 +1835,18 @@
                         item.title || ""
                     ).toLowerCase();
 
+
                 const overview =
                     String(
                         item.overview || ""
                     ).toLowerCase();
 
+
                 const type =
                     String(
                         item.type || ""
                     ).toLowerCase();
+
 
                 return (
                     title.includes(currentSearch) ||
@@ -1340,24 +1859,18 @@
         }
 
 
-        /*
-         * Limit visible results
-         */
+        /* LIMIT */
 
         items = items.slice(0, 30);
 
 
-        /*
-         * Count
-         */
+        /* COUNT */
 
         resultCount.textContent =
             `${items.length} عمل متاح`;
 
 
-        /*
-         * EMPTY
-         */
+        /* EMPTY */
 
         if (!items.length) {
 
@@ -1389,9 +1902,7 @@
         }
 
 
-        /*
-         * CARDS
-         */
+        /* CARDS */
 
         movieGrid.innerHTML =
             items
@@ -1408,7 +1919,7 @@
 
 
     /* =====================================================
-       CARD
+       CREATE CARD
     ===================================================== */
 
     function createMovieCard(
@@ -1455,9 +1966,11 @@
             "";
 
 
-        /*
-         * First 6 items get "جديد"
-         */
+        const id =
+            String(
+                item.id || ""
+            );
+
 
         const isNew =
             index < 6;
@@ -1467,7 +1980,10 @@
 
             <article
                 class="movie-card"
-                data-id="${item.id || ""}"
+                data-id="${escapeAttribute(id)}"
+                tabindex="0"
+                role="button"
+                aria-label="عرض تفاصيل ${escapeAttribute(title)}"
             >
 
                 <div class="poster-wrap">
@@ -1551,6 +2067,286 @@
         `;
 
     }
+
+
+    /* =====================================================
+       OPEN MOVIE DETAILS
+    ===================================================== */
+
+    function openMovieDetails(id) {
+
+        const movie =
+            allItems.find(
+                item =>
+                    String(item.id) === String(id)
+            );
+
+
+        if (!movie) {
+
+            console.warn(
+                "MOVINS: Movie not found:",
+                id
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Fill modal
+         */
+
+        modalType.textContent =
+            movie.type ||
+            "عمل";
+
+
+        modalTitle.textContent =
+            movie.title ||
+            "بدون عنوان";
+
+
+        modalYear.textContent =
+            movie.year ||
+            "—";
+
+
+        modalRating.textContent =
+            Number(
+                movie.rating || 0
+            ).toFixed(1);
+
+
+        modalOverview.textContent =
+            movie.overview ||
+            "لا يوجد ملخص متوفر حاليًا.";
+
+
+        /*
+         * Poster
+         */
+
+        if (movie.poster) {
+
+            modalPoster.src =
+                movie.poster;
+
+            modalPoster.alt =
+                movie.title ||
+                "MOVINS";
+
+            modalPoster.style.display =
+                "block";
+
+        } else {
+
+            modalPoster.removeAttribute(
+                "src"
+            );
+
+            modalPoster.style.display =
+                "none";
+
+        }
+
+
+        /*
+         * Open
+         */
+
+        movieModal.classList.add(
+            "show"
+        );
+
+        movieModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "modal-open"
+        );
+
+
+        /*
+         * Move focus to close button
+         */
+
+        setTimeout(
+            () => modalClose.focus(),
+            50
+        );
+
+    }
+
+
+    /* =====================================================
+       CLOSE MOVIE DETAILS
+    ===================================================== */
+
+    function closeMovieDetails() {
+
+        movieModal.classList.remove(
+            "show"
+        );
+
+        movieModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.classList.remove(
+            "modal-open"
+        );
+
+    }
+
+
+    /* =====================================================
+       CARD CLICK
+    ===================================================== */
+
+    movieGrid.addEventListener(
+        "click",
+        function(event) {
+
+            const card =
+                event.target.closest(
+                    ".movie-card"
+                );
+
+
+            if (!card) {
+                return;
+            }
+
+
+            const id =
+                card.dataset.id;
+
+
+            if (id) {
+
+                openMovieDetails(id);
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CARD KEYBOARD
+    ===================================================== */
+
+    movieGrid.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key !== "Enter" &&
+                event.key !== " "
+            ) {
+
+                return;
+
+            }
+
+
+            const card =
+                event.target.closest(
+                    ".movie-card"
+                );
+
+
+            if (!card) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            const id =
+                card.dataset.id;
+
+
+            if (id) {
+
+                openMovieDetails(id);
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE BUTTON
+    ===================================================== */
+
+    modalClose.addEventListener(
+        "click",
+        closeMovieDetails
+    );
+
+
+    /* =====================================================
+       CLICK OUTSIDE MODAL
+    ===================================================== */
+
+    movieModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === movieModal
+            ) {
+
+                closeMovieDetails();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Escape" &&
+                movieModal.classList.contains("show")
+            ) {
+
+                closeMovieDetails();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       IMAGE ERROR
+    ===================================================== */
+
+    modalPoster.addEventListener(
+        "error",
+        function() {
+
+            this.style.display =
+                "none";
+
+        }
+    );
 
 
     /* =====================================================
