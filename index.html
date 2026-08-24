@@ -12,12 +12,36 @@
 
     <meta
         name="description"
-        content="MOVINS — اكتشف الأفلام والمسلسلات من خلال ملخصات عربية قصيرة وواضحة."
+        content="MOVINS — اكتشف الأفلام والمسلسلات من خلال ملخصات واضحة وتصنيفات دقيقة."
     >
 
-    <meta name="theme-color" content="#07080c">
+    <meta
+        name="theme-color"
+        content="#07080d"
+    >
 
     <title>MOVINS — داخل القصة</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+        rel="stylesheet"
+    >
 
 
     <style>
@@ -41,24 +65,31 @@
         body {
 
             font-family:
-                Tahoma,
+                "Cairo",
+                "Tajawal",
                 Arial,
-                "Noto Sans Arabic",
                 sans-serif;
 
             background:
                 radial-gradient(
                     circle at 50% -10%,
-                    rgba(255, 16, 24, 0.08),
+                    rgba(255, 20, 30, 0.09),
                     transparent 35%
                 ),
-                #07080c;
+                #07080d;
 
-            color: #f5f5f5;
+            color: #f7f7f9;
 
             min-height: 100vh;
 
             overflow-x: hidden;
+
+            line-height: 1.7;
+        }
+
+
+        body.modal-open {
+            overflow: hidden;
         }
 
 
@@ -69,7 +100,29 @@
 
 
         button {
-            -webkit-tap-highlight-color: transparent;
+            border: none;
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #08090e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #292d37;
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff1018;
         }
 
 
@@ -86,26 +139,29 @@
             z-index: 1000;
 
             background:
-                rgba(7, 8, 12, 0.96);
+                rgba(7, 8, 13, 0.92);
 
             border-bottom:
-                1px solid #1c2029;
+                1px solid rgba(255,255,255,0.07);
 
             backdrop-filter:
-                blur(18px);
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
         }
 
 
         .header-inner {
 
-            max-width: 1450px;
+            width: min(
+                1400px,
+                calc(100% - 40px)
+            );
 
-            min-height: 90px;
+            min-height: 88px;
 
             margin: auto;
-
-            padding:
-                15px 35px;
 
             display: flex;
 
@@ -113,7 +169,7 @@
 
             justify-content: space-between;
 
-            gap: 30px;
+            gap: 35px;
         }
 
 
@@ -125,18 +181,22 @@
 
             text-decoration: none;
 
-            color: white;
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                sans-serif;
 
             font-size:
-                clamp(30px, 4vw, 43px);
+                clamp(29px, 4vw, 42px);
 
             font-weight: 900;
 
-            letter-spacing: -2px;
-
-            white-space: nowrap;
+            letter-spacing: -2.5px;
 
             line-height: 1;
+
+            white-space: nowrap;
         }
 
 
@@ -151,13 +211,19 @@
 
             text-align: center;
 
-            margin-top: 6px;
+            margin-top: 7px;
 
-            color: #777d89;
+            color: #898d98;
 
-            font-size: 11px;
+            font-family:
+                "Cairo",
+                sans-serif;
+
+            font-size: 10px;
 
             letter-spacing: 1px;
+
+            font-weight: 500;
         }
 
 
@@ -177,48 +243,48 @@
 
             width: 100%;
 
+            min-height: 54px;
+
             display: flex;
 
             align-items: center;
 
             background:
-                #10131b;
+                #10131c;
 
             border:
-                1px solid #292e39;
+                1px solid #292d38;
 
-            border-radius:
-                50px;
+            border-radius: 50px;
 
             padding:
-                4px 18px;
+                0 18px;
 
             transition:
-                .25s;
+                0.25s ease;
         }
 
 
         .search-box:focus-within {
 
             border-color:
-                #ff1018;
+                rgba(255,16,24,0.75);
 
             box-shadow:
-                0 0 25px
-                rgba(255,16,24,.12);
+                0 0 30px
+                rgba(255,16,24,0.10);
         }
 
 
         .search-icon {
 
-            color:
-                #777d8a;
+            color: #777d8b;
 
-            font-size:
-                22px;
+            font-size: 25px;
 
-            margin-left:
-                8px;
+            line-height: 1;
+
+            margin-left: 8px;
         }
 
 
@@ -226,28 +292,24 @@
 
             width: 100%;
 
-            background:
-                transparent;
+            height: 52px;
 
-            border:
-                none;
+            background: transparent;
 
-            outline:
-                none;
+            border: none;
 
-            color:
-                white;
+            outline: none;
 
-            font-size:
-                16px;
+            color: white;
 
-            padding:
-                15px 8px;
+            font-size: 15px;
+
+            font-weight: 500;
         }
 
 
         #searchInput::placeholder {
-            color: #777d8a;
+            color: #777d8b;
         }
 
 
@@ -259,23 +321,27 @@
 
             position: relative;
 
-            max-width: 1450px;
+            width: min(
+                1400px,
+                calc(100% - 40px)
+            );
 
-            min-height: 430px;
+            min-height: 420px;
 
             margin: auto;
-
-            padding:
-                65px 50px;
 
             display: grid;
 
             grid-template-columns:
-                1fr 1fr;
+                1.1fr
+                0.9fr;
 
             align-items: center;
 
-            gap: 50px;
+            gap: 60px;
+
+            padding:
+                75px 30px 65px;
         }
 
 
@@ -285,23 +351,20 @@
 
             position: absolute;
 
-            width: 420px;
-            height: 420px;
+            width: 500px;
 
-            background:
-                #ff1018;
+            height: 500px;
 
-            filter:
-                blur(180px);
-
-            opacity:
-                .08;
-
-            top: 20px;
             right: 15%;
 
-            pointer-events:
-                none;
+            top: -150px;
+
+            background:
+                rgba(255, 16, 24, 0.12);
+
+            filter: blur(150px);
+
+            pointer-events: none;
         }
 
 
@@ -315,36 +378,50 @@
 
         .hero-kicker {
 
-            color:
-                #ff1018;
+            display: inline-flex;
 
-            font-weight:
-                bold;
+            align-items: center;
 
-            font-size:
-                14px;
+            gap: 8px;
 
-            margin-bottom:
-                18px;
+            color: #ff2730;
 
-            letter-spacing:
-                1px;
+            font-size: 13px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .hero-kicker::before {
+
+            content: "";
+
+            width: 28px;
+
+            height: 2px;
+
+            background: #ff1018;
+
+            border-radius: 20px;
         }
 
 
         .hero h1 {
 
             font-size:
-                clamp(40px, 6vw, 76px);
+                clamp(42px, 6vw, 76px);
 
-            line-height:
-                1.1;
+            font-weight: 900;
 
-            margin-bottom:
-                25px;
+            line-height: 1.15;
 
-            font-weight:
-                900;
+            letter-spacing: -1.5px;
+
+            margin-bottom: 22px;
         }
 
 
@@ -355,75 +432,62 @@
 
         .hero p {
 
-            color:
-                #a5a9b3;
+            max-width: 650px;
+
+            color: #a7abb6;
 
             font-size:
-                clamp(16px, 2vw, 20px);
+                clamp(15px, 2vw, 19px);
 
-            line-height:
-                2;
+            line-height: 2;
 
-            max-width:
-                650px;
-
-            margin-bottom:
-                30px;
+            margin-bottom: 28px;
         }
 
 
         .hero-buttons {
 
-            display:
-                flex;
+            display: flex;
 
-            gap:
-                12px;
+            flex-wrap: wrap;
 
-            flex-wrap:
-                wrap;
+            gap: 12px;
         }
 
 
         .btn {
 
-            border:
-                none;
-
             padding:
-                14px 25px;
+                13px 23px;
 
-            border-radius:
-                12px;
+            border-radius: 13px;
 
-            font-size:
-                15px;
+            font-size: 14px;
 
-            font-weight:
-                bold;
+            font-weight: 800;
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
             transition:
-                .25s;
+                0.25s ease;
         }
 
 
         .btn-primary {
 
-            background:
-                #ff1018;
+            background: #ff1018;
 
-            color:
-                white;
+            color: white;
+
+            box-shadow:
+                0 10px 30px
+                rgba(255,16,24,0.18);
         }
 
 
         .btn-primary:hover {
 
-            background:
-                #ff3037;
+            background: #ff3037;
 
             transform:
                 translateY(-2px);
@@ -432,21 +496,18 @@
 
         .btn-secondary {
 
-            background:
-                #151923;
-
-            color:
-                white;
+            background: #12151e;
 
             border:
-                1px solid #292e3a;
+                1px solid #2a2e39;
+
+            color: white;
         }
 
 
         .btn-secondary:hover {
 
-            border-color:
-                #ff1018;
+            border-color: #ff1018;
         }
 
 
@@ -456,99 +517,119 @@
 
         .hero-card {
 
-            position:
-                relative;
+            position: relative;
 
-            width:
-                min(100%, 350px);
+            width: min(
+                100%,
+                350px
+            );
 
-            min-height:
-                410px;
+            height: 390px;
 
-            margin:
-                auto;
+            margin: auto;
 
-            border-radius:
-                28px;
+            border-radius: 28px;
 
-            overflow:
-                hidden;
+            overflow: hidden;
 
             background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(255,20,30,0.25),
+                    transparent 35%
+                ),
                 linear-gradient(
                     145deg,
-                    #310f14,
-                    #090a0e 70%
+                    #270c11,
+                    #090a0f 70%
                 );
 
             border:
                 1px solid
-                rgba(255,16,24,.4);
+                rgba(255,16,24,0.45);
 
             box-shadow:
-                0 25px 70px
-                rgba(0,0,0,.5);
+                0 30px 80px
+                rgba(0,0,0,0.55);
+        }
+
+
+        .hero-card::before {
+
+            content:
+                "MOVINS";
+
+            position: absolute;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 78px;
+
+            font-weight: 900;
+
+            color:
+                rgba(255,255,255,0.025);
+
+            transform:
+                rotate(-90deg);
+
+            left: -65px;
+
+            top: 130px;
         }
 
 
         .hero-card-content {
 
-            position:
-                absolute;
+            position: absolute;
 
-            inset:
-                0;
+            inset: 0;
 
-            display:
-                flex;
+            display: flex;
 
-            flex-direction:
-                column;
+            flex-direction: column;
 
-            justify-content:
-                flex-end;
+            justify-content: flex-end;
 
-            padding:
-                35px;
+            padding: 32px;
 
             background:
                 linear-gradient(
-                    transparent 25%,
-                    rgba(7,8,12,.96) 80%
+                    transparent 20%,
+                    rgba(5,6,10,0.98) 83%
                 );
         }
 
 
         .hero-card-small {
 
-            color:
-                #999;
+            color: #888d98;
 
-            font-size:
-                13px;
+            font-size: 12px;
 
-            margin-bottom:
-                8px;
+            margin-bottom: 8px;
         }
 
 
         .hero-card h2 {
 
-            font-size:
-                31px;
+            font-size: 28px;
 
-            margin-bottom:
-                10px;
+            line-height: 1.5;
+
+            margin-bottom: 7px;
+
+            font-weight: 900;
         }
 
 
         .hero-card p {
 
-            color:
-                #aeb1ba;
+            color: #aeb1bb;
 
-            font-size:
-                14px;
+            font-size: 13px;
         }
 
 
@@ -558,59 +639,56 @@
 
         main {
 
-            max-width:
-                1450px;
+            width: min(
+                1400px,
+                calc(100% - 40px)
+            );
 
-            margin:
-                auto;
+            margin: auto;
 
             padding:
-                15px 35px 90px;
+                10px 30px 90px;
         }
 
 
         .section-header {
 
-            display:
-                flex;
+            display: flex;
 
-            justify-content:
-                space-between;
+            justify-content: space-between;
 
-            align-items:
-                center;
+            align-items: end;
 
-            gap:
-                20px;
+            gap: 20px;
 
             margin:
-                25px 0;
+                20px 0 24px;
         }
 
 
         .section-title {
 
             font-size:
-                clamp(25px,4vw,38px);
+                clamp(27px, 4vw, 38px);
 
-            font-weight:
-                900;
+            font-weight: 900;
+
+            letter-spacing: -0.5px;
         }
 
 
         .section-title span {
-            color:
-                #ff1018;
+            color: #ff1018;
         }
 
 
         .result-count {
 
-            color:
-                #777d89;
+            color: #747a87;
 
-            font-size:
-                14px;
+            font-size: 13px;
+
+            font-weight: 600;
         }
 
 
@@ -620,39 +698,22 @@
 
         .filters {
 
-            display:
-                flex;
+            display: flex;
 
-            gap:
-                10px;
+            justify-content: center;
 
-            overflow-x:
-                auto;
+            align-items: center;
 
-            padding-bottom:
-                10px;
+            gap: 10px;
 
-            margin-bottom:
-                30px;
+            flex-wrap: wrap;
 
-            scrollbar-width:
-                none;
-        }
-
-
-        .filters::-webkit-scrollbar {
-            display:
-                none;
+            margin:
+                0 auto 32px;
         }
 
 
         .filter-btn {
-
-            flex:
-                0 0 auto;
-
-            border:
-                1px solid #292d38;
 
             background:
                 #10131b;
@@ -660,34 +721,42 @@
             color:
                 #aeb2bd;
 
-            border-radius:
-                30px;
+            border:
+                1px solid #292e39;
+
+            border-radius: 50px;
 
             padding:
-                12px 22px;
+                11px 22px;
 
-            cursor:
-                pointer;
+            min-width: 85px;
 
-            font-size:
-                14px;
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 700;
 
             transition:
-                .2s;
+                0.22s ease;
         }
 
 
         .filter-btn:hover {
 
-            border-color:
-                #ff1018;
+            color: white;
 
-            color:
-                white;
+            border-color:
+                rgba(255,16,24,0.7);
+
+            transform:
+                translateY(-1px);
         }
 
 
         .filter-btn.active {
+
+            color: white;
 
             background:
                 #ff1018;
@@ -695,25 +764,27 @@
             border-color:
                 #ff1018;
 
-            color:
-                white;
+            box-shadow:
+                0 8px 25px
+                rgba(255,16,24,0.14);
         }
 
 
         /* =====================================================
-           MOVIE GRID
+           GRID
         ===================================================== */
 
         .movie-grid {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
-                repeat(4,minmax(0,1fr));
+                repeat(
+                    4,
+                    minmax(0, 1fr)
+                );
 
-            gap:
-                25px;
+            gap: 24px;
         }
 
 
@@ -723,8 +794,7 @@
 
         .movie-card {
 
-            position:
-                relative;
+            position: relative;
 
             background:
                 #10131b;
@@ -732,19 +802,16 @@
             border:
                 1px solid #20242e;
 
-            border-radius:
-                20px;
+            border-radius: 21px;
 
-            overflow:
-                hidden;
+            overflow: hidden;
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
             transition:
-                transform .25s,
-                border-color .25s,
-                box-shadow .25s;
+                transform .28s ease,
+                border-color .28s ease,
+                box-shadow .28s ease;
         }
 
 
@@ -754,142 +821,142 @@
                 translateY(-7px);
 
             border-color:
-                rgba(255,16,24,.55);
+                rgba(255,16,24,0.55);
 
             box-shadow:
-                0 20px 45px
-                rgba(0,0,0,.45);
+                0 25px 55px
+                rgba(0,0,0,0.45);
         }
 
 
+        /* =====================================================
+           POSTER
+        ===================================================== */
+
         .poster-wrap {
 
-            position:
-                relative;
+            position: relative;
 
-            width:
-                100%;
+            width: 100%;
 
             aspect-ratio:
                 2 / 3;
 
+            overflow: hidden;
+
             background:
                 linear-gradient(
                     135deg,
-                    #201238,
-                    #090a0e
+                    #21143c,
+                    #090a0f
                 );
-
-            overflow:
-                hidden;
         }
 
 
         .poster {
 
-            width:
-                100%;
+            width: 100%;
 
-            height:
-                100%;
+            height: 100%;
 
-            object-fit:
-                cover;
+            display: block;
 
-            display:
-                block;
+            object-fit: cover;
 
             transition:
-                transform .4s;
+                transform .45s ease;
         }
 
 
         .movie-card:hover .poster {
+
             transform:
-                scale(1.04);
+                scale(1.045);
         }
 
 
         .poster-overlay {
 
-            position:
-                absolute;
+            position: absolute;
 
-            inset:
-                0;
+            inset: 0;
 
             background:
                 linear-gradient(
                     to top,
-                    rgba(0,0,0,.78),
+                    rgba(0,0,0,.82),
                     transparent 55%
                 );
         }
 
 
+        /* =====================================================
+           BADGE
+        ===================================================== */
+
         .badge {
 
-            position:
-                absolute;
+            position: absolute;
 
-            top:
-                12px;
+            top: 12px;
 
-            right:
-                12px;
+            right: 12px;
+
+            z-index: 5;
+
+            padding:
+                6px 10px;
+
+            border-radius: 8px;
 
             background:
                 #ff1018;
 
-            color:
-                white;
+            color: white;
 
-            font-size:
-                11px;
+            font-size: 11px;
 
-            font-weight:
-                bold;
+            font-weight: 800;
 
-            padding:
-                7px 10px;
-
-            border-radius:
-                8px;
-
-            z-index:
-                3;
+            box-shadow:
+                0 6px 20px
+                rgba(0,0,0,.25);
         }
 
 
+        /* =====================================================
+           RATING
+        ===================================================== */
+
         .rating {
 
-            position:
-                absolute;
+            position: absolute;
 
-            bottom:
-                12px;
+            bottom: 12px;
 
-            left:
-                12px;
+            left: 12px;
+
+            z-index: 5;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 4px;
+
+            padding:
+                6px 9px;
+
+            border-radius: 9px;
 
             background:
                 rgba(0,0,0,.78);
 
             border:
                 1px solid
-                rgba(255,255,255,.1);
+                rgba(255,255,255,.08);
 
-            padding:
-                7px 10px;
-
-            border-radius:
-                9px;
-
-            font-size:
-                13px;
-
-            z-index:
-                3;
+            font-size: 12px;
         }
 
 
@@ -898,15 +965,18 @@
             color:
                 #ffd54a;
 
-            font-weight:
-                bold;
+            font-weight: 800;
         }
 
+
+        /* =====================================================
+           CARD INFO
+        ===================================================== */
 
         .movie-info {
 
             padding:
-                18px;
+                17px;
         }
 
 
@@ -915,62 +985,49 @@
             color:
                 #ff3037;
 
-            font-size:
-                12px;
+            font-size: 11px;
 
-            font-weight:
-                bold;
+            font-weight: 800;
 
-            margin-bottom:
-                8px;
+            margin-bottom: 6px;
         }
 
 
         .movie-title {
 
-            font-size:
-                19px;
+            color: #f7f7f9;
 
-            font-weight:
-                800;
+            font-size: 18px;
 
-            line-height:
-                1.5;
+            font-weight: 900;
 
-            margin-bottom:
-                8px;
+            line-height: 1.55;
 
-            min-height:
-                29px;
+            margin-bottom: 7px;
 
-            color:
-                white;
+            min-height: 28px;
         }
 
 
         .movie-meta {
 
             color:
-                #8d929e;
+                #858b98;
 
-            font-size:
-                13px;
+            font-size: 12px;
 
-            margin-bottom:
-                12px;
+            margin-bottom: 9px;
         }
 
 
         .movie-overview {
 
             color:
-                #aeb2bd;
+                #a8acb6;
 
-            font-size:
-                13px;
+            font-size: 12px;
 
-            line-height:
-                1.9;
+            line-height: 1.9;
 
             display:
                 -webkit-box;
@@ -981,77 +1038,118 @@
             -webkit-box-orient:
                 vertical;
 
-            overflow:
-                hidden;
+            overflow: hidden;
         }
 
 
         /* =====================================================
-           DETAILS MODAL
+           STATES
+        ===================================================== */
+
+        .state {
+
+            grid-column:
+                1 / -1;
+
+            text-align:
+                center;
+
+            padding:
+                90px 20px;
+
+            color:
+                #7e8490;
+        }
+
+
+        .state-icon {
+
+            font-size:
+                45px;
+
+            margin-bottom:
+                12px;
+        }
+
+
+        .state h3 {
+
+            color: white;
+
+            font-size: 20px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .error {
+            color: #ff6268;
+        }
+
+
+        /* =====================================================
+           MODAL
         ===================================================== */
 
         .modal {
 
-            position:
-                fixed;
+            position: fixed;
 
-            inset:
-                0;
+            inset: 0;
 
-            z-index:
-                5000;
+            z-index: 5000;
 
-            display:
-                none;
+            display: none;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                center;
+            justify-content: center;
 
-            padding:
-                18px;
+            padding: 20px;
 
             background:
-                rgba(0,0,0,.82);
+                rgba(0,0,0,.78);
 
             backdrop-filter:
+                blur(12px);
+
+            -webkit-backdrop-filter:
                 blur(12px);
         }
 
 
         .modal.show {
-            display:
-                flex;
+            display: flex;
         }
 
 
         .modal-box {
 
-            position:
-                relative;
+            position: relative;
 
             width:
-                min(100%, 900px);
+                min(
+                    900px,
+                    100%
+                );
 
             max-height:
-                92vh;
+                90vh;
 
             overflow-y:
                 auto;
 
             background:
-                #0d1017;
+                #10131b;
 
             border:
-                1px solid #292e39;
+                1px solid #2a2e39;
 
             border-radius:
-                24px;
+                25px;
 
             box-shadow:
-                0 30px 100px
+                0 40px 100px
                 rgba(0,0,0,.65);
 
             animation:
@@ -1062,99 +1160,90 @@
         @keyframes modalIn {
 
             from {
+
                 opacity: 0;
-                transform: scale(.95) translateY(15px);
+
+                transform:
+                    translateY(20px)
+                    scale(.97);
             }
 
             to {
+
                 opacity: 1;
-                transform: scale(1) translateY(0);
+
+                transform:
+                    translateY(0)
+                    scale(1);
             }
         }
 
 
         .modal-close {
 
-            position:
-                absolute;
+            position: absolute;
 
-            top:
-                14px;
+            top: 15px;
 
-            left:
-                14px;
+            left: 15px;
 
-            width:
-                40px;
+            z-index: 10;
 
-            height:
-                40px;
+            width: 40px;
 
-            border:
-                1px solid #343945;
+            height: 40px;
 
-            border-radius:
-                50%;
+            border-radius: 50%;
 
             background:
-                rgba(0,0,0,.65);
+                rgba(0,0,0,.7);
 
-            color:
-                white;
+            color: white;
 
-            font-size:
-                22px;
+            font-size: 22px;
 
-            cursor:
-                pointer;
-
-            z-index:
-                10;
+            cursor: pointer;
         }
 
 
         .modal-content {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
-                280px 1fr;
+                280px
+                1fr;
 
-            gap:
-                30px;
+            gap: 30px;
 
-            padding:
-                30px;
+            padding: 30px;
         }
 
 
         .modal-poster {
 
-            width:
-                100%;
+            width: 100%;
 
-            border-radius:
-                16px;
+            aspect-ratio:
+                2 / 3;
 
-            display:
-                block;
+            object-fit: cover;
 
-            background:
-                #171a22;
+            border-radius: 18px;
+
+            background: #08090d;
         }
 
 
-        .modal-info {
+        .modal-details {
 
-            display:
-                flex;
+            display: flex;
 
-            flex-direction:
-                column;
+            flex-direction: column;
 
-            justify-content:
-                center;
+            justify-content: center;
+
+            padding-top: 10px;
         }
 
 
@@ -1163,100 +1252,95 @@
             color:
                 #ff1018;
 
-            font-size:
-                14px;
+            font-size: 13px;
 
-            font-weight:
-                bold;
+            font-weight: 800;
 
-            margin-bottom:
-                10px;
+            margin-bottom: 8px;
         }
 
 
         .modal-title {
 
             font-size:
-                clamp(28px,5vw,46px);
+                clamp(27px, 4vw, 42px);
 
-            line-height:
-                1.2;
+            line-height: 1.4;
 
-            margin-bottom:
-                15px;
+            font-weight: 900;
 
-            color:
-                white;
+            margin-bottom: 12px;
         }
 
 
         .modal-meta {
 
-            color:
-                #858b98;
+            display: flex;
 
-            margin-bottom:
-                20px;
+            flex-wrap: wrap;
 
-            font-size:
-                14px;
+            gap: 8px;
+
+            margin-bottom: 22px;
         }
 
 
-        .modal-rating {
+        .meta-pill {
 
-            display:
-                inline-flex;
+            display: inline-flex;
 
-            width:
-                fit-content;
-
-            background:
-                #151923;
-
-            border:
-                1px solid #292e38;
+            align-items: center;
 
             padding:
-                9px 13px;
+                7px 12px;
 
-            border-radius:
-                10px;
+            border-radius: 50px;
 
-            margin-bottom:
-                20px;
+            background:
+                #171a23;
+
+            border:
+                1px solid #292d38;
+
+            color:
+                #aeb2bd;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .meta-pill.rating-pill {
 
             color:
                 #ffd54a;
-
-            font-weight:
-                bold;
         }
 
 
         .modal-overview-title {
 
-            font-size:
-                17px;
-
-            margin-bottom:
-                10px;
-
             color:
-                white;
+                #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
         }
 
 
         .modal-overview {
 
             color:
-                #b8bcc6;
+                #b4b8c2;
 
             font-size:
-                16px;
+                14px;
 
             line-height:
-                2;
+                2.1;
 
             margin-bottom:
                 22px;
@@ -1265,95 +1349,44 @@
 
         .modal-genres {
 
-            display:
-                flex;
+            display: flex;
 
-            flex-wrap:
-                wrap;
+            flex-wrap: wrap;
 
-            gap:
-                8px;
+            gap: 7px;
 
-            margin-bottom:
-                18px;
+            margin-bottom: 18px;
         }
 
 
         .genre-tag {
 
-            padding:
-                7px 11px;
-
-            border:
-                1px solid #303540;
+            color:
+                #d9dbe1;
 
             background:
-                #141720;
+                #151821;
 
-            color:
-                #aaaeba;
-
-            border-radius:
-                20px;
-
-            font-size:
-                12px;
-        }
-
-
-        .modal-hashtags {
-
-            color:
-                #ff4a50;
-
-            font-size:
-                13px;
-
-            line-height:
-                1.8;
-        }
-
-
-        /* =====================================================
-           STATES
-        ===================================================== */
-
-        .state {
-
-            text-align:
-                center;
+            border:
+                1px solid #292d38;
 
             padding:
-                80px 20px;
+                6px 10px;
 
-            color:
-                #858a95;
+            border-radius: 8px;
+
+            font-size: 11px;
         }
 
 
-        .state-icon {
-
-            font-size:
-                45px;
-
-            margin-bottom:
-                15px;
-        }
-
-
-        .state h3 {
+        .hashtags {
 
             color:
-                white;
+                #ff444a;
 
-            margin-bottom:
-                10px;
-        }
+            font-size: 12px;
 
-
-        .error {
-            color:
-                #ff5c62;
+            line-height: 1.8;
         }
 
 
@@ -1367,25 +1400,32 @@
                 1px solid #1d2028;
 
             padding:
-                40px 25px;
+                40px 20px;
 
             text-align:
                 center;
 
             color:
-                #666c78;
+                #656b77;
+
+            font-size: 13px;
         }
 
 
         footer strong {
-            color:
-                white;
+
+            color: white;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 22px;
         }
 
 
         footer .red {
-            color:
-                #ff1018;
+            color: #ff1018;
         }
 
 
@@ -1393,22 +1433,22 @@
            TABLET
         ===================================================== */
 
-        @media (max-width:1100px) {
+        @media (max-width: 1100px) {
 
             .movie-grid {
+
                 grid-template-columns:
-                    repeat(3,minmax(0,1fr));
+                    repeat(
+                        3,
+                        minmax(0, 1fr)
+                    );
             }
+
 
             .hero {
+
                 grid-template-columns:
                     1fr .8fr;
-            }
-
-            .header-inner,
-            main {
-                padding-inline:
-                    22px;
             }
         }
 
@@ -1417,60 +1457,124 @@
            MOBILE
         ===================================================== */
 
-        @media (max-width:750px) {
+        @media (max-width: 750px) {
+
+            header {
+                position: sticky;
+            }
+
 
             .header-inner {
 
-                min-height:
-                    auto;
+                width:
+                    calc(100% - 24px);
 
                 flex-direction:
                     column;
 
-                gap:
-                    14px;
+                gap: 13px;
 
                 padding:
-                    15px;
+                    14px 0 16px;
             }
 
 
             .logo {
-                font-size:
-                    33px;
+
+                font-size: 32px;
+
+                letter-spacing:
+                    -2px;
+            }
+
+
+            .logo-sub {
+
+                font-size: 9px;
+
+                margin-top: 5px;
             }
 
 
             .top-search {
 
-                width:
-                    100%;
+                width: 100%;
 
-                max-width:
-                    none;
+                max-width: none;
+            }
+
+
+            .search-box {
+
+                min-height: 52px;
+            }
+
+
+            #searchInput {
+
+                height: 50px;
+
+                font-size: 14px;
             }
 
 
             .hero {
 
-                grid-template-columns:
-                    1fr;
+                width:
+                    calc(100% - 24px);
 
-                padding:
-                    45px 18px 30px;
+                display: flex;
+
+                flex-direction:
+                    column;
 
                 text-align:
                     center;
+
+                gap: 30px;
+
+                padding:
+                    45px 5px 35px;
+            }
+
+
+            .hero-text {
+
+                width: 100%;
+            }
+
+
+            .hero-kicker {
+
+                justify-content:
+                    center;
+
+                font-size: 11px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 42px;
+
+                letter-spacing:
+                    -1px;
             }
 
 
             .hero p {
-                margin-inline:
-                    auto;
+
+                font-size: 14px;
+
+                line-height: 2;
+
+                margin:
+                    0 auto 22px;
             }
 
 
             .hero-buttons {
+
                 justify-content:
                     center;
             }
@@ -1479,151 +1583,200 @@
             .hero-card {
 
                 width:
-                    min(90%,320px);
+                    min(
+                        88%,
+                        330px
+                    );
 
-                min-height:
-                    360px;
+                height:
+                    350px;
+            }
 
-                order:
-                    2;
+
+            .hero-card h2 {
+
+                font-size: 25px;
             }
 
 
             main {
 
                 width:
-                    100%;
+                    calc(100% - 24px);
 
                 padding:
-                    15px 15px 70px;
-
-                margin:
-                    auto;
+                    5px 0 70px;
             }
 
 
             .section-header {
 
-                align-items:
-                    center;
-
                 flex-direction:
                     column;
+
+                align-items:
+                    center;
 
                 text-align:
                     center;
 
-                margin-top:
-                    10px;
+                gap: 5px;
+
+                margin-bottom:
+                    18px;
             }
 
 
             .section-title {
-                width:
-                    100%;
 
-                text-align:
-                    center;
-            }
-
-
-            .result-count {
-                text-align:
-                    center;
+                font-size: 28px;
             }
 
 
             .filters {
 
+                width: 100%;
+
+                flex-wrap:
+                    nowrap;
+
                 justify-content:
                     flex-start;
 
-                width:
-                    100%;
+                overflow-x:
+                    auto;
+
+                padding:
+                    4px 2px 12px;
+
+                scrollbar-width:
+                    none;
+
+                margin-bottom:
+                    20px;
+            }
+
+
+            .filters::-webkit-scrollbar {
+                display: none;
+            }
+
+
+            .filter-btn {
+
+                flex:
+                    0 0 auto;
+
+                padding:
+                    10px 18px;
+
+                min-width:
+                    auto;
+
+                font-size:
+                    13px;
             }
 
 
             .movie-grid {
 
-                width:
-                    100%;
+                width: 100%;
 
                 grid-template-columns:
-                    repeat(2,minmax(0,1fr));
+                    repeat(
+                        2,
+                        minmax(0,1fr)
+                    );
 
-                gap:
-                    13px;
+                gap: 12px;
             }
 
 
             .movie-card {
-                width:
-                    100%;
-            }
 
-
-            .movie-info {
-                padding:
-                    13px;
-            }
-
-
-            .movie-title {
-                font-size:
+                border-radius:
                     16px;
             }
 
 
-            .movie-overview {
-                font-size:
-                    12px;
+            .movie-info {
+
+                padding:
+                    11px;
             }
 
 
             .movie-type {
+
+                font-size:
+                    10px;
+            }
+
+
+            .movie-title {
+
+                font-size:
+                    15px;
+
+                line-height:
+                    1.55;
+            }
+
+
+            .movie-meta {
+
+                font-size:
+                    10px;
+            }
+
+
+            .movie-overview {
+
                 font-size:
                     11px;
+
+                line-height:
+                    1.8;
+
+                -webkit-line-clamp:
+                    3;
             }
 
 
             .badge {
 
-                top:
-                    8px;
+                top: 7px;
 
-                right:
-                    8px;
+                right: 7px;
 
                 font-size:
-                    10px;
+                    9px;
 
                 padding:
-                    6px 8px;
+                    5px 7px;
             }
 
 
             .rating {
 
-                bottom:
-                    8px;
+                bottom: 7px;
 
-                left:
-                    8px;
+                left: 7px;
 
                 font-size:
-                    11px;
+                    10px;
 
                 padding:
-                    6px 8px;
+                    5px 7px;
             }
 
 
-            /* MODAL */
+            /* MODAL MOBILE */
 
             .modal {
 
                 padding:
-                    10px;
+                    12px;
             }
 
 
@@ -1639,95 +1792,129 @@
 
             .modal-content {
 
-                grid-template-columns:
-                    1fr;
+                display: flex;
 
-                gap:
-                    20px;
+                flex-direction:
+                    column;
+
+                align-items:
+                    center;
+
+                gap: 20px;
 
                 padding:
-                    22px;
+                    22px 17px 28px;
             }
 
 
             .modal-poster {
 
                 width:
-                    min(65%,250px);
-
-                margin:
-                    auto;
+                    180px;
             }
 
 
-            .modal-info {
+            .modal-details {
+
+                width: 100%;
 
                 text-align:
                     center;
             }
 
 
-            .modal-type,
-            .modal-rating {
-                margin-inline:
-                    auto;
+            .modal-type {
+
+                font-size:
+                    11px;
             }
 
 
-            .modal-genres {
+            .modal-title {
+
+                font-size:
+                    25px;
+            }
+
+
+            .modal-meta {
+
                 justify-content:
                     center;
             }
 
 
-            .modal-title {
-                font-size:
-                    28px;
-            }
-
-
             .modal-overview {
+
                 font-size:
-                    14px;
+                    13px;
 
                 line-height:
-                    1.9;
+                    2;
             }
 
 
-            .modal-hashtags {
+            .modal-genres {
+
+                justify-content:
+                    center;
+            }
+
+
+            .hashtags {
+
                 font-size:
-                    12px;
+                    11px;
+            }
+
+
+            .modal-close {
+
+                width:
+                    36px;
+
+                height:
+                    36px;
+
+                font-size:
+                    19px;
+
+                top: 9px;
+
+                left: 9px;
             }
         }
 
 
         /* =====================================================
-           SMALL PHONES
+           VERY SMALL PHONES
         ===================================================== */
 
-        @media (max-width:390px) {
+        @media (max-width: 390px) {
 
             .movie-grid {
 
                 grid-template-columns:
                     1fr;
-
-                max-width:
-                    360px;
-
-                margin-inline:
-                    auto;
             }
 
 
             .poster-wrap {
+
                 aspect-ratio:
                     16 / 10;
             }
 
 
+            .movie-title {
+
+                font-size:
+                    17px;
+            }
+
+
             .hero h1 {
+
                 font-size:
                     37px;
             }
@@ -1743,13 +1930,17 @@
 
 <!-- =========================================================
      HEADER
-========================================================= -->
+========================================================== -->
 
 <header>
 
     <div class="header-inner">
 
-        <a href="#" class="logo">
+
+        <a
+            href="#"
+            class="logo"
+        >
 
             MOV<span class="red">INS</span>
 
@@ -1786,9 +1977,10 @@
 
 <!-- =========================================================
      HERO
-========================================================= -->
+========================================================== -->
 
 <section class="hero">
+
 
     <div class="hero-text">
 
@@ -1800,17 +1992,19 @@
         <h1>
 
             ادخل إلى
-            <span>القصة.</span>
+
+            <span>
+                القصة.
+            </span>
 
         </h1>
 
 
         <p>
 
-            اكتشف أحدث الأفلام والمسلسلات
-            من خلال ملخصات عربية واضحة
-            وتصنيفات دقيقة تساعدك على اختيار
-            العمل المناسب لك.
+            اكتشف الأفلام والمسلسلات التي تستحق وقتك،
+            تعرّف على القصة والتصنيف والتقييم في مكان واحد،
+            واختر مغامرتك القادمة قبل أن تبدأ المشاهدة.
 
         </p>
 
@@ -1821,7 +2015,7 @@
                 class="btn btn-primary"
                 onclick="scrollToMovies()"
             >
-                اكتشف الأحدث
+                اكتشف الآن
             </button>
 
 
@@ -1829,7 +2023,7 @@
                 class="btn btn-secondary"
                 onclick="setFilter('movie')"
             >
-                تصفح الأفلام
+                الأفلام
             </button>
 
         </div>
@@ -1845,14 +2039,12 @@
                 MOVINS
             </div>
 
-
             <h2>
                 اكتشف قصتك القادمة
             </h2>
 
-
             <p>
-                أفلام • مسلسلات • ملخصات قصيرة
+                أفلام • مسلسلات • قصص • تقييمات
             </p>
 
         </div>
@@ -1864,7 +2056,7 @@
 
 <!-- =========================================================
      MAIN
-========================================================= -->
+========================================================== -->
 
 <main id="moviesSection">
 
@@ -1890,9 +2082,66 @@
     </div>
 
 
-    <!-- FILTERS -->
+    <!-- =====================================================
+         CATEGORIES
+    ====================================================== -->
 
     <div class="filters">
+
+
+        <button
+            class="filter-btn"
+            data-filter="drama"
+            onclick="setFilter('drama')"
+        >
+            دراما
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="action"
+            onclick="setFilter('action')"
+        >
+            أكشن
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="comedy"
+            onclick="setFilter('comedy')"
+        >
+            كوميديا
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="horror"
+            onclick="setFilter('horror')"
+        >
+            رعب
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="scifi"
+            onclick="setFilter('scifi')"
+        >
+            خيال علمي
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="animation"
+            onclick="setFilter('animation')"
+        >
+            رسوم
+        </button>
+
 
         <button
             class="filter-btn active"
@@ -1903,45 +2152,12 @@
         </button>
 
 
-        <button
-            class="filter-btn"
-            data-filter="movie"
-            onclick="setFilter('movie')"
-        >
-            أفلام
-        </button>
-
-
-        <button
-            class="filter-btn"
-            data-filter="tv"
-            onclick="setFilter('tv')"
-        >
-            مسلسلات
-        </button>
-
-
-        <button
-            class="filter-btn"
-            data-filter="rating"
-            onclick="setFilter('rating')"
-        >
-            الأعلى تقييمًا
-        </button>
-
-
-        <button
-            class="filter-btn"
-            data-filter="latest"
-            onclick="setFilter('latest')"
-        >
-            الأحدث
-        </button>
-
     </div>
 
 
-    <!-- MOVIE GRID -->
+    <!-- =====================================================
+         MOVIE GRID
+    ====================================================== -->
 
     <section
         id="movieGrid"
@@ -1954,26 +2170,25 @@
                 🎬
             </div>
 
-
             <h3>
-                جاري تحميل الأفلام والمسلسلات...
+                جاري تحميل القصص...
             </h3>
 
-
             <p>
-                انتظر لحظات
+                لحظات فقط
             </p>
 
         </div>
 
     </section>
 
+
 </main>
 
 
 <!-- =========================================================
-     DETAILS MODAL
-========================================================= -->
+     MOVIE MODAL
+========================================================== -->
 
 <div
     id="movieModal"
@@ -1986,9 +2201,10 @@
         onclick="event.stopPropagation()"
     >
 
+
         <button
             class="modal-close"
-            onclick="closeModal()"
+            onclick="closeMovieModal()"
             aria-label="إغلاق"
         >
             ×
@@ -1998,65 +2214,63 @@
         <div class="modal-content">
 
 
-            <div>
-
-                <img
-                    id="modalPoster"
-                    class="modal-poster"
-                    src=""
-                    alt=""
-                >
-
-            </div>
+            <img
+                id="modalPoster"
+                class="modal-poster"
+                src=""
+                alt=""
+            >
 
 
-            <div class="modal-info">
+            <div class="modal-details">
+
 
                 <div
                     id="modalType"
                     class="modal-type"
-                ></div>
+                >
+                </div>
 
 
                 <h2
                     id="modalTitle"
                     class="modal-title"
-                ></h2>
+                >
+                </h2>
 
 
                 <div
                     id="modalMeta"
                     class="modal-meta"
-                ></div>
-
-
-                <div
-                    id="modalRating"
-                    class="modal-rating"
-                ></div>
-
-
-                <h3 class="modal-overview-title">
-                    القصة
-                </h3>
-
-
-                <p
-                    id="modalOverview"
-                    class="modal-overview"
-                ></p>
+                >
+                </div>
 
 
                 <div
                     id="modalGenres"
                     class="modal-genres"
-                ></div>
+                >
+                </div>
+
+
+                <div class="modal-overview-title">
+                    القصة
+                </div>
+
+
+                <p
+                    id="modalOverview"
+                    class="modal-overview"
+                >
+                </p>
 
 
                 <div
                     id="modalHashtags"
-                    class="modal-hashtags"
-                ></div>
+                    class="hashtags"
+                >
+                </div>
+
 
             </div>
 
@@ -2069,23 +2283,26 @@
 
 <!-- =========================================================
      FOOTER
-========================================================= -->
+========================================================== -->
 
 <footer>
 
     <strong>
-
         MOV<span class="red">INS</span>
-
     </strong>
 
 
-    <p style="margin-top:10px;">
+    <p style="margin-top:8px;">
         اكتشف القصة قبل المشاهدة.
     </p>
 
 
-    <p style="margin-top:15px;font-size:12px;">
+    <p
+        style="
+            margin-top:12px;
+            font-size:11px;
+        "
+    >
         البيانات والصور مقدمة بواسطة TMDB.
     </p>
 
@@ -2096,7 +2313,7 @@
 
 
     /* =====================================================
-       DATA
+       STATE
     ===================================================== */
 
     let allItems = [];
@@ -2128,26 +2345,28 @@
         );
 
 
-    const modal =
+    const movieModal =
         document.getElementById(
             "movieModal"
         );
 
 
     /* =====================================================
-       LOAD MOVIES
+       LOAD MOVIES.JSON
     ===================================================== */
 
     async function loadMovies() {
 
         try {
 
+
             const response =
                 await fetch(
                     "movies.json?t=" +
                     Date.now(),
                     {
-                        cache: "no-store"
+                        cache:
+                            "no-store"
                     }
                 );
 
@@ -2184,14 +2403,23 @@
                 data.items;
 
 
+            /*
+             * Latest updated first
+             */
+
             allItems.sort(
-                (a,b) =>
-                    Number(
-                        b.rating || 0
-                    ) -
-                    Number(
-                        a.rating || 0
-                    )
+                (a,b) => {
+
+                    return (
+                        new Date(
+                            b.updated_at || 0
+                        ) -
+                        new Date(
+                            a.updated_at || 0
+                        )
+                    );
+
+                }
             );
 
 
@@ -2199,6 +2427,7 @@
 
 
         } catch (error) {
+
 
             console.error(
                 "MOVINS ERROR:",
@@ -2210,7 +2439,6 @@
 
                 <div
                     class="state error"
-                    style="grid-column:1/-1;"
                 >
 
                     <div class="state-icon">
@@ -2222,7 +2450,7 @@
                     </h3>
 
                     <p>
-                        تأكد من وجود ملف
+                        تأكد من وجود
                         movies.json
                         في المستودع.
                     </p>
@@ -2246,6 +2474,7 @@
 
     function setFilter(filter) {
 
+
         currentFilter =
             filter;
 
@@ -2254,20 +2483,40 @@
             .querySelectorAll(
                 ".filter-btn"
             )
-            .forEach(
-                button => {
+            .forEach(button => {
 
-                    button.classList.toggle(
-                        "active",
-                        button.dataset.filter ===
-                        filter
-                    );
+                button.classList.toggle(
+                    "active",
+                    button.dataset.filter ===
+                    filter
+                );
 
-                }
-            );
+            });
 
 
         renderMovies();
+
+
+        /*
+         * On mobile scroll to content
+         */
+
+        if (
+            window.innerWidth <= 750
+        ) {
+
+            document
+                .getElementById(
+                    "moviesSection"
+                )
+                .scrollIntoView({
+                    behavior:
+                        "smooth",
+                    block:
+                        "start"
+                });
+
+        }
 
     }
 
@@ -2278,7 +2527,8 @@
 
     searchInput.addEventListener(
         "input",
-        function() {
+        function () {
+
 
             currentSearch =
                 this.value
@@ -2293,160 +2543,169 @@
 
 
     /* =====================================================
+       GENRE MAP
+    ===================================================== */
+
+    const genreMap = {
+
+        drama:
+            "دراما",
+
+        action:
+            "أكشن",
+
+        comedy:
+            "كوميديا",
+
+        horror:
+            "رعب",
+
+        scifi:
+            "خيال علمي",
+
+        animation:
+            "رسوم"
+
+    };
+
+
+    /* =====================================================
        RENDER
     ===================================================== */
 
     function renderMovies() {
 
+
         let items =
             [...allItems];
 
 
-        /* TYPE */
+        /* -------------------------------------------------
+           GENRE FILTER
+        ------------------------------------------------- */
 
         if (
-            currentFilter ===
-            "movie"
+            currentFilter !== "all" &&
+            genreMap[currentFilter]
         ) {
+
+
+            const selectedGenre =
+                genreMap[
+                    currentFilter
+                ];
+
 
             items =
-                items.filter(
-                    item =>
-                        item.type ===
-                        "فيلم"
-                );
+                items.filter(item => {
+
+
+                    const genres =
+                        Array.isArray(
+                            item.genres
+                        )
+                            ? item.genres
+                            : [];
+
+
+                    return genres.includes(
+                        selectedGenre
+                    );
+
+                });
 
         }
 
 
-        if (
-            currentFilter ===
-            "tv"
-        ) {
-
-            items =
-                items.filter(
-                    item =>
-                        item.type ===
-                        "مسلسل"
-                );
-
-        }
-
-
-        /* RATING */
-
-        if (
-            currentFilter ===
-            "rating"
-        ) {
-
-            items.sort(
-                (a,b) =>
-                    Number(
-                        b.rating || 0
-                    ) -
-                    Number(
-                        a.rating || 0
-                    )
-            );
-
-        }
-
-
-        /* LATEST */
-
-        if (
-            currentFilter ===
-            "latest"
-        ) {
-
-            items.sort(
-                (a,b) =>
-                    new Date(
-                        b.updated_at || 0
-                    ) -
-                    new Date(
-                        a.updated_at || 0
-                    )
-            );
-
-        }
-
-
-        /* SEARCH */
+        /* -------------------------------------------------
+           SEARCH
+        ------------------------------------------------- */
 
         if (currentSearch) {
 
+
             items =
-                items.filter(
-                    item => {
-
-                        const title =
-                            String(
-                                item.title ||
-                                ""
-                            ).toLowerCase();
+                items.filter(item => {
 
 
-                        const overview =
-                            String(
-                                item.overview ||
-                                ""
-                            ).toLowerCase();
+                    const title =
+                        String(
+                            item.title || ""
+                        )
+                        .toLowerCase();
 
 
-                        const type =
-                            String(
-                                item.detailed_type ||
-                                item.type ||
-                                ""
-                            ).toLowerCase();
+                    const overview =
+                        String(
+                            item.overview || ""
+                        )
+                        .toLowerCase();
 
 
-                        const genres =
-                            Array.isArray(
-                                item.genres
-                            )
-                            ?
+                    const type =
+                        String(
+                            item.type || ""
+                        )
+                        .toLowerCase();
+
+
+                    const detailedType =
+                        String(
+                            item.detailed_type || ""
+                        )
+                        .toLowerCase();
+
+
+                    const genres =
+                        Array.isArray(
                             item.genres
+                        )
+                            ? item.genres
                                 .join(" ")
                                 .toLowerCase()
-                            :
-                            "";
+                            : "";
 
 
-                        return (
+                    return (
 
-                            title.includes(
-                                currentSearch
-                            )
+                        title.includes(
+                            currentSearch
+                        )
 
-                            ||
+                        ||
 
-                            overview.includes(
-                                currentSearch
-                            )
+                        overview.includes(
+                            currentSearch
+                        )
 
-                            ||
+                        ||
 
-                            type.includes(
-                                currentSearch
-                            )
+                        type.includes(
+                            currentSearch
+                        )
 
-                            ||
+                        ||
 
-                            genres.includes(
-                                currentSearch
-                            )
+                        detailedType.includes(
+                            currentSearch
+                        )
 
-                        );
+                        ||
 
-                    }
-                );
+                        genres.includes(
+                            currentSearch
+                        )
+
+                    );
+
+                });
 
         }
 
+
+        /* -------------------------------------------------
+           LIMIT
+        ------------------------------------------------- */
 
         items =
             items.slice(
@@ -2455,31 +2714,36 @@
             );
 
 
+        /* -------------------------------------------------
+           COUNT
+        ------------------------------------------------- */
+
         resultCount.textContent =
             `${items.length} عمل متاح`;
 
 
-        /* EMPTY */
+        /* -------------------------------------------------
+           EMPTY
+        ------------------------------------------------- */
 
         if (!items.length) {
 
+
             movieGrid.innerHTML = `
 
-                <div
-                    class="state"
-                    style="grid-column:1/-1;"
-                >
+                <div class="state">
 
                     <div class="state-icon">
                         🔎
                     </div>
 
                     <h3>
-                        لم نجد نتائج
+                        لا توجد نتائج
                     </h3>
 
                     <p>
-                        جرّب البحث باسم آخر.
+                        جرّب تصنيفًا آخر أو
+                        ابحث باسم مختلف.
                     </p>
 
                 </div>
@@ -2490,6 +2754,10 @@
 
         }
 
+
+        /* -------------------------------------------------
+           CARDS
+        ------------------------------------------------- */
 
         movieGrid.innerHTML =
             items
@@ -2503,51 +2771,6 @@
                 .join("");
 
 
-        /*
-         * Attach click events
-         */
-
-        document
-            .querySelectorAll(
-                ".movie-card"
-            )
-            .forEach(
-                card => {
-
-                    card.addEventListener(
-                        "click",
-                        () => {
-
-                            const id =
-                                card.dataset.id;
-
-
-                            const item =
-                                allItems.find(
-                                    x =>
-                                        String(
-                                            x.id
-                                        ) ===
-                                        String(
-                                            id
-                                        )
-                                );
-
-
-                            if (item) {
-
-                                openModal(
-                                    item
-                                );
-
-                            }
-
-                        }
-                    );
-
-                }
-            );
-
     }
 
 
@@ -2559,6 +2782,7 @@
         item,
         index
     ) {
+
 
         const title =
             escapeHtml(
@@ -2574,19 +2798,7 @@
             );
 
 
-        /*
-         * IMPORTANT:
-         *
-         * Use detailed_type
-         *
-         * Example:
-         * فيلم أكشن
-         * فيلم كوميديا
-         * مسلسل دراما
-         * مسلسل أكشن
-         */
-
-        const detailedType =
+        const type =
             escapeHtml(
                 item.detailed_type ||
                 item.type ||
@@ -2616,16 +2828,23 @@
             index < 6;
 
 
+        const safeData =
+            encodeURIComponent(
+                JSON.stringify(item)
+            );
+
+
         return `
 
             <article
                 class="movie-card"
-                data-id="${escapeAttribute(
-                    item.id || ""
-                )}"
+                data-movie="${safeData}"
+                onclick="openMovieFromCard(this)"
             >
 
+
                 <div class="poster-wrap">
+
 
                     ${
                         poster
@@ -2633,12 +2852,8 @@
                         `
                         <img
                             class="poster"
-                            src="${escapeAttribute(
-                                poster
-                            )}"
-                            alt="${escapeAttribute(
-                                title
-                            )}"
+                            src="${escapeAttribute(poster)}"
+                            alt="${escapeAttribute(title)}"
                             loading="lazy"
                             onerror="
                                 this.style.display='none'
@@ -2650,7 +2865,9 @@
                     }
 
 
-                    <div class="poster-overlay"></div>
+                    <div
+                        class="poster-overlay"
+                    ></div>
 
 
                     ${
@@ -2676,6 +2893,7 @@
 
                     </div>
 
+
                 </div>
 
 
@@ -2683,32 +2901,22 @@
 
 
                     <div class="movie-type">
-
-                        ${detailedType}
-
+                        ${type}
                     </div>
 
 
                     <h3 class="movie-title">
-
                         ${title}
-
                     </h3>
 
 
                     <div class="movie-meta">
 
-                        ${
-                            year
-                            ?
-                            year
-                            :
-                            "—"
-                        }
+                        ${year || "—"}
 
                         <span
                             style="
-                                margin:0 6px;
+                                margin:0 5px;
                             "
                         >
                             •
@@ -2720,12 +2928,12 @@
 
 
                     <p class="movie-overview">
-
                         ${overview}
-
                     </p>
 
+
                 </div>
+
 
             </article>
 
@@ -2735,30 +2943,71 @@
 
 
     /* =====================================================
-       OPEN MODAL
+       OPEN MOVIE
     ===================================================== */
 
-    function openModal(item) {
+    function openMovieFromCard(card) {
+
+
+        try {
+
+
+            const encoded =
+                card.dataset.movie;
+
+
+            const item =
+                JSON.parse(
+                    decodeURIComponent(
+                        encoded
+                    )
+                );
+
+
+            openMovieModal(
+                item
+            );
+
+
+        } catch (error) {
+
+
+            console.error(
+                "Card error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    function openMovieModal(item) {
+
 
         const title =
             item.title ||
             "بدون عنوان";
 
 
-        const overview =
-            item.overview ||
-            "لا يوجد ملخص متوفر حاليًا.";
+        const poster =
+            item.poster ||
+            "";
 
 
-        const type =
+        const detailedType =
             item.detailed_type ||
             item.type ||
             "عمل";
 
 
-        const year =
-            item.year ||
-            "";
+        const overview =
+            item.overview ||
+            "لا يوجد ملخص متوفر حاليًا.";
 
 
         const rating =
@@ -2767,10 +3016,52 @@
             ).toFixed(1);
 
 
-        const poster =
-            item.poster ||
-            "";
+        const year =
+            item.year ||
+            "—";
 
+
+        const genres =
+            Array.isArray(
+                item.genres
+            )
+                ? item.genres
+                : [];
+
+
+        const hashtags =
+            Array.isArray(
+                item.hashtags
+            )
+                ? item.hashtags
+                : [];
+
+
+        /* POSTER */
+
+        const modalPoster =
+            document.getElementById(
+                "modalPoster"
+            );
+
+
+        modalPoster.src =
+            poster;
+
+
+        modalPoster.alt =
+            title;
+
+
+        /* TYPE */
+
+        document.getElementById(
+            "modalType"
+        ).textContent =
+            detailedType;
+
+
+        /* TITLE */
 
         document.getElementById(
             "modalTitle"
@@ -2778,27 +3069,53 @@
             title;
 
 
-        document.getElementById(
-            "modalType"
-        ).textContent =
-            type;
-
+        /* META */
 
         document.getElementById(
             "modalMeta"
-        ).textContent =
-            year
-            ?
-            `${year} • MOVINS`
-            :
-            "MOVINS";
+        ).innerHTML = `
 
+            <span class="meta-pill">
+                ${escapeHtml(year)}
+            </span>
+
+            <span class="meta-pill rating-pill">
+                ⭐ ${rating}
+            </span>
+
+            <span class="meta-pill">
+                MOVINS
+            </span>
+
+        `;
+
+
+        /* GENRES */
 
         document.getElementById(
-            "modalRating"
-        ).textContent =
-            `⭐ ${rating} / 10`;
+            "modalGenres"
+        ).innerHTML =
+            genres.length
+                ?
+                genres
+                    .map(
+                        genre =>
+                            `
+                            <span
+                                class="genre-tag"
+                            >
+                                ${escapeHtml(
+                                    genre
+                                )}
+                            </span>
+                            `
+                    )
+                    .join("")
+                :
+                "";
 
+
+        /* OVERVIEW */
 
         document.getElementById(
             "modalOverview"
@@ -2806,74 +3123,24 @@
             overview;
 
 
-        const posterElement =
-            document.getElementById(
-                "modalPoster"
-            );
-
-
-        posterElement.src =
-            poster;
-
-
-        posterElement.alt =
-            title;
-
-
-        /* GENRES */
-
-        const genresElement =
-            document.getElementById(
-                "modalGenres"
-            );
-
-
-        if (
-            Array.isArray(
-                item.genres
-            )
-            &&
-            item.genres.length
-        ) {
-
-            genresElement.innerHTML =
-                item.genres
-                    .map(
-                        genre =>
-                            `
-                            <span class="genre-tag">
-                                ${escapeHtml(
-                                    genre
-                                )}
-                            </span>
-                            `
-                    )
-                    .join("");
-
-        } else {
-
-            genresElement.innerHTML =
-                "";
-
-        }
-
-
         /* HASHTAGS */
 
         document.getElementById(
             "modalHashtags"
         ).textContent =
-            item.hashtags ||
-            "";
+            hashtags.join("  ");
 
 
-        modal.classList.add(
+        /* SHOW */
+
+        movieModal.classList.add(
             "show"
         );
 
 
-        document.body.style.overflow =
-            "hidden";
+        document.body.classList.add(
+            "modal-open"
+        );
 
     }
 
@@ -2882,33 +3149,28 @@
        CLOSE MODAL
     ===================================================== */
 
-    function closeModal() {
+    function closeMovieModal() {
 
-        modal.classList.remove(
+        movieModal.classList.remove(
             "show"
         );
 
 
-        document.body.style.overflow =
-            "";
+        document.body.classList.remove(
+            "modal-open"
+        );
 
     }
 
 
-    /* =====================================================
-       CLOSE OUTSIDE
-    ===================================================== */
-
-    function closeModalOutside(
-        event
-    ) {
+    function closeModalOutside(event) {
 
         if (
             event.target ===
-            modal
+            movieModal
         ) {
 
-            closeModal();
+            closeMovieModal();
 
         }
 
@@ -2916,7 +3178,7 @@
 
 
     /* =====================================================
-       ESCAPE KEY
+       ESC KEY
     ===================================================== */
 
     document.addEventListener(
@@ -2924,11 +3186,10 @@
         function(event) {
 
             if (
-                event.key ===
-                "Escape"
+                event.key === "Escape"
             ) {
 
-                closeModal();
+                closeMovieModal();
 
             }
 
@@ -2972,13 +3233,9 @@
     }
 
 
-    function escapeAttribute(
-        value
-    ) {
+    function escapeAttribute(value) {
 
-        return escapeHtml(
-            value
-        );
+        return escapeHtml(value);
 
     }
 
