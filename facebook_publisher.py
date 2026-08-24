@@ -1,29 +1,36 @@
 import json
 import os
 import requests
-from datetime import datetime, timezone
 
 
 # =========================================================
 # MOVINS — FACEBOOK PUBLISHER
 # =========================================================
 
-TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
+TOKEN = os.environ.get(
+    "FACEBOOK_PAGE_TOKEN"
+)
 
 if not TOKEN:
-    raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing")
+    raise RuntimeError(
+        "FACEBOOK_PAGE_TOKEN is missing"
+    )
 
 
 GRAPH_VERSION = "v26.0"
+
 
 GRAPH_URL = (
     f"https://graph.facebook.com/"
     f"{GRAPH_VERSION}/me/photos"
 )
 
+
 MOVIES_FILE = "movies.json"
 POSTED_FILE = "posted_movies.json"
 
+
+# Publish one new item per run
 MAX_POSTS_PER_RUN = 1
 
 
@@ -33,9 +40,6 @@ MAX_POSTS_PER_RUN = 1
 
 def load_movies():
 
-    if not os.path.exists(MOVIES_FILE):
-        raise RuntimeError("movies.json not found")
-
     with open(
         MOVIES_FILE,
         "r",
@@ -44,23 +48,21 @@ def load_movies():
 
         data = json.load(file)
 
-    items = data.get("items", [])
-
-    if not isinstance(items, list):
-        raise RuntimeError(
-            "Invalid movies.json format"
-        )
-
-    return items
+    return data.get(
+        "items",
+        []
+    )
 
 
 # =========================================================
-# LOAD POSTED IDS
+# LOAD POSTED
 # =========================================================
 
 def load_posted():
 
-    if not os.path.exists(POSTED_FILE):
+    if not os.path.exists(
+        POSTED_FILE
+    ):
         return set()
 
     try:
@@ -73,17 +75,18 @@ def load_posted():
 
             data = json.load(file)
 
-        if isinstance(data, list):
-            return set(str(x) for x in data)
+        return set(
+            str(x)
+            for x in data
+        )
 
     except Exception:
-        pass
 
-    return set()
+        return set()
 
 
 # =========================================================
-# SAVE POSTED IDS
+# SAVE POSTED
 # =========================================================
 
 def save_posted(posted):
@@ -95,7 +98,9 @@ def save_posted(posted):
     ) as file:
 
         json.dump(
-            sorted(list(posted)),
+            sorted(
+                list(posted)
+            ),
             file,
             ensure_ascii=False,
             indent=2
@@ -108,24 +113,26 @@ def save_posted(posted):
 
 def make_hashtags(item):
 
-    title = str(
-        item.get("title") or ""
-    ).strip()
-
-    media_type = item.get("type")
-
-    tags = [
+    hashtags = [
         "#MOVINS",
         "#NOWNEX",
-        "#Movies",
-        "#Series",
-        "#Film",
-        "#TV",
     ]
+
+
+    media_type = item.get(
+        "type"
+    )
+
+
+    genres = item.get(
+        "genres",
+        []
+    )
+
 
     if media_type == "فيلم":
 
-        tags.extend([
+        hashtags.extend([
             "#فيلم",
             "#أفلام",
             "#سينما",
@@ -133,32 +140,93 @@ def make_hashtags(item):
 
     elif media_type == "مسلسل":
 
-        tags.extend([
+        hashtags.extend([
             "#مسلسل",
             "#مسلسلات",
             "#دراما",
         ])
 
-    # Add a simple title hashtag
-    # only when it is reasonably safe.
-    clean_title = (
-        title
-        .replace(" ", "")
-        .replace("-", "")
-        .replace("_", "")
+
+    # Genre hashtags
+    genre_hashtags = {
+
+        "أكشن": "#أكشن",
+
+        "مغامرة": "#مغامرة",
+
+        "رسوم متحركة":
+            "#رسوم_متحركة",
+
+        "كوميدي":
+            "#كوميدي",
+
+        "جريمة":
+            "#جريمة",
+
+        "وثائقي":
+            "#وثائقي",
+
+        "دراما":
+            "#دراما",
+
+        "عائلي":
+            "#عائلي",
+
+        "فانتازيا":
+            "#فانتازيا",
+
+        "تاريخي":
+            "#تاريخي",
+
+        "رعب":
+            "#رعب",
+
+        "موسيقى":
+            "#موسيقى",
+
+        "غموض":
+            "#غموض",
+
+        "رومانسي":
+            "#رومانسي",
+
+        "خيال علمي":
+            "#خيال_علمي",
+
+        "إثارة":
+            "#إثارة",
+
+        "حربي":
+            "#حربي",
+
+        "غربي":
+            "#غربي",
+    }
+
+
+    for genre in genres:
+
+        hashtag = genre_hashtags.get(
+            genre
+        )
+
+        if hashtag:
+
+            hashtags.append(
+                hashtag
+            )
+
+
+    # Remove duplicates
+    return " ".join(
+        dict.fromkeys(
+            hashtags
+        )
     )
-
-    if clean_title:
-
-        # Avoid excessively long hashtags
-        if len(clean_title) <= 40:
-            tags.append("#" + clean_title)
-
-    return " ".join(tags)
 
 
 # =========================================================
-# BUILD FACEBOOK CAPTION
+# CAPTION
 # =========================================================
 
 def build_caption(item):
@@ -168,31 +236,65 @@ def build_caption(item):
         or "بدون عنوان"
     )
 
-    media_type = (
-        item.get("type")
-        or "عمل"
+
+    detailed_type = (
+        item.get(
+            "detailed_type"
+        )
+        or item.get(
+            "type",
+            "عمل"
+        )
     )
+
 
     year = (
         item.get("year")
         or "—"
     )
 
+
+    rating = float(
+        item.get(
+            "rating"
+        )
+        or 0
+    )
+
+
     overview = (
         item.get("overview")
         or "لا يوجد ملخص متوفر حاليًا."
     )
 
-    rating = float(
-        item.get("rating") or 0
+
+    genres = item.get(
+        "genres",
+        []
     )
 
-    hashtags = make_hashtags(item)
+
+    hashtags = make_hashtags(
+        item
+    )
+
+
+    genre_text = (
+        " • ".join(genres[:4])
+        if genres
+        else "غير محدد"
+    )
+
 
     caption = f"""🎬 {title}
 
-📌 النوع: {media_type}
+📌 النوع: {detailed_type}
+
+🎭 التصنيف:
+{genre_text}
+
 📅 السنة: {year}
+
 ⭐ التقييم: {rating:.1f}/10
 
 📝 القصة:
@@ -208,52 +310,64 @@ def build_caption(item):
 {hashtags}
 """
 
+
     return caption
 
 
 # =========================================================
-# POST PHOTO
+# FACEBOOK POST
 # =========================================================
 
 def publish_to_facebook(item):
 
-    poster = (
-        item.get("poster")
-        or ""
+    poster = item.get(
+        "poster"
     )
 
     if not poster:
+
         print(
-            f"SKIP: {item.get('title')} "
-            "has no poster."
+            "SKIP: no poster"
         )
+
         return False
 
-    caption = build_caption(item)
+
+    caption = build_caption(
+        item
+    )
+
 
     payload = {
-        "url": poster,
-        "caption": caption,
-        "published": "true",
-        "access_token": TOKEN,
+
+        "url":
+            poster,
+
+        "caption":
+            caption,
+
+        "published":
+            "true",
+
+        "access_token":
+            TOKEN,
     }
 
+
     print(
-        f"Publishing: "
-        f"{item.get('title')}"
+        "Publishing:",
+        item.get("title")
     )
+
 
     response = requests.post(
         GRAPH_URL,
         data=payload,
-        timeout=60,
+        timeout=60
     )
 
-    if not response.ok:
 
-        print(
-            "Facebook API response:"
-        )
+    if not response.ok:
 
         print(
             response.text
@@ -261,17 +375,23 @@ def publish_to_facebook(item):
 
         response.raise_for_status()
 
+
     result = response.json()
+
 
     print(
         "Facebook post successful."
     )
 
+
     print(
         "Post ID:",
-        result.get("post_id")
+        result.get(
+            "post_id"
+        )
         or result.get("id")
     )
+
 
     return True
 
@@ -286,18 +406,6 @@ def main():
 
     posted = load_posted()
 
-    print(
-        f"MOVINS items: {len(movies)}"
-    )
-
-    print(
-        f"Already posted: {len(posted)}"
-    )
-
-
-    # -----------------------------------------------------
-    # Sort by updated_at
-    # -----------------------------------------------------
 
     movies.sort(
         key=lambda item:
@@ -309,125 +417,75 @@ def main():
     )
 
 
-    # -----------------------------------------------------
-    # Find items not posted before
-    # -----------------------------------------------------
-
     new_items = []
+
 
     for item in movies:
 
-        item_id = item.get("id")
+        item_id = item.get(
+            "id"
+        )
 
         if not item_id:
             continue
 
-        item_id = str(item_id)
 
-        if item_id not in posted:
+        if str(item_id) not in posted:
 
-            new_items.append(item)
+            new_items.append(
+                item
+            )
 
 
     print(
-        f"New items: {len(new_items)}"
+        "New items:",
+        len(new_items)
     )
 
 
-    # -----------------------------------------------------
-    # First installation protection
-    #
-    # If posted_movies.json doesn't exist,
-    # don't suddenly publish all 30 items.
-    # Publish only the newest item.
-    # -----------------------------------------------------
-
-    if not os.path.exists(POSTED_FILE):
-
-        if not new_items:
-
-            print(
-                "Nothing to publish."
-            )
-
-            return
-
-
-        first_item = new_items[0]
+    if not new_items:
 
         print(
-            "First Facebook run."
+            "Nothing new to publish."
         )
-
-        print(
-            "Publishing only the newest item."
-        )
-
-        if publish_to_facebook(
-            first_item
-        ):
-
-            posted.add(
-                str(first_item["id"])
-            )
-
-            save_posted(posted)
 
         return
 
 
-    # -----------------------------------------------------
-    # Normal operation
-    # -----------------------------------------------------
-
-    published_count = 0
+    published = 0
 
 
     for item in new_items:
 
-        if published_count >= MAX_POSTS_PER_RUN:
+        if published >= MAX_POSTS_PER_RUN:
             break
 
 
-        try:
+        success = publish_to_facebook(
+            item
+        )
 
-            success = publish_to_facebook(
-                item
+
+        if success:
+
+            posted.add(
+                str(
+                    item["id"]
+                )
             )
 
-            if success:
 
-                posted.add(
-                    str(item["id"])
-                )
-
-                save_posted(
-                    posted
-                )
-
-                published_count += 1
-
-
-        except Exception as error:
-
-            print(
-                "ERROR publishing:"
+            save_posted(
+                posted
             )
 
-            print(error)
 
-            # Stop here so we don't accidentally
-            # mark failed posts as published.
-            raise
+            published += 1
 
 
     print(
-        f"Published this run: "
-        f"{published_count}"
-    )
-
-    print(
-        "MOVINS Facebook publisher finished."
+        "Published:",
+        published
     )
 
 
