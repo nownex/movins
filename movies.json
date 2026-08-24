@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-24T19:54:52.340253+00:00",
+  "updated_at": "2026-08-24T20:07:45.405409+00:00",
   "items": [
     {
       "id": 1084244,
@@ -11,26 +11,15 @@
       "year": "2026",
       "overview": "عندما تحصل \"بوني\" على جهاز \"ليلي باد\" اللوحي كهدية وتنجذب إليه بشكلٍ كبير، يجد \"وودي\" و\"باز\" و\"جيسي\" وبقية الألعاب أنفسهم أمام تحدٍ غير مسبوق، إذ تصبح مهمتهم في لفت انتباهها أصعب من أي وقت مضى، بينما يواجهون تهديدًا جديدًا يهدد عالم اللعب الذي اعتادوا عليه.",
       "rating": 8.2,
-      "poster": "https://image.tmdb.org/t/p/w500/b9yODva86tl5Em8cOoKSQQzzAy4.jpg",
-      "genre_ids": [
-        16,
-        10751,
-        35,
-        12
-      ],
       "genres": [
-        "رسوم",
+        "رسوم متحركة",
         "عائلي",
         "كوميديا",
         "مغامرة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رسوم",
-        "#كوميديا"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339788+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/sfQtVlIHljToOwYjhe21KPGzZWK.jpg",
+      "hashtags": "#MOVINS #أفلام #رسوم_متحركة #عائلي #كوميديا #مغامرة #Toy_Story_5",
+      "updated_at": "2026-08-24T20:07:42.129470+00:00"
     },
     {
       "id": 1288445,
@@ -42,21 +31,13 @@
       "year": "2026",
       "overview": "تبدأ القصة عندما يتم توريط كول، عميل سابق في القوات الخاصة وضابط شرطة سابق في مدينة نيويورك، في جريمة قتل رجل أعمال ملياردير، ويُتهم كول بقتل صديقه ورئيسه، تيبو، الذي وظف كول كخبير أمني خاص له ، فيضطر للهرب لإثبات براءته والكشف عن مؤامرة دولية.",
       "rating": 6.6,
-      "poster": "https://image.tmdb.org/t/p/w500/aAnTt6KpmbbHbd6xH3FQFlppZjc.jpg",
-      "genre_ids": [
-        28,
-        53
-      ],
       "genres": [
         "أكشن",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339813+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/aAnTt6KpmbbHbd6xH3FQFlppZjc.jpg",
+      "hashtags": "#MOVINS #أفلام #أكشن #إثارة #Mutiny",
+      "updated_at": "2026-08-24T20:07:42.203783+00:00"
     },
     {
       "id": 969681,
@@ -68,24 +49,14 @@
       "year": "2026",
       "overview": "بينما يواصل \"بيتر باركر\" حماية المدينة بصفته \"الرجل العنكبوت\" في عالمٍ لم يعد يتذكره أحد، يجد نفسه وحيدًا وهو يشاهد أصدقاءه القدامى يمضون في حياتهم من دونه. ومع تصاعد الضغوط، يبدأ بالتغير بطريقة قد تعجز قواه عن كبحها. لكن هذا التحول قد يكون أمله الوحيد لمواجهة تهديدٍ غامض وخطير يلوح في الأفق، عدو يمتلك قوة مرعبة لا يستطيع أحد حتى رؤيته، ويهدد المدينة وكل من يهتم \"بيتر\" لأمرهم.",
       "rating": 7.9,
-      "poster": "https://image.tmdb.org/t/p/w500/yskgiN1W74nY2DFky4ncuxPbj2J.jpg",
-      "genre_ids": [
-        878,
-        28,
-        12
-      ],
       "genres": [
         "خيال علمي",
         "أكشن",
         "مغامرة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#خيال_علمي",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339823+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/ghF1JYv7P5BgWHYfq9dqhqqNfz8.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #Spider_Man:_Brand_New_Day",
+      "updated_at": "2026-08-24T20:07:42.297160+00:00"
     },
     {
       "id": 1368337,
@@ -97,23 +68,14 @@
       "year": "2026",
       "overview": "يتتبع الفيلم رحلة أوديسيوس، الملك الأسطوري لـ \"إيثاكا\"، في عودته الطويلة والخطرة إلى وطنه بعد انتهاء حرب طروادة. تستغرق رحلته عشر سنوات، وخلالها يواجه أوديسيوس العديد من التحديات والمخاطر والمخلوقات الأسطورية",
       "rating": 8.0,
-      "poster": "https://image.tmdb.org/t/p/w500/nyaGxU6fpu360RYmRFSpZteQTEI.jpg",
-      "genre_ids": [
-        12,
-        28,
-        14
-      ],
       "genres": [
         "مغامرة",
         "أكشن",
         "فانتازيا"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339830+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
+      "hashtags": "#MOVINS #أفلام #مغامرة #أكشن #فانتازيا #The_Odyssey",
+      "updated_at": "2026-08-24T20:07:42.386667+00:00"
     },
     {
       "id": 1339713,
@@ -125,21 +87,13 @@
       "year": "2026",
       "overview": "بعد أن كسر غصنًا من ’صفصافة الأمنية الواحدة‘ الغامضة ليفوز بقلب الفتاة التي يعشقها، يجد رومانسي يائس نفسه يحصل على ما طلب تمامًا، لكنه سرعان ما يكتشف أن بعض الرغبات تأتي بثمن باهظ ومظلم",
       "rating": 8.2,
-      "poster": "https://image.tmdb.org/t/p/w500/qukypUmPwd21UnNTRvUdZHd4pNJ.jpg",
-      "genre_ids": [
-        27,
-        53
-      ],
       "genres": [
         "رعب",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رعب"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339837+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/bRwnj8WEKBCvmfeUNOukJPwB43K.jpg",
+      "hashtags": "#MOVINS #أفلام #رعب #إثارة #Obsession",
+      "updated_at": "2026-08-24T20:07:42.457673+00:00"
     },
     {
       "id": 1291595,
@@ -151,21 +105,13 @@
       "year": "2026",
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 6.7,
-      "poster": "https://image.tmdb.org/t/p/w500/4tTrW9dXCByS5wt2pXVWb58zNjz.jpg",
-      "genre_ids": [
-        27,
-        53
-      ],
       "genres": [
         "رعب",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رعب"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339843+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/4tTrW9dXCByS5wt2pXVWb58zNjz.jpg",
+      "hashtags": "#MOVINS #أفلام #رعب #إثارة #Insidious:_Out_of_the_Further",
+      "updated_at": "2026-08-24T20:07:42.532609+00:00"
     },
     {
       "id": 1315772,
@@ -177,28 +123,16 @@
       "year": "2026",
       "overview": "هذه هي القصة الصاخبة والمضحكة والحقيقية تمامًا عن كيفية غزو المينيونز لهوليوود، وكيف أصبحوا نجومًا سينمائيين، وخسروا كل شيء، وأطلقوا العنان للوحوش على العالم، ثم تكاتفوا معًا لمحاولة إنقاذ الكوكب من الفوضى التي أحدثوها للتو",
       "rating": 7.5,
-      "poster": "https://image.tmdb.org/t/p/w500/uYs4IJdDQvnrNvVtYBNmjiHqbmF.jpg",
-      "genre_ids": [
-        12,
-        16,
-        35,
-        10751,
-        14
-      ],
       "genres": [
         "مغامرة",
-        "رسوم",
+        "رسوم متحركة",
         "كوميديا",
         "عائلي",
         "فانتازيا"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رسوم",
-        "#كوميديا"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339851+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/4LwvU9SZc8QQzW1X1FAPhNbXnEU.jpg",
+      "hashtags": "#MOVINS #أفلام #مغامرة #رسوم_متحركة #كوميديا #عائلي #Minions_&_Monsters",
+      "updated_at": "2026-08-24T20:07:42.623222+00:00"
     },
     {
       "id": 1101383,
@@ -210,23 +144,14 @@
       "year": "2026",
       "overview": "بعد حدث كوني غامض يقتلع شارع أوك من ضواحي المدينة وينقل الحي بأكمله إلى مكان مجهول، تكتشف عائلة \"بلات\" أن بقاءها على قيد الحياة يعتمد على تماسك أفرادها معًا، بينما يحاولون التأقلم مع محيطهم الذي أصبح غريبًا تمامًا عن ذي قبل.",
       "rating": 6.4,
-      "poster": "https://image.tmdb.org/t/p/w500/eOahiJ54NgO5GwcoR85syTSo0rk.jpg",
-      "genre_ids": [
-        878,
-        9648,
-        53
-      ],
       "genres": [
         "خيال علمي",
         "غموض",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339858+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #غموض #إثارة #The_End_of_Oak_Street",
+      "updated_at": "2026-08-24T20:07:42.713649+00:00"
     },
     {
       "id": 1083381,
@@ -238,24 +163,14 @@
       "year": "2026",
       "overview": "يظهر مدخل غريب في الطابق السفلي من صالة عرض الأثاث",
       "rating": 7.1,
-      "poster": "https://image.tmdb.org/t/p/w500/9FZaaQstyvpmmK1sHOwU39ijtCO.jpg",
-      "genre_ids": [
-        27,
-        9648,
-        878
-      ],
       "genres": [
         "رعب",
         "غموض",
         "خيال علمي"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رعب",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339868+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/rhGx6E3qRNMgj3i5su2oukNHwIQ.jpg",
+      "hashtags": "#MOVINS #أفلام #رعب #غموض #خيال_علمي #Backrooms",
+      "updated_at": "2026-08-24T20:07:42.794957+00:00"
     },
     {
       "id": 1621552,
@@ -267,23 +182,14 @@
       "year": "2026",
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 6.6,
-      "poster": "https://image.tmdb.org/t/p/w500/iwCeOpuBtuTP1kLosqgniey5OvX.jpg",
-      "genre_ids": [
-        80,
-        28,
-        53
-      ],
       "genres": [
         "جريمة",
         "أكشن",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339874+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/alpf5v4UqSFawPmG9RX03Or4BDk.jpg",
+      "hashtags": "#MOVINS #أفلام #جريمة #أكشن #إثارة #La_captura",
+      "updated_at": "2026-08-24T20:07:42.905396+00:00"
     },
     {
       "id": 1003596,
@@ -295,24 +201,14 @@
       "year": "2026",
       "overview": "أبطال محبوبون من ثلاثة أكوان مختلفة يُدفعون نحو صدام مميت، ويواجهون تهديدًا مرعبًا قد يمحو وجودهم بالكامل… شيء يفوق كل ما عرفوه من قبل.",
       "rating": 0.0,
-      "poster": "https://image.tmdb.org/t/p/w500/bSkYB5VNl2tas9SKjXMUtE2gBPG.jpg",
-      "genre_ids": [
-        878,
-        28,
-        12
-      ],
       "genres": [
         "خيال علمي",
         "أكشن",
         "مغامرة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#خيال_علمي",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339880+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/jzPwsojjFStf5lR5Nm07w2hH56G.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #Avengers:_Doomsday",
+      "updated_at": "2026-08-24T20:07:42.994668+00:00"
     },
     {
       "id": 1212763,
@@ -324,19 +220,12 @@
       "year": "2026",
       "overview": "بعد وفاة زوجها المفاجئة، تلجأ امرأة إلى أهل زوجها طلباً للعزاء. وبينما يتحولون إلى موتى أحياء واحداً تلو الآخر، تكتشف أن العهود التي قطعتها على نفسها في الحياة تبقى قائمة حتى بعد الموت",
       "rating": 7.8,
-      "poster": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
-      "genre_ids": [
-        27
-      ],
       "genres": [
         "رعب"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رعب"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339886+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
+      "hashtags": "#MOVINS #أفلام #رعب #Evil_Dead_Burn",
+      "updated_at": "2026-08-24T20:07:43.077051+00:00"
     },
     {
       "id": 1275779,
@@ -348,21 +237,13 @@
       "year": "2026",
       "overview": "يصبح خبير في الأمن السيبراني مُبلغ عن المخالفات بعد اكتشافه أسرارًا عن كائنات فضائية، فتطاردُه إحدى الشركات. وفي نفس الوقت، تتعاون معه خبيرة أرصاد جوية تواجه ظواهر غريبة ليثبتا وجود حياة تتجاوز فهمنا.",
       "rating": 7.5,
-      "poster": "https://image.tmdb.org/t/p/w500/pISy0e4JlOqAU0Exa6X0svaTHJk.jpg",
-      "genre_ids": [
-        878,
-        53
-      ],
       "genres": [
         "خيال علمي",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339892+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/AnJ8IQJI23hNpYXVNaythu061Ru.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #إثارة #Disclosure_Day",
+      "updated_at": "2026-08-24T20:07:43.157931+00:00"
     },
     {
       "id": 687163,
@@ -374,50 +255,32 @@
       "year": "2026",
       "overview": "يستيقظ رايلاند غريس، مدرس العلوم، على متن مركبة فضائية تبعد سنوات ضوئية عن موطنه، فاقدًا للذاكرة تمامًا، لا يتذكر من هو ولا كيف وصل إلى هناك. ومع عودة ذاكرته تدريجيًا، يبدأ في اكتشاف مهمته: حل لغز المادة الغامضة التي تتسبب في انطفاء الشمس. عليه أن يستعين بمعرفته العلمية وأفكاره غير التقليدية لإنقاذ كل شيء على الأرض من الفناء... لكن صداقة غير متوقعة تعني أنه قد لا يضطر إلى القيام بذلك بمفرده.",
       "rating": 8.6,
-      "poster": "https://image.tmdb.org/t/p/w500/wNnoJaRb5Oc9SodTWJLEC26wL8q.jpg",
-      "genre_ids": [
-        878,
-        12
-      ],
       "genres": [
         "خيال علمي",
         "مغامرة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339897+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #Project_Hail_Mary",
+      "updated_at": "2026-08-24T20:07:43.240971+00:00"
     },
     {
       "id": 950028,
       "type": "فيلم",
-      "detailed_type": "فيلم دراما",
+      "detailed_type": "فيلم كوميديا",
       "title": "The Invite",
       "original_title": "The Invite",
       "original_language": "en",
       "year": "2026",
       "overview": "زواج \"جو\" و\"أنجيلا\" على وشك الانهيار. عندما يدعوان جارَيهما الغامضَين في الطابق العلوي إلى حفل عشاء، تأخذ الليلة منحى غير متوقع. فهل أعادا إشعال شرارة الحب بينهما، أم أشعلا الفتيل الذي سيحرق كل شيء؟",
       "rating": 7.3,
-      "poster": "https://image.tmdb.org/t/p/w500/kE83bl2raamkqfN9PtZP0lGaCDS.jpg",
-      "genre_ids": [
-        35,
-        18,
-        10749
-      ],
       "genres": [
         "كوميديا",
         "دراما",
         "رومانسي"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#كوميديا",
-        "#دراما"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339903+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/hFLVVF6GSfFkvDlht6iCsCcFjrh.jpg",
+      "hashtags": "#MOVINS #أفلام #كوميديا #دراما #رومانسي #The_Invite",
+      "updated_at": "2026-08-24T20:07:43.320960+00:00"
     },
     {
       "id": 1384216,
@@ -429,23 +292,14 @@
       "year": "2026",
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.3,
-      "poster": "https://image.tmdb.org/t/p/w500/5O616X9vmRzQdB68PHzBewPittd.jpg",
-      "genre_ids": [
-        878,
-        12,
-        53
-      ],
       "genres": [
         "خيال علمي",
         "مغامرة",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339908+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/5O616X9vmRzQdB68PHzBewPittd.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #إثارة #The_Dog_Stars",
+      "updated_at": "2026-08-24T20:07:43.411508+00:00"
     },
     {
       "id": 1081003,
@@ -457,24 +311,14 @@
       "year": "2026",
       "overview": "عندما يوجّه عدوّ قاسٍ ولا يرحم ضربة مؤلمة تمسّ حياتها بشكل شخصي، تجد \"كارا زور-إل\"، المعروفة باسم سوبرجيرل، نفسها مضطرة للتعاون مع رفيق غير متوقع. وتنطلق معه في رحلة ملحمية عبر الفضاء، تسعى خلالها إلى الانتقام وتحقيق العدالة.",
       "rating": 6.7,
-      "poster": "https://image.tmdb.org/t/p/w500/qdSh923DHzTh9vWz4pGTbYpkXIy.jpg",
-      "genre_ids": [
-        28,
-        12,
-        878
-      ],
       "genres": [
         "أكشن",
         "مغامرة",
         "خيال علمي"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#أكشن",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339914+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
+      "hashtags": "#MOVINS #أفلام #أكشن #مغامرة #خيال_علمي #Supergirl",
+      "updated_at": "2026-08-24T20:07:43.495370+00:00"
     },
     {
       "id": 1204680,
@@ -486,23 +330,14 @@
       "year": "2026",
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.2,
-      "poster": "https://image.tmdb.org/t/p/w500/ex1x4IZusmvqAfHBnuv410RGwMt.jpg",
-      "genre_ids": [
-        35,
-        12,
-        10751
-      ],
       "genres": [
         "كوميديا",
         "مغامرة",
         "عائلي"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#كوميديا"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339920+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/orkLtdgMGiO9rTVMqJ1kKwrnup1.jpg",
+      "hashtags": "#MOVINS #أفلام #كوميديا #مغامرة #عائلي #Coyote_vs._Acme",
+      "updated_at": "2026-08-24T20:07:43.575705+00:00"
     },
     {
       "id": 1232569,
@@ -514,23 +349,14 @@
       "year": "2026",
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.1,
-      "poster": "https://image.tmdb.org/t/p/w500/eUJXk3bTvLBi5Zcb0BCedZU7lVL.jpg",
-      "genre_ids": [
-        27,
-        14,
-        9648
-      ],
       "genres": [
         "رعب",
         "فانتازيا",
         "غموض"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رعب"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339930+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/eUJXk3bTvLBi5Zcb0BCedZU7lVL.jpg",
+      "hashtags": "#MOVINS #أفلام #رعب #فانتازيا #غموض #Pinocchio:_Unstrung",
+      "updated_at": "2026-08-24T20:07:43.652646+00:00"
     },
     {
       "id": 1284041,
@@ -542,162 +368,106 @@
       "year": "2026",
       "overview": "تجد عائلة نفسها محاصرة داخل منزلها في ظروف غامضة، وتضطر إلى التكاتف للبقاء على قيد الحياة في ظل تناقص الموارد ووجود قوة غامضة تمنعها من الفرار.",
       "rating": 6.9,
-      "poster": "https://image.tmdb.org/t/p/w500/6JU7E8Vv2M11egkctWVOScxWR75.jpg",
-      "genre_ids": [
-        27,
-        878,
-        53
-      ],
       "genres": [
         "رعب",
         "خيال علمي",
         "إثارة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#أفلام",
-        "#رعب",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339936+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/6JU7E8Vv2M11egkctWVOScxWR75.jpg",
+      "hashtags": "#MOVINS #أفلام #رعب #خيال_علمي #إثارة #The_Last_House",
+      "updated_at": "2026-08-24T20:07:43.730284+00:00"
     },
     {
       "id": 95350,
       "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
+      "detailed_type": "مسلسل خيال علمي وفانتازيا",
       "title": "Lanterns",
       "original_title": "Lanterns",
       "original_language": "en",
       "year": "2026",
       "overview": "يتبع العمل قصة المجند الجديد (جون ستيوارت) وأسطورة اللانترنز (هال جوردان)، وهما شرطيان يجدان نفسيهما منخرطين في لغز مظلم على كوكب الأرض، أثناء تحقيقهما في جريمة قتل وقعت في قلب الولايات المتحدة.",
       "rating": 8.2,
-      "poster": "https://image.tmdb.org/t/p/w500/mmCFAAwU7VcLyGCbMpMWJOFA3PK.jpg",
-      "genre_ids": [
-        18,
-        9648,
-        10765
-      ],
       "genres": [
         "دراما",
         "غموض",
-        "خيال علمي"
+        "خيال علمي وفانتازيا"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#دراما",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339943+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/gpC7h43xPMEV3goYMQShfJbTtLq.jpg",
+      "hashtags": "#MOVINS #مسلسلات #دراما #غموض #خيال_علمي #Lanterns",
+      "updated_at": "2026-08-24T20:07:43.826095+00:00"
     },
     {
       "id": 125988,
       "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
+      "detailed_type": "مسلسل خيال علمي وفانتازيا",
       "title": "Silo",
       "original_title": "Silo",
       "original_language": "en",
       "year": "2023",
       "overview": "في مستقبل خرب وسامّ، يعيش آلاف الناس في صومعة ضخمة تحت الأرض. بعد أن يخرق مأمورهم قانونها الأساسي ويموت المواطنون بطرق غامضة، تبدأ المهندسة \"جولييت\" بكشف أسرار صادمة لتعرف الحقيقة عن الصومعة.",
       "rating": 8.2,
-      "poster": "https://image.tmdb.org/t/p/w500/gMYZZvnkVNTqSVnVCphWbPXwWwb.jpg",
-      "genre_ids": [
-        10765,
-        18
-      ],
       "genres": [
-        "خيال علمي",
+        "خيال علمي وفانتازيا",
         "دراما"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#خيال_علمي",
-        "#دراما"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339950+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/gMYZZvnkVNTqSVnVCphWbPXwWwb.jpg",
+      "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #Silo",
+      "updated_at": "2026-08-24T20:07:43.907020+00:00"
     },
     {
       "id": 108978,
       "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن",
+      "detailed_type": "مسلسل أكشن ومغامرة",
       "title": "Reacher",
       "original_title": "Reacher",
       "original_language": "en",
       "year": "2022",
       "overview": "يصل جاك ريتشر، الضابط السابق في الشرطة العسكرية، إلى بلدة مارغريف الصغيرة، لكنه يجد نفسه متورطًا في قضية قتل غامضة بعد وقت قصير من وصوله. يكتشف ريتشر أن الجريمة ليست حادثًا عابرًا، بل جزء من مؤامرة كبيرة تضم رجال أعمال ومسؤولين وشخصيات نافذة في البلدة. يتعاون مع الضابطة روسكو كونكلين والمحقق أوسكار فينلي لكشف الحقيقة، مستفيدًا من خبرته العسكرية وقدرته على التحقيق ومواجهة خصومه. ومع اتساع دائرة الخطر، يجد ريتشر نفسه في مواجهة شبكة إجرامية مستعدة لفعل أي شيء لإخفاء أسرارها.",
       "rating": 8.1,
-      "poster": "https://image.tmdb.org/t/p/w500/Aq8xZcOwCwXw5xH28BLL32oMm0W.jpg",
-      "genre_ids": [
-        10759,
-        80
-      ],
       "genres": [
-        "أكشن",
+        "أكشن ومغامرة",
         "جريمة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339955+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/f1VCQIG2iCyOookdgOzwtUpwWC0.jpg",
+      "hashtags": "#MOVINS #مسلسلات #أكشن #جريمة #Reacher",
+      "updated_at": "2026-08-24T20:07:43.992760+00:00"
     },
     {
       "id": 100757,
       "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن",
+      "detailed_type": "مسلسل أكشن ومغامرة",
       "title": "Outer Banks",
       "original_title": "Outer Banks",
       "original_language": "en",
       "year": "2020",
       "overview": "على جزيرة في \"كارولينا الشمالية\" يقطنها الأغنياء والطبقة العاملة الكادحة، يعيش \"جون بي\" وفريقه المتكاتف من الأصدقاء أجواء الغموض والمغامرة خلال البحث عن كنز مفقود.",
       "rating": 8.2,
-      "poster": "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg",
-      "genre_ids": [
-        10759,
-        9648
-      ],
       "genres": [
-        "أكشن",
+        "أكشن ومغامرة",
         "غموض"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339960+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg",
+      "hashtags": "#MOVINS #مسلسلات #أكشن #غموض #Outer_Banks",
+      "updated_at": "2026-08-24T20:07:44.085241+00:00"
     },
     {
       "id": 30984,
       "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن",
-      "title": "المطهر",
+      "detailed_type": "مسلسل أكشن ومغامرة",
+      "title": "BLEACH",
       "original_title": "BLEACH",
       "original_language": "ja",
       "year": "2004",
       "overview": "تحكي قصة الأنمي عن فتى في 15 من عمره يدعى كوروساكي إتشيغو لديه القدرة على رؤية الأشباح و الهولو و الشينيغاميين ….. ثم تبدأ الأحداث بمقابلة إتشيغو لروكيا كوتشيكي شينيغامية قادمة من مجتمع الأطياف ،، جاءت إلى العالم الحقيقي حتى تقضي على الأشباح التي تهاجم العالم الحقيقي ،، وجدت روكيا قوة كبيرة لدى إتشيغو فقامت بإعطائه القليل من قوتها حتى يستطيع إتشيغو استعمال طاقته الروحية  و تستمر الحلقات حتى تنشأ علاقة حميمة بين العالم الحقيقي و مجتمع الأطياف ،، و يظهر أعداء جدد و مفاجآت لا يمكن توقعها أبداً ،،",
       "rating": 8.4,
-      "poster": "https://image.tmdb.org/t/p/w500/tEUE489V8OGlPAbY0VkNbkXbXMv.jpg",
-      "genre_ids": [
-        10759,
-        16,
-        10765
-      ],
       "genres": [
-        "أكشن",
-        "رسوم",
-        "خيال علمي"
+        "أكشن ومغامرة",
+        "رسوم متحركة",
+        "خيال علمي وفانتازيا"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#أكشن",
-        "#رسوم",
-        "#خيال_علمي"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339966+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/2EewmxXe72ogD0EaWM8gqa0ccIw.jpg",
+      "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #خيال_علمي #BLEACH",
+      "updated_at": "2026-08-24T20:07:44.170117+00:00"
     },
     {
       "id": 278624,
@@ -709,21 +479,13 @@
       "year": "2026",
       "overview": "عندما تفشل عملية سرقة بملايين الدولارات، تُجبر المحتالة \"لاكي\"،، على الفرار. وبين الهرب من الفيدراليين وزعيم جريمة لا يرحم، تقاتل \"لاكي\" للنجاة بحياتها ولإيجاد مخرج.",
       "rating": 7.2,
-      "poster": "https://image.tmdb.org/t/p/w500/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
-      "genre_ids": [
-        18,
-        80
-      ],
       "genres": [
         "دراما",
         "جريمة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#دراما"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339971+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
+      "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #Lucky",
+      "updated_at": "2026-08-24T20:07:44.249643+00:00"
     },
     {
       "id": 113962,
@@ -735,108 +497,69 @@
       "year": "2023",
       "overview": "بينما تسعى (جو) للحفاظ على استقرار حياتها الشخصية والعملية في آن واحد، تواجه العديد من العقبات في حرب المخابرات المركزية ضد الإرهاب، وتستعين بـ(كروز) من قوات المارينز للعمل عميلة سرية لحسابها في إحدى المهمات.",
       "rating": 8.1,
-      "poster": "https://image.tmdb.org/t/p/w500/iuvropv4Fj1PQM2DSgYYzOtimm2.jpg",
-      "genre_ids": [
-        18,
-        10768
-      ],
       "genres": [
         "دراما",
-        "حربي وسياسي"
+        "حربي وسياسة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#دراما"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339976+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/rzpHPSEgPTpRs8EHbygwsOw7jC0.jpg",
+      "hashtags": "#MOVINS #مسلسلات #دراما #Lioness",
+      "updated_at": "2026-08-24T20:07:44.327541+00:00"
     },
     {
       "id": 94997,
       "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
+      "detailed_type": "مسلسل أكشن ومغامرة",
       "title": "House of the Dragon",
       "original_title": "House of the Dragon",
       "original_language": "en",
       "year": "2022",
       "overview": "تدور الأحداث قبل 200 عام من أحداث مسلسل صراع العروش. حيث سيركز على تفاصيل عائلة \"آل تارغيريان\" ولمحات هامة في تاريخ العائلة التي حكمت ويستروس منذ زمن بعيد، وصولًا إلى رقصة التنانين والصراعات الداخلية في العائلة التي دمرت كل شيء وهددت بانقراض التنانين للأبد.",
       "rating": 8.4,
-      "poster": "https://image.tmdb.org/t/p/w500/3cV7NLkN8WY5LECzLxI73PXE5Oq.jpg",
-      "genre_ids": [
-        10765,
-        18,
-        10759
-      ],
       "genres": [
-        "خيال علمي",
+        "خيال علمي وفانتازيا",
         "دراما",
-        "أكشن"
+        "أكشن ومغامرة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#خيال_علمي",
-        "#دراما",
-        "#أكشن"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339981+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/7V0Ebks0GgpKvQ7QbLAIdX5dos4.jpg",
+      "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #أكشن #House_of_the_Dragon",
+      "updated_at": "2026-08-24T20:07:44.412954+00:00"
     },
     {
       "id": 37854,
       "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن",
-      "title": "ون بيس",
+      "detailed_type": "مسلسل أكشن ومغامرة",
+      "title": "ワンピース",
       "original_title": "ワンピース",
       "original_language": "ja",
       "year": "1999",
       "overview": "قبل سنوات عديدة، تم إعدام ملك القراصنة - جول دي روجر - تاركا وراءه كومة ضخمة من الكنوز و الون بيس - القطعه الواحده -  الشهيرة. من يجدها سيكون اسمه ملك القراصنة الجديد. مونكي دي لوفي، وهو صبي الذي استهلك واحدة من فواكه الشيطان، يعتقد أنه سوف يسير على خطى القرصان شانكس، ويجد الون بيس. محاط بسرب من المقاتلين الماهرين واللصوص على طول الطريق. يحضر مونكي دي لوفي حفنة من طاقمه يتبعونه، رورونوا زورو، نامي، اوسوب، سانجي، تشوبر، نيكو روبن، فرانكي وبروك. سوف يفعلون أي شيء للحصول على الون بيس!",
       "rating": 8.8,
-      "poster": "https://image.tmdb.org/t/p/w500/zftx59xeJOJtsmRdwqo4rn6zNpj.jpg",
-      "genre_ids": [
-        10759,
-        35,
-        16
-      ],
       "genres": [
-        "أكشن",
+        "أكشن ومغامرة",
         "كوميديا",
-        "رسوم"
+        "رسوم متحركة"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#أكشن",
-        "#كوميديا",
-        "#رسوم"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339988+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/dB4EDhre2dsC2kxYDavyKWqLQwi.jpg",
+      "hashtags": "#MOVINS #مسلسلات #أكشن #كوميديا #رسوم_متحركة #ワンピース",
+      "updated_at": "2026-08-24T20:07:44.492606+00:00"
     },
     {
       "id": 97546,
       "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
+      "detailed_type": "مسلسل كوميديا",
       "title": "Ted Lasso",
       "original_title": "Ted Lasso",
       "original_language": "en",
       "year": "2020",
       "overview": "\"جيسون سوديكس\" يؤدي دور \"تيد لاسو\"، مدرب كرة القدم الأمريكية الذي عُيّن مديراً فنياً لفريق كرة قدم إنكليزي رغم افتقاره إلى الخبرة. لكنه يعوّض المعرفة التي تنقصه بتفاؤله وعزيمته القوية… والبسكويت.",
       "rating": 8.4,
-      "poster": "https://image.tmdb.org/t/p/w500/uRHsiw1wLxPHFXkkv4Ix1s0O6f4.jpg",
-      "genre_ids": [
-        18,
-        35
-      ],
       "genres": [
         "دراما",
         "كوميديا"
       ],
-      "hashtags": [
-        "#MOVINS",
-        "#مسلسلات",
-        "#دراما",
-        "#كوميديا"
-      ],
-      "updated_at": "2026-08-24T19:54:52.339993+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/uRHsiw1wLxPHFXkkv4Ix1s0O6f4.jpg",
+      "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #Ted_Lasso",
+      "updated_at": "2026-08-24T20:07:44.574976+00:00"
     }
   ]
 }
