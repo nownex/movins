@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="MOVINS — اكتشف الأفلام والمسلسلات من خلال ملخصات قصيرة ومفيدة.">
+
+    <title>MOVINS — داخل القصة</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #08090d;
+            --surface: #11131a;
+            --surface-light: #181b24;
+            --text: #f5f5f7;
+            --muted: #9b9da8;
+            --accent: #e50914;
+            --accent-hover: #ff1b26;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                "Tajawal",
+                "Cairo",
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            background: var(--bg);
+            color: var(--text);
+
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(8, 9, 13, 0.90);
+
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            width: min(1200px, 92%);
+            margin: auto;
+
+            min-height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+        /* LOGO */
+
+        .logo {
+            font-family: Arial, sans-serif;
+
+            font-size: 25px;
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+            white-space: nowrap;
+        }
+
+        .logo span:first-child {
+            color: var(--accent);
+        }
+
+        .tagline {
+            display: block;
+
+            font-family:
+                "Tajawal",
+                "Cairo",
+                Arial,
+                sans-serif;
+
+            font-size: 9px;
+
+            color: var(--muted);
+
+            letter-spacing: 1.5px;
+
+            margin-top: -2px;
+
+            text-align: center;
+        }
+
+        /* NAVIGATION */
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            width: 230px;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            padding: 11px 16px;
+
+            background: var(--surface);
+
+            color: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 25px;
+
+            outline: none;
+
+            direction: rtl;
+        }
+
+        .search-box input::placeholder {
+            color: #777985;
+        }
+
+        .search-box input:focus {
+            border-color:
+                rgba(229,9,20,0.6);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            width: min(1200px, 92%);
+            margin: auto;
+
+            padding: 80px 0 55px;
+
+            display: grid;
+
+            grid-template-columns:
+                1.2fr 0.8fr;
+
+            align-items: center;
+
+            gap: 50px;
+        }
+
+        .hero-content h1 {
+            font-size:
+                clamp(42px, 6vw, 76px);
+
+            line-height: 1.05;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 25px;
+
+            font-weight: 900;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent);
+        }
+
+        .hero-content p {
+            max-width: 600px;
+
+            color: var(--muted);
+
+            font-size: 17px;
+
+            line-height: 1.9;
+
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+
+            cursor: pointer;
+
+            padding: 13px 23px;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background:
+                var(--surface-light);
+
+            color: white;
+
+            border:
+                1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: #20232d;
+        }
+
+        /* HERO POSTER */
+
+        .hero-poster {
+            min-height: 390px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(229,9,20,0.90),
+                    rgba(30,15,20,0.90) 45%,
+                    rgba(5,6,10,1)
+                );
+
+            border:
+                1px solid var(--border);
+
+            display: flex;
+
+            align-items: flex-end;
+
+            padding: 30px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .hero-poster::before {
+            content: "MOVINS";
+
+            position: absolute;
+
+            top: 35px;
+            left: -25px;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 65px;
+
+            font-weight: 900;
+
+            color:
+                rgba(255,255,255,0.06);
+
+            transform: rotate(-90deg);
+        }
+
+        .hero-poster-content {
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .hero-poster-content small {
+            color: #ddd;
+
+            font-size: 12px;
+        }
+
+        .hero-poster-content h2 {
+            font-size: 30px;
+
+            line-height: 1.3;
+
+            margin: 8px 0;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            width: min(1200px, 92%);
+
+            margin: auto;
+
+            padding-bottom: 70px;
+        }
+
+        .section-header {
+            display: flex;
+
+            align-items: end;
+
+            justify-content:
+                space-between;
+
+            margin-bottom: 25px;
+
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 27px;
+
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-top: 3px;
+        }
+
+        .view-all {
+            color: var(--accent);
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        /* =========================
+           FILTERS
+        ========================= */
+
+        .filters {
+            display: flex;
+
+            gap: 10px;
+
+            overflow-x: auto;
+
+            margin-bottom: 30px;
+
+            padding-bottom: 5px;
+
+            scrollbar-width: none;
+        }
+
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter {
+            flex-shrink: 0;
+
+            padding: 9px 17px;
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .filter:hover,
+        .filter.active {
+            background: var(--accent);
+
+            color: white;
+
+            border-color:
+                var(--accent);
+        }
+
+        /* =========================
+           MOVIE GRID
+        ========================= */
+
+        .movie-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 22px;
+        }
+
+        /* CARD */
+
+        .movie-card {
+            background:
+                var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+
+            min-width: 0;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-6px);
+
+            border-color:
+                rgba(229,9,20,0.4);
+        }
+
+        /* POSTER */
+
+        .poster {
+            aspect-ratio: 2 / 3;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            padding: 15px;
+
+            overflow: hidden;
+        }
+
+        .poster-1 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #192f42,
+                    #071018 55%,
+                    #020305
+                );
+        }
+
+        .poster-2 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #5a251e,
+                    #21100e 55%,
+                    #050304
+                );
+        }
+
+        .poster-3 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #34236b,
+                    #130d29 55%,
+                    #040306
+                );
+        }
+
+        .poster-4 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #38543b,
+                    #111d13 55%,
+                    #030504
+                );
+        }
+
+        .poster-5 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #37455b,
+                    #101621 55%,
+                    #030405
+                );
+        }
+
+        .poster-6 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #684829,
+                    #25180d 55%,
+                    #040302
+                );
+        }
+
+        .poster-7 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #542b4c,
+                    #211020 55%,
+                    #050304
+                );
+        }
+
+        .poster-8 {
+            background:
+                linear-gradient(
+                    160deg,
+                    #1d4c55,
+                    #0b2226 55%,
+                    #020405
+                );
+        }
+
+        .poster-title {
+            position: relative;
+
+            z-index: 2;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 22px;
+
+            font-weight: 900;
+
+            line-height: 1.05;
+
+            direction: ltr;
+
+            text-shadow:
+                0 2px 15px
+                rgba(0,0,0,0.9);
+        }
+
+        .poster::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    transparent 35%,
+                    rgba(0,0,0,0.85)
+                );
+        }
+
+        /* BADGE */
+
+        .badge {
+            position: absolute;
+
+            top: 12px;
+
+            right: 12px;
+
+            z-index: 5;
+
+            background:
+                var(--accent);
+
+            color: white;
+
+            padding: 5px 8px;
+
+            border-radius: 5px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+        /* CARD CONTENT */
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-info h3 {
+            font-size: 17px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            margin-bottom: 7px;
+        }
+
+        .meta {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            margin-bottom: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .dot {
+            width: 3px;
+
+            height: 3px;
+
+            background: #666;
+
+            border-radius: 50%;
+        }
+
+        .summary {
+            color: #a9abb4;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 3;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+        }
+
+        /* =========================
+           NO RESULTS
+        ========================= */
+
+        .no-results {
+            display: none;
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            color: var(--muted);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top:
+                1px solid var(--border);
+
+            padding: 30px 0;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            text-align: center;
+        }
+
+        .footer-logo {
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            margin-bottom: 5px;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 950px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .search-box {
+                width: 210px;
+            }
+
+            .hero {
+                grid-template-columns:
+                    1fr 0.8fr;
+
+                gap: 30px;
+            }
+
+            .hero-poster {
+                min-height: 330px;
+            }
+
+            .movie-grid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .nav {
+                min-height: 65px;
+
+                gap: 12px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .tagline {
+                font-size: 7px;
+            }
+
+            .search-box {
+                width: 145px;
+            }
+
+            .search-box input {
+                padding: 9px 12px;
+
+                font-size: 12px;
+            }
+
+            .hero {
+                display: block;
+
+                padding:
+                    45px 0 35px;
+            }
+
+            .hero-content h1 {
+                font-size: 47px;
+
+                letter-spacing: -1px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+
+                line-height: 1.8;
+            }
+
+            .hero-poster {
+                min-height: 260px;
+
+                margin-top: 30px;
+            }
+
+            .hero-poster-content h2 {
+                font-size: 25px;
+            }
+
+            .section-title {
+                font-size: 23px;
+            }
+
+            .movie-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 13px;
+            }
+
+            .movie-info {
+                padding: 11px;
+            }
+
+            .movie-info h3 {
+                font-size: 14px;
+            }
+
+            .summary {
+                font-size: 11px;
+
+                line-height: 1.6;
+            }
+
+            .meta {
+                font-size: 10px;
+            }
+
+            .poster-title {
+                font-size: 17px;
+            }
+
+            .badge {
+                font-size: 8px;
+
+                padding: 4px 6px;
+            }
+        }
+
+        /* =========================
+           SMALL PHONES
+        ========================= */
+
+        @media (max-width: 380px) {
+
+            .search-box {
+                width: 125px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .movie-grid {
+                gap: 10px;
+            }
+
+            .hero-content h1 {
+                font-size: 41px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="nav">
+
+        <a href="#" class="logo">
+            MOV<span>INS</span>
+
+            <span class="tagline">
+                داخل القصة
+            </span>
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="#" class="active">
+                الرئيسية
+            </a>
+
+            <a href="#movies">
+                أفلام
+            </a>
+
+            <a href="#series">
+                مسلسلات
+            </a>
+
+            <a href="#latest">
+                الأحدث
+            </a>
+
+        </nav>
+
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="ابحث عن فيلم أو مسلسل..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            ادخل إلى<br>
+            <span>القصة.</span>
+        </h1>
+
+        <p>
+            اكتشف أحدث الأفلام والمسلسلات من خلال
+            ملخصات قصيرة وواضحة تساعدك على معرفة
+            قصة العمل واختيار ما يستحق المشاهدة.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="#latest"
+                class="btn btn-primary"
+            >
+                اكتشف الأحدث
+            </a>
+
+            <a
+                href="#movies"
+                class="btn btn-secondary"
+            >
+                تصفح الأفلام
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-poster">
+
+        <div class="hero-poster-content">
+
+            <small>
+                MOVINS
+            </small>
+
+            <h2>
+                اكتشف<br>
+                قصتك القادمة
+            </h2>
+
+            <small>
+                ملخصات قصيرة • أفلام • مسلسلات
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main id="latest">
+
+    <div class="section-header">
+
+        <div>
+
+            <div class="section-title">
+                الأحدث
+            </div>
+
+            <div class="section-subtitle">
+                أحدث الأفلام والمسلسلات المضافة
+            </div>
+
+        </div>
+
+        <a href="#" class="view-all">
+            عرض الكل
+        </a>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+        <button
+            class="filter active"
+            data-filter="all"
+        >
+            الكل
+        </button>
+
+        <button
+            class="filter"
+            data-filter="movie"
+        >
+            أفلام
+        </button>
+
+        <button
+            class="filter"
+            data-filter="series"
+        >
+            مسلسلات
+        </button>
+
+        <button
+            class="filter"
+            data-filter="action"
+        >
+            أكشن
+        </button>
+
+        <button
+            class="filter"
+            data-filter="drama"
+        >
+            دراما
+        </button>
+
+        <button
+            class="filter"
+            data-filter="sci-fi"
+        >
+            خيال علمي
+        </button>
+
+    </div>
+
+
+    <!-- MOVIE GRID -->
+
+    <div
+        class="movie-grid"
+        id="movieGrid"
+    >
+
+        <!-- CARD 1 -->
+
+        <article
+            class="movie-card"
+            data-type="movie"
+            data-title="The Last Horizon"
+        >
+
+            <div class="poster poster-1">
+
+                <span class="badge">
+                    جديد
+                </span>
+
+                <div class="poster-title">
+                    THE<br>
+                    LAST<br>
+                    HORIZON
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    الأفق الأخير
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>أكشن</span>
+                </div>
+
+                <p class="summary">
+                    تبدأ رحلة غامضة عندما يكتشف مستكشف شاب
+                    سرًا خطيرًا يمكن أن يغير مستقبل البشرية
+                    بالكامل.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 2 -->
+
+        <article
+            class="movie-card"
+            data-type="movie"
+            data-title="The Silent City"
+        >
+
+            <div class="poster poster-2">
+
+                <span class="badge">
+                    جديد
+                </span>
+
+                <div class="poster-title">
+                    THE<br>
+                    SILENT<br>
+                    CITY
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    المدينة الصامتة
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>دراما</span>
+                </div>
+
+                <p class="summary">
+                    بعد اختفاء سكان مدينة بشكل غامض، يجد
+                    شخص واحد نفسه أمام سلسلة من الأسرار
+                    التي تقوده إلى حقيقة غير متوقعة.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 3 -->
+
+        <article
+            class="movie-card"
+            data-type="movie"
+            data-title="Beyond the Stars"
+        >
+
+            <div class="poster poster-3">
+
+                <div class="poster-title">
+                    BEYOND<br>
+                    THE<br>
+                    STARS
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    ما وراء النجوم
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>خيال علمي</span>
+                </div>
+
+                <p class="summary">
+                    ينطلق فريق من رواد الفضاء إلى مكان
+                    يتجاوز حدود الفضاء المعروف، ليكتشف
+                    شيئًا لم يكن من المفترض أن يجدوه.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 4 -->
+
+        <article
+            class="movie-card"
+            data-type="series"
+            data-title="The Green House"
+        >
+
+            <div class="poster poster-4">
+
+                <span class="badge">
+                    مسلسل
+                </span>
+
+                <div class="poster-title">
+                    THE<br>
+                    GREEN<br>
+                    HOUSE
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    البيت الأخضر
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>دراما</span>
+                </div>
+
+                <p class="summary">
+                    تنتقل عائلة إلى منزل قديم، لكنها تبدأ
+                    تدريجيًا في اكتشاف أن تاريخه الغامض
+                    مرتبط بماضيها بطريقة غير متوقعة.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 5 -->
+
+        <article
+            class="movie-card"
+            data-type="movie"
+            data-title="Dark Signal"
+        >
+
+            <div class="poster poster-5">
+
+                <div class="poster-title">
+                    DARK<br>
+                    SIGNAL
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    الإشارة المظلمة
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>إثارة</span>
+                </div>
+
+                <p class="summary">
+                    تظهر إشارة غريبة حول العالم، فتبدأ
+                    مجموعة صغيرة من الأشخاص رحلة للكشف
+                    عن مصدرها والسبب وراء ظهورها.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 6 -->
+
+        <article
+            class="movie-card"
+            data-type="movie"
+            data-title="The Forgotten Road"
+        >
+
+            <div class="poster poster-6">
+
+                <span class="badge">
+                    جديد
+                </span>
+
+                <div class="poster-title">
+                    THE<br>
+                    FORGOTTEN<br>
+                    ROAD
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    الطريق المنسي
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>مغامرة</span>
+                </div>
+
+                <p class="summary">
+                    تقود خريطة قديمة ثلاثة أصدقاء إلى مكان
+                    مخفي، وهناك يكتشفون حقيقة تغير كل ما
+                    كانوا يعرفونه عن الماضي.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 7 -->
+
+        <article
+            class="movie-card"
+            data-type="series"
+            data-title="After Midnight"
+        >
+
+            <div class="poster poster-7">
+
+                <span class="badge">
+                    مسلسل
+                </span>
+
+                <div class="poster-title">
+                    AFTER<br>
+                    MIDNIGHT
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    بعد منتصف الليل
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>دراما</span>
+                </div>
+
+                <p class="summary">
+                    في كل ليلة عند منتصف الليل يحدث أمر
+                    غامض في بلدة صغيرة، فيقرر صحفي التحقيق
+                    في السر الذي يحيط بها.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 8 -->
+
+        <article
+            class="movie-card"
+            data-type="movie"
+            data-title="Into the Unknown"
+        >
+
+            <div class="poster poster-8">
+
+                <div class="poster-title">
+                    INTO<br>
+                    THE<br>
+                    UNKNOWN
+                </div>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3>
+                    نحو المجهول
+                </h3>
+
+                <div class="meta">
+                    <span>2026</span>
+
+                    <span class="dot"></span>
+
+                    <span>خيال علمي</span>
+                </div>
+
+                <p class="summary">
+                    يتلقى عالم رسالة من مصدر مستحيل، فيقرر
+                    المخاطرة بكل شيء لمعرفة مصدرها والمعنى
+                    الحقيقي وراءها.
+                </p>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <div
+        class="no-results"
+        id="noResults"
+    >
+        لم يتم العثور على نتائج.
+    </div>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        MOV<span>INS</span>
+    </div>
+
+    <p>
+        داخل القصة.
+    </p>
+
+    <p style="margin-top: 10px;">
+        © 2026 MOVINS — جميع الحقوق محفوظة
+    </p>
+
+</footer>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
+    const cards =
+        document.querySelectorAll(
+            ".movie-card"
+        );
+
+    const filters =
+        document.querySelectorAll(
+            ".filter"
+        );
+
+    const noResults =
+        document.getElementById(
+            "noResults"
+        );
+
+
+    let currentFilter = "all";
+
+
+    function updateCards() {
+
+        const search =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+        let visible = 0;
+
+
+        cards.forEach(card => {
+
+            const title =
+                card.dataset.title
+                    .toLowerCase();
+
+            const type =
+                card.dataset.type;
+
+
+            const matchesSearch =
+                title.includes(search);
+
+
+            let matchesFilter = true;
+
+
+            if (currentFilter === "movie") {
+
+                matchesFilter =
+                    type === "movie";
+
+            }
+
+
+            if (currentFilter === "series") {
+
+                matchesFilter =
+                    type === "series";
+
+            }
+
+
+            const show =
+                matchesSearch &&
+                matchesFilter;
+
+
+            card.style.display =
+                show ? "" : "none";
+
+
+            if (show) {
+                visible++;
+            }
+
+        });
+
+
+        noResults.style.display =
+            visible === 0
+                ? "block"
+                : "none";
+
+    }
+
+
+    searchInput.addEventListener(
+        "input",
+        updateCards
+    );
+
+
+    filters.forEach(filter => {
+
+        filter.addEventListener(
+            "click",
+            () => {
+
+                filters.forEach(f => {
+
+                    f.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+                filter.classList.add(
+                    "active"
+                );
+
+
+                currentFilter =
+                    filter.dataset.filter;
+
+
+                updateCards();
+
+            }
+        );
+
+    });
+
+</script>
+
+</body>
+</html>
