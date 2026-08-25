@@ -44,7 +44,6 @@ SITE_URL = "https://nownex.github.io/movins/"
 
 MAX_POSTS_PER_RUN = 1
 
-# أقصى طول للملخص داخل منشور فيسبوك
 MAX_OVERVIEW_LENGTH = 420
 
 
@@ -55,6 +54,7 @@ MAX_OVERVIEW_LENGTH = 420
 def load_movies():
 
     if not os.path.exists(MOVIES_FILE):
+
         raise RuntimeError(
             "movies.json not found"
         )
@@ -149,7 +149,10 @@ def load_posted():
                 ).strip()
 
                 if value:
-                    result.add(value)
+
+                    result.add(
+                        value
+                    )
 
         return result
 
@@ -234,6 +237,7 @@ def get_movie_key(item):
     )
 
     if not movie_id:
+
         return ""
 
     media_type = get_media_type(
@@ -248,15 +252,9 @@ def get_movie_key(item):
 # =========================================================
 # DIRECT MOVIE URL
 #
-# IMPORTANT:
-#
-# Facebook receives the exact movie URL.
-#
 # Example:
 #
-# https://nownex.github.io/movins/?movie=tv-123
-#
-# https://nownex.github.io/movins/?movie=movie-456
+# https://nownex.github.io/movins/?movie=tv-94997
 #
 # =========================================================
 
@@ -267,6 +265,7 @@ def get_movie_url(item):
     )
 
     if not movie_id:
+
         return SITE_URL
 
     media_type = get_media_type(
@@ -289,11 +288,13 @@ def get_movie_url(item):
 def clean_text(value):
 
     if value is None:
+
         return ""
 
-    text = str(value)
+    text = str(
+        value
+    )
 
-    # إزالة المسافات الزائدة
     text = " ".join(
         text.split()
     )
@@ -317,8 +318,8 @@ def build_short_overview(item):
     if not overview:
 
         return (
-            "اكتشف قصة هذا العمل "
-            "وتفاصيله على MOVINS."
+            "اكتشف القصة والتفاصيل "
+            "على MOVINS."
         )
 
     if len(overview) <= MAX_OVERVIEW_LENGTH:
@@ -329,7 +330,6 @@ def build_short_overview(item):
         :MAX_OVERVIEW_LENGTH
     ]
 
-    # لا نقطع الكلمة الأخيرة
     if " " in shortened:
 
         shortened = shortened.rsplit(
@@ -337,11 +337,14 @@ def build_short_overview(item):
             1
         )[0]
 
-    return shortened + "..."
+    return (
+        shortened
+        + "..."
+    )
 
 
 # =========================================================
-# GENRES
+# GET GENRES LIST
 # =========================================================
 
 def get_genres_list(item):
@@ -377,13 +380,14 @@ def get_genres_list(item):
     )
 
     if value:
+
         return [value]
 
     return []
 
 
 # =========================================================
-# GENRES FOR DISPLAY
+# GENRES
 # =========================================================
 
 def build_genres(item):
@@ -393,10 +397,11 @@ def build_genres(item):
     )
 
     if not genres:
+
         return ""
 
     return " • ".join(
-        genres[:3]
+        genres[:5]
     )
 
 
@@ -438,31 +443,38 @@ def build_hashtags(item):
         hashtags
     )
 
-    # إذا كانت البيانات تحتوي على هاشتاغات
     if hashtags:
 
-        # لا نريد عددًا ضخمًا من الهاشتاغات
         parts = hashtags.split()
 
-        cleaned_parts = []
+        result = []
 
         for part in parts:
 
-            if part.startswith("#"):
+            part = part.strip()
 
-                cleaned_parts.append(
-                    part
-                )
+            if not part:
 
-        if cleaned_parts:
+                continue
 
-            return " ".join(
-                cleaned_parts[:5]
+            if not part.startswith("#"):
+
+                part = "#" + part
+
+            result.append(
+                part
             )
 
-    # هاشتاغات افتراضية نظيفة
+        if result:
+
+            return " ".join(
+                result[:6]
+            )
+
     return (
-        "#MOVINS #أفلام #مسلسلات"
+        "#MOVINS "
+        "#أفلام "
+        "#مسلسلات"
     )
 
 
@@ -477,13 +489,17 @@ def get_rating(item):
         rating = float(
             item.get(
                 "rating"
-            ) or 0
+            )
+            or 0
         )
 
         if rating <= 0:
+
             return "—"
 
-        return f"{rating:.1f}/10"
+        return (
+            f"{rating:.1f}/10"
+        )
 
     except (
         TypeError,
@@ -494,17 +510,76 @@ def get_rating(item):
 
 
 # =========================================================
+# ENGAGING ENDINGS
+#
+# The ending changes automatically
+# between different movies.
+# =========================================================
+
+ENDINGS = [
+
+    "👇 اكتشف بقية القصة والتفاصيل والتريلر على MOVINS:",
+
+    "👇 هل تريد معرفة ما ينتظرك؟ اكتشف القصة كاملة والتريلر على MOVINS:",
+
+    "👇 لمعرفة القصة كاملة والتفاصيل والتريلر، تابعها على MOVINS:",
+
+    "👇 التفاصيل الكاملة والتريلر في MOVINS — اكتشف القصة قبل المشاهدة:",
+
+    "👇 إذا أثارت القصة فضولك، اكتشف التفاصيل والتريلر على MOVINS:",
+
+    "👇 أكمل اكتشاف القصة وشاهد التريلر والتفاصيل على MOVINS:"
+
+]
+
+
+# =========================================================
+# GET ROTATING ENDING
+# =========================================================
+
+def get_ending(item):
+
+    movie_id = get_movie_id(
+        item
+    )
+
+    try:
+
+        number = int(
+            movie_id
+        )
+
+        index = (
+            number
+            % len(ENDINGS)
+        )
+
+    except (
+        ValueError,
+        TypeError
+    ):
+
+        # استخدام طول العنوان
+        # حتى لا تكون النهاية دائمًا الأولى
+        title = clean_text(
+            item.get(
+                "title",
+                ""
+            )
+        )
+
+        index = (
+            len(title)
+            % len(ENDINGS)
+        )
+
+    return ENDINGS[
+        index
+    ]
+
+
+# =========================================================
 # FACEBOOK CAPTION
-#
-# الهدف:
-#
-# 1. عنوان واضح
-# 2. Hook قصير
-# 3. ملخص مشوق
-# 4. التقييم
-# 5. النوع
-# 6. دعوة للنقر
-# 7. الرابط المباشر للبطاقة
 # =========================================================
 
 def build_caption(item):
@@ -541,7 +616,7 @@ def build_caption(item):
         item
     )
 
-    rating = get_rating(
+    rating_text = get_rating(
         item
     )
 
@@ -553,28 +628,24 @@ def build_caption(item):
         item
     )
 
-
-    # -----------------------------------------------------
-    # اختيار نوع افتتاحية مناسبة
-    # -----------------------------------------------------
-
-    if detailed_type:
-
-        hook = (
-            f"هل يستحق {title} المشاهدة؟ "
-            "اكتشف القصة والتفاصيل قبل أن تبدأ."
-        )
-
-    else:
-
-        hook = (
-            "اكتشف القصة والتفاصيل قبل المشاهدة."
-        )
+    ending = get_ending(
+        item
+    )
 
 
-    # -----------------------------------------------------
-    # المنشور النهائي
-    # -----------------------------------------------------
+    # =====================================================
+    # KEEP THE PREVIOUS FORMAT
+    #
+    # Title
+    # Overview
+    # Rating
+    # Type
+    # Genres
+    # Year
+    # Call to action
+    # Direct movie URL
+    # Hashtags
+    # =====================================================
 
     lines = [
 
@@ -582,35 +653,21 @@ def build_caption(item):
 
         "",
 
-        hook,
-
-        "",
-
         overview,
 
         "",
 
-        f"⭐ التقييم: {rating}",
+        f"⭐ التقييم: {rating_text}",
 
-        f"🎭 {detailed_type}",
+        f"🎭 النوع: {detailed_type}",
 
-        (
-            f"🎞️ {genres}"
-            if genres
-            else ""
-        ),
+        f"🎞️ التصنيف: {genres or 'غير محدد'}",
 
-        (
-            f"📅 {year}"
-            if year and year != "—"
-            else ""
-        ),
+        f"📅 السنة: {year}",
 
         "",
 
-        "👀 تريد معرفة المزيد؟",
-
-        "اكتشف القصة الكاملة والتفاصيل والتريلر على MOVINS 👇",
+        ending,
 
         "",
 
@@ -623,31 +680,8 @@ def build_caption(item):
     ]
 
 
-    # إزالة الأسطر الفارغة المتكررة
-    final_lines = []
-
-    previous_empty = False
-
-    for line in lines:
-
-        if line == "":
-
-            if previous_empty:
-                continue
-
-            previous_empty = True
-
-        else:
-
-            previous_empty = False
-
-        final_lines.append(
-            line
-        )
-
-
     return "\n".join(
-        final_lines
+        lines
     )
 
 
@@ -676,7 +710,6 @@ def publish_to_facebook(item):
     caption = build_caption(
         item
     )
-
 
     movie_url = get_movie_url(
         item
@@ -717,7 +750,7 @@ def publish_to_facebook(item):
     )
 
     print(
-        f"Direct movie URL: {movie_url}"
+        f"Direct Movie URL: {movie_url}"
     )
 
     print(
@@ -830,9 +863,9 @@ def main():
     )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # NEWEST FIRST
-    # -----------------------------------------------------
+    # =====================================================
 
     movies.sort(
 
@@ -847,9 +880,9 @@ def main():
     )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # FIND NEW ITEMS
-    # -----------------------------------------------------
+    # =====================================================
 
     new_items = []
 
@@ -877,9 +910,9 @@ def main():
     )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # NOTHING NEW
-    # -----------------------------------------------------
+    # =====================================================
 
     if not new_items:
 
@@ -890,9 +923,9 @@ def main():
         return
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # PUBLISH
-    # -----------------------------------------------------
+    # =====================================================
 
     published_count = 0
 
@@ -929,9 +962,9 @@ def main():
             published_count += 1
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # RESULT
-    # -----------------------------------------------------
+    # =====================================================
 
     print(
         f"Published this run: "
