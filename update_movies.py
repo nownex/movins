@@ -123,18 +123,18 @@ KEEP_ORIGINAL_TITLE_LANGUAGES = {
 # اللغات التي نفضل لها Poster إنجليزي
 # حتى لا يظهر Poster بعنوان غير مفهوم.
 FOREIGN_TITLE_LANGUAGES = {
-    "ja",   # Japanese
-    "ko",   # Korean
-    "zh",   # Chinese
-    "hi",   # Hindi
-    "th",   # Thai
-    "ru",   # Russian
-    "uk",   # Ukrainian
-    "fa",   # Persian
-    "tr",   # Turkish
-    "he",   # Hebrew
-    "id",   # Indonesian
-    "vi",   # Vietnamese
+    "ja",
+    "ko",
+    "zh",
+    "hi",
+    "th",
+    "ru",
+    "uk",
+    "fa",
+    "tr",
+    "he",
+    "id",
+    "vi",
 }
 
 
@@ -181,11 +181,7 @@ def get_trending(
     )
 
     params = {
-        # Arabic overview
-        # and Arabic metadata where available.
         "language": "ar-SA",
-
-        # Keep original language information.
         "include_adult": "false",
     }
 
@@ -312,10 +308,6 @@ def get_best_poster(
         return fallback
 
 
-    # -----------------------------------------------------
-    # Helper
-    # -----------------------------------------------------
-
     def find_language(
         language
     ):
@@ -364,7 +356,6 @@ def get_best_poster(
         not in KEEP_ORIGINAL_TITLE_LANGUAGES
     ):
 
-        # English first
         english_poster = find_language(
             "en"
         )
@@ -374,7 +365,6 @@ def get_best_poster(
             return english_poster
 
 
-        # French second
         french_poster = find_language(
             "fr"
         )
@@ -384,7 +374,6 @@ def get_best_poster(
             return french_poster
 
 
-        # Arabic third
         arabic_poster = find_language(
             "ar"
         )
@@ -447,6 +436,204 @@ def get_best_poster(
     # -----------------------------------------------------
 
     return fallback
+
+
+# =========================================================
+# GET TRAILER
+# =========================================================
+
+def get_trailer(
+    media_type,
+    item_id
+):
+    """
+    Get the best available YouTube trailer.
+
+    Priority:
+    1. Official Trailer
+    2. Any Trailer
+    3. Official Teaser
+
+    If no trailer exists:
+        return empty values.
+    """
+
+    if not item_id:
+
+        return {
+            "trailer_key": "",
+            "trailer_url": ""
+        }
+
+
+    if media_type == "movie":
+
+        endpoint = (
+            f"/movie/"
+            f"{item_id}/videos"
+        )
+
+    else:
+
+        endpoint = (
+            f"/tv/"
+            f"{item_id}/videos"
+        )
+
+
+    try:
+
+        data = tmdb_get(
+            endpoint,
+            {
+                "language": "en-US",
+                "include_video_language":
+                    "en,null"
+            }
+        )
+
+
+        videos = data.get(
+            "results",
+            []
+        )
+
+
+        # -------------------------------------------------
+        # YouTube only
+        # -------------------------------------------------
+
+        youtube_videos = [
+            video
+            for video in videos
+            if video.get(
+                "site"
+            ) == "YouTube"
+            and video.get(
+                "key"
+            )
+        ]
+
+
+        if not youtube_videos:
+
+            return {
+                "trailer_key": "",
+                "trailer_url": ""
+            }
+
+
+        # -------------------------------------------------
+        # 1. Official Trailer
+        # -------------------------------------------------
+
+        official_trailers = [
+            video
+            for video in youtube_videos
+            if video.get(
+                "type"
+            ) == "Trailer"
+            and video.get(
+                "official"
+            ) is True
+        ]
+
+
+        if official_trailers:
+
+            selected = (
+                official_trailers[0]
+            )
+
+        else:
+
+            # -------------------------------------------------
+            # 2. Any Trailer
+            # -------------------------------------------------
+
+            trailers = [
+                video
+                for video in youtube_videos
+                if video.get(
+                    "type"
+                ) == "Trailer"
+            ]
+
+
+            if trailers:
+
+                selected = trailers[0]
+
+            else:
+
+                # -------------------------------------------------
+                # 3. Official Teaser
+                # -------------------------------------------------
+
+                teasers = [
+                    video
+                    for video in youtube_videos
+                    if video.get(
+                        "type"
+                    ) == "Teaser"
+                    and video.get(
+                        "official"
+                    ) is True
+                ]
+
+
+                if not teasers:
+
+                    return {
+                        "trailer_key": "",
+                        "trailer_url": ""
+                    }
+
+
+                selected = teasers[0]
+
+
+        trailer_key = selected.get(
+            "key",
+            ""
+        )
+
+
+        if not trailer_key:
+
+            return {
+                "trailer_key": "",
+                "trailer_url": ""
+            }
+
+
+        trailer_url = (
+            "https://www.youtube.com/watch?v="
+            + trailer_key
+        )
+
+
+        return {
+
+            "trailer_key":
+                trailer_key,
+
+            "trailer_url":
+                trailer_url
+        }
+
+
+    except Exception as error:
+
+        print(
+            "Trailer API warning:",
+            error
+        )
+
+        return {
+            "trailer_key": "",
+            "trailer_url": ""
+        }
 
 
 # =========================================================
@@ -588,10 +775,6 @@ def generate_hashtags(
         )
 
 
-    # -----------------------------------------------------
-    # Genre hashtags
-    # -----------------------------------------------------
-
     hashtag_map = {
 
         "أكشن":
@@ -662,6 +845,7 @@ def generate_hashtags(
             genre
         )
 
+
         if tag and tag not in tags:
 
             tags.append(
@@ -673,9 +857,6 @@ def generate_hashtags(
     # Title hashtag
     # -----------------------------------------------------
 
-    # Do NOT create Arabic translation
-    # of the title.
-
     clean_title = str(
         title or ""
     ).strip()
@@ -683,8 +864,6 @@ def generate_hashtags(
 
     if clean_title:
 
-        # Only simple Latin titles
-        # are suitable as hashtags.
         safe_title = (
             clean_title
             .replace(
@@ -735,8 +914,8 @@ def clean_item(
             or item.get(
                 "title"
             )
-
         )
+
 
         date = (
             item.get(
@@ -754,6 +933,7 @@ def clean_item(
                 "name"
             )
         )
+
 
         date = (
             item.get(
@@ -862,6 +1042,16 @@ def clean_item(
 
 
     # -----------------------------------------------------
+    # TRAILER
+    # -----------------------------------------------------
+
+    trailer = get_trailer(
+        media_type,
+        item.get("id")
+    )
+
+
+    # -----------------------------------------------------
     # HASHTAGS
     # -----------------------------------------------------
 
@@ -891,8 +1081,6 @@ def clean_item(
         "detailed_type":
             detailed_type,
 
-        # Original title.
-        # Arabic / English / French stay original.
         "title":
             title
             or "بدون عنوان",
@@ -907,21 +1095,33 @@ def clean_item(
         "year":
             year,
 
-        # Arabic overview
         "overview":
             overview,
 
         "rating":
             rating,
 
-        # Arabic genre names
         "genres":
             genres,
 
-        # Best non-Arabic poster
-        # according to language rules
         "poster":
             poster,
+
+        # -------------------------------------------------
+        # NEW — TRAILER
+        # -------------------------------------------------
+
+        "trailer_key":
+            trailer.get(
+                "trailer_key",
+                ""
+            ),
+
+        "trailer_url":
+            trailer.get(
+                "trailer_url",
+                ""
+            ),
 
         "hashtags":
             hashtags,
@@ -1079,6 +1279,7 @@ def main():
 
     unique = {}
 
+
     for item in results:
 
         key = (
@@ -1159,7 +1360,9 @@ def main():
             f"{item.get('detailed_type')}: "
             f"{item.get('title')} | "
             f"{item.get('original_language')} | "
-            f"{item.get('rating')}"
+            f"{item.get('rating')} | "
+            f"Trailer: "
+            f"{'YES' if item.get('trailer_url') else 'NO'}"
         )
 
 
