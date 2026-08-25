@@ -133,6 +133,8 @@
 
             z-index: 1000;
 
+            width: 100%;
+
             background:
                 rgba(7, 8, 13, 0.94);
 
@@ -146,12 +148,14 @@
                 blur(20px);
         }
 
+
         .header-inner {
 
-            width: min(
-                1400px,
-                calc(100% - 40px)
-            );
+            width:
+                min(
+                    1400px,
+                    calc(100% - 40px)
+                );
 
             min-height: 88px;
 
@@ -206,6 +210,10 @@
             margin-top: 7px;
 
             color: #898d98;
+
+            font-family:
+                "Cairo",
+                sans-serif;
 
             font-size: 10px;
 
@@ -304,10 +312,11 @@
 
             position: relative;
 
-            width: min(
-                1400px,
-                calc(100% - 40px)
-            );
+            width:
+                min(
+                    1400px,
+                    calc(100% - 40px)
+                );
 
             min-height: 420px;
 
@@ -429,6 +438,11 @@
             gap: 12px;
         }
 
+
+        /* =====================================================
+           BUTTONS
+        ====================================================== */
+
         .btn {
 
             padding:
@@ -477,58 +491,52 @@
 
         .btn-secondary:hover {
 
-            border-color: #ff1018;
+            border-color:
+                #ff1018;
         }
 
 
         /* =====================================================
-           HERO BANNER
-           الصورة الموجودة في GitHub:
-           movins-banner.png
+           HERO BANNER CARD
         ====================================================== */
 
         .hero-card {
 
             position: relative;
 
-            width: min(
-                100%,
-                440px
-            );
+            width:
+                min(
+                    100%,
+                    420px
+                );
 
-            /*
-             * IMPORTANT:
-             * مربع حقيقي
-             */
-            aspect-ratio: 1 / 1;
+            aspect-ratio:
+                1 / 1;
 
             height: auto;
 
             margin: auto;
 
-            border-radius: 30px;
+            border-radius: 28px;
 
             overflow: hidden;
 
             background:
-                #08090d;
+                #090a0f;
 
             border:
                 1px solid
                 rgba(255,16,24,0.65);
 
             box-shadow:
-                0 30px 90px
-                rgba(0,0,0,0.60),
+                0 30px 80px
+                rgba(0,0,0,0.55);
 
-                0 0 50px
-                rgba(255,16,24,0.10);
+            isolation: isolate;
         }
 
 
-        /* =====================================================
-           BANNER IMAGE
-        ====================================================== */
+        /* الصورة الفعلية */
 
         .hero-banner {
 
@@ -542,16 +550,16 @@
 
             display: block;
 
-            /*
-             * تجعل الصورة تملأ المربع
-             */
             object-fit: cover;
 
             object-position: center;
 
+            z-index: 0;
+
             transition:
                 transform .5s ease;
         }
+
 
         .hero-card:hover .hero-banner {
 
@@ -560,9 +568,7 @@
         }
 
 
-        /* =====================================================
-           DARK OVERLAY
-        ====================================================== */
+        /* طبقة التدرج فوق الصورة */
 
         .hero-card::after {
 
@@ -572,22 +578,22 @@
 
             inset: 0;
 
+            z-index: 1;
+
             pointer-events: none;
 
             background:
                 linear-gradient(
-                    to bottom,
-                    rgba(0,0,0,0.03) 25%,
-                    rgba(0,0,0,0.10) 45%,
-                    rgba(0,0,0,0.70) 78%,
-                    rgba(0,0,0,0.97) 100%
+                    to top,
+                    rgba(5,6,10,0.97) 0%,
+                    rgba(5,6,10,0.62) 24%,
+                    rgba(5,6,10,0.04) 62%,
+                    rgba(5,6,10,0.12) 100%
                 );
         }
 
 
-        /* =====================================================
-           TEXT ON BANNER
-        ====================================================== */
+        /* الكتابة الموجودة في الموقع */
 
         .hero-card-content {
 
@@ -595,7 +601,7 @@
 
             inset: 0;
 
-            z-index: 5;
+            z-index: 2;
 
             display: flex;
 
@@ -608,69 +614,53 @@
             text-align: center;
 
             padding:
-                30px 25px 28px;
+                28px 25px 25px;
         }
+
 
         .hero-card-small {
 
-            color:
-                #ff1018;
+            color: #a7aab4;
 
-            font-size:
-                12px;
+            font-size: 11px;
 
-            font-weight:
-                800;
+            margin-bottom: 5px;
 
-            letter-spacing:
-                4px;
-
-            margin-bottom:
-                6px;
-
-            text-shadow:
-                0 2px 10px
-                rgba(0,0,0,.7);
+            letter-spacing: 1px;
         }
+
 
         .hero-card h2 {
 
-            color:
-                #ffffff;
+            font-size: 28px;
 
-            font-size:
-                clamp(25px, 3vw, 35px);
+            line-height: 1.45;
 
-            line-height:
-                1.45;
+            margin-bottom: 7px;
 
-            margin-bottom:
-                8px;
+            font-weight: 900;
 
-            font-weight:
-                900;
+            color: white;
 
             text-shadow:
-                0 3px 18px
-                rgba(0,0,0,.9);
+                0 3px 20px
+                rgba(0,0,0,0.7);
         }
+
 
         .hero-card p {
 
-            color:
-                #c8cbd3;
+            color: #b9bbc3;
 
-            font-size:
-                13px;
-
-            line-height:
-                1.7;
+            font-size: 13px;
 
             margin: 0;
 
+            line-height: 1.7;
+
             text-shadow:
                 0 2px 10px
-                rgba(0,0,0,.9);
+                rgba(0,0,0,0.8);
         }
 
 
@@ -680,16 +670,18 @@
 
         main {
 
-            width: min(
-                1400px,
-                calc(100% - 40px)
-            );
+            width:
+                min(
+                    1400px,
+                    calc(100% - 40px)
+                );
 
             margin: auto;
 
             padding:
                 10px 30px 90px;
         }
+
 
         .section-header {
 
@@ -705,6 +697,7 @@
                 20px 0 24px;
         }
 
+
         .section-title {
 
             font-size:
@@ -715,9 +708,11 @@
             letter-spacing: -0.5px;
         }
 
+
         .section-title span {
             color: #ff1018;
         }
+
 
         .result-count {
 
@@ -749,6 +744,7 @@
                 0 auto 32px;
         }
 
+
         .filter-btn {
 
             background:
@@ -777,6 +773,7 @@
                 0.22s ease;
         }
 
+
         .filter-btn:hover {
 
             color: white;
@@ -787,6 +784,7 @@
             transform:
                 translateY(-1px);
         }
+
 
         .filter-btn.active {
 
@@ -805,7 +803,7 @@
 
 
         /* =====================================================
-           GRID
+           MOVIE GRID
         ====================================================== */
 
         .movie-grid {
@@ -848,6 +846,7 @@
                 box-shadow .28s ease;
         }
 
+
         .movie-card:hover {
 
             transform:
@@ -885,6 +884,7 @@
                 );
         }
 
+
         .poster {
 
             width: 100%;
@@ -899,11 +899,13 @@
                 transform .45s ease;
         }
 
+
         .movie-card:hover .poster {
 
             transform:
                 scale(1.045);
         }
+
 
         .poster-overlay {
 
@@ -947,6 +949,10 @@
             font-size: 11px;
 
             font-weight: 800;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0,0,0,.25);
         }
 
 
@@ -985,6 +991,7 @@
             font-size: 12px;
         }
 
+
         .rating span {
 
             color:
@@ -1004,6 +1011,7 @@
                 17px;
         }
 
+
         .movie-type {
 
             color:
@@ -1015,6 +1023,7 @@
 
             margin-bottom: 6px;
         }
+
 
         .movie-title {
 
@@ -1031,6 +1040,7 @@
             min-height: 28px;
         }
 
+
         .movie-meta {
 
             color:
@@ -1040,6 +1050,7 @@
 
             margin-bottom: 9px;
         }
+
 
         .movie-overview {
 
@@ -1082,6 +1093,7 @@
                 #7e8490;
         }
 
+
         .state-icon {
 
             font-size:
@@ -1091,6 +1103,7 @@
                 12px;
         }
 
+
         .state h3 {
 
             color: white;
@@ -1099,6 +1112,7 @@
 
             margin-bottom: 7px;
         }
+
 
         .error {
             color: #ff6268;
@@ -1135,9 +1149,11 @@
                 blur(12px);
         }
 
+
         .modal.show {
             display: flex;
         }
+
 
         .modal-box {
 
@@ -1172,6 +1188,7 @@
                 modalIn .25s ease;
         }
 
+
         @keyframes modalIn {
 
             from {
@@ -1192,6 +1209,7 @@
                     scale(1);
             }
         }
+
 
         .modal-close {
 
@@ -1219,6 +1237,7 @@
             cursor: pointer;
         }
 
+
         .modal-content {
 
             display: grid;
@@ -1231,6 +1250,7 @@
 
             padding: 30px;
         }
+
 
         .modal-poster {
 
@@ -1246,6 +1266,7 @@
             background: #08090d;
         }
 
+
         .modal-details {
 
             display: flex;
@@ -1256,6 +1277,7 @@
 
             padding-top: 10px;
         }
+
 
         .modal-type {
 
@@ -1269,6 +1291,7 @@
             margin-bottom: 8px;
         }
 
+
         .modal-title {
 
             font-size:
@@ -1281,6 +1304,7 @@
             margin-bottom: 12px;
         }
 
+
         .modal-meta {
 
             display: flex;
@@ -1291,6 +1315,7 @@
 
             margin-bottom: 22px;
         }
+
 
         .meta-pill {
 
@@ -1317,11 +1342,13 @@
             font-weight: 700;
         }
 
+
         .meta-pill.rating-pill {
 
             color:
                 #ffd54a;
         }
+
 
         .modal-overview-title {
 
@@ -1334,6 +1361,7 @@
 
             margin-bottom: 8px;
         }
+
 
         .modal-overview {
 
@@ -1350,6 +1378,7 @@
                 22px;
         }
 
+
         .modal-genres {
 
             display: flex;
@@ -1360,6 +1389,7 @@
 
             margin-bottom: 18px;
         }
+
 
         .genre-tag {
 
@@ -1379,6 +1409,7 @@
 
             font-size: 11px;
         }
+
 
         .hashtags {
 
@@ -1412,6 +1443,7 @@
             font-size: 13px;
         }
 
+
         footer strong {
 
             color: white;
@@ -1422,6 +1454,7 @@
 
             font-size: 22px;
         }
+
 
         footer .red {
             color: #ff1018;
@@ -1443,16 +1476,11 @@
                     );
             }
 
+
             .hero {
 
                 grid-template-columns:
                     1fr .8fr;
-            }
-
-            .hero-card {
-
-                width:
-                    min(100%, 390px);
             }
         }
 
@@ -1463,31 +1491,73 @@
 
         @media (max-width: 750px) {
 
-            header {
-                position: sticky;
+            html,
+            body {
+
+                width: 100%;
+
+                max-width: 100%;
+
+                overflow-x: hidden;
             }
+
+
+            body {
+                margin: 0;
+            }
+
+
+            /* HEADER */
+
+            header {
+
+                width: 100%;
+
+                position: sticky;
+
+                top: 0;
+            }
+
 
             .header-inner {
 
-                width:
-                    calc(100% - 24px);
+                width: 100% !important;
 
-                flex-direction:
-                    column;
+                max-width: 100% !important;
 
-                gap: 13px;
+                min-height: auto;
+
+                margin: 0 !important;
 
                 padding:
-                    14px 0 16px;
+                    14px 12px 16px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
+
+                justify-content: center;
+
+                gap: 13px;
             }
 
+
             .logo {
+
+                display: block;
+
+                width: 100%;
+
+                text-align: center;
 
                 font-size: 32px;
 
                 letter-spacing:
                     -2px;
             }
+
 
             .logo-sub {
 
@@ -1496,19 +1566,30 @@
                 margin-top: 5px;
             }
 
+
             .top-search {
 
-                width: 100%;
+                width: 100% !important;
 
-                max-width: none;
+                max-width: none !important;
+
+                margin: 0;
             }
+
 
             .search-box {
 
+                width: 100%;
+
                 min-height: 52px;
+
+                margin: 0;
             }
 
+
             #searchInput {
+
+                width: 100%;
 
                 height: 50px;
 
@@ -1516,71 +1597,130 @@
             }
 
 
-            /* =================================================
-               MOBILE HERO
-            ================================================= */
+            /* HERO */
 
             .hero {
 
-                width:
-                    calc(100% - 24px);
+                width: 100% !important;
+
+                max-width: 100% !important;
+
+                margin: 0 !important;
+
+                padding:
+                    45px 18px 35px;
 
                 display: flex;
 
-                flex-direction:
-                    column;
+                flex-direction: column;
 
-                text-align:
-                    center;
+                align-items: center;
+
+                justify-content: flex-start;
 
                 gap: 30px;
 
-                padding:
-                    45px 5px 35px;
+                text-align: center;
+
+                overflow: hidden;
             }
+
+
+            .hero::before {
+
+                width: 300px;
+
+                height: 300px;
+
+                right: 50%;
+
+                transform:
+                    translateX(50%);
+
+                top: -50px;
+
+                filter: blur(100px);
+            }
+
 
             .hero-text {
 
-                width: 100%;
+                width: 100% !important;
+
+                max-width: 100% !important;
+
+                margin: 0 auto;
+
+                text-align: center;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
             }
+
 
             .hero-kicker {
 
-                justify-content:
-                    center;
+                justify-content: center;
+
+                text-align: center;
 
                 font-size: 11px;
+
+                margin-bottom: 14px;
             }
+
 
             .hero h1 {
 
+                width: 100%;
+
                 font-size: 42px;
 
-                letter-spacing:
-                    -1px;
+                line-height: 1.2;
+
+                text-align: center;
+
+                margin-bottom: 20px;
             }
 
+
             .hero p {
+
+                width: 100%;
+
+                max-width: 600px;
+
+                margin:
+                    0 auto 23px;
 
                 font-size: 14px;
 
                 line-height: 2;
 
-                margin:
-                    0 auto 22px;
+                text-align: center;
             }
+
 
             .hero-buttons {
 
-                justify-content:
-                    center;
+                width: 100%;
+
+                display: flex;
+
+                justify-content: center;
+
+                align-items: center;
+
+                flex-wrap: wrap;
+
+                gap: 12px;
             }
 
 
-            /* =================================================
-               MOBILE BANNER
-               مربع 100%
-            ================================================= */
+            /* HERO BANNER */
 
             .hero-card {
 
@@ -1588,193 +1728,275 @@
                     min(
                         100%,
                         380px
-                    );
+                    ) !important;
+
+                max-width: 380px !important;
+
+                height: auto !important;
 
                 aspect-ratio:
                     1 / 1;
 
-                height:
-                    auto;
+                flex:
+                    0 0 auto;
 
-                border-radius:
-                    28px;
+                margin:
+                    0 auto !important;
+
+                align-self: center;
+
+                border-radius: 28px;
+
+                overflow: hidden;
             }
+
+
+            .hero-banner {
+
+                width: 100%;
+
+                height: 100%;
+
+                object-fit: cover;
+
+                object-position: center;
+            }
+
 
             .hero-card-content {
 
+                width: 100%;
+
+                height: 100%;
+
                 padding:
                     25px 18px 24px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: flex-end;
+
+                text-align: center;
             }
+
 
             .hero-card-small {
 
-                font-size:
-                    10px;
+                font-size: 10px;
 
-                letter-spacing:
-                    3px;
+                letter-spacing: 2px;
+
+                margin-bottom: 5px;
             }
+
 
             .hero-card h2 {
 
-                font-size:
-                    26px;
+                font-size: 25px;
 
-                line-height:
-                    1.5;
+                line-height: 1.5;
+
+                margin-bottom: 7px;
+
+                text-align: center;
             }
+
 
             .hero-card p {
 
-                font-size:
-                    12px;
+                width: 100%;
+
+                font-size: 12px;
+
+                text-align: center;
+
+                margin: 0;
             }
 
 
-            /* =================================================
-               MAIN
-            ================================================= */
+            /* MAIN */
 
             main {
 
-                width:
-                    calc(100% - 24px);
+                width: 100% !important;
+
+                max-width: 100% !important;
+
+                margin: 0 !important;
 
                 padding:
-                    5px 0 70px;
+                    5px 12px 70px;
             }
+
+
+            /* SECTION */
 
             .section-header {
 
-                flex-direction:
-                    column;
+                width: 100%;
 
-                align-items:
-                    center;
+                display: flex;
 
-                text-align:
-                    center;
+                flex-direction: column;
+
+                align-items: center;
+
+                justify-content: center;
+
+                text-align: center;
 
                 gap: 5px;
 
-                margin-bottom:
-                    18px;
+                margin:
+                    20px 0 18px;
             }
 
+
             .section-title {
+
+                width: 100%;
+
+                text-align: center;
 
                 font-size: 28px;
             }
 
 
-            /* =================================================
-               FILTERS
-            ================================================= */
+            .result-count {
+
+                text-align: center;
+            }
+
+
+            /* FILTERS */
 
             .filters {
 
                 width: 100%;
 
-                flex-wrap:
-                    nowrap;
+                max-width: 100%;
 
-                justify-content:
-                    flex-start;
+                display: flex;
 
-                overflow-x:
-                    auto;
+                flex-wrap: nowrap;
+
+                justify-content: flex-start;
+
+                align-items: center;
+
+                gap: 8px;
+
+                overflow-x: auto;
 
                 padding:
                     4px 2px 12px;
 
-                scrollbar-width:
-                    none;
+                margin:
+                    0 0 20px;
 
-                margin-bottom:
-                    20px;
+                scrollbar-width: none;
             }
+
 
             .filters::-webkit-scrollbar {
                 display: none;
             }
+
 
             .filter-btn {
 
                 flex:
                     0 0 auto;
 
+                min-width: auto;
+
                 padding:
                     10px 18px;
 
-                min-width:
-                    auto;
-
-                font-size:
-                    13px;
+                font-size: 13px;
             }
 
 
-            /* =================================================
-               MOVIE GRID
-            ================================================= */
+            /* MOVIE GRID */
 
             .movie-grid {
 
                 width: 100%;
 
+                max-width: 100%;
+
+                margin: 0;
+
+                display: grid;
+
                 grid-template-columns:
                     repeat(
                         2,
-                        minmax(0,1fr)
+                        minmax(0, 1fr)
                     );
 
                 gap: 12px;
             }
 
+
             .movie-card {
 
-                border-radius:
-                    16px;
+                width: 100%;
+
+                min-width: 0;
+
+                border-radius: 16px;
             }
+
+
+            .poster-wrap {
+
+                width: 100%;
+
+                aspect-ratio:
+                    2 / 3;
+            }
+
 
             .movie-info {
 
-                padding:
-                    11px;
+                width: 100%;
+
+                padding: 11px;
             }
+
 
             .movie-type {
-
-                font-size:
-                    10px;
+                font-size: 10px;
             }
+
 
             .movie-title {
 
-                font-size:
-                    15px;
+                font-size: 15px;
 
-                line-height:
-                    1.55;
+                line-height: 1.55;
+
+                min-height: 0;
             }
+
 
             .movie-meta {
-
-                font-size:
-                    10px;
+                font-size: 10px;
             }
+
 
             .movie-overview {
 
-                font-size:
-                    11px;
+                font-size: 11px;
 
-                line-height:
-                    1.8;
+                line-height: 1.8;
 
-                -webkit-line-clamp:
-                    3;
+                -webkit-line-clamp: 3;
             }
+
 
             .badge {
 
@@ -1782,12 +2004,11 @@
 
                 right: 7px;
 
-                font-size:
-                    9px;
+                font-size: 9px;
 
-                padding:
-                    5px 7px;
+                padding: 5px 7px;
             }
+
 
             .rating {
 
@@ -1795,42 +2016,43 @@
 
                 left: 7px;
 
-                font-size:
-                    10px;
+                font-size: 10px;
 
-                padding:
-                    5px 7px;
+                padding: 5px 7px;
             }
 
 
-            /* =================================================
-               MODAL MOBILE
-            ================================================= */
+            /* MODAL */
 
             .modal {
 
-                padding:
-                    12px;
+                width: 100%;
+
+                padding: 12px;
             }
+
 
             .modal-box {
 
-                max-height:
-                    94vh;
+                width: 100%;
 
-                border-radius:
-                    20px;
+                max-width: 100%;
+
+                max-height: 94vh;
+
+                border-radius: 20px;
             }
+
 
             .modal-content {
 
+                width: 100%;
+
                 display: flex;
 
-                flex-direction:
-                    column;
+                flex-direction: column;
 
-                align-items:
-                    center;
+                align-items: center;
 
                 gap: 20px;
 
@@ -1838,69 +2060,73 @@
                     22px 17px 28px;
             }
 
+
             .modal-poster {
 
-                width:
-                    180px;
+                width: 180px;
+
+                max-width: 100%;
             }
+
 
             .modal-details {
 
                 width: 100%;
 
-                text-align:
-                    center;
+                text-align: center;
+
+                align-items: center;
             }
+
 
             .modal-type {
-
-                font-size:
-                    11px;
+                font-size: 11px;
             }
+
 
             .modal-title {
 
-                font-size:
-                    25px;
+                font-size: 25px;
+
+                text-align: center;
             }
+
 
             .modal-meta {
-
-                justify-content:
-                    center;
+                justify-content: center;
             }
+
 
             .modal-overview {
 
-                font-size:
-                    13px;
+                font-size: 13px;
 
-                line-height:
-                    2;
+                line-height: 2;
+
+                text-align: center;
             }
+
 
             .modal-genres {
-
-                justify-content:
-                    center;
+                justify-content: center;
             }
+
 
             .hashtags {
 
-                font-size:
-                    11px;
+                font-size: 11px;
+
+                text-align: center;
             }
+
 
             .modal-close {
 
-                width:
-                    36px;
+                width: 36px;
 
-                height:
-                    36px;
+                height: 36px;
 
-                font-size:
-                    19px;
+                font-size: 19px;
 
                 top: 9px;
 
@@ -1915,43 +2141,44 @@
 
         @media (max-width: 390px) {
 
-            .movie-grid {
+            .hero {
 
-                grid-template-columns:
-                    1fr;
+                padding-left: 12px;
+
+                padding-right: 12px;
             }
 
-            .poster-wrap {
-
-                aspect-ratio:
-                    16 / 10;
-            }
-
-            .movie-title {
-
-                font-size:
-                    17px;
-            }
 
             .hero h1 {
-
-                font-size:
-                    37px;
+                font-size: 37px;
             }
+
 
             .hero-card {
 
-                width:
-                    100%;
+                width: 100% !important;
+
+                max-width: 100% !important;
 
                 aspect-ratio:
                     1 / 1;
             }
 
-            .hero-card h2 {
 
-                font-size:
-                    23px;
+            .hero-card h2 {
+                font-size: 23px;
+            }
+
+
+            .movie-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0,1fr)
+                    );
+
+                gap: 10px;
             }
         }
 
@@ -1970,7 +2197,6 @@
 <header>
 
     <div class="header-inner">
-
 
         <a
             href="#"
@@ -2067,47 +2293,40 @@
 
 
     <!-- =====================================================
-         BANNER
-         IMPORTANT:
-         الصورة من نفس Repository
+         MOVINS BANNER
+         الصورة موجودة في نفس مجلد index.html
     ====================================================== -->
 
     <div class="hero-card">
 
-
         <img
             class="hero-banner"
             src="movins-banner.png"
-            alt="MOVINS Movies and Series"
+            alt="MOVINS"
             loading="eager"
+            onerror="this.style.display='none'"
         >
 
 
-        <!-- الكتابة موجودة في HTML وليس داخل الصورة -->
+        <!-- الكتابة هنا من HTML وليست داخل الصورة -->
 
         <div class="hero-card-content">
-
 
             <div class="hero-card-small">
                 MOVINS
             </div>
 
-
             <h2>
                 اكتشف قصتك القادمة
             </h2>
-
 
             <p>
                 أفلام • مسلسلات • قصص • تقييمات
             </p>
 
-
         </div>
 
-
     </div>
-
 
 </section>
 
@@ -2141,7 +2360,7 @@
 
 
     <!-- =====================================================
-         FILTERS
+         CATEGORIES
     ====================================================== -->
 
     <div class="filters">
@@ -2369,6 +2588,7 @@
 
 <script>
 
+
     /* =====================================================
        STATE
     ===================================================== */
@@ -2459,6 +2679,8 @@
                 data.items;
 
 
+            /* Latest updated first */
+
             allItems.sort(
                 (a,b) => {
 
@@ -2476,6 +2698,14 @@
 
 
             renderMovies();
+
+
+            /*
+             * إذا دخل الزائر من رابط فيسبوك
+             * يحمل معرف الفيلم، افتح البطاقة مباشرة.
+             */
+
+            openMovieFromURL();
 
 
         } catch (error) {
@@ -2524,46 +2754,6 @@
     ===================================================== */
 
     function setFilter(filter) {
-
-        /*
-         * دعم زر الأفلام
-         */
-        if (filter === "movie") {
-
-            currentFilter = "movie";
-
-            document
-                .querySelectorAll(
-                    ".filter-btn"
-                )
-                .forEach(button => {
-
-                    button.classList.remove(
-                        "active"
-                    );
-
-                });
-
-            renderMovies();
-
-            if (
-                window.innerWidth <= 750
-            ) {
-
-                document
-                    .getElementById(
-                        "moviesSection"
-                    )
-                    .scrollIntoView({
-                        behavior:
-                            "smooth"
-                    });
-
-            }
-
-            return;
-        }
-
 
         currentFilter =
             filter;
@@ -2620,6 +2810,7 @@
                     .trim()
                     .toLowerCase();
 
+
             renderMovies();
 
         }
@@ -2648,7 +2839,7 @@
             "خيال علمي",
 
         animation:
-            "رسوم"
+            "رسوم متحركة"
 
     };
 
@@ -2663,28 +2854,9 @@
             [...allItems];
 
 
-        /* -------------------------------------------------
-           MOVIE / TV FILTER
-        ------------------------------------------------- */
+        /* GENRE FILTER */
 
         if (
-            currentFilter === "movie"
-        ) {
-
-            items =
-                items.filter(
-                    item =>
-                        item.type === "فيلم"
-                );
-
-        }
-
-
-        /* -------------------------------------------------
-           GENRE FILTER
-        ------------------------------------------------- */
-
-        else if (
             currentFilter !== "all" &&
             genreMap[currentFilter]
         ) {
@@ -2715,9 +2887,7 @@
         }
 
 
-        /* -------------------------------------------------
-           SEARCH
-        ------------------------------------------------- */
+        /* SEARCH */
 
         if (currentSearch) {
 
@@ -2799,9 +2969,7 @@
         }
 
 
-        /* -------------------------------------------------
-           LIMIT
-        ------------------------------------------------- */
+        /* LIMIT */
 
         items =
             items.slice(
@@ -2810,17 +2978,13 @@
             );
 
 
-        /* -------------------------------------------------
-           COUNT
-        ------------------------------------------------- */
+        /* COUNT */
 
         resultCount.textContent =
             `${items.length} عمل متاح`;
 
 
-        /* -------------------------------------------------
-           EMPTY
-        ------------------------------------------------- */
+        /* EMPTY */
 
         if (!items.length) {
 
@@ -2850,9 +3014,7 @@
         }
 
 
-        /* -------------------------------------------------
-           CARDS
-        ------------------------------------------------- */
+        /* CARDS */
 
         movieGrid.innerHTML =
             items
@@ -3030,7 +3192,7 @@
 
 
     /* =====================================================
-       OPEN MOVIE
+       OPEN MOVIE FROM CARD
     ===================================================== */
 
     function openMovieFromCard(card) {
@@ -3059,6 +3221,206 @@
             console.error(
                 "Card error:",
                 error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       OPEN MOVIE FROM FACEBOOK / URL
+       
+       Supported:
+       ?movie=movie-123
+       ?movie=tv-123
+       ?id=123&type=movie
+       ?id=123&type=tv
+    ===================================================== */
+
+    function openMovieFromURL() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const movieParam =
+            params.get("movie");
+
+
+        const idParam =
+            params.get("id");
+
+
+        const typeParam =
+            params.get("type");
+
+
+        let foundItem =
+            null;
+
+
+        /* -------------------------------------------------
+           FORMAT:
+           ?movie=movie-123
+           ?movie=tv-123
+        ------------------------------------------------- */
+
+        if (movieParam) {
+
+            const value =
+                movieParam.toLowerCase();
+
+
+            let mediaType = "";
+
+            let itemId = "";
+
+
+            if (
+                value.startsWith(
+                    "movie-"
+                )
+            ) {
+
+                mediaType =
+                    "فيلم";
+
+                itemId =
+                    movieParam.substring(
+                        6
+                    );
+
+            }
+
+            else if (
+                value.startsWith(
+                    "tv-"
+                )
+            ) {
+
+                mediaType =
+                    "مسلسل";
+
+                itemId =
+                    movieParam.substring(
+                        3
+                    );
+
+            }
+
+
+            if (
+                mediaType &&
+                itemId
+            ) {
+
+                foundItem =
+                    allItems.find(
+                        item =>
+                            String(
+                                item.id
+                            ) ===
+                            String(
+                                itemId
+                            )
+                            &&
+                            String(
+                                item.type
+                            ) ===
+                            mediaType
+                    );
+
+            }
+
+        }
+
+
+        /* -------------------------------------------------
+           FORMAT:
+           ?id=123&type=movie
+        ------------------------------------------------- */
+
+        if (
+            !foundItem &&
+            idParam
+        ) {
+
+            foundItem =
+                allItems.find(
+                    item => {
+
+                        const sameId =
+                            String(
+                                item.id
+                            ) ===
+                            String(
+                                idParam
+                            );
+
+
+                        if (!sameId) {
+                            return false;
+                        }
+
+
+                        if (
+                            typeParam
+                        ) {
+
+                            if (
+                                typeParam ===
+                                "movie"
+                            ) {
+
+                                return (
+                                    item.type ===
+                                    "فيلم"
+                                );
+
+                            }
+
+
+                            if (
+                                typeParam ===
+                                "tv"
+                            ) {
+
+                                return (
+                                    item.type ===
+                                    "مسلسل"
+                                );
+
+                            }
+
+                        }
+
+
+                        return true;
+
+                    }
+                );
+
+        }
+
+
+        /* -------------------------------------------------
+           OPEN
+        ------------------------------------------------- */
+
+        if (foundItem) {
+
+            setTimeout(
+                function() {
+
+                    openMovieModal(
+                        foundItem
+                    );
+
+                },
+                150
             );
 
         }
@@ -3120,6 +3482,8 @@
                 : [];
 
 
+        /* POSTER */
+
         const modalPoster =
             document.getElementById(
                 "modalPoster"
@@ -3134,17 +3498,23 @@
             title;
 
 
+        /* TYPE */
+
         document.getElementById(
             "modalType"
         ).textContent =
             detailedType;
 
 
+        /* TITLE */
+
         document.getElementById(
             "modalTitle"
         ).textContent =
             title;
 
+
+        /* META */
 
         document.getElementById(
             "modalMeta"
@@ -3164,6 +3534,8 @@
 
         `;
 
+
+        /* GENRES */
 
         document.getElementById(
             "modalGenres"
@@ -3188,17 +3560,23 @@
                 "";
 
 
+        /* OVERVIEW */
+
         document.getElementById(
             "modalOverview"
         ).textContent =
             overview;
 
 
+        /* HASHTAGS */
+
         document.getElementById(
             "modalHashtags"
         ).textContent =
             hashtags.join("  ");
 
+
+        /* SHOW */
 
         movieModal.classList.add(
             "show"
@@ -3245,7 +3623,7 @@
 
 
     /* =====================================================
-       ESC
+       ESC KEY
     ===================================================== */
 
     document.addEventListener(
@@ -3330,6 +3708,7 @@
     ===================================================== */
 
     loadMovies();
+
 
 </script>
 
