@@ -1,6 +1,24 @@
 {
-  "updated_at": "2026-08-24T20:07:45.405409+00:00",
+  "updated_at": "2026-08-25T05:51:15.732410+00:00",
   "items": [
+    {
+      "id": 1288445,
+      "type": "فيلم",
+      "detailed_type": "فيلم أكشن",
+      "title": "Mutiny",
+      "original_title": "Mutiny",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "تبدأ القصة عندما يتم توريط كول، عميل سابق في القوات الخاصة وضابط شرطة سابق في مدينة نيويورك، في جريمة قتل رجل أعمال ملياردير، ويُتهم كول بقتل صديقه ورئيسه، تيبو، الذي وظف كول كخبير أمني خاص له ، فيضطر للهرب لإثبات براءته والكشف عن مؤامرة دولية.",
+      "rating": 6.7,
+      "genres": [
+        "أكشن",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/aAnTt6KpmbbHbd6xH3FQFlppZjc.jpg",
+      "hashtags": "#MOVINS #أفلام #أكشن #إثارة #Mutiny",
+      "updated_at": "2026-08-25T05:51:13.571383+00:00"
+    },
     {
       "id": 1084244,
       "type": "فيلم",
@@ -19,25 +37,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/sfQtVlIHljToOwYjhe21KPGzZWK.jpg",
       "hashtags": "#MOVINS #أفلام #رسوم_متحركة #عائلي #كوميديا #مغامرة #Toy_Story_5",
-      "updated_at": "2026-08-24T20:07:42.129470+00:00"
-    },
-    {
-      "id": 1288445,
-      "type": "فيلم",
-      "detailed_type": "فيلم أكشن",
-      "title": "Mutiny",
-      "original_title": "Mutiny",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "تبدأ القصة عندما يتم توريط كول، عميل سابق في القوات الخاصة وضابط شرطة سابق في مدينة نيويورك، في جريمة قتل رجل أعمال ملياردير، ويُتهم كول بقتل صديقه ورئيسه، تيبو، الذي وظف كول كخبير أمني خاص له ، فيضطر للهرب لإثبات براءته والكشف عن مؤامرة دولية.",
-      "rating": 6.6,
-      "genres": [
-        "أكشن",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/aAnTt6KpmbbHbd6xH3FQFlppZjc.jpg",
-      "hashtags": "#MOVINS #أفلام #أكشن #إثارة #Mutiny",
-      "updated_at": "2026-08-24T20:07:42.203783+00:00"
+      "updated_at": "2026-08-25T05:51:13.627620+00:00"
     },
     {
       "id": 969681,
@@ -56,7 +56,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/ghF1JYv7P5BgWHYfq9dqhqqNfz8.jpg",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #Spider_Man:_Brand_New_Day",
-      "updated_at": "2026-08-24T20:07:42.297160+00:00"
+      "updated_at": "2026-08-25T05:51:13.679282+00:00"
     },
     {
       "id": 1368337,
@@ -75,7 +75,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
       "hashtags": "#MOVINS #أفلام #مغامرة #أكشن #فانتازيا #The_Odyssey",
-      "updated_at": "2026-08-24T20:07:42.386667+00:00"
+      "updated_at": "2026-08-25T05:51:13.742484+00:00"
     },
     {
       "id": 1339713,
@@ -93,7 +93,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/bRwnj8WEKBCvmfeUNOukJPwB43K.jpg",
       "hashtags": "#MOVINS #أفلام #رعب #إثارة #Obsession",
-      "updated_at": "2026-08-24T20:07:42.457673+00:00"
+      "updated_at": "2026-08-25T05:51:13.796215+00:00"
     },
     {
       "id": 1291595,
@@ -104,14 +104,14 @@
       "original_language": "en",
       "year": "2026",
       "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 6.7,
+      "rating": 6.6,
       "genres": [
         "رعب",
         "إثارة"
       ],
       "poster": "https://image.tmdb.org/t/p/w500/4tTrW9dXCByS5wt2pXVWb58zNjz.jpg",
       "hashtags": "#MOVINS #أفلام #رعب #إثارة #Insidious:_Out_of_the_Further",
-      "updated_at": "2026-08-24T20:07:42.532609+00:00"
+      "updated_at": "2026-08-25T05:51:13.846015+00:00"
     },
     {
       "id": 1315772,
@@ -122,7 +122,7 @@
       "original_language": "en",
       "year": "2026",
       "overview": "هذه هي القصة الصاخبة والمضحكة والحقيقية تمامًا عن كيفية غزو المينيونز لهوليوود، وكيف أصبحوا نجومًا سينمائيين، وخسروا كل شيء، وأطلقوا العنان للوحوش على العالم، ثم تكاتفوا معًا لمحاولة إنقاذ الكوكب من الفوضى التي أحدثوها للتو",
-      "rating": 7.5,
+      "rating": 7.6,
       "genres": [
         "مغامرة",
         "رسوم متحركة",
@@ -132,26 +132,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/4LwvU9SZc8QQzW1X1FAPhNbXnEU.jpg",
       "hashtags": "#MOVINS #أفلام #مغامرة #رسوم_متحركة #كوميديا #عائلي #Minions_&_Monsters",
-      "updated_at": "2026-08-24T20:07:42.623222+00:00"
-    },
-    {
-      "id": 1101383,
-      "type": "فيلم",
-      "detailed_type": "فيلم خيال علمي",
-      "title": "The End of Oak Street",
-      "original_title": "The End of Oak Street",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "بعد حدث كوني غامض يقتلع شارع أوك من ضواحي المدينة وينقل الحي بأكمله إلى مكان مجهول، تكتشف عائلة \"بلات\" أن بقاءها على قيد الحياة يعتمد على تماسك أفرادها معًا، بينما يحاولون التأقلم مع محيطهم الذي أصبح غريبًا تمامًا عن ذي قبل.",
-      "rating": 6.4,
-      "genres": [
-        "خيال علمي",
-        "غموض",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg",
-      "hashtags": "#MOVINS #أفلام #خيال_علمي #غموض #إثارة #The_End_of_Oak_Street",
-      "updated_at": "2026-08-24T20:07:42.713649+00:00"
+      "updated_at": "2026-08-25T05:51:13.903798+00:00"
     },
     {
       "id": 1083381,
@@ -170,7 +151,26 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/rhGx6E3qRNMgj3i5su2oukNHwIQ.jpg",
       "hashtags": "#MOVINS #أفلام #رعب #غموض #خيال_علمي #Backrooms",
-      "updated_at": "2026-08-24T20:07:42.794957+00:00"
+      "updated_at": "2026-08-25T05:51:13.955959+00:00"
+    },
+    {
+      "id": 1101383,
+      "type": "فيلم",
+      "detailed_type": "فيلم خيال علمي",
+      "title": "The End of Oak Street",
+      "original_title": "The End of Oak Street",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "بعد حدث كوني غامض يقتلع شارع أوك من ضواحي المدينة وينقل الحي بأكمله إلى مكان مجهول، تكتشف عائلة \"بلات\" أن بقاءها على قيد الحياة يعتمد على تماسك أفرادها معًا، بينما يحاولون التأقلم مع محيطهم الذي أصبح غريبًا تمامًا عن ذي قبل.",
+      "rating": 6.4,
+      "genres": [
+        "خيال علمي",
+        "غموض",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #غموض #إثارة #The_End_of_Oak_Street",
+      "updated_at": "2026-08-25T05:51:14.005785+00:00"
     },
     {
       "id": 1621552,
@@ -181,7 +181,7 @@
       "original_language": "es",
       "year": "2026",
       "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 6.6,
+      "rating": 7.6,
       "genres": [
         "جريمة",
         "أكشن",
@@ -189,7 +189,25 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/alpf5v4UqSFawPmG9RX03Or4BDk.jpg",
       "hashtags": "#MOVINS #أفلام #جريمة #أكشن #إثارة #La_captura",
-      "updated_at": "2026-08-24T20:07:42.905396+00:00"
+      "updated_at": "2026-08-25T05:51:14.055220+00:00"
+    },
+    {
+      "id": 687163,
+      "type": "فيلم",
+      "detailed_type": "فيلم خيال علمي",
+      "title": "Project Hail Mary",
+      "original_title": "Project Hail Mary",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "يستيقظ رايلاند غريس، مدرس العلوم، على متن مركبة فضائية تبعد سنوات ضوئية عن موطنه، فاقدًا للذاكرة تمامًا، لا يتذكر من هو ولا كيف وصل إلى هناك. ومع عودة ذاكرته تدريجيًا، يبدأ في اكتشاف مهمته: حل لغز المادة الغامضة التي تتسبب في انطفاء الشمس. عليه أن يستعين بمعرفته العلمية وأفكاره غير التقليدية لإنقاذ كل شيء على الأرض من الفناء... لكن صداقة غير متوقعة تعني أنه قد لا يضطر إلى القيام بذلك بمفرده.",
+      "rating": 8.6,
+      "genres": [
+        "خيال علمي",
+        "مغامرة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #Project_Hail_Mary",
+      "updated_at": "2026-08-25T05:51:14.112187+00:00"
     },
     {
       "id": 1003596,
@@ -208,7 +226,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/jzPwsojjFStf5lR5Nm07w2hH56G.jpg",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #Avengers:_Doomsday",
-      "updated_at": "2026-08-24T20:07:42.994668+00:00"
+      "updated_at": "2026-08-25T05:51:14.165003+00:00"
     },
     {
       "id": 1212763,
@@ -225,7 +243,45 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
       "hashtags": "#MOVINS #أفلام #رعب #Evil_Dead_Burn",
-      "updated_at": "2026-08-24T20:07:43.077051+00:00"
+      "updated_at": "2026-08-25T05:51:14.226281+00:00"
+    },
+    {
+      "id": 950028,
+      "type": "فيلم",
+      "detailed_type": "فيلم كوميديا",
+      "title": "The Invite",
+      "original_title": "The Invite",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "زواج \"جو\" و\"أنجيلا\" على وشك الانهيار. عندما يدعوان جارَيهما الغامضَين في الطابق العلوي إلى حفل عشاء، تأخذ الليلة منحى غير متوقع. فهل أعادا إشعال شرارة الحب بينهما، أم أشعلا الفتيل الذي سيحرق كل شيء؟",
+      "rating": 7.3,
+      "genres": [
+        "كوميديا",
+        "دراما",
+        "رومانسي"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/b7Dr8Chzse8VagexAporUu2RtLx.jpg",
+      "hashtags": "#MOVINS #أفلام #كوميديا #دراما #رومانسي #The_Invite",
+      "updated_at": "2026-08-25T05:51:14.295271+00:00"
+    },
+    {
+      "id": 1384216,
+      "type": "فيلم",
+      "detailed_type": "فيلم خيال علمي",
+      "title": "The Dog Stars",
+      "original_title": "The Dog Stars",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 7.2,
+      "genres": [
+        "خيال علمي",
+        "مغامرة",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/5O616X9vmRzQdB68PHzBewPittd.jpg",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #إثارة #The_Dog_Stars",
+      "updated_at": "2026-08-25T05:51:14.354631+00:00"
     },
     {
       "id": 1275779,
@@ -243,63 +299,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/AnJ8IQJI23hNpYXVNaythu061Ru.jpg",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #إثارة #Disclosure_Day",
-      "updated_at": "2026-08-24T20:07:43.157931+00:00"
-    },
-    {
-      "id": 687163,
-      "type": "فيلم",
-      "detailed_type": "فيلم خيال علمي",
-      "title": "Project Hail Mary",
-      "original_title": "Project Hail Mary",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "يستيقظ رايلاند غريس، مدرس العلوم، على متن مركبة فضائية تبعد سنوات ضوئية عن موطنه، فاقدًا للذاكرة تمامًا، لا يتذكر من هو ولا كيف وصل إلى هناك. ومع عودة ذاكرته تدريجيًا، يبدأ في اكتشاف مهمته: حل لغز المادة الغامضة التي تتسبب في انطفاء الشمس. عليه أن يستعين بمعرفته العلمية وأفكاره غير التقليدية لإنقاذ كل شيء على الأرض من الفناء... لكن صداقة غير متوقعة تعني أنه قد لا يضطر إلى القيام بذلك بمفرده.",
-      "rating": 8.6,
-      "genres": [
-        "خيال علمي",
-        "مغامرة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
-      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #Project_Hail_Mary",
-      "updated_at": "2026-08-24T20:07:43.240971+00:00"
-    },
-    {
-      "id": 950028,
-      "type": "فيلم",
-      "detailed_type": "فيلم كوميديا",
-      "title": "The Invite",
-      "original_title": "The Invite",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "زواج \"جو\" و\"أنجيلا\" على وشك الانهيار. عندما يدعوان جارَيهما الغامضَين في الطابق العلوي إلى حفل عشاء، تأخذ الليلة منحى غير متوقع. فهل أعادا إشعال شرارة الحب بينهما، أم أشعلا الفتيل الذي سيحرق كل شيء؟",
-      "rating": 7.3,
-      "genres": [
-        "كوميديا",
-        "دراما",
-        "رومانسي"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/hFLVVF6GSfFkvDlht6iCsCcFjrh.jpg",
-      "hashtags": "#MOVINS #أفلام #كوميديا #دراما #رومانسي #The_Invite",
-      "updated_at": "2026-08-24T20:07:43.320960+00:00"
-    },
-    {
-      "id": 1384216,
-      "type": "فيلم",
-      "detailed_type": "فيلم خيال علمي",
-      "title": "The Dog Stars",
-      "original_title": "The Dog Stars",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 7.3,
-      "genres": [
-        "خيال علمي",
-        "مغامرة",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/5O616X9vmRzQdB68PHzBewPittd.jpg",
-      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #إثارة #The_Dog_Stars",
-      "updated_at": "2026-08-24T20:07:43.411508+00:00"
+      "updated_at": "2026-08-25T05:51:14.407370+00:00"
     },
     {
       "id": 1081003,
@@ -318,7 +318,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
       "hashtags": "#MOVINS #أفلام #أكشن #مغامرة #خيال_علمي #Supergirl",
-      "updated_at": "2026-08-24T20:07:43.495370+00:00"
+      "updated_at": "2026-08-25T05:51:14.465542+00:00"
     },
     {
       "id": 1204680,
@@ -337,7 +337,26 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/orkLtdgMGiO9rTVMqJ1kKwrnup1.jpg",
       "hashtags": "#MOVINS #أفلام #كوميديا #مغامرة #عائلي #Coyote_vs._Acme",
-      "updated_at": "2026-08-24T20:07:43.575705+00:00"
+      "updated_at": "2026-08-25T05:51:14.517007+00:00"
+    },
+    {
+      "id": 1240889,
+      "type": "فيلم",
+      "detailed_type": "فيلم رعب",
+      "title": "Teenage Sex and Death at Camp Miasma",
+      "original_title": "Teenage Sex and Death at Camp Miasma",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 6.7,
+      "genres": [
+        "كوميديا",
+        "رعب",
+        "رومانسي"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/5Cz1EJOKpZ8hqvBNZYF9C2zTB2T.jpg",
+      "hashtags": "#MOVINS #أفلام #كوميديا #رعب #رومانسي #Teenage_Sex_and_Death_at_Camp_Miasma",
+      "updated_at": "2026-08-25T05:51:14.569322+00:00"
     },
     {
       "id": 1232569,
@@ -356,26 +375,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/eUJXk3bTvLBi5Zcb0BCedZU7lVL.jpg",
       "hashtags": "#MOVINS #أفلام #رعب #فانتازيا #غموض #Pinocchio:_Unstrung",
-      "updated_at": "2026-08-24T20:07:43.652646+00:00"
-    },
-    {
-      "id": 1284041,
-      "type": "فيلم",
-      "detailed_type": "فيلم رعب",
-      "title": "The Last House",
-      "original_title": "The Last House",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "تجد عائلة نفسها محاصرة داخل منزلها في ظروف غامضة، وتضطر إلى التكاتف للبقاء على قيد الحياة في ظل تناقص الموارد ووجود قوة غامضة تمنعها من الفرار.",
-      "rating": 6.9,
-      "genres": [
-        "رعب",
-        "خيال علمي",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/6JU7E8Vv2M11egkctWVOScxWR75.jpg",
-      "hashtags": "#MOVINS #أفلام #رعب #خيال_علمي #إثارة #The_Last_House",
-      "updated_at": "2026-08-24T20:07:43.730284+00:00"
+      "updated_at": "2026-08-25T05:51:14.628534+00:00"
     },
     {
       "id": 95350,
@@ -394,25 +394,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/gpC7h43xPMEV3goYMQShfJbTtLq.jpg",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #خيال_علمي #Lanterns",
-      "updated_at": "2026-08-24T20:07:43.826095+00:00"
-    },
-    {
-      "id": 125988,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل خيال علمي وفانتازيا",
-      "title": "Silo",
-      "original_title": "Silo",
-      "original_language": "en",
-      "year": "2023",
-      "overview": "في مستقبل خرب وسامّ، يعيش آلاف الناس في صومعة ضخمة تحت الأرض. بعد أن يخرق مأمورهم قانونها الأساسي ويموت المواطنون بطرق غامضة، تبدأ المهندسة \"جولييت\" بكشف أسرار صادمة لتعرف الحقيقة عن الصومعة.",
-      "rating": 8.2,
-      "genres": [
-        "خيال علمي وفانتازيا",
-        "دراما"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/gMYZZvnkVNTqSVnVCphWbPXwWwb.jpg",
-      "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #Silo",
-      "updated_at": "2026-08-24T20:07:43.907020+00:00"
+      "updated_at": "2026-08-25T05:51:14.677950+00:00"
     },
     {
       "id": 108978,
@@ -430,25 +412,25 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/f1VCQIG2iCyOookdgOzwtUpwWC0.jpg",
       "hashtags": "#MOVINS #مسلسلات #أكشن #جريمة #Reacher",
-      "updated_at": "2026-08-24T20:07:43.992760+00:00"
+      "updated_at": "2026-08-25T05:51:14.728443+00:00"
     },
     {
-      "id": 100757,
+      "id": 125988,
       "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن ومغامرة",
-      "title": "Outer Banks",
-      "original_title": "Outer Banks",
+      "detailed_type": "مسلسل خيال علمي وفانتازيا",
+      "title": "Silo",
+      "original_title": "Silo",
       "original_language": "en",
-      "year": "2020",
-      "overview": "على جزيرة في \"كارولينا الشمالية\" يقطنها الأغنياء والطبقة العاملة الكادحة، يعيش \"جون بي\" وفريقه المتكاتف من الأصدقاء أجواء الغموض والمغامرة خلال البحث عن كنز مفقود.",
+      "year": "2023",
+      "overview": "في مستقبل خرب وسامّ، يعيش آلاف الناس في صومعة ضخمة تحت الأرض. بعد أن يخرق مأمورهم قانونها الأساسي ويموت المواطنون بطرق غامضة، تبدأ المهندسة \"جولييت\" بكشف أسرار صادمة لتعرف الحقيقة عن الصومعة.",
       "rating": 8.2,
       "genres": [
-        "أكشن ومغامرة",
-        "غموض"
+        "خيال علمي وفانتازيا",
+        "دراما"
       ],
-      "poster": "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg",
-      "hashtags": "#MOVINS #مسلسلات #أكشن #غموض #Outer_Banks",
-      "updated_at": "2026-08-24T20:07:44.085241+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/gMYZZvnkVNTqSVnVCphWbPXwWwb.jpg",
+      "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #Silo",
+      "updated_at": "2026-08-25T05:51:14.781966+00:00"
     },
     {
       "id": 30984,
@@ -467,25 +449,25 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/2EewmxXe72ogD0EaWM8gqa0ccIw.jpg",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #خيال_علمي #BLEACH",
-      "updated_at": "2026-08-24T20:07:44.170117+00:00"
+      "updated_at": "2026-08-25T05:51:14.833288+00:00"
     },
     {
-      "id": 278624,
+      "id": 100757,
       "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
-      "title": "Lucky",
-      "original_title": "Lucky",
+      "detailed_type": "مسلسل أكشن ومغامرة",
+      "title": "Outer Banks",
+      "original_title": "Outer Banks",
       "original_language": "en",
-      "year": "2026",
-      "overview": "عندما تفشل عملية سرقة بملايين الدولارات، تُجبر المحتالة \"لاكي\"،، على الفرار. وبين الهرب من الفيدراليين وزعيم جريمة لا يرحم، تقاتل \"لاكي\" للنجاة بحياتها ولإيجاد مخرج.",
-      "rating": 7.2,
+      "year": "2020",
+      "overview": "على جزيرة في \"كارولينا الشمالية\" يقطنها الأغنياء والطبقة العاملة الكادحة، يعيش \"جون بي\" وفريقه المتكاتف من الأصدقاء أجواء الغموض والمغامرة خلال البحث عن كنز مفقود.",
+      "rating": 8.2,
       "genres": [
-        "دراما",
-        "جريمة"
+        "أكشن ومغامرة",
+        "غموض"
       ],
-      "poster": "https://image.tmdb.org/t/p/w500/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
-      "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #Lucky",
-      "updated_at": "2026-08-24T20:07:44.249643+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg",
+      "hashtags": "#MOVINS #مسلسلات #أكشن #غموض #Outer_Banks",
+      "updated_at": "2026-08-25T05:51:14.885637+00:00"
     },
     {
       "id": 113962,
@@ -503,7 +485,43 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/rzpHPSEgPTpRs8EHbygwsOw7jC0.jpg",
       "hashtags": "#MOVINS #مسلسلات #دراما #Lioness",
-      "updated_at": "2026-08-24T20:07:44.327541+00:00"
+      "updated_at": "2026-08-25T05:51:14.942083+00:00"
+    },
+    {
+      "id": 278624,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل دراما",
+      "title": "Lucky",
+      "original_title": "Lucky",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "عندما تفشل عملية سرقة بملايين الدولارات، تُجبر المحتالة \"لاكي\"،، على الفرار. وبين الهرب من الفيدراليين وزعيم جريمة لا يرحم، تقاتل \"لاكي\" للنجاة بحياتها ولإيجاد مخرج.",
+      "rating": 7.3,
+      "genres": [
+        "دراما",
+        "جريمة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
+      "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #Lucky",
+      "updated_at": "2026-08-25T05:51:14.992468+00:00"
+    },
+    {
+      "id": 97546,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل كوميديا",
+      "title": "Ted Lasso",
+      "original_title": "Ted Lasso",
+      "original_language": "en",
+      "year": "2020",
+      "overview": "\"جيسون سوديكس\" يؤدي دور \"تيد لاسو\"، مدرب كرة القدم الأمريكية الذي عُيّن مديراً فنياً لفريق كرة قدم إنكليزي رغم افتقاره إلى الخبرة. لكنه يعوّض المعرفة التي تنقصه بتفاؤله وعزيمته القوية… والبسكويت.",
+      "rating": 8.4,
+      "genres": [
+        "دراما",
+        "كوميديا"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/uRHsiw1wLxPHFXkkv4Ix1s0O6f4.jpg",
+      "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #Ted_Lasso",
+      "updated_at": "2026-08-25T05:51:15.044384+00:00"
     },
     {
       "id": 94997,
@@ -522,7 +540,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/7V0Ebks0GgpKvQ7QbLAIdX5dos4.jpg",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #أكشن #House_of_the_Dragon",
-      "updated_at": "2026-08-24T20:07:44.412954+00:00"
+      "updated_at": "2026-08-25T05:51:15.107546+00:00"
     },
     {
       "id": 37854,
@@ -541,25 +559,7 @@
       ],
       "poster": "https://image.tmdb.org/t/p/w500/dB4EDhre2dsC2kxYDavyKWqLQwi.jpg",
       "hashtags": "#MOVINS #مسلسلات #أكشن #كوميديا #رسوم_متحركة #ワンピース",
-      "updated_at": "2026-08-24T20:07:44.492606+00:00"
-    },
-    {
-      "id": 97546,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل كوميديا",
-      "title": "Ted Lasso",
-      "original_title": "Ted Lasso",
-      "original_language": "en",
-      "year": "2020",
-      "overview": "\"جيسون سوديكس\" يؤدي دور \"تيد لاسو\"، مدرب كرة القدم الأمريكية الذي عُيّن مديراً فنياً لفريق كرة قدم إنكليزي رغم افتقاره إلى الخبرة. لكنه يعوّض المعرفة التي تنقصه بتفاؤله وعزيمته القوية… والبسكويت.",
-      "rating": 8.4,
-      "genres": [
-        "دراما",
-        "كوميديا"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/uRHsiw1wLxPHFXkkv4Ix1s0O6f4.jpg",
-      "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #Ted_Lasso",
-      "updated_at": "2026-08-24T20:07:44.574976+00:00"
+      "updated_at": "2026-08-25T05:51:15.175434+00:00"
     }
   ]
 }
