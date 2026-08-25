@@ -15,11 +15,26 @@ if not TOKEN:
     )
 
 
+# =========================================================
+# FACEBOOK PAGE
+# =========================================================
+
+PAGE_ID = os.environ.get(
+    "FACEBOOK_PAGE_ID",
+    "1269050452957956"
+)
+
+
+# =========================================================
+# GRAPH API
+# =========================================================
+
 GRAPH_VERSION = "v26.0"
 
 GRAPH_URL = (
     f"https://graph.facebook.com/"
-    f"{GRAPH_VERSION}/me/photos"
+    f"{GRAPH_VERSION}/"
+    f"{PAGE_ID}/photos"
 )
 
 
@@ -53,11 +68,14 @@ MAX_OVERVIEW_LENGTH = 420
 
 def load_movies():
 
-    if not os.path.exists(MOVIES_FILE):
+    if not os.path.exists(
+        MOVIES_FILE
+    ):
 
         raise RuntimeError(
             "movies.json not found"
         )
+
 
     with open(
         MOVIES_FILE,
@@ -65,12 +83,16 @@ def load_movies():
         encoding="utf-8"
     ) as file:
 
-        data = json.load(file)
+        data = json.load(
+            file
+        )
+
 
     items = data.get(
         "items",
         []
     )
+
 
     if not isinstance(
         items,
@@ -80,6 +102,7 @@ def load_movies():
         raise RuntimeError(
             "movies.json items must be a list"
         )
+
 
     return items
 
@@ -96,6 +119,7 @@ def load_posted():
 
         return set()
 
+
     try:
 
         with open(
@@ -104,7 +128,10 @@ def load_posted():
             encoding="utf-8"
         ) as file:
 
-            data = json.load(file)
+            data = json.load(
+                file
+            )
+
 
         if not isinstance(
             data,
@@ -113,7 +140,9 @@ def load_posted():
 
             return set()
 
+
         result = set()
+
 
         for item in data:
 
@@ -129,6 +158,7 @@ def load_posted():
                     )
                 ).strip()
 
+
                 item_type = str(
                     item.get(
                         "type",
@@ -136,11 +166,13 @@ def load_posted():
                     )
                 ).strip()
 
+
                 if item_id:
 
                     result.add(
                         f"{item_type}:{item_id}"
                     )
+
 
             else:
 
@@ -148,13 +180,16 @@ def load_posted():
                     item
                 ).strip()
 
+
                 if value:
 
                     result.add(
                         value
                     )
 
+
         return result
+
 
     except Exception as e:
 
@@ -201,6 +236,7 @@ def get_media_type(item):
         )
     ).strip().lower()
 
+
     if item_type in (
         "فيلم",
         "movie",
@@ -208,6 +244,7 @@ def get_media_type(item):
     ):
 
         return "movie"
+
 
     return "tv"
 
@@ -236,13 +273,16 @@ def get_movie_key(item):
         item
     )
 
+
     if not movie_id:
 
         return ""
 
+
     media_type = get_media_type(
         item
     )
+
 
     return (
         f"{media_type}:{movie_id}"
@@ -251,11 +291,6 @@ def get_movie_key(item):
 
 # =========================================================
 # DIRECT MOVIE URL
-#
-# Example:
-#
-# https://nownex.github.io/movins/?movie=tv-94997
-#
 # =========================================================
 
 def get_movie_url(item):
@@ -264,13 +299,16 @@ def get_movie_url(item):
         item
     )
 
+
     if not movie_id:
 
         return SITE_URL
 
+
     media_type = get_media_type(
         item
     )
+
 
     return (
         SITE_URL
@@ -291,13 +329,16 @@ def clean_text(value):
 
         return ""
 
+
     text = str(
         value
     )
 
+
     text = " ".join(
         text.split()
     )
+
 
     return text.strip()
 
@@ -315,6 +356,7 @@ def build_short_overview(item):
         )
     )
 
+
     if not overview:
 
         return (
@@ -322,13 +364,18 @@ def build_short_overview(item):
             "على MOVINS."
         )
 
-    if len(overview) <= MAX_OVERVIEW_LENGTH:
+
+    if len(
+        overview
+    ) <= MAX_OVERVIEW_LENGTH:
 
         return overview
+
 
     shortened = overview[
         :MAX_OVERVIEW_LENGTH
     ]
+
 
     if " " in shortened:
 
@@ -336,6 +383,7 @@ def build_short_overview(item):
             " ",
             1
         )[0]
+
 
     return (
         shortened
@@ -354,6 +402,7 @@ def get_genres_list(item):
         []
     )
 
+
     if isinstance(
         genres,
         list
@@ -361,11 +410,13 @@ def get_genres_list(item):
 
         result = []
 
+
         for genre in genres:
 
             value = clean_text(
                 genre
             )
+
 
             if value:
 
@@ -373,15 +424,19 @@ def get_genres_list(item):
                     value
                 )
 
+
         return result
+
 
     value = clean_text(
         genres
     )
 
+
     if value:
 
         return [value]
+
 
     return []
 
@@ -396,9 +451,11 @@ def build_genres(item):
         item
     )
 
+
     if not genres:
 
         return ""
+
 
     return " • ".join(
         genres[:5]
@@ -416,6 +473,7 @@ def build_hashtags(item):
         ""
     )
 
+
     if isinstance(
         hashtags,
         list
@@ -423,11 +481,13 @@ def build_hashtags(item):
 
         cleaned = []
 
+
         for value in hashtags:
 
             value = clean_text(
                 value
             )
+
 
             if value:
 
@@ -435,13 +495,16 @@ def build_hashtags(item):
                     value
                 )
 
+
         hashtags = " ".join(
             cleaned
         )
 
+
     hashtags = clean_text(
         hashtags
     )
+
 
     if hashtags:
 
@@ -449,27 +512,33 @@ def build_hashtags(item):
 
         result = []
 
+
         for part in parts:
 
             part = part.strip()
+
 
             if not part:
 
                 continue
 
+
             if not part.startswith("#"):
 
                 part = "#" + part
 
+
             result.append(
                 part
             )
+
 
         if result:
 
             return " ".join(
                 result[:6]
             )
+
 
     return (
         "#MOVINS "
@@ -493,13 +562,16 @@ def get_rating(item):
             or 0
         )
 
+
         if rating <= 0:
 
             return "—"
 
+
         return (
             f"{rating:.1f}/10"
         )
+
 
     except (
         TypeError,
@@ -510,10 +582,83 @@ def get_rating(item):
 
 
 # =========================================================
-# ENGAGING ENDINGS
+# POPULARITY
+# =========================================================
+
+def get_popularity(item):
+
+    try:
+
+        popularity = float(
+            item.get(
+                "popularity"
+            )
+            or 0
+        )
+
+
+        if popularity < 0:
+
+            return 0.0
+
+
+        return popularity
+
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return 0.0
+
+
+# =========================================================
+# FACEBOOK SELECTION SCORE
 #
-# The ending changes automatically
-# between different movies.
+# Primary:
+#     TMDB popularity
+#
+# Fallback:
+#     rating
+#
+# This keeps the most popular
+# content at the top.
+# =========================================================
+
+def get_selection_score(item):
+
+    popularity = get_popularity(
+        item
+    )
+
+
+    try:
+
+        rating = float(
+            item.get(
+                "rating"
+            )
+            or 0
+        )
+
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        rating = 0.0
+
+
+    return (
+        popularity,
+        rating
+    )
+
+
+# =========================================================
+# ENGAGING ENDINGS
 # =========================================================
 
 ENDINGS = [
@@ -543,24 +688,25 @@ def get_ending(item):
         item
     )
 
+
     try:
 
         number = int(
             movie_id
         )
 
+
         index = (
             number
             % len(ENDINGS)
         )
+
 
     except (
         ValueError,
         TypeError
     ):
 
-        # استخدام طول العنوان
-        # حتى لا تكون النهاية دائمًا الأولى
         title = clean_text(
             item.get(
                 "title",
@@ -568,10 +714,12 @@ def get_ending(item):
             )
         )
 
+
         index = (
             len(title)
             % len(ENDINGS)
         )
+
 
     return ENDINGS[
         index
@@ -591,9 +739,11 @@ def build_caption(item):
         or "بدون عنوان"
     )
 
+
     overview = build_short_overview(
         item
     )
+
 
     detailed_type = clean_text(
         item.get(
@@ -605,6 +755,7 @@ def build_caption(item):
         or "عمل"
     )
 
+
     year = clean_text(
         item.get(
             "year"
@@ -612,40 +763,31 @@ def build_caption(item):
         or "—"
     )
 
+
     genres = build_genres(
         item
     )
+
 
     rating_text = get_rating(
         item
     )
 
+
     movie_url = get_movie_url(
         item
     )
+
 
     hashtags = build_hashtags(
         item
     )
 
+
     ending = get_ending(
         item
     )
 
-
-    # =====================================================
-    # KEEP THE PREVIOUS FORMAT
-    #
-    # Title
-    # Overview
-    # Rating
-    # Type
-    # Genres
-    # Year
-    # Call to action
-    # Direct movie URL
-    # Hashtags
-    # =====================================================
 
     lines = [
 
@@ -698,6 +840,7 @@ def publish_to_facebook(item):
         or ""
     )
 
+
     if not poster:
 
         print(
@@ -710,6 +853,7 @@ def publish_to_facebook(item):
     caption = build_caption(
         item
     )
+
 
     movie_url = get_movie_url(
         item
@@ -734,39 +878,64 @@ def publish_to_facebook(item):
 
 
     print(
-        "--------------------------------------"
+        "======================================"
     )
+
 
     print(
         "Publishing to Facebook"
     )
 
+
+    print(
+        f"Page ID: {PAGE_ID}"
+    )
+
+
     print(
         f"Title: {item.get('title', '')}"
     )
+
 
     print(
         f"ID: {item.get('id', '')}"
     )
 
+
+    print(
+        f"Popularity: "
+        f"{get_popularity(item):.2f}"
+    )
+
+
+    print(
+        f"Rating: "
+        f"{get_rating(item)}"
+    )
+
+
     print(
         f"Direct Movie URL: {movie_url}"
     )
 
+
     print(
-        "--------------------------------------"
+        "======================================"
     )
+
 
     print(
         "Caption:"
     )
 
+
     print(
         caption
     )
 
+
     print(
-        "--------------------------------------"
+        "======================================"
     )
 
 
@@ -782,6 +951,7 @@ def publish_to_facebook(item):
 
         )
 
+
     except requests.RequestException as e:
 
         print(
@@ -795,15 +965,18 @@ def publish_to_facebook(item):
 
         result = response.json()
 
+
     except ValueError:
 
         print(
             "Facebook returned invalid JSON:"
         )
 
+
         print(
             response.text
         )
+
 
         return False
 
@@ -814,6 +987,7 @@ def publish_to_facebook(item):
             "Facebook API Error:"
         )
 
+
         print(
             json.dumps(
                 result,
@@ -822,12 +996,14 @@ def publish_to_facebook(item):
             )
         )
 
+
         return False
 
 
     print(
         "Facebook post successful."
     )
+
 
     print(
         "Post ID:",
@@ -855,8 +1031,24 @@ def main():
 
 
     print(
+        "======================================"
+    )
+
+
+    print(
+        "MOVINS FACEBOOK PUBLISHER"
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+    print(
         f"MOVINS items: {len(movies)}"
     )
+
 
     print(
         f"Already posted: {len(posted)}"
@@ -864,24 +1056,7 @@ def main():
 
 
     # =====================================================
-    # NEWEST FIRST
-    # =====================================================
-
-    movies.sort(
-
-        key=lambda item:
-            item.get(
-                "updated_at",
-                ""
-            ),
-
-        reverse=True
-
-    )
-
-
-    # =====================================================
-    # FIND NEW ITEMS
+    # FIND UNPOSTED ITEMS
     # =====================================================
 
     new_items = []
@@ -893,16 +1068,34 @@ def main():
             item
         )
 
+
         if not movie_key:
 
             continue
 
 
-        if movie_key not in posted:
+        if movie_key in posted:
 
-            new_items.append(
-                item
+            continue
+
+
+        # -------------------------------------------------
+        # Ignore items without a poster
+        # -------------------------------------------------
+
+        if not clean_text(
+            item.get(
+                "poster",
+                ""
             )
+        ):
+
+            continue
+
+
+        new_items.append(
+            item
+        )
 
 
     print(
@@ -920,7 +1113,62 @@ def main():
             "Nothing new to publish."
         )
 
+
         return
+
+
+    # =====================================================
+    # SORT BY POPULARITY
+    #
+    # Highest popularity first.
+    #
+    # If popularity is equal,
+    # higher rating wins.
+    # =====================================================
+
+    new_items.sort(
+
+        key=get_selection_score,
+
+        reverse=True
+
+    )
+
+
+    # =====================================================
+    # SHOW TOP CANDIDATES
+    # =====================================================
+
+    print(
+        "--------------------------------------"
+    )
+
+
+    print(
+        "TOP FACEBOOK CANDIDATES:"
+    )
+
+
+    for index, item in enumerate(
+        new_items[:10],
+        start=1
+    ):
+
+        print(
+
+            f"{index}. "
+            f"{item.get('title', 'بدون عنوان')} | "
+            f"Popularity: "
+            f"{get_popularity(item):.2f} | "
+            f"Rating: "
+            f"{get_rating(item)}"
+
+        )
+
+
+    print(
+        "--------------------------------------"
+    )
 
 
     # =====================================================
@@ -938,6 +1186,29 @@ def main():
         ):
 
             break
+
+
+        print(
+            "SELECTED FOR FACEBOOK:"
+        )
+
+
+        print(
+            f"Title: "
+            f"{item.get('title', '')}"
+        )
+
+
+        print(
+            f"Popularity: "
+            f"{get_popularity(item):.2f}"
+        )
+
+
+        print(
+            f"Rating: "
+            f"{get_rating(item)}"
+        )
 
 
         success = publish_to_facebook(
@@ -962,17 +1233,35 @@ def main():
             published_count += 1
 
 
+        else:
+
+            print(
+                "Facebook publishing failed."
+            )
+
+
     # =====================================================
     # RESULT
     # =====================================================
+
+    print(
+        "======================================"
+    )
+
 
     print(
         f"Published this run: "
         f"{published_count}"
     )
 
+
     print(
         "MOVINS Facebook publisher finished."
+    )
+
+
+    print(
+        "======================================"
     )
 
 
