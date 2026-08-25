@@ -3,2161 +3,1872 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 
-    <meta
-        name="description"
-        content="MOVINS — اكتشف الأفلام والمسلسلات من خلال ملخصات واضحة وتصنيفات دقيقة."
-    >
+<meta
+    name="description"
+    content="MOVINS — اكتشف الأفلام والمسلسلات من خلال ملخصات واضحة وتصنيفات دقيقة."
+>
 
-    <meta
-        name="theme-color"
-        content="#07080d"
-    >
+<meta
+    name="theme-color"
+    content="#07080d"
+>
 
-    <title>MOVINS — داخل القصة</title>
+<title>MOVINS — داخل القصة</title>
 
 
-    <!-- =====================================================
-         GOOGLE FONTS
-    ====================================================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+    rel="stylesheet"
+>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
-        rel="stylesheet"
-    >
 
+<style>
 
-    <style>
+/* =====================================================
+   RESET
+===================================================== */
 
-        /* =====================================================
-           RESET
-        ===================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+html {
+    scroll-behavior: smooth;
+    width: 100%;
+    max-width: 100%;
+}
 
+body {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
 
-        html {
-            scroll-behavior: smooth;
-        }
+    font-family:
+        "Cairo",
+        "Tajawal",
+        Arial,
+        sans-serif;
 
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255,20,30,0.09),
+            transparent 35%
+        ),
+        #07080d;
 
-        body {
+    color: #f7f7f9;
 
-            font-family:
-                "Cairo",
-                "Tajawal",
-                Arial,
-                sans-serif;
+    overflow-x: hidden;
 
-            background:
-                radial-gradient(
-                    circle at 50% -10%,
-                    rgba(255, 20, 30, 0.09),
-                    transparent 35%
-                ),
-                #07080d;
+    line-height: 1.7;
+}
 
-            color: #f7f7f9;
+body.modal-open {
+    overflow: hidden;
+}
 
-            min-height: 100vh;
+button,
+input {
+    font-family: inherit;
+}
 
-            overflow-x: hidden;
+button {
+    border: none;
+}
 
-            line-height: 1.7;
-        }
 
+/* =====================================================
+   SCROLLBAR
+===================================================== */
 
-        body.modal-open {
-            overflow: hidden;
-        }
+::-webkit-scrollbar {
+    width: 7px;
+}
 
+::-webkit-scrollbar-track {
+    background: #08090e;
+}
 
-        button,
-        input {
-            font-family: inherit;
-        }
+::-webkit-scrollbar-thumb {
+    background: #292d37;
+    border-radius: 20px;
+}
 
+::-webkit-scrollbar-thumb:hover {
+    background: #ff1018;
+}
 
-        button {
-            border: none;
-        }
 
+/* =====================================================
+   HEADER
+===================================================== */
 
-        /* =====================================================
-           SCROLLBAR
-        ====================================================== */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
-        ::-webkit-scrollbar {
-            width: 7px;
-        }
+    width: 100%;
 
-        ::-webkit-scrollbar-track {
-            background: #08090e;
-        }
+    background:
+        rgba(7,8,13,0.94);
 
-        ::-webkit-scrollbar-thumb {
-            background: #292d37;
-            border-radius: 20px;
-        }
+    border-bottom:
+        1px solid rgba(255,255,255,0.07);
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff1018;
-        }
+    backdrop-filter:
+        blur(20px);
 
+    -webkit-backdrop-filter:
+        blur(20px);
+}
 
-        /* =====================================================
-           HEADER
-        ====================================================== */
+.header-inner {
+    width:
+        min(
+            1400px,
+            calc(100% - 40px)
+        );
 
-        header {
+    min-height: 88px;
 
-            position: sticky;
+    margin: auto;
 
-            top: 0;
+    display: flex;
 
-            z-index: 1000;
+    align-items: center;
 
-            background:
-                rgba(7, 8, 13, 0.94);
+    justify-content: space-between;
 
-            border-bottom:
-                1px solid rgba(255,255,255,0.07);
+    gap: 35px;
+}
 
-            backdrop-filter:
-                blur(20px);
 
-            -webkit-backdrop-filter:
-                blur(20px);
-        }
+/* =====================================================
+   LOGO
+===================================================== */
 
+.logo {
+    text-decoration: none;
 
-        .header-inner {
+    color: #ffffff;
 
-            width:
-                min(
-                    1400px,
-                    calc(100% - 40px)
-                );
+    font-family:
+        Arial,
+        sans-serif;
 
-            min-height: 88px;
+    font-size:
+        clamp(29px,4vw,42px);
 
-            margin: auto;
+    font-weight: 900;
 
-            display: flex;
+    letter-spacing: -2.5px;
 
-            align-items: center;
+    line-height: 1;
 
-            justify-content: space-between;
+    white-space: nowrap;
+}
 
-            gap: 35px;
-        }
+.logo .red {
+    color: #ff1018;
+}
 
+.logo-sub {
+    display: block;
 
-        /* =====================================================
-           LOGO
-        ====================================================== */
+    text-align: center;
 
-        .logo {
+    margin-top: 7px;
 
-            text-decoration: none;
+    color: #898d98;
 
-            color: #ffffff;
+    font-family:
+        "Cairo",
+        sans-serif;
 
-            font-family:
-                Arial,
-                sans-serif;
+    font-size: 10px;
 
-            font-size:
-                clamp(29px, 4vw, 42px);
+    letter-spacing: 1px;
 
-            font-weight: 900;
+    font-weight: 500;
+}
 
-            letter-spacing: -2.5px;
 
-            line-height: 1;
+/* =====================================================
+   SEARCH
+===================================================== */
 
-            white-space: nowrap;
-        }
+.top-search {
+    flex: 1;
+    max-width: 680px;
+}
 
+.search-box {
+    width: 100%;
 
-        .logo .red {
-            color: #ff1018;
-        }
+    min-height: 54px;
 
+    display: flex;
 
-        .logo-sub {
+    align-items: center;
 
-            display: block;
+    background: #10131c;
 
-            text-align: center;
+    border:
+        1px solid #292d38;
 
-            margin-top: 7px;
+    border-radius: 50px;
 
-            color: #898d98;
+    padding: 0 18px;
 
-            font-family:
-                "Cairo",
-                sans-serif;
+    transition: 0.25s ease;
+}
 
-            font-size: 10px;
+.search-box:focus-within {
+    border-color:
+        rgba(255,16,24,0.75);
 
-            letter-spacing: 1px;
+    box-shadow:
+        0 0 30px
+        rgba(255,16,24,0.10);
+}
 
-            font-weight: 500;
-        }
+.search-icon {
+    color: #777d8b;
 
+    font-size: 25px;
 
-        /* =====================================================
-           SEARCH
-        ====================================================== */
+    line-height: 1;
 
-        .top-search {
+    margin-left: 8px;
+}
 
-            flex: 1;
+#searchInput {
+    width: 100%;
 
-            max-width: 680px;
-        }
+    height: 52px;
 
+    background: transparent;
 
-        .search-box {
+    border: none;
 
-            width: 100%;
+    outline: none;
 
-            min-height: 54px;
+    color: white;
 
-            display: flex;
+    font-size: 15px;
 
-            align-items: center;
+    font-weight: 500;
+}
 
-            background:
-                #10131c;
+#searchInput::placeholder {
+    color: #777d8b;
+}
 
-            border:
-                1px solid #292d38;
 
-            border-radius: 50px;
+/* =====================================================
+   HERO
+===================================================== */
 
-            padding:
-                0 18px;
+.hero {
+    position: relative;
 
-            transition:
-                0.25s ease;
-        }
+    width:
+        min(
+            1400px,
+            calc(100% - 40px)
+        );
 
+    min-height: 420px;
 
-        .search-box:focus-within {
+    margin: auto;
 
-            border-color:
-                rgba(255,16,24,0.75);
+    display: grid;
 
-            box-shadow:
-                0 0 30px
-                rgba(255,16,24,0.10);
-        }
+    grid-template-columns:
+        1.1fr
+        0.9fr;
 
+    align-items: center;
 
-        .search-icon {
+    gap: 60px;
 
-            color: #777d8b;
+    padding:
+        75px 30px 65px;
+}
 
-            font-size: 25px;
+.hero::before {
+    content: "";
 
-            line-height: 1;
+    position: absolute;
 
-            margin-left: 8px;
-        }
+    width: 500px;
 
+    height: 500px;
 
-        #searchInput {
+    right: 15%;
 
-            width: 100%;
+    top: -150px;
 
-            height: 52px;
+    background:
+        rgba(255,16,24,0.12);
 
-            background: transparent;
+    filter: blur(150px);
 
-            border: none;
+    pointer-events: none;
+}
 
-            outline: none;
+.hero-text {
+    position: relative;
+    z-index: 2;
+}
 
-            color: white;
+.hero-kicker {
+    display: inline-flex;
 
-            font-size: 15px;
+    align-items: center;
 
-            font-weight: 500;
-        }
+    gap: 8px;
 
+    color: #ff2730;
 
-        #searchInput::placeholder {
-            color: #777d8b;
-        }
+    font-size: 13px;
 
+    font-weight: 800;
 
-        /* =====================================================
-           HERO
-        ====================================================== */
+    letter-spacing: 1px;
 
-        .hero {
+    margin-bottom: 15px;
+}
 
-            position: relative;
+.hero-kicker::before {
+    content: "";
 
-            width:
-                min(
-                    1400px,
-                    calc(100% - 40px)
-                );
+    width: 28px;
 
-            min-height: 420px;
+    height: 2px;
 
-            margin: auto;
+    background: #ff1018;
 
-            display: grid;
+    border-radius: 20px;
+}
 
-            grid-template-columns:
-                1.1fr
-                0.9fr;
+.hero h1 {
+    font-size:
+        clamp(42px,6vw,76px);
 
-            align-items: center;
+    font-weight: 900;
 
-            gap: 60px;
+    line-height: 1.15;
 
-            padding:
-                75px 30px 65px;
-        }
+    letter-spacing: -1.5px;
 
+    margin-bottom: 22px;
+}
 
-        .hero::before {
+.hero h1 span {
+    color: #ff1018;
+}
 
-            content: "";
+.hero p {
+    max-width: 650px;
 
-            position: absolute;
+    color: #a7abb6;
 
-            width: 500px;
+    font-size:
+        clamp(15px,2vw,19px);
 
-            height: 500px;
+    line-height: 2;
 
-            right: 15%;
+    margin-bottom: 28px;
+}
 
-            top: -150px;
+.hero-buttons {
+    display: flex;
 
-            background:
-                rgba(255, 16, 24, 0.12);
+    flex-wrap: wrap;
 
-            filter: blur(150px);
+    gap: 12px;
+}
 
-            pointer-events: none;
-        }
+.btn {
+    padding:
+        13px 23px;
 
+    border-radius: 13px;
 
-        .hero-text {
+    font-size: 14px;
 
-            position: relative;
+    font-weight: 800;
 
-            z-index: 2;
-        }
+    cursor: pointer;
 
+    transition:
+        0.25s ease;
+}
 
-        .hero-kicker {
+.btn-primary {
+    background: #ff1018;
 
-            display: inline-flex;
+    color: white;
 
-            align-items: center;
+    box-shadow:
+        0 10px 30px
+        rgba(255,16,24,0.18);
+}
 
-            gap: 8px;
+.btn-primary:hover {
+    background: #ff3037;
 
-            color: #ff2730;
+    transform:
+        translateY(-2px);
+}
 
-            font-size: 13px;
+.btn-secondary {
+    background: #12151e;
 
-            font-weight: 800;
+    border:
+        1px solid #2a2e39;
 
-            letter-spacing: 1px;
+    color: white;
+}
 
-            margin-bottom: 15px;
-        }
+.btn-secondary:hover {
+    border-color: #ff1018;
+}
 
 
-        .hero-kicker::before {
+/* =====================================================
+   HERO BANNER
+===================================================== */
 
-            content: "";
+.hero-card {
+    position: relative;
 
-            width: 28px;
+    width: 100%;
 
-            height: 2px;
+    max-width: 390px;
 
-            background: #ff1018;
+    aspect-ratio: 1 / 1;
 
-            border-radius: 20px;
-        }
+    margin: auto;
 
+    border-radius: 28px;
 
-        .hero h1 {
+    overflow: hidden;
 
-            font-size:
-                clamp(42px, 6vw, 76px);
+    background: #090a0f;
 
-            font-weight: 900;
+    border:
+        1px solid
+        rgba(255,16,24,0.65);
 
-            line-height: 1.15;
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,0.55);
 
-            letter-spacing: -1.5px;
+    isolation: isolate;
+}
 
-            margin-bottom: 22px;
-        }
+.hero-banner {
+    position: absolute;
 
+    inset: 0;
 
-        .hero h1 span {
-            color: #ff1018;
-        }
+    width: 100%;
 
+    height: 100%;
 
-        .hero p {
+    object-fit: cover;
 
-            max-width: 650px;
+    display: block;
 
-            color: #a7abb6;
+    z-index: 0;
+}
 
-            font-size:
-                clamp(15px, 2vw, 19px);
+.hero-card::after {
+    content: "";
 
-            line-height: 2;
+    position: absolute;
 
-            margin-bottom: 28px;
-        }
+    inset: 0;
 
+    z-index: 1;
 
-        .hero-buttons {
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.02) 0%,
+            rgba(0,0,0,0.05) 40%,
+            rgba(3,4,8,0.92) 74%,
+            rgba(3,4,8,0.99) 100%
+        );
 
-            display: flex;
+    pointer-events: none;
+}
 
-            flex-wrap: wrap;
+.hero-card-content {
+    position: absolute;
 
-            gap: 12px;
-        }
+    inset: 0;
 
+    z-index: 2;
 
-        .btn {
+    display: flex;
 
-            padding:
-                13px 23px;
+    flex-direction: column;
 
-            border-radius: 13px;
+    justify-content: flex-end;
 
-            font-size: 14px;
+    align-items: center;
 
-            font-weight: 800;
+    text-align: center;
 
-            cursor: pointer;
+    padding:
+        25px 25px 30px;
+}
 
-            transition:
-                0.25s ease;
-        }
+.hero-card-small {
+    color: #ff1018;
 
+    font-size: 11px;
 
-        .btn-primary {
+    font-weight: 900;
 
-            background: #ff1018;
+    letter-spacing: 4px;
 
-            color: white;
+    margin-bottom: 7px;
+}
 
-            box-shadow:
-                0 10px 30px
-                rgba(255,16,24,0.18);
-        }
+.hero-card h2 {
+    color: #ffffff;
 
+    font-size:
+        clamp(
+            22px,
+            3vw,
+            30px
+        );
 
-        .btn-primary:hover {
+    line-height: 1.45;
 
-            background: #ff3037;
+    margin-bottom: 6px;
 
-            transform:
-                translateY(-2px);
-        }
+    font-weight: 900;
+}
 
+.hero-card p {
+    color: #b8bbc4;
 
-        .btn-secondary {
+    font-size: 13px;
 
-            background: #12151e;
+    margin: 0;
 
-            border:
-                1px solid #2a2e39;
+    line-height: 1.7;
+}
 
-            color: white;
-        }
 
+/* =====================================================
+   MAIN
+===================================================== */
 
-        .btn-secondary:hover {
+main {
+    width:
+        min(
+            1400px,
+            calc(100% - 40px)
+        );
 
-            border-color: #ff1018;
-        }
+    margin: auto;
 
+    padding:
+        10px 30px 90px;
+}
 
-        /* =====================================================
-           HERO BANNER
-        ====================================================== */
+.section-header {
+    display: flex;
 
-        .hero-card {
+    justify-content: space-between;
 
-            position: relative;
+    align-items: end;
 
-            width: 100%;
+    gap: 20px;
 
-            max-width: 390px;
+    margin:
+        20px 0 24px;
+}
 
-            aspect-ratio: 1 / 1;
+.section-title {
+    font-size:
+        clamp(27px,4vw,38px);
 
-            margin: auto;
+    font-weight: 900;
 
-            border-radius: 28px;
+    letter-spacing: -0.5px;
+}
 
-            overflow: hidden;
+.section-title span {
+    color: #ff1018;
+}
 
-            background:
-                #090a0f;
+.result-count {
+    color: #747a87;
 
-            border:
-                1px solid
-                rgba(255,16,24,0.65);
+    font-size: 13px;
 
-            box-shadow:
-                0 30px 80px
-                rgba(0,0,0,0.55);
+    font-weight: 600;
+}
 
-            isolation: isolate;
-        }
 
+/* =====================================================
+   FILTERS
+===================================================== */
 
-        .hero-banner {
+.filters {
+    display: flex;
 
-            position: absolute;
+    justify-content: center;
 
-            inset: 0;
+    align-items: center;
 
-            width: 100%;
+    gap: 10px;
 
-            height: 100%;
+    flex-wrap: wrap;
 
-            object-fit: cover;
+    margin:
+        0 auto 32px;
+}
 
-            display: block;
+.filter-btn {
+    background: #10131b;
 
-            z-index: 0;
-        }
+    color: #aeb2bd;
 
+    border:
+        1px solid #292e39;
 
-        .hero-card::after {
+    border-radius: 50px;
 
-            content: "";
+    padding:
+        11px 22px;
 
-            position: absolute;
+    min-width: 85px;
 
-            inset: 0;
+    cursor: pointer;
 
-            z-index: 1;
+    font-size: 14px;
 
-            background:
-                linear-gradient(
-                    to bottom,
-                    rgba(0,0,0,0.02) 0%,
-                    rgba(0,0,0,0.05) 40%,
-                    rgba(3,4,8,0.92) 74%,
-                    rgba(3,4,8,0.99) 100%
-                );
+    font-weight: 700;
 
-            pointer-events: none;
-        }
+    transition:
+        0.22s ease;
+}
 
+.filter-btn:hover {
+    color: white;
 
-        .hero-card-content {
+    border-color:
+        rgba(255,16,24,0.7);
 
-            position: absolute;
+    transform:
+        translateY(-1px);
+}
 
-            inset: 0;
+.filter-btn.active {
+    color: white;
 
-            z-index: 2;
+    background: #ff1018;
 
-            display: flex;
+    border-color: #ff1018;
 
-            flex-direction: column;
+    box-shadow:
+        0 8px 25px
+        rgba(255,16,24,0.14);
+}
 
-            justify-content: flex-end;
 
-            align-items: center;
+/* =====================================================
+   GRID
+===================================================== */
 
-            text-align: center;
+.movie-grid {
+    display: grid;
 
-            padding:
-                25px 25px 30px;
-        }
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0,1fr)
+        );
 
+    gap: 24px;
+}
 
-        .hero-card-small {
 
-            color:
-                #ff1018;
+/* =====================================================
+   CARD
+===================================================== */
 
-            font-size: 11px;
+.movie-card {
+    position: relative;
 
-            font-weight: 900;
+    min-width: 0;
 
-            letter-spacing: 4px;
+    background: #10131b;
 
-            margin-bottom: 7px;
-        }
+    border:
+        1px solid #20242e;
 
+    border-radius: 21px;
 
-        .hero-card h2 {
+    overflow: hidden;
 
-            color: #ffffff;
+    cursor: pointer;
 
-            font-size:
-                clamp(
-                    22px,
-                    3vw,
-                    30px
-                );
+    transition:
+        transform .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease;
+}
 
-            line-height: 1.45;
+.movie-card:hover {
+    transform:
+        translateY(-7px);
 
-            margin-bottom: 6px;
+    border-color:
+        rgba(255,16,24,0.55);
 
-            font-weight: 900;
-        }
+    box-shadow:
+        0 25px 55px
+        rgba(0,0,0,0.45);
+}
 
 
-        .hero-card p {
+/* =====================================================
+   POSTER
+===================================================== */
 
-            color: #b8bbc4;
+.poster-wrap {
+    position: relative;
 
-            font-size: 13px;
+    width: 100%;
 
-            margin: 0;
+    aspect-ratio:
+        2 / 3;
 
-            line-height: 1.7;
-        }
+    overflow: hidden;
 
+    background:
+        linear-gradient(
+            135deg,
+            #21143c,
+            #090a0f
+        );
+}
 
-        /* =====================================================
-           MAIN
-        ====================================================== */
+.poster {
+    width: 100%;
 
-        main {
+    height: 100%;
 
-            width:
-                min(
-                    1400px,
-                    calc(100% - 40px)
-                );
+    display: block;
 
-            margin: auto;
+    object-fit: cover;
 
-            padding:
-                10px 30px 90px;
-        }
+    transition:
+        transform .45s ease;
+}
 
+.movie-card:hover .poster {
+    transform:
+        scale(1.045);
+}
 
-        .section-header {
+.poster-overlay {
+    position: absolute;
 
-            display: flex;
+    inset: 0;
 
-            justify-content: space-between;
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.82),
+            transparent 55%
+        );
+}
 
-            align-items: end;
 
-            gap: 20px;
+/* =====================================================
+   BADGE
+===================================================== */
 
-            margin:
-                20px 0 24px;
-        }
+.badge {
+    position: absolute;
 
+    top: 12px;
 
-        .section-title {
+    right: 12px;
 
-            font-size:
-                clamp(27px, 4vw, 38px);
+    z-index: 5;
 
-            font-weight: 900;
+    padding:
+        6px 10px;
 
-            letter-spacing: -0.5px;
-        }
+    border-radius: 8px;
 
+    background: #ff1018;
 
-        .section-title span {
-            color: #ff1018;
-        }
+    color: white;
 
+    font-size: 11px;
 
-        .result-count {
+    font-weight: 800;
 
-            color: #747a87;
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.25);
+}
 
-            font-size: 13px;
 
-            font-weight: 600;
-        }
+/* =====================================================
+   RATING
+===================================================== */
 
+.rating {
+    position: absolute;
 
-        /* =====================================================
-           FILTERS
-        ====================================================== */
+    bottom: 12px;
 
-        .filters {
+    left: 12px;
 
-            display: flex;
+    z-index: 5;
 
-            justify-content: center;
+    display: flex;
 
-            align-items: center;
+    align-items: center;
 
-            gap: 10px;
+    gap: 4px;
 
-            flex-wrap: wrap;
+    padding:
+        6px 9px;
 
-            margin:
-                0 auto 32px;
-        }
+    border-radius: 9px;
 
+    background:
+        rgba(0,0,0,.78);
 
-        .filter-btn {
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
-            background:
-                #10131b;
+    font-size: 12px;
+}
 
-            color:
-                #aeb2bd;
+.rating span {
+    color: #ffd54a;
 
-            border:
-                1px solid #292e39;
+    font-weight: 800;
+}
 
-            border-radius: 50px;
 
-            padding:
-                11px 22px;
+/* =====================================================
+   CARD INFO
+===================================================== */
 
-            min-width: 85px;
+.movie-info {
+    padding: 17px;
+}
 
-            cursor: pointer;
+.movie-type {
+    color: #ff3037;
 
-            font-size: 14px;
+    font-size: 11px;
 
-            font-weight: 700;
+    font-weight: 800;
 
-            transition:
-                0.22s ease;
-        }
+    margin-bottom: 6px;
+}
 
+.movie-title {
+    color: #f7f7f9;
 
-        .filter-btn:hover {
+    font-size: 18px;
 
-            color: white;
+    font-weight: 900;
 
-            border-color:
-                rgba(255,16,24,0.7);
+    line-height: 1.55;
 
-            transform:
-                translateY(-1px);
-        }
+    margin-bottom: 7px;
 
+    min-height: 28px;
+}
 
-        .filter-btn.active {
+.movie-meta {
+    color: #858b98;
 
-            color: white;
+    font-size: 12px;
 
-            background:
-                #ff1018;
+    margin-bottom: 9px;
+}
 
-            border-color:
-                #ff1018;
+.movie-overview {
+    color: #a8acb6;
 
-            box-shadow:
-                0 8px 25px
-                rgba(255,16,24,0.14);
-        }
+    font-size: 12px;
 
+    line-height: 1.9;
 
-        /* =====================================================
-           GRID
-        ====================================================== */
+    display:
+        -webkit-box;
 
-        .movie-grid {
+    -webkit-line-clamp: 3;
 
-            display: grid;
+    -webkit-box-orient: vertical;
 
-            grid-template-columns:
-                repeat(
-                    4,
-                    minmax(0, 1fr)
-                );
+    overflow: hidden;
+}
 
-            gap: 24px;
-        }
 
+/* =====================================================
+   STATES
+===================================================== */
 
-        /* =====================================================
-           CARD
-        ====================================================== */
+.state {
+    grid-column:
+        1 / -1;
 
-        .movie-card {
+    text-align:
+        center;
 
-            position: relative;
+    padding:
+        90px 20px;
 
-            min-width: 0;
+    color:
+        #7e8490;
+}
 
-            background:
-                #10131b;
+.state-icon {
+    font-size: 45px;
 
-            border:
-                1px solid #20242e;
+    margin-bottom: 12px;
+}
 
-            border-radius: 21px;
+.state h3 {
+    color: white;
 
-            overflow: hidden;
+    font-size: 20px;
 
-            cursor: pointer;
+    margin-bottom: 7px;
+}
 
-            transition:
-                transform .28s ease,
-                border-color .28s ease,
-                box-shadow .28s ease;
-        }
+.error {
+    color: #ff6268;
+}
 
 
-        .movie-card:hover {
+/* =====================================================
+   MODAL
+===================================================== */
 
-            transform:
-                translateY(-7px);
+.modal {
+    position: fixed;
 
-            border-color:
-                rgba(255,16,24,0.55);
+    inset: 0;
 
-            box-shadow:
-                0 25px 55px
-                rgba(0,0,0,0.45);
-        }
+    z-index: 5000;
 
+    display: none;
 
-        /* =====================================================
-           POSTER
-        ====================================================== */
+    align-items: center;
 
-        .poster-wrap {
+    justify-content: center;
 
-            position: relative;
+    padding: 20px;
 
-            width: 100%;
+    background:
+        rgba(0,0,0,.82);
 
-            aspect-ratio:
-                2 / 3;
+    backdrop-filter:
+        blur(12px);
 
-            overflow: hidden;
+    -webkit-backdrop-filter:
+        blur(12px);
+}
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #21143c,
-                    #090a0f
-                );
-        }
+.modal.show {
+    display: flex;
+}
 
+.modal-box {
+    position: relative;
 
-        .poster {
+    width:
+        min(
+            900px,
+            100%
+        );
 
-            width: 100%;
+    max-height: 92vh;
 
-            height: 100%;
+    overflow-y: auto;
 
-            display: block;
+    overflow-x: hidden;
 
-            object-fit: cover;
+    background: #10131b;
 
-            transition:
-                transform .45s ease;
-        }
+    border:
+        1px solid #2a2e39;
 
+    border-radius: 25px;
 
-        .movie-card:hover .poster {
+    box-shadow:
+        0 40px 100px
+        rgba(0,0,0,.65);
 
-            transform:
-                scale(1.045);
-        }
+    animation:
+        modalIn .25s ease;
+}
 
+@keyframes modalIn {
 
-        .poster-overlay {
+    from {
+        opacity: 0;
 
-            position: absolute;
+        transform:
+            translateY(20px)
+            scale(.97);
+    }
 
-            inset: 0;
+    to {
+        opacity: 1;
 
-            background:
-                linear-gradient(
-                    to top,
-                    rgba(0,0,0,.82),
-                    transparent 55%
-                );
-        }
+        transform:
+            translateY(0)
+            scale(1);
+    }
 
+}
 
-        /* =====================================================
-           BADGE
-        ====================================================== */
+.modal-close {
+    position: absolute;
 
-        .badge {
+    top: 15px;
 
-            position: absolute;
+    left: 15px;
 
-            top: 12px;
+    z-index: 50;
 
-            right: 12px;
+    width: 40px;
 
-            z-index: 5;
+    height: 40px;
 
-            padding:
-                6px 10px;
+    border-radius: 50%;
 
-            border-radius: 8px;
+    background:
+        rgba(0,0,0,.78);
 
-            background:
-                #ff1018;
+    color: white;
 
-            color: white;
+    font-size: 22px;
 
-            font-size: 11px;
+    cursor: pointer;
 
-            font-weight: 800;
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+}
 
-            box-shadow:
-                0 6px 20px
-                rgba(0,0,0,.25);
-        }
+.modal-content {
+    display: grid;
 
+    grid-template-columns:
+        280px
+        1fr;
 
-        /* =====================================================
-           RATING
-        ====================================================== */
+    gap: 30px;
 
-        .rating {
+    padding: 30px;
+}
 
-            position: absolute;
+.modal-poster {
+    width: 100%;
 
-            bottom: 12px;
+    aspect-ratio:
+        2 / 3;
 
-            left: 12px;
+    object-fit: cover;
 
-            z-index: 5;
+    border-radius: 18px;
 
-            display: flex;
+    background: #08090d;
 
-            align-items: center;
+    display: block;
+}
 
-            gap: 4px;
+.modal-details {
+    display: flex;
 
-            padding:
-                6px 9px;
+    flex-direction: column;
 
-            border-radius: 9px;
+    justify-content: flex-start;
 
-            background:
-                rgba(0,0,0,.78);
+    padding-top: 10px;
 
-            border:
-                1px solid
-                rgba(255,255,255,.08);
+    min-width: 0;
+}
 
-            font-size: 12px;
-        }
+.modal-type {
+    color: #ff1018;
 
+    font-size: 13px;
 
-        .rating span {
+    font-weight: 800;
 
-            color:
-                #ffd54a;
+    margin-bottom: 8px;
+}
 
-            font-weight: 800;
-        }
+.modal-title {
+    font-size:
+        clamp(27px,4vw,42px);
 
+    line-height: 1.4;
 
-        /* =====================================================
-           CARD INFO
-        ====================================================== */
+    font-weight: 900;
 
-        .movie-info {
+    margin-bottom: 12px;
+}
 
-            padding:
-                17px;
-        }
+.modal-meta {
+    display: flex;
 
+    flex-wrap: wrap;
 
-        .movie-type {
+    gap: 8px;
 
-            color:
-                #ff3037;
+    margin-bottom: 22px;
+}
 
-            font-size: 11px;
+.meta-pill {
+    display: inline-flex;
 
-            font-weight: 800;
+    align-items: center;
 
-            margin-bottom: 6px;
-        }
+    padding:
+        7px 12px;
 
+    border-radius: 50px;
 
-        .movie-title {
+    background: #171a23;
 
-            color: #f7f7f9;
+    border:
+        1px solid #292d38;
 
-            font-size: 18px;
+    color: #aeb2bd;
 
-            font-weight: 900;
+    font-size: 12px;
 
-            line-height: 1.55;
+    font-weight: 700;
+}
 
-            margin-bottom: 7px;
+.meta-pill.rating-pill {
+    color: #ffd54a;
+}
 
-            min-height: 28px;
-        }
+.modal-overview-title {
+    color: #ffffff;
 
+    font-size: 15px;
 
-        .movie-meta {
+    font-weight: 800;
 
-            color:
-                #858b98;
+    margin-bottom: 8px;
+}
 
-            font-size: 12px;
+.modal-overview {
+    color: #b4b8c2;
 
-            margin-bottom: 9px;
-        }
+    font-size: 14px;
 
+    line-height: 2.1;
 
-        .movie-overview {
+    margin-bottom: 18px;
+}
 
-            color:
-                #a8acb6;
+.modal-genres {
+    display: flex;
 
-            font-size: 12px;
+    flex-wrap: wrap;
 
-            line-height: 1.9;
+    gap: 7px;
 
-            display:
-                -webkit-box;
+    margin-bottom: 18px;
+}
 
-            -webkit-line-clamp:
-                3;
+.genre-tag {
+    color: #d9dbe1;
 
-            -webkit-box-orient:
-                vertical;
+    background: #151821;
 
-            overflow: hidden;
-        }
+    border:
+        1px solid #292d38;
 
+    padding:
+        6px 10px;
 
-        /* =====================================================
-           STATES
-        ====================================================== */
+    border-radius: 8px;
 
-        .state {
+    font-size: 11px;
+}
 
-            grid-column:
-                1 / -1;
+.hashtags {
+    color: #ff444a;
 
-            text-align:
-                center;
+    font-size: 12px;
 
-            padding:
-                90px 20px;
+    line-height: 1.8;
 
-            color:
-                #7e8490;
-        }
+    margin-bottom: 20px;
+}
 
 
-        .state-icon {
+/* =====================================================
+   TRAILER
+===================================================== */
 
-            font-size:
-                45px;
+.trailer-section {
+    width: 100%;
 
-            margin-bottom:
-                12px;
-        }
+    margin-top: 8px;
 
+    text-align: right;
+}
 
-        .state h3 {
+.trailer-title {
+    color: #ffffff;
 
-            color: white;
+    font-size: 18px;
 
-            font-size: 20px;
+    font-weight: 900;
 
-            margin-bottom: 7px;
-        }
+    margin-bottom: 12px;
+}
 
+.trailer-frame {
+    position: relative;
 
-        .error {
-            color: #ff6268;
-        }
+    width: 100%;
 
+    aspect-ratio: 16 / 9;
 
-        /* =====================================================
-           MODAL
-        ====================================================== */
+    overflow: hidden;
 
-        .modal {
+    border-radius: 16px;
 
-            position: fixed;
+    background: #050609;
 
-            inset: 0;
+    border:
+        1px solid
+        rgba(255,16,24,0.55);
 
-            z-index: 5000;
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.45);
+}
 
-            display: none;
+.trailer-frame iframe {
+    position: absolute;
 
-            align-items: center;
+    inset: 0;
 
-            justify-content: center;
+    width: 100%;
 
-            padding: 20px;
+    height: 100%;
 
-            background:
-                rgba(0,0,0,.82);
+    border: 0;
+}
 
-            backdrop-filter:
-                blur(12px);
 
-            -webkit-backdrop-filter:
-                blur(12px);
-        }
+/* =====================================================
+   FOOTER
+===================================================== */
 
+footer {
+    border-top:
+        1px solid #1d2028;
 
-        .modal.show {
-            display: flex;
-        }
+    padding:
+        40px 20px;
 
+    text-align:
+        center;
 
-        .modal-box {
+    color:
+        #656b77;
 
-            position: relative;
+    font-size: 13px;
+}
 
-            width:
-                min(
-                    900px,
-                    100%
-                );
+footer strong {
+    color: white;
 
-            max-height:
-                92vh;
+    font-family:
+        Arial,
+        sans-serif;
 
-            overflow-y:
-                auto;
+    font-size: 22px;
+}
 
-            overflow-x:
-                hidden;
+footer .red {
+    color: #ff1018;
+}
 
-            background:
-                #10131b;
 
-            border:
-                1px solid #2a2e39;
+/* =====================================================
+   TABLET
+===================================================== */
 
-            border-radius:
-                25px;
+@media (max-width:1100px) {
 
-            box-shadow:
-                0 40px 100px
-                rgba(0,0,0,.65);
+    .movie-grid {
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
+    }
 
-            animation:
-                modalIn .25s ease;
-        }
+    .hero {
+        grid-template-columns:
+            1fr .8fr;
+    }
 
+}
 
-        @keyframes modalIn {
 
-            from {
+/* =====================================================
+   MOBILE
+===================================================== */
 
-                opacity: 0;
+@media (max-width:750px) {
 
-                transform:
-                    translateY(20px)
-                    scale(.97);
-            }
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+    }
 
-            to {
+    header {
+        width: 100%;
+        max-width: 100%;
+        position: sticky;
+        top: 0;
+    }
 
-                opacity: 1;
+    .header-inner {
 
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-        }
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
 
+        margin: 0;
 
-        .modal-close {
+        padding:
+            14px 12px 16px;
 
-            position: absolute;
+        display: flex;
 
-            top: 15px;
+        flex-direction: column;
 
-            left: 15px;
+        align-items: center;
 
-            z-index: 50;
+        gap: 13px;
+    }
 
-            width: 40px;
+    .logo {
+        font-size: 32px;
+        letter-spacing: -2px;
+    }
 
-            height: 40px;
+    .logo-sub {
+        font-size: 9px;
+        margin-top: 5px;
+    }
 
-            border-radius: 50%;
+    .top-search {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
 
-            background:
-                rgba(0,0,0,.78);
+    .search-box {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 52px;
+    }
 
-            color: white;
+    #searchInput {
+        width: 100%;
+        min-width: 0;
+        height: 50px;
+        font-size: 14px;
+    }
 
-            font-size: 22px;
 
-            cursor: pointer;
+    /* HERO */
 
-            border:
-                1px solid
-                rgba(255,255,255,.12);
-        }
+    .hero {
 
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
 
-        .modal-content {
+        margin: 0;
 
-            display: grid;
+        display: flex;
 
-            grid-template-columns:
-                280px
-                1fr;
+        flex-direction: column;
 
-            gap: 30px;
+        align-items: center;
 
-            padding: 30px;
-        }
+        text-align: center;
 
+        gap: 28px;
 
-        .modal-poster {
+        padding:
+            45px 18px 35px;
+    }
 
-            width: 100%;
+    .hero-text {
+        width: 100%;
+        max-width: 650px;
+        min-width: 0;
+    }
 
-            aspect-ratio:
-                2 / 3;
+    .hero-kicker {
+        justify-content: center;
+        font-size: 11px;
+    }
 
-            object-fit: cover;
+    .hero h1 {
+        font-size:
+            clamp(
+                38px,
+                11vw,
+                48px
+            );
 
-            border-radius: 18px;
+        letter-spacing: -1px;
+    }
 
-            background: #08090d;
+    .hero p {
+        width: 100%;
+        max-width: 650px;
 
-            display: block;
-        }
+        font-size: 14px;
 
+        line-height: 2;
 
-        .modal-details {
+        margin:
+            0 auto 22px;
+    }
 
-            display: flex;
+    .hero-buttons {
+        width: 100%;
 
-            flex-direction: column;
+        justify-content: center;
 
-            justify-content: flex-start;
+        align-items: center;
+    }
 
-            padding-top: 10px;
 
-            min-width: 0;
-        }
+    /* BANNER */
 
+    .hero-card {
 
-        .modal-type {
+        width:
+            min(
+                100%,
+                360px
+            );
 
-            color:
-                #ff1018;
+        max-width: 360px;
 
-            font-size: 13px;
+        min-width: 0;
 
-            font-weight: 800;
+        aspect-ratio: 1 / 1;
 
-            margin-bottom: 8px;
-        }
+        height: auto;
 
+        margin:
+            0 auto;
 
-        .modal-title {
+        flex-shrink: 0;
+    }
 
-            font-size:
-                clamp(27px, 4vw, 42px);
+    .hero-banner {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-            line-height: 1.4;
+    .hero-card-content {
+        padding:
+            20px 18px 24px;
+    }
 
-            font-weight: 900;
+    .hero-card-small {
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
 
-            margin-bottom: 12px;
-        }
+    .hero-card h2 {
+        font-size: 24px;
+        line-height: 1.45;
+    }
 
+    .hero-card p {
+        font-size: 12px;
+    }
 
-        .modal-meta {
 
-            display: flex;
+    /* MAIN */
 
-            flex-wrap: wrap;
+    main {
 
-            gap: 8px;
+        width:
+            calc(100% - 24px);
 
-            margin-bottom: 22px;
-        }
+        max-width: 100%;
 
+        min-width: 0;
 
-        .meta-pill {
+        margin:
+            0 auto;
 
-            display: inline-flex;
+        padding:
+            5px 0 70px;
+    }
 
-            align-items: center;
+    .section-header {
 
-            padding:
-                7px 12px;
+        width: 100%;
 
-            border-radius: 50px;
+        flex-direction: column;
 
-            background:
-                #171a23;
+        align-items: center;
 
-            border:
-                1px solid #292d38;
+        text-align: center;
 
-            color:
-                #aeb2bd;
+        gap: 5px;
 
-            font-size: 12px;
+        margin-bottom: 18px;
+    }
 
-            font-weight: 700;
-        }
+    .section-title {
+        font-size: 28px;
+    }
 
 
-        .meta-pill.rating-pill {
+    /* FILTERS */
 
-            color:
-                #ffd54a;
-        }
+    .filters {
 
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
 
-        .modal-overview-title {
+        flex-wrap: nowrap;
 
-            color:
-                #ffffff;
+        justify-content: flex-start;
 
-            font-size: 15px;
+        overflow-x: auto;
 
-            font-weight: 800;
+        padding:
+            4px 2px 12px;
 
-            margin-bottom: 8px;
-        }
+        scrollbar-width: none;
 
+        margin:
+            0 auto 20px;
+    }
 
-        .modal-overview {
+    .filters::-webkit-scrollbar {
+        display: none;
+    }
 
-            color:
-                #b4b8c2;
+    .filter-btn {
 
-            font-size:
-                14px;
+        flex:
+            0 0 auto;
 
-            line-height:
-                2.1;
+        padding:
+            10px 18px;
 
-            margin-bottom:
-                18px;
-        }
+        min-width:
+            auto;
 
+        font-size:
+            13px;
+    }
 
-        .modal-genres {
 
-            display: flex;
+    /* GRID */
 
-            flex-wrap: wrap;
+    .movie-grid {
 
-            gap: 7px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
 
-            margin-bottom: 18px;
-        }
+        margin:
+            0 auto;
 
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
 
-        .genre-tag {
+        gap: 12px;
+    }
 
-            color:
-                #d9dbe1;
+    .movie-card {
+        width: 100%;
+        min-width: 0;
+        border-radius: 16px;
+    }
 
-            background:
-                #151821;
+    .movie-info {
+        padding: 11px;
+    }
 
-            border:
-                1px solid #292d38;
+    .movie-type {
+        font-size: 10px;
+    }
 
-            padding:
-                6px 10px;
+    .movie-title {
+        font-size: 15px;
+        line-height: 1.55;
+    }
 
-            border-radius: 8px;
+    .movie-meta {
+        font-size: 10px;
+    }
 
-            font-size: 11px;
-        }
+    .movie-overview {
+        font-size: 11px;
+        line-height: 1.8;
+        -webkit-line-clamp: 3;
+    }
 
+    .badge {
+        top: 7px;
+        right: 7px;
 
-        .hashtags {
+        font-size: 9px;
 
-            color:
-                #ff444a;
+        padding:
+            5px 7px;
+    }
 
-            font-size: 12px;
+    .rating {
+        bottom: 7px;
+        left: 7px;
 
-            line-height: 1.8;
+        font-size: 10px;
 
-            margin-bottom: 20px;
-        }
+        padding:
+            5px 7px;
+    }
 
 
-        /* =====================================================
-           TRAILER
-        ====================================================== */
+    /* MODAL */
 
-        .trailer-section {
+    .modal {
+        width: 100%;
+        max-width: 100%;
 
-            width: 100%;
+        padding: 8px;
+    }
 
-            margin-top: 8px;
+    .modal-box {
 
-            text-align: right;
-        }
+        width: 100%;
+        max-width: 100%;
 
+        max-height: 96vh;
 
-        .trailer-title {
+        border-radius: 18px;
+    }
 
-            color: #ffffff;
+    .modal-content {
 
-            font-size: 18px;
+        width: 100%;
+        min-width: 0;
 
-            font-weight: 900;
+        display: flex;
 
-            margin-bottom: 12px;
-        }
+        flex-direction: column;
 
+        align-items: center;
 
-        .trailer-frame {
+        gap: 18px;
 
-            position: relative;
+        padding:
+            28px 14px 25px;
+    }
 
-            width: 100%;
+    .modal-poster {
 
-            aspect-ratio: 16 / 9;
+        width:
+            min(
+                220px,
+                70vw
+            );
 
-            overflow: hidden;
+        max-width: 220px;
 
-            border-radius: 16px;
+        flex: 0 0 auto;
+    }
 
-            background: #050609;
+    .modal-details {
 
-            border:
-                1px solid
-                rgba(255,16,24,0.55);
+        width: 100%;
+        min-width: 0;
 
-            box-shadow:
-                0 15px 40px
-                rgba(0,0,0,0.45);
-        }
+        text-align: center;
 
+        padding-top: 0;
+    }
 
-        .trailer-frame iframe {
+    .modal-type {
+        font-size: 11px;
+    }
 
-            position: absolute;
+    .modal-title {
+        font-size: 25px;
+        line-height: 1.45;
+    }
 
-            inset: 0;
+    .modal-meta {
+        justify-content: center;
+    }
 
-            width: 100%;
+    .modal-overview {
+        font-size: 13px;
+        line-height: 2;
+    }
 
-            height: 100%;
+    .modal-genres {
+        justify-content: center;
+    }
 
-            border: 0;
-        }
+    .hashtags {
+        font-size: 11px;
+    }
 
+    .modal-close {
 
-        /* =====================================================
-           FOOTER
-        ====================================================== */
+        width: 36px;
+        height: 36px;
 
-        footer {
+        font-size: 19px;
 
-            border-top:
-                1px solid #1d2028;
+        top: 8px;
+        left: 8px;
+    }
 
-            padding:
-                40px 20px;
 
-            text-align:
-                center;
+    /* TRAILER */
 
-            color:
-                #656b77;
+    .trailer-section {
 
-            font-size: 13px;
-        }
+        width: 100%;
+        max-width: 100%;
 
+        margin-top: 15px;
 
-        footer strong {
+        text-align: center;
+    }
 
-            color: white;
+    .trailer-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
 
-            font-family:
-                Arial,
-                sans-serif;
+    .trailer-frame {
 
-            font-size: 22px;
-        }
+        width: 100%;
+        max-width: 100%;
 
+        aspect-ratio: 16 / 9;
 
-        footer .red {
-            color: #ff1018;
-        }
+        border-radius: 12px;
+    }
 
+    .trailer-frame iframe {
+        width: 100%;
+        height: 100%;
+    }
 
-        /* =====================================================
-           TABLET
-        ====================================================== */
+}
 
-        @media (max-width: 1100px) {
 
-            .movie-grid {
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
 
-                grid-template-columns:
-                    repeat(
-                        3,
-                        minmax(0, 1fr)
-                    );
-            }
+@media (max-width:390px) {
 
+    .movie-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+    }
 
-            .hero {
+    .poster-wrap {
+        aspect-ratio:
+            2 / 3;
+    }
 
-                grid-template-columns:
-                    1fr .8fr;
-            }
-        }
+    .movie-title {
+        font-size: 14px;
+    }
 
+    .hero h1 {
+        font-size: 37px;
+    }
 
-        /* =====================================================
-           MOBILE
-        ====================================================== */
+    .hero-card {
+        width: 100%;
+        max-width: 340px;
+    }
 
-        @media (max-width: 750px) {
+}
 
-            header {
-                position: sticky;
-            }
-
-
-            .header-inner {
-
-                width:
-                    calc(100% - 24px);
-
-                flex-direction:
-                    column;
-
-                gap: 13px;
-
-                padding:
-                    14px 0 16px;
-            }
-
-
-            .logo {
-
-                font-size: 32px;
-
-                letter-spacing:
-                    -2px;
-            }
-
-
-            .logo-sub {
-
-                font-size: 9px;
-
-                margin-top: 5px;
-            }
-
-
-            .top-search {
-
-                width: 100%;
-
-                max-width: none;
-            }
-
-
-            .search-box {
-
-                min-height: 52px;
-            }
-
-
-            #searchInput {
-
-                height: 50px;
-
-                font-size: 14px;
-            }
-
-
-            /* =================================================
-               HERO MOBILE
-            ================================================== */
-
-            .hero {
-
-                width:
-                    100%;
-
-                display: flex;
-
-                flex-direction:
-                    column;
-
-                text-align:
-                    center;
-
-                gap: 28px;
-
-                padding:
-                    45px 18px 35px;
-            }
-
-
-            .hero-text {
-
-                width: 100%;
-            }
-
-
-            .hero-kicker {
-
-                justify-content:
-                    center;
-
-                font-size: 11px;
-            }
-
-
-            .hero h1 {
-
-                font-size:
-                    clamp(
-                        38px,
-                        11vw,
-                        48px
-                    );
-
-                letter-spacing:
-                    -1px;
-            }
-
-
-            .hero p {
-
-                width: 100%;
-
-                font-size: 14px;
-
-                line-height: 2;
-
-                margin:
-                    0 auto 22px;
-            }
-
-
-            .hero-buttons {
-
-                justify-content:
-                    center;
-            }
-
-
-            /* =================================================
-               BANNER MOBILE
-            ================================================== */
-
-            .hero-card {
-
-                width:
-                    min(
-                        100%,
-                        360px
-                    );
-
-                max-width:
-                    360px;
-
-                aspect-ratio:
-                    1 / 1;
-
-                height:
-                    auto;
-
-                margin:
-                    0 auto;
-            }
-
-
-            .hero-card-content {
-
-                padding:
-                    20px 18px 24px;
-            }
-
-
-            .hero-card-small {
-
-                font-size: 10px;
-
-                letter-spacing: 3px;
-            }
-
-
-            .hero-card h2 {
-
-                font-size:
-                    24px;
-
-                line-height:
-                    1.45;
-            }
-
-
-            .hero-card p {
-
-                font-size:
-                    12px;
-            }
-
-
-            /* =================================================
-               MAIN MOBILE
-            ================================================== */
-
-            main {
-
-                width:
-                    calc(100% - 24px);
-
-                padding:
-                    5px 0 70px;
-            }
-
-
-            .section-header {
-
-                flex-direction:
-                    column;
-
-                align-items:
-                    center;
-
-                text-align:
-                    center;
-
-                gap: 5px;
-
-                margin-bottom:
-                    18px;
-            }
-
-
-            .section-title {
-
-                font-size: 28px;
-            }
-
-
-            /* =================================================
-               FILTERS MOBILE
-            ================================================== */
-
-            .filters {
-
-                width: 100%;
-
-                flex-wrap:
-                    nowrap;
-
-                justify-content:
-                    flex-start;
-
-                overflow-x:
-                    auto;
-
-                padding:
-                    4px 2px 12px;
-
-                scrollbar-width:
-                    none;
-
-                margin-bottom:
-                    20px;
-            }
-
-
-            .filters::-webkit-scrollbar {
-                display: none;
-            }
-
-
-            .filter-btn {
-
-                flex:
-                    0 0 auto;
-
-                padding:
-                    10px 18px;
-
-                min-width:
-                    auto;
-
-                font-size:
-                    13px;
-            }
-
-
-            /* =================================================
-               GRID MOBILE
-            ================================================== */
-
-            .movie-grid {
-
-                width: 100%;
-
-                grid-template-columns:
-                    repeat(
-                        2,
-                        minmax(0,1fr)
-                    );
-
-                gap: 12px;
-            }
-
-
-            .movie-card {
-
-                border-radius:
-                    16px;
-            }
-
-
-            .movie-info {
-
-                padding:
-                    11px;
-            }
-
-
-            .movie-type {
-
-                font-size:
-                    10px;
-            }
-
-
-            .movie-title {
-
-                font-size:
-                    15px;
-
-                line-height:
-                    1.55;
-            }
-
-
-            .movie-meta {
-
-                font-size:
-                    10px;
-            }
-
-
-            .movie-overview {
-
-                font-size:
-                    11px;
-
-                line-height:
-                    1.8;
-
-                -webkit-line-clamp:
-                    3;
-            }
-
-
-            .badge {
-
-                top: 7px;
-
-                right: 7px;
-
-                font-size:
-                    9px;
-
-                padding:
-                    5px 7px;
-            }
-
-
-            .rating {
-
-                bottom: 7px;
-
-                left: 7px;
-
-                font-size:
-                    10px;
-
-                padding:
-                    5px 7px;
-            }
-
-
-            /* =================================================
-               MODAL MOBILE
-            ================================================== */
-
-            .modal {
-
-                padding:
-                    8px;
-            }
-
-
-            .modal-box {
-
-                width:
-                    100%;
-
-                max-height:
-                    96vh;
-
-                border-radius:
-                    18px;
-            }
-
-
-            .modal-content {
-
-                display:
-                    flex;
-
-                flex-direction:
-                    column;
-
-                align-items:
-                    center;
-
-                gap: 18px;
-
-                padding:
-                    28px 14px 25px;
-            }
-
-
-            .modal-poster {
-
-                width:
-                    min(
-                        220px,
-                        70vw
-                    );
-
-                flex:
-                    0 0 auto;
-            }
-
-
-            .modal-details {
-
-                width:
-                    100%;
-
-                text-align:
-                    center;
-
-                padding-top:
-                    0;
-            }
-
-
-            .modal-type {
-
-                font-size:
-                    11px;
-            }
-
-
-            .modal-title {
-
-                font-size:
-                    25px;
-
-                line-height:
-                    1.45;
-            }
-
-
-            .modal-meta {
-
-                justify-content:
-                    center;
-            }
-
-
-            .modal-overview {
-
-                font-size:
-                    13px;
-
-                line-height:
-                    2;
-            }
-
-
-            .modal-genres {
-
-                justify-content:
-                    center;
-            }
-
-
-            .hashtags {
-
-                font-size:
-                    11px;
-            }
-
-
-            .modal-close {
-
-                width:
-                    36px;
-
-                height:
-                    36px;
-
-                font-size:
-                    19px;
-
-                top:
-                    8px;
-
-                left:
-                    8px;
-            }
-
-
-            /* =================================================
-               TRAILER MOBILE
-            ================================================== */
-
-            .trailer-section {
-
-                margin-top:
-                    15px;
-
-                text-align:
-                    center;
-            }
-
-
-            .trailer-title {
-
-                font-size:
-                    16px;
-
-                margin-bottom:
-                    10px;
-            }
-
-
-            .trailer-frame {
-
-                width:
-                    100%;
-
-                aspect-ratio:
-                    16 / 9;
-
-                border-radius:
-                    12px;
-            }
-
-        }
-
-
-        /* =====================================================
-           VERY SMALL PHONES
-        ====================================================== */
-
-        @media (max-width: 390px) {
-
-            .movie-grid {
-
-                grid-template-columns:
-                    1fr;
-            }
-
-
-            .poster-wrap {
-
-                aspect-ratio:
-                    16 / 10;
-            }
-
-
-            .movie-title {
-
-                font-size:
-                    17px;
-            }
-
-
-            .hero h1 {
-
-                font-size:
-                    37px;
-            }
-
-
-            .hero-card {
-
-                width:
-                    100%;
-
-                max-width:
-                    340px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -2165,282 +1876,271 @@
 <body>
 
 
-<!-- =========================================================
+<!-- =====================================================
      HEADER
-========================================================== -->
+===================================================== -->
 
 <header>
 
-    <div class="header-inner">
+<div class="header-inner">
 
-        <a
-            href="#"
-            class="logo"
-        >
+<a
+    href="./"
+    class="logo"
+>
 
-            MOV<span class="red">INS</span>
+    MOV<span class="red">INS</span>
 
-            <span class="logo-sub">
-                داخل القصة
-            </span>
+    <span class="logo-sub">
+        داخل القصة
+    </span>
 
-        </a>
+</a>
 
 
-        <div class="top-search">
+<div class="top-search">
 
-            <div class="search-box">
+<div class="search-box">
 
-                <span class="search-icon">
-                    ⌕
-                </span>
+<span class="search-icon">
+    ⌕
+</span>
 
-                <input
-                    id="searchInput"
-                    type="search"
-                    placeholder="ابحث عن فيلم أو مسلسل..."
-                    autocomplete="off"
-                >
+<input
+    id="searchInput"
+    type="search"
+    placeholder="ابحث عن فيلم أو مسلسل..."
+    autocomplete="off"
+>
 
-            </div>
+</div>
 
-        </div>
+</div>
 
-    </div>
+</div>
 
 </header>
 
 
-<!-- =========================================================
+<!-- =====================================================
      HERO
-========================================================== -->
+===================================================== -->
 
 <section class="hero">
 
 
-    <div class="hero-text">
+<div class="hero-text">
 
-        <div class="hero-kicker">
-            MOVINS • MOVIES & SERIES
-        </div>
-
-
-        <h1>
-
-            ادخل إلى
-
-            <span>
-                القصة.
-            </span>
-
-        </h1>
+<div class="hero-kicker">
+    MOVINS • MOVIES & SERIES
+</div>
 
 
-        <p>
+<h1>
 
-            اكتشف الأفلام والمسلسلات التي تستحق وقتك،
-            تعرّف على القصة والتصنيف والتقييم في مكان واحد،
-            واختر مغامرتك القادمة قبل أن تبدأ المشاهدة.
+    ادخل إلى
 
-        </p>
+    <span>
+        القصة.
+    </span>
 
-
-        <div class="hero-buttons">
-
-            <button
-                class="btn btn-primary"
-                onclick="scrollToMovies()"
-            >
-                اكتشف الآن
-            </button>
+</h1>
 
 
-            <button
-                class="btn btn-secondary"
-                onclick="setFilter('movie')"
-            >
-                الأفلام
-            </button>
+<p>
 
-        </div>
+    اكتشف الأفلام والمسلسلات التي تستحق وقتك،
+    تعرّف على القصة والتصنيف والتقييم في مكان واحد،
+    واختر مغامرتك القادمة قبل أن تبدأ المشاهدة.
 
-    </div>
+</p>
 
 
-    <!-- =====================================================
-         BANNER IMAGE
-         IMPORTANT:
-         Upload movins-banner.png to repository root
-    ====================================================== -->
+<div class="hero-buttons">
 
-    <div class="hero-card">
-
-        <img
-            class="hero-banner"
-            src="movins-banner.png"
-            alt="MOVINS"
-            onerror="this.style.display='none'"
-        >
+<button
+    class="btn btn-primary"
+    onclick="scrollToMovies()"
+>
+    اكتشف الآن
+</button>
 
 
-        <div class="hero-card-content">
+<button
+    class="btn btn-secondary"
+    onclick="setFilter('movie')"
+>
+    الأفلام
+</button>
 
-            <div class="hero-card-small">
-                MOVINS
-            </div>
+</div>
+
+</div>
 
 
-            <h2>
-                اكتشف قصتك القادمة
-            </h2>
+<!-- =====================================================
+     BANNER
+===================================================== -->
+
+<div class="hero-card">
+
+<img
+    class="hero-banner"
+    src="movins-banner.png"
+    alt="MOVINS"
+    onerror="this.style.display='none'"
+>
 
 
-            <p>
-                أفلام • مسلسلات • قصص • تقييمات
-            </p>
+<div class="hero-card-content">
 
-        </div>
+<div class="hero-card-small">
+    MOVINS
+</div>
 
-    </div>
+<h2>
+    اكتشف قصتك القادمة
+</h2>
+
+<p>
+    أفلام • مسلسلات • قصص • تقييمات
+</p>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      MAIN
-========================================================== -->
+===================================================== -->
 
 <main id="moviesSection">
 
 
-    <div class="section-header">
+<div class="section-header">
 
-        <h2 class="section-title">
+<h2 class="section-title">
 
-            <span>
-                الأحدث
-            </span>
+<span>
+    الأحدث
+</span>
 
-        </h2>
-
-
-        <div
-            id="resultCount"
-            class="result-count"
-        >
-            جاري تحميل المحتوى...
-        </div>
-
-    </div>
+</h2>
 
 
-    <!-- =====================================================
-         FILTERS
-    ====================================================== -->
+<div
+    id="resultCount"
+    class="result-count"
+>
+    جاري تحميل المحتوى...
+</div>
 
-    <div class="filters">
-
-
-        <button
-            class="filter-btn"
-            data-filter="drama"
-            onclick="setFilter('drama')"
-        >
-            دراما
-        </button>
+</div>
 
 
-        <button
-            class="filter-btn"
-            data-filter="action"
-            onclick="setFilter('action')"
-        >
-            أكشن
-        </button>
+<!-- FILTERS -->
+
+<div class="filters">
+
+<button
+    class="filter-btn"
+    data-filter="drama"
+    onclick="setFilter('drama')"
+>
+    دراما
+</button>
 
 
-        <button
-            class="filter-btn"
-            data-filter="comedy"
-            onclick="setFilter('comedy')"
-        >
-            كوميديا
-        </button>
+<button
+    class="filter-btn"
+    data-filter="action"
+    onclick="setFilter('action')"
+>
+    أكشن
+</button>
 
 
-        <button
-            class="filter-btn"
-            data-filter="horror"
-            onclick="setFilter('horror')"
-        >
-            رعب
-        </button>
+<button
+    class="filter-btn"
+    data-filter="comedy"
+    onclick="setFilter('comedy')"
+>
+    كوميديا
+</button>
 
 
-        <button
-            class="filter-btn"
-            data-filter="scifi"
-            onclick="setFilter('scifi')"
-        >
-            خيال علمي
-        </button>
+<button
+    class="filter-btn"
+    data-filter="horror"
+    onclick="setFilter('horror')"
+>
+    رعب
+</button>
 
 
-        <button
-            class="filter-btn"
-            data-filter="animation"
-            onclick="setFilter('animation')"
-        >
-            رسوم
-        </button>
+<button
+    class="filter-btn"
+    data-filter="scifi"
+    onclick="setFilter('scifi')"
+>
+    خيال علمي
+</button>
 
 
-        <button
-            class="filter-btn active"
-            data-filter="all"
-            onclick="setFilter('all')"
-        >
-            الكل
-        </button>
+<button
+    class="filter-btn"
+    data-filter="animation"
+    onclick="setFilter('animation')"
+>
+    رسوم
+</button>
 
 
-    </div>
+<button
+    class="filter-btn active"
+    data-filter="all"
+    onclick="setFilter('all')"
+>
+    الكل
+</button>
+
+</div>
 
 
-    <!-- =====================================================
-         MOVIE GRID
-    ====================================================== -->
+<!-- MOVIE GRID -->
 
-    <section
-        id="movieGrid"
-        class="movie-grid"
-    >
+<section
+    id="movieGrid"
+    class="movie-grid"
+>
 
-        <div class="state">
+<div class="state">
 
-            <div class="state-icon">
-                🎬
-            </div>
+<div class="state-icon">
+    🎬
+</div>
 
-            <h3>
-                جاري تحميل القصص...
-            </h3>
+<h3>
+    جاري تحميل القصص...
+</h3>
 
-            <p>
-                لحظات فقط
-            </p>
+<p>
+    لحظات فقط
+</p>
 
-        </div>
+</div>
 
-    </section>
-
+</section>
 
 </main>
 
 
-<!-- =========================================================
+<!-- =====================================================
      MOVIE MODAL
-========================================================== -->
+===================================================== -->
 
 <div
     id="movieModal"
@@ -2448,1294 +2148,1239 @@
     onclick="closeModalOutside(event)"
 >
 
-    <div
-        class="modal-box"
-        onclick="event.stopPropagation()"
-    >
+<div
+    class="modal-box"
+    onclick="event.stopPropagation()"
+>
 
 
-        <button
-            class="modal-close"
-            onclick="closeMovieModal()"
-            aria-label="إغلاق"
-        >
-            ×
-        </button>
+<button
+    class="modal-close"
+    onclick="closeMovieModal()"
+    aria-label="إغلاق"
+>
+    ×
+</button>
 
 
-        <div class="modal-content">
+<div class="modal-content">
 
 
-            <img
-                id="modalPoster"
-                class="modal-poster"
-                src=""
-                alt=""
-            >
+<img
+    id="modalPoster"
+    class="modal-poster"
+    src=""
+    alt=""
+>
 
 
-            <div class="modal-details">
+<div class="modal-details">
 
 
-                <div
-                    id="modalType"
-                    class="modal-type"
-                ></div>
+<div
+    id="modalType"
+    class="modal-type"
+></div>
 
 
-                <h2
-                    id="modalTitle"
-                    class="modal-title"
-                ></h2>
+<h2
+    id="modalTitle"
+    class="modal-title"
+></h2>
 
 
-                <div
-                    id="modalMeta"
-                    class="modal-meta"
-                ></div>
+<div
+    id="modalMeta"
+    class="modal-meta"
+></div>
 
 
-                <div
-                    id="modalGenres"
-                    class="modal-genres"
-                ></div>
+<div
+    id="modalGenres"
+    class="modal-genres"
+></div>
 
 
-                <div class="modal-overview-title">
-                    القصة
-                </div>
+<div class="modal-overview-title">
+    القصة
+</div>
 
 
-                <p
-                    id="modalOverview"
-                    class="modal-overview"
-                ></p>
+<p
+    id="modalOverview"
+    class="modal-overview"
+></p>
 
 
-                <div
-                    id="modalHashtags"
-                    class="hashtags"
-                ></div>
+<div
+    id="modalHashtags"
+    class="hashtags"
+></div>
 
 
-                <!-- =================================================
-                     TRAILER
-                ================================================== -->
+<!-- TRAILER -->
 
-                <div
-                    id="trailerSection"
-                    class="trailer-section"
-                    style="display:none;"
-                >
+<div
+    id="trailerSection"
+    class="trailer-section"
+    style="display:none;"
+>
 
-                    <div class="trailer-title">
-                        🎬 شاهد التريلر
-                    </div>
+<div class="trailer-title">
+    🎬 شاهد التريلر
+</div>
 
 
-                    <div class="trailer-frame">
+<div class="trailer-frame">
 
-                        <iframe
-                            id="trailerFrame"
-                            src=""
-                            title="MOVINS Trailer"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen
-                        ></iframe>
+<iframe
+    id="trailerFrame"
+    src=""
+    title="MOVINS Trailer"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+></iframe>
 
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- =========================================================
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
      FOOTER
-========================================================== -->
+===================================================== -->
 
 <footer>
 
-    <strong>
-        MOV<span class="red">INS</span>
-    </strong>
+<strong>
+    MOV<span class="red">INS</span>
+</strong>
 
+<p style="margin-top:8px;">
+    اكتشف القصة قبل المشاهدة.
+</p>
 
-    <p style="margin-top:8px;">
-        اكتشف القصة قبل المشاهدة.
-    </p>
-
-
-    <p
-        style="
-            margin-top:12px;
-            font-size:11px;
-        "
-    >
-        البيانات والصور مقدمة بواسطة TMDB.
-    </p>
+<p
+    style="
+        margin-top:12px;
+        font-size:11px;
+    "
+>
+    البيانات والصور مقدمة بواسطة TMDB.
+</p>
 
 </footer>
 
 
 <script>
 
+/* =====================================================
+   STATE
+===================================================== */
 
-    /* =====================================================
-       STATE
-    ===================================================== */
+let allItems = [];
 
-    let allItems = [];
+let currentFilter = "all";
 
-    let currentFilter = "all";
-
-    let currentSearch = "";
-
-
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
-
-    const movieGrid =
-        document.getElementById(
-            "movieGrid"
-        );
+let currentSearch = "";
 
 
-    const searchInput =
-        document.getElementById(
-            "searchInput"
-        );
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const movieGrid =
+    document.getElementById(
+        "movieGrid"
+    );
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+const resultCount =
+    document.getElementById(
+        "resultCount"
+    );
+
+const movieModal =
+    document.getElementById(
+        "movieModal"
+    );
 
 
-    const resultCount =
-        document.getElementById(
-            "resultCount"
-        );
+/* =====================================================
+   LOAD MOVIES
+===================================================== */
 
+async function loadMovies() {
 
-    const movieModal =
-        document.getElementById(
-            "movieModal"
-        );
+    try {
 
-
-    /* =====================================================
-       LOAD MOVIES.JSON
-    ===================================================== */
-
-    async function loadMovies() {
-
-        try {
-
-            const response =
-                await fetch(
-                    "movies.json?t=" +
-                    Date.now(),
-                    {
-                        cache:
-                            "no-store"
-                    }
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "movies.json HTTP " +
-                    response.status
-                );
-
-            }
-
-
-            const data =
-                await response.json();
-
-
-            if (
-                !data.items ||
-                !Array.isArray(
-                    data.items
-                )
-            ) {
-
-                throw new Error(
-                    "Invalid movies.json format"
-                );
-
-            }
-
-
-            allItems =
-                data.items;
-
-
-            /*
-             * Latest updated first.
-             */
-
-            allItems.sort(
-                (a,b) => {
-
-                    return (
-                        new Date(
-                            b.updated_at || 0
-                        ) -
-                        new Date(
-                            a.updated_at || 0
-                        )
-                    );
-
+        const response =
+            await fetch(
+                "movies.json?t=" +
+                Date.now(),
+                {
+                    cache:
+                        "no-store"
                 }
             );
 
 
-            renderMovies();
+        if (!response.ok) {
 
-
-            /*
-             * If Facebook / external link
-             * contains a movie parameter,
-             * open that exact movie.
-             */
-
-            openMovieFromUrl();
-
-
-        } catch (error) {
-
-            console.error(
-                "MOVINS ERROR:",
-                error
+            throw new Error(
+                "movies.json HTTP " +
+                response.status
             );
-
-
-            movieGrid.innerHTML = `
-
-                <div
-                    class="state error"
-                >
-
-                    <div class="state-icon">
-                        ⚠️
-                    </div>
-
-                    <h3>
-                        تعذر تحميل المحتوى
-                    </h3>
-
-                    <p>
-                        تأكد من وجود
-                        movies.json
-                        في المستودع.
-                    </p>
-
-                </div>
-
-            `;
-
-
-            resultCount.textContent =
-                "حدث خطأ أثناء تحميل البيانات";
 
         }
 
-    }
+
+        const data =
+            await response.json();
 
 
-    /* =====================================================
-       FILTER
-    ===================================================== */
-
-    function setFilter(filter) {
-
-        currentFilter =
-            filter;
-
-
-        document
-            .querySelectorAll(
-                ".filter-btn"
+        if (
+            !data.items ||
+            !Array.isArray(
+                data.items
             )
-            .forEach(button => {
+        ) {
 
-                button.classList.toggle(
-                    "active",
-                    button.dataset.filter ===
-                    filter
+            throw new Error(
+                "Invalid movies.json format"
+            );
+
+        }
+
+
+        allItems =
+            data.items;
+
+
+        allItems.sort(
+            (a,b) => {
+
+                return (
+                    new Date(
+                        b.updated_at || 0
+                    ) -
+                    new Date(
+                        a.updated_at || 0
+                    )
                 );
 
-            });
+            }
+        );
 
 
         renderMovies();
 
 
-        if (
-            window.innerWidth <= 750
-        ) {
+        /*
+         * IMPORTANT:
+         * If Facebook opens:
+         *
+         * ?movie=tv-123
+         *
+         * or
+         *
+         * ?movie=movie-123
+         *
+         * open the exact movie.
+         */
 
-            document
-                .getElementById(
-                    "moviesSection"
-                )
-                .scrollIntoView({
-                    behavior:
-                        "smooth",
-                    block:
-                        "start"
-                });
+        openMovieFromUrl();
 
-        }
 
-    }
+    } catch (error) {
 
+        console.error(
+            "MOVINS ERROR:",
+            error
+        );
 
-    /* =====================================================
-       SEARCH
-    ===================================================== */
 
-    searchInput.addEventListener(
-        "input",
-        function () {
+        movieGrid.innerHTML = `
 
-            currentSearch =
-                this.value
-                    .trim()
-                    .toLowerCase();
+        <div class="state error">
 
+            <div class="state-icon">
+                ⚠️
+            </div>
 
-            renderMovies();
+            <h3>
+                تعذر تحميل المحتوى
+            </h3>
 
-        }
-    );
+            <p>
+                تأكد من وجود
+                movies.json
+                في المستودع.
+            </p>
 
-
-    /* =====================================================
-       GENRE FILTER
-    ===================================================== */
-
-    const genreMap = {
-
-        drama:
-            [
-                "دراما",
-                "دراما تلفزيونية"
-            ],
-
-        action:
-            [
-                "أكشن",
-                "أكشن ومغامرة"
-            ],
-
-        comedy:
-            [
-                "كوميديا"
-            ],
-
-        horror:
-            [
-                "رعب"
-            ],
-
-        scifi:
-            [
-                "خيال علمي",
-                "خيال علمي وفانتازيا"
-            ],
-
-        animation:
-            [
-                "رسوم متحركة"
-            ]
-
-    };
-
-
-    /* =====================================================
-       RENDER
-    ===================================================== */
-
-    function renderMovies() {
-
-        let items =
-            [...allItems];
-
-
-        /* -------------------------------------------------
-           GENRE FILTER
-        ------------------------------------------------- */
-
-        if (
-            currentFilter !== "all" &&
-            genreMap[currentFilter]
-        ) {
-
-            const selectedGenres =
-                genreMap[
-                    currentFilter
-                ];
-
-
-            items =
-                items.filter(item => {
-
-                    const genres =
-                        Array.isArray(
-                            item.genres
-                        )
-                            ? item.genres
-                            : [];
-
-
-                    return genres.some(
-                        genre =>
-                            selectedGenres.includes(
-                                genre
-                            )
-                    );
-
-                });
-
-        }
-
-
-        /* -------------------------------------------------
-           MOVIE FILTER
-        ------------------------------------------------- */
-
-        if (
-            currentFilter === "movie"
-        ) {
-
-            items =
-                items.filter(item => {
-
-                    return (
-                        item.type === "فيلم"
-                    );
-
-                });
-
-        }
-
-
-        /* -------------------------------------------------
-           SEARCH
-        ------------------------------------------------- */
-
-        if (currentSearch) {
-
-            items =
-                items.filter(item => {
-
-                    const title =
-                        String(
-                            item.title || ""
-                        )
-                        .toLowerCase();
-
-
-                    const originalTitle =
-                        String(
-                            item.original_title || ""
-                        )
-                        .toLowerCase();
-
-
-                    const overview =
-                        String(
-                            item.overview || ""
-                        )
-                        .toLowerCase();
-
-
-                    const type =
-                        String(
-                            item.type || ""
-                        )
-                        .toLowerCase();
-
-
-                    const detailedType =
-                        String(
-                            item.detailed_type || ""
-                        )
-                        .toLowerCase();
-
-
-                    const genres =
-                        Array.isArray(
-                            item.genres
-                        )
-                            ? item.genres
-                                .join(" ")
-                                .toLowerCase()
-                            : "";
-
-
-                    return (
-
-                        title.includes(
-                            currentSearch
-                        )
-
-                        ||
-
-                        originalTitle.includes(
-                            currentSearch
-                        )
-
-                        ||
-
-                        overview.includes(
-                            currentSearch
-                        )
-
-                        ||
-
-                        type.includes(
-                            currentSearch
-                        )
-
-                        ||
-
-                        detailedType.includes(
-                            currentSearch
-                        )
-
-                        ||
-
-                        genres.includes(
-                            currentSearch
-                        )
-
-                    );
-
-                });
-
-        }
-
-
-        /* -------------------------------------------------
-           LIMIT
-        ------------------------------------------------- */
-
-        items =
-            items.slice(
-                0,
-                30
-            );
-
-
-        /* -------------------------------------------------
-           COUNT
-        ------------------------------------------------- */
-
-        resultCount.textContent =
-            `${items.length} عمل متاح`;
-
-
-        /* -------------------------------------------------
-           EMPTY
-        ------------------------------------------------- */
-
-        if (!items.length) {
-
-            movieGrid.innerHTML = `
-
-                <div class="state">
-
-                    <div class="state-icon">
-                        🔎
-                    </div>
-
-                    <h3>
-                        لا توجد نتائج
-                    </h3>
-
-                    <p>
-                        جرّب تصنيفًا آخر أو
-                        ابحث باسم مختلف.
-                    </p>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        /* -------------------------------------------------
-           CARDS
-        ------------------------------------------------- */
-
-        movieGrid.innerHTML =
-            items
-                .map(
-                    (item,index) =>
-                        createMovieCard(
-                            item,
-                            index
-                        )
-                )
-                .join("");
-
-    }
-
-
-    /* =====================================================
-       CREATE CARD
-    ===================================================== */
-
-    function createMovieCard(
-        item,
-        index
-    ) {
-
-        const title =
-            escapeHtml(
-                item.title ||
-                "بدون عنوان"
-            );
-
-
-        const overview =
-            escapeHtml(
-                item.overview ||
-                "لا يوجد ملخص متوفر حاليًا."
-            );
-
-
-        const type =
-            escapeHtml(
-                item.detailed_type ||
-                item.type ||
-                "عمل"
-            );
-
-
-        const year =
-            escapeHtml(
-                item.year ||
-                ""
-            );
-
-
-        const rating =
-            Number(
-                item.rating || 0
-            ).toFixed(1);
-
-
-        const poster =
-            item.poster ||
-            "";
-
-
-        const isNew =
-            index < 6;
-
-
-        const safeData =
-            encodeURIComponent(
-                JSON.stringify(item)
-            );
-
-
-        return `
-
-            <article
-                class="movie-card"
-                data-movie="${safeData}"
-                onclick="openMovieFromCard(this)"
-            >
-
-                <div class="poster-wrap">
-
-                    ${
-                        poster
-                        ?
-                        `
-                        <img
-                            class="poster"
-                            src="${escapeAttribute(poster)}"
-                            alt="${escapeAttribute(title)}"
-                            loading="lazy"
-                            onerror="
-                                this.style.display='none'
-                            "
-                        >
-                        `
-                        :
-                        ""
-                    }
-
-
-                    <div
-                        class="poster-overlay"
-                    ></div>
-
-
-                    ${
-                        isNew
-                        ?
-                        `
-                        <div class="badge">
-                            جديد
-                        </div>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    <div class="rating">
-
-                        ⭐
-
-                        <span>
-                            ${rating}
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="movie-info">
-
-                    <div class="movie-type">
-                        ${type}
-                    </div>
-
-
-                    <h3 class="movie-title">
-                        ${title}
-                    </h3>
-
-
-                    <div class="movie-meta">
-
-                        ${year || "—"}
-
-                        <span
-                            style="
-                                margin:0 5px;
-                            "
-                        >
-                            •
-                        </span>
-
-                        MOVINS
-
-                    </div>
-
-
-                    <p class="movie-overview">
-                        ${overview}
-                    </p>
-
-                </div>
-
-            </article>
+        </div>
 
         `;
 
+
+        resultCount.textContent =
+            "حدث خطأ أثناء تحميل البيانات";
+
     }
 
-
-    /* =====================================================
-       OPEN MOVIE FROM CARD
-    ===================================================== */
-
-    function openMovieFromCard(card) {
-
-        try {
-
-            const encoded =
-                card.dataset.movie;
+}
 
 
-            const item =
-                JSON.parse(
-                    decodeURIComponent(
-                        encoded
+/* =====================================================
+   FILTER
+===================================================== */
+
+function setFilter(filter) {
+
+    currentFilter =
+        filter;
+
+
+    document
+        .querySelectorAll(
+            ".filter-btn"
+        )
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.filter ===
+                filter
+            );
+
+        });
+
+
+    renderMovies();
+
+
+    if (
+        window.innerWidth <= 750
+    ) {
+
+        document
+            .getElementById(
+                "moviesSection"
+            )
+            .scrollIntoView({
+                behavior:
+                    "smooth",
+                block:
+                    "start"
+            });
+
+    }
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    function() {
+
+        currentSearch =
+            this.value
+                .trim()
+                .toLowerCase();
+
+        renderMovies();
+
+    }
+);
+
+
+/* =====================================================
+   GENRE MAP
+===================================================== */
+
+const genreMap = {
+
+    drama: [
+        "دراما",
+        "دراما تلفزيونية"
+    ],
+
+    action: [
+        "أكشن",
+        "أكشن ومغامرة"
+    ],
+
+    comedy: [
+        "كوميديا"
+    ],
+
+    horror: [
+        "رعب"
+    ],
+
+    scifi: [
+        "خيال علمي",
+        "خيال علمي وفانتازيا"
+    ],
+
+    animation: [
+        "رسوم متحركة"
+    ]
+
+};
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderMovies() {
+
+    let items =
+        [...allItems];
+
+
+    /* FILTER */
+
+    if (
+        currentFilter !== "all" &&
+        genreMap[currentFilter]
+    ) {
+
+        const selectedGenres =
+            genreMap[
+                currentFilter
+            ];
+
+
+        items =
+            items.filter(item => {
+
+                const genres =
+                    Array.isArray(
+                        item.genres
                     )
+                    ? item.genres
+                    : [];
+
+
+                return genres.some(
+                    genre =>
+                        selectedGenres.includes(
+                            genre
+                        )
                 );
 
-
-            openMovieModal(
-                item
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Card error:",
-                error
-            );
-
-        }
+            });
 
     }
 
 
-    /* =====================================================
-       CREATE MOVIE URL
-    ===================================================== */
+    /* MOVIE */
 
-    function getMovieUrl(item) {
+    if (
+        currentFilter === "movie"
+    ) {
 
-        const mediaType =
-            item.type === "فيلم"
-                ? "movie"
-                : "tv";
+        items =
+            items.filter(item => {
+
+                return (
+                    item.type === "فيلم"
+                );
+
+            });
+
+    }
 
 
-        return (
-            window.location.origin +
-            window.location.pathname +
-            "?movie=" +
-            encodeURIComponent(
-                mediaType +
-                "-" +
-                item.id
-            )
+    /* SEARCH */
+
+    if (currentSearch) {
+
+        items =
+            items.filter(item => {
+
+                const title =
+                    String(
+                        item.title || ""
+                    ).toLowerCase();
+
+
+                const originalTitle =
+                    String(
+                        item.original_title || ""
+                    ).toLowerCase();
+
+
+                const overview =
+                    String(
+                        item.overview || ""
+                    ).toLowerCase();
+
+
+                const type =
+                    String(
+                        item.type || ""
+                    ).toLowerCase();
+
+
+                const detailedType =
+                    String(
+                        item.detailed_type || ""
+                    ).toLowerCase();
+
+
+                const genres =
+                    Array.isArray(
+                        item.genres
+                    )
+                    ? item.genres
+                        .join(" ")
+                        .toLowerCase()
+                    : "";
+
+
+                return (
+
+                    title.includes(
+                        currentSearch
+                    )
+
+                    ||
+
+                    originalTitle.includes(
+                        currentSearch
+                    )
+
+                    ||
+
+                    overview.includes(
+                        currentSearch
+                    )
+
+                    ||
+
+                    type.includes(
+                        currentSearch
+                    )
+
+                    ||
+
+                    detailedType.includes(
+                        currentSearch
+                    )
+
+                    ||
+
+                    genres.includes(
+                        currentSearch
+                    )
+
+                );
+
+            });
+
+    }
+
+
+    items =
+        items.slice(
+            0,
+            30
         );
 
+
+    resultCount.textContent =
+        `${items.length} عمل متاح`;
+
+
+    if (!items.length) {
+
+        movieGrid.innerHTML = `
+
+        <div class="state">
+
+            <div class="state-icon">
+                🔎
+            </div>
+
+            <h3>
+                لا توجد نتائج
+            </h3>
+
+            <p>
+                جرّب تصنيفًا آخر أو
+                ابحث باسم مختلف.
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+
     }
 
 
-    /* =====================================================
-       OPEN MOVIE FROM URL
-       
-       Supports:
+    movieGrid.innerHTML =
+        items
+            .map(
+                (item,index) =>
+                    createMovieCard(
+                        item,
+                        index
+                    )
+            )
+            .join("");
 
-       ?movie=movie-123
-       ?movie=tv-123
-
-       Also supports:
-       ?id=123&type=movie
-       ?id=123&type=tv
-    ===================================================== */
-
-    function openMovieFromUrl() {
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
+}
 
 
-        const movieParam =
-            params.get(
-                "movie"
-            );
+/* =====================================================
+   CREATE CARD
+===================================================== */
+
+function createMovieCard(
+    item,
+    index
+) {
+
+    const title =
+        escapeHtml(
+            item.title ||
+            "بدون عنوان"
+        );
 
 
-        const idParam =
-            params.get(
-                "id"
-            );
+    const overview =
+        escapeHtml(
+            item.overview ||
+            "لا يوجد ملخص متوفر حاليًا."
+        );
 
 
-        const typeParam =
-            params.get(
-                "type"
-            );
+    const type =
+        escapeHtml(
+            item.detailed_type ||
+            item.type ||
+            "عمل"
+        );
 
 
-        let targetId = "";
-
-        let targetType = "";
-
-
-        /* -------------------------------------------------
-           ?movie=tv-123
-        ------------------------------------------------- */
-
-        if (movieParam) {
-
-            const parts =
-                movieParam.split(
-                    "-"
-                );
+    const year =
+        escapeHtml(
+            item.year ||
+            ""
+        );
 
 
-            if (parts.length >= 2) {
+    const rating =
+        Number(
+            item.rating || 0
+        ).toFixed(1);
 
-                targetType =
-                    parts.shift();
+
+    const poster =
+        item.poster ||
+        "";
 
 
-                targetId =
-                    parts.join("-");
+    const isNew =
+        index < 6;
 
+
+    const safeData =
+        encodeURIComponent(
+            JSON.stringify(item)
+        );
+
+
+    return `
+
+    <article
+        class="movie-card"
+        data-movie="${safeData}"
+        onclick="openMovieFromCard(this)"
+    >
+
+        <div class="poster-wrap">
+
+            ${
+                poster
+                ?
+                `
+                <img
+                    class="poster"
+                    src="${escapeAttribute(poster)}"
+                    alt="${escapeAttribute(title)}"
+                    loading="lazy"
+                    onerror="
+                        this.style.display='none'
+                    "
+                >
+                `
+                :
+                ""
             }
 
-        }
+
+            <div class="poster-overlay"></div>
 
 
-        /* -------------------------------------------------
-           ?id=123&type=tv
-        ------------------------------------------------- */
-
-        if (
-            !targetId &&
-            idParam
-        ) {
-
-            targetId =
-                idParam;
-
-            targetType =
-                typeParam ||
-                "movie";
-
-        }
+            ${
+                isNew
+                ?
+                `
+                <div class="badge">
+                    جديد
+                </div>
+                `
+                :
+                ""
+            }
 
 
-        if (!targetId) {
+            <div class="rating">
 
-            return;
+                ⭐
 
-        }
+                <span>
+                    ${rating}
+                </span>
+
+            </div>
+
+        </div>
 
 
-        targetId =
-            String(
-                targetId
-            );
+        <div class="movie-info">
+
+            <div class="movie-type">
+                ${type}
+            </div>
 
 
-        targetType =
-            String(
-                targetType
-            ).toLowerCase();
+            <h3 class="movie-title">
+                ${title}
+            </h3>
+
+
+            <div class="movie-meta">
+
+                ${year || "—"}
+
+                <span
+                    style="
+                        margin:0 5px;
+                    "
+                >
+                    •
+                </span>
+
+                MOVINS
+
+            </div>
+
+
+            <p class="movie-overview">
+                ${overview}
+            </p>
+
+        </div>
+
+    </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   OPEN FROM CARD
+===================================================== */
+
+function openMovieFromCard(card) {
+
+    try {
+
+        const encoded =
+            card.dataset.movie;
 
 
         const item =
-            allItems.find(
-                movie => {
-
-                    const itemId =
-                        String(
-                            movie.id
-                        );
-
-
-                    const itemType =
-                        movie.type === "فيلم"
-                            ? "movie"
-                            : "tv";
-
-
-                    return (
-                        itemId === targetId &&
-                        itemType === targetType
-                    );
-
-                }
+            JSON.parse(
+                decodeURIComponent(
+                    encoded
+                )
             );
 
 
-        if (item) {
+        openMovieModal(
+            item
+        );
 
-            setTimeout(
-                () => {
 
-                    openMovieModal(
-                        item
-                    );
+    } catch (error) {
 
-                },
-                150
+        console.error(
+            "Card error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CREATE EXACT MOVIE URL
+===================================================== */
+
+function getMovieUrl(item) {
+
+    const mediaType =
+        item.type === "فيلم"
+        ? "movie"
+        : "tv";
+
+
+    const movieId =
+        String(
+            item.id
+        );
+
+
+    return (
+        window.location.origin +
+        window.location.pathname +
+        "?movie=" +
+        encodeURIComponent(
+            mediaType +
+            "-" +
+            movieId
+        )
+    );
+
+}
+
+
+/* =====================================================
+   OPEN MOVIE FROM FACEBOOK / URL
+===================================================== */
+
+function openMovieFromUrl() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const movieParam =
+        params.get("movie");
+
+
+    const idParam =
+        params.get("id");
+
+
+    const typeParam =
+        params.get("type");
+
+
+    let targetId = "";
+
+    let targetType = "";
+
+
+    /*
+     * ?movie=tv-1399
+     */
+
+    if (movieParam) {
+
+        const match =
+            movieParam.match(
+                /^(movie|tv)-(.+)$/
             );
+
+
+        if (match) {
+
+            targetType =
+                match[1];
+
+            targetId =
+                match[2];
 
         }
 
     }
 
 
-    /* =====================================================
-       MODAL
-    ===================================================== */
+    /*
+     * Also support:
+     *
+     * ?id=1399&type=tv
+     */
 
-    function openMovieModal(item) {
+    if (
+        !targetId &&
+        idParam
+    ) {
 
-        const title =
-            item.title ||
-            "بدون عنوان";
+        targetId =
+            idParam;
 
+        targetType =
+            typeParam ||
+            "movie";
 
-        const poster =
-            item.poster ||
-            "";
-
-
-        const detailedType =
-            item.detailed_type ||
-            item.type ||
-            "عمل";
-
-
-        const overview =
-            item.overview ||
-            "لا يوجد ملخص متوفر حاليًا.";
+    }
 
 
-        const rating =
-            Number(
-                item.rating || 0
-            ).toFixed(1);
+    if (!targetId) {
+        return;
+    }
 
 
-        const year =
-            item.year ||
-            "—";
+    targetId =
+        String(
+            targetId
+        );
 
 
-        const genres =
-            Array.isArray(
-                item.genres
-            )
-                ? item.genres
-                : [];
+    targetType =
+        String(
+            targetType
+        ).toLowerCase();
 
 
-        const hashtags =
-            item.hashtags
-            || "";
+    const item =
+        allItems.find(
+            movie => {
+
+                const itemId =
+                    String(
+                        movie.id
+                    );
 
 
-        /* -------------------------------------------------
-           POSTER
-        ------------------------------------------------- */
-
-        const modalPoster =
-            document.getElementById(
-                "modalPoster"
-            );
+                const itemType =
+                    movie.type === "فيلم"
+                    ? "movie"
+                    : "tv";
 
 
-        modalPoster.src =
-            poster;
-
-
-        modalPoster.alt =
-            title;
-
-
-        /* -------------------------------------------------
-           TYPE
-        ------------------------------------------------- */
-
-        document.getElementById(
-            "modalType"
-        ).textContent =
-            detailedType;
-
-
-        /* -------------------------------------------------
-           TITLE
-        ------------------------------------------------- */
-
-        document.getElementById(
-            "modalTitle"
-        ).textContent =
-            title;
-
-
-        /* -------------------------------------------------
-           META
-        ------------------------------------------------- */
-
-        document.getElementById(
-            "modalMeta"
-        ).innerHTML = `
-
-            <span class="meta-pill">
-                ${escapeHtml(year)}
-            </span>
-
-            <span class="meta-pill rating-pill">
-                ⭐ ${rating}
-            </span>
-
-            <span class="meta-pill">
-                MOVINS
-            </span>
-
-        `;
-
-
-        /* -------------------------------------------------
-           GENRES
-        ------------------------------------------------- */
-
-        document.getElementById(
-            "modalGenres"
-        ).innerHTML =
-            genres.length
-                ?
-                genres
-                    .map(
-                        genre =>
-                            `
-                            <span
-                                class="genre-tag"
-                            >
-                                ${escapeHtml(
-                                    genre
-                                )}
-                            </span>
-                            `
-                    )
-                    .join("")
-                :
-                "";
-
-
-        /* -------------------------------------------------
-           OVERVIEW
-        ------------------------------------------------- */
-
-        document.getElementById(
-            "modalOverview"
-        ).textContent =
-            overview;
-
-
-        /* -------------------------------------------------
-           HASHTAGS
-        ------------------------------------------------- */
-
-        document.getElementById(
-            "modalHashtags"
-        ).textContent =
-            hashtags;
-
-
-        /* =================================================
-           TRAILER
-        ================================================== */
-
-        const trailerSection =
-            document.getElementById(
-                "trailerSection"
-            );
-
-
-        const trailerFrame =
-            document.getElementById(
-                "trailerFrame"
-            );
-
-
-        let trailerKey =
-            String(
-                item.trailer_key || ""
-            ).trim();
-
-
-        let trailerUrl =
-            String(
-                item.trailer_url || ""
-            ).trim();
-
-
-        let youtubeId =
-            trailerKey;
-
-
-        /*
-         * If trailer_key doesn't exist,
-         * extract YouTube ID from trailer_url.
-         */
-
-        if (
-            !youtubeId &&
-            trailerUrl
-        ) {
-
-            const match =
-                trailerUrl.match(
-                    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
+                return (
+                    itemId === targetId &&
+                    itemType === targetType
                 );
 
-
-            if (match) {
-
-                youtubeId =
-                    match[1];
-
             }
-
-        }
-
-
-        /*
-         * Show trailer only when
-         * a valid YouTube ID exists.
-         */
-
-        if (youtubeId) {
-
-            trailerFrame.src =
-                "https://www.youtube.com/embed/" +
-                encodeURIComponent(
-                    youtubeId
-                ) +
-                "?rel=0";
-
-            trailerSection.style.display =
-                "block";
-
-        }
-
-        else {
-
-            trailerFrame.src =
-                "";
-
-            trailerSection.style.display =
-                "none";
-
-        }
-
-
-        /* -------------------------------------------------
-           SHOW MODAL
-        ------------------------------------------------- */
-
-        movieModal.classList.add(
-            "show"
         );
 
 
-        document.body.classList.add(
-            "modal-open"
+    if (item) {
+
+        setTimeout(
+            () => {
+
+                openMovieModal(
+                    item,
+                    false
+                );
+
+            },
+            200
+        );
+
+    } else {
+
+        console.warn(
+            "MOVINS: movie not found:",
+            targetType,
+            targetId
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN MODAL
+===================================================== */
+
+function openMovieModal(
+    item,
+    updateUrl = true
+) {
+
+    const title =
+        item.title ||
+        "بدون عنوان";
+
+
+    const poster =
+        item.poster ||
+        "";
+
+
+    const detailedType =
+        item.detailed_type ||
+        item.type ||
+        "عمل";
+
+
+    const overview =
+        item.overview ||
+        "لا يوجد ملخص متوفر حاليًا.";
+
+
+    const rating =
+        Number(
+            item.rating || 0
+        ).toFixed(1);
+
+
+    const year =
+        item.year ||
+        "—";
+
+
+    const genres =
+        Array.isArray(
+            item.genres
+        )
+        ? item.genres
+        : [];
+
+
+    const hashtags =
+        item.hashtags ||
+        "";
+
+
+    /* POSTER */
+
+    const modalPoster =
+        document.getElementById(
+            "modalPoster"
         );
 
 
-        /*
-         * Update browser URL without reload.
-         * This makes the exact movie shareable.
-         */
+    modalPoster.src =
+        poster;
+
+
+    modalPoster.alt =
+        title;
+
+
+    /* TYPE */
+
+    document.getElementById(
+        "modalType"
+    ).textContent =
+        detailedType;
+
+
+    /* TITLE */
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        title;
+
+
+    /* META */
+
+    document.getElementById(
+        "modalMeta"
+    ).innerHTML = `
+
+    <span class="meta-pill">
+        ${escapeHtml(year)}
+    </span>
+
+    <span class="meta-pill rating-pill">
+        ⭐ ${rating}
+    </span>
+
+    <span class="meta-pill">
+        MOVINS
+    </span>
+
+    `;
+
+
+    /* GENRES */
+
+    document.getElementById(
+        "modalGenres"
+    ).innerHTML =
+        genres.length
+        ?
+        genres
+            .map(
+                genre =>
+                    `
+                    <span class="genre-tag">
+                        ${escapeHtml(
+                            genre
+                        )}
+                    </span>
+                    `
+            )
+            .join("")
+        :
+        "";
+
+
+    /* OVERVIEW */
+
+    document.getElementById(
+        "modalOverview"
+    ).textContent =
+        overview;
+
+
+    /* HASHTAGS */
+
+    document.getElementById(
+        "modalHashtags"
+    ).textContent =
+        hashtags;
+
+
+    /* =================================================
+       TRAILER
+    ================================================= */
+
+    const trailerSection =
+        document.getElementById(
+            "trailerSection"
+        );
+
+
+    const trailerFrame =
+        document.getElementById(
+            "trailerFrame"
+        );
+
+
+    let trailerKey =
+        String(
+            item.trailer_key ||
+            ""
+        ).trim();
+
+
+    let trailerUrl =
+        String(
+            item.trailer_url ||
+            ""
+        ).trim();
+
+
+    let youtubeId =
+        trailerKey;
+
+
+    /*
+     * Extract YouTube ID
+     */
+
+    if (
+        !youtubeId &&
+        trailerUrl
+    ) {
+
+        const match =
+            trailerUrl.match(
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
+            );
+
+
+        if (match) {
+
+            youtubeId =
+                match[1];
+
+        }
+
+    }
+
+
+    /*
+     * Trailer
+     */
+
+    if (youtubeId) {
+
+        trailerFrame.src =
+            "https://www.youtube.com/embed/" +
+            encodeURIComponent(
+                youtubeId
+            ) +
+            "?rel=0";
+
+
+        trailerSection.style.display =
+            "block";
+
+    } else {
+
+        trailerFrame.src =
+            "";
+
+        trailerSection.style.display =
+            "none";
+
+    }
+
+
+    /* SHOW */
+
+    movieModal.classList.add(
+        "show"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+
+    /*
+     * Only update URL when user
+     * opened the card normally.
+     *
+     * When Facebook already supplied
+     * ?movie=... we don't reload/change it.
+     */
+
+    if (updateUrl) {
 
         try {
 
@@ -3762,75 +3407,87 @@
 
     }
 
+}
 
-    /* =====================================================
-       CLOSE MODAL
-    ===================================================== */
 
-    function closeMovieModal() {
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
 
-        movieModal.classList.remove(
-            "show"
+function closeMovieModal() {
+
+    movieModal.classList.remove(
+        "show"
+    );
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
+    const trailerFrame =
+        document.getElementById(
+            "trailerFrame"
         );
 
 
-        document.body.classList.remove(
-            "modal-open"
-        );
+    if (trailerFrame) {
 
-
-        /*
-         * Stop YouTube completely.
-         */
-
-        const trailerFrame =
-            document.getElementById(
-                "trailerFrame"
-            );
-
-
-        if (trailerFrame) {
-
-            trailerFrame.src =
-                "";
-
-        }
-
-
-        /*
-         * Remove movie parameter
-         * from browser URL.
-         */
-
-        try {
-
-            window.history.replaceState(
-                {},
-                "",
-                window.location.pathname
-            );
-
-        } catch (error) {
-
-            console.warn(
-                "URL reset warning:",
-                error
-            );
-
-        }
+        trailerFrame.src =
+            "";
 
     }
 
 
-    /* =====================================================
-       CLOSE OUTSIDE
-    ===================================================== */
+    try {
 
-    function closeModalOutside(event) {
+        window.history.replaceState(
+            {},
+            "",
+            window.location.pathname
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "URL reset warning:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CLOSE OUTSIDE
+===================================================== */
+
+function closeModalOutside(event) {
+
+    if (
+        event.target ===
+        movieModal
+    ) {
+
+        closeMovieModal();
+
+    }
+
+}
+
+
+/* =====================================================
+   ESC
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
 
         if (
-            event.target ===
-            movieModal
+            event.key === "Escape"
         ) {
 
             closeMovieModal();
@@ -3838,95 +3495,75 @@
         }
 
     }
+);
 
 
-    /* =====================================================
-       ESC KEY
-    ===================================================== */
+/* =====================================================
+   SECURITY
+===================================================== */
 
-    document.addEventListener(
-        "keydown",
-        function(event) {
+function escapeHtml(value) {
 
-            if (
-                event.key === "Escape"
-            ) {
+    return String(value)
 
-                closeMovieModal();
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
 
-            }
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
 
-        }
-    );
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
 
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
 
-    /* =====================================================
-       SECURITY
-    ===================================================== */
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
-    function escapeHtml(value) {
-
-        return String(value)
-
-            .replaceAll(
-                "&",
-                "&amp;"
-            )
-
-            .replaceAll(
-                "<",
-                "&lt;"
-            )
-
-            .replaceAll(
-                ">",
-                "&gt;"
-            )
-
-            .replaceAll(
-                '"',
-                "&quot;"
-            )
-
-            .replaceAll(
-                "'",
-                "&#039;"
-            );
-
-    }
+}
 
 
-    function escapeAttribute(value) {
+function escapeAttribute(value) {
 
-        return escapeHtml(value);
+    return escapeHtml(value);
 
-    }
-
-
-    /* =====================================================
-       SCROLL
-    ===================================================== */
-
-    function scrollToMovies() {
-
-        document
-            .getElementById(
-                "moviesSection"
-            )
-            .scrollIntoView({
-                behavior:
-                    "smooth"
-            });
-
-    }
+}
 
 
-    /* =====================================================
-       START
-    ===================================================== */
+/* =====================================================
+   SCROLL
+===================================================== */
 
-    loadMovies();
+function scrollToMovies() {
 
+    document
+        .getElementById(
+            "moviesSection"
+        )
+        .scrollIntoView({
+            behavior:
+                "smooth"
+        });
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadMovies();
 
 </script>
 
