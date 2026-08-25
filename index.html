@@ -56,11 +56,9 @@
             padding: 0;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
-
 
         body {
 
@@ -87,17 +85,14 @@
             line-height: 1.7;
         }
 
-
         body.modal-open {
             overflow: hidden;
         }
-
 
         button,
         input {
             font-family: inherit;
         }
-
 
         button {
             border: none;
@@ -106,7 +101,7 @@
 
         /* =====================================================
            SCROLLBAR
-        ===================================================== */
+        ====================================================== */
 
         ::-webkit-scrollbar {
             width: 7px;
@@ -128,7 +123,7 @@
 
         /* =====================================================
            HEADER
-        ===================================================== */
+        ====================================================== */
 
         header {
 
@@ -139,7 +134,7 @@
             z-index: 1000;
 
             background:
-                rgba(7, 8, 13, 0.92);
+                rgba(7, 8, 13, 0.94);
 
             border-bottom:
                 1px solid rgba(255,255,255,0.07);
@@ -150,7 +145,6 @@
             -webkit-backdrop-filter:
                 blur(20px);
         }
-
 
         .header-inner {
 
@@ -175,7 +169,7 @@
 
         /* =====================================================
            LOGO
-        ===================================================== */
+        ====================================================== */
 
         .logo {
 
@@ -199,11 +193,9 @@
             white-space: nowrap;
         }
 
-
         .logo .red {
             color: #ff1018;
         }
-
 
         .logo-sub {
 
@@ -215,10 +207,6 @@
 
             color: #898d98;
 
-            font-family:
-                "Cairo",
-                sans-serif;
-
             font-size: 10px;
 
             letter-spacing: 1px;
@@ -229,7 +217,7 @@
 
         /* =====================================================
            SEARCH
-        ===================================================== */
+        ====================================================== */
 
         .top-search {
 
@@ -237,7 +225,6 @@
 
             max-width: 680px;
         }
-
 
         .search-box {
 
@@ -264,7 +251,6 @@
                 0.25s ease;
         }
 
-
         .search-box:focus-within {
 
             border-color:
@@ -274,7 +260,6 @@
                 0 0 30px
                 rgba(255,16,24,0.10);
         }
-
 
         .search-icon {
 
@@ -286,7 +271,6 @@
 
             margin-left: 8px;
         }
-
 
         #searchInput {
 
@@ -307,7 +291,6 @@
             font-weight: 500;
         }
 
-
         #searchInput::placeholder {
             color: #777d8b;
         }
@@ -315,7 +298,7 @@
 
         /* =====================================================
            HERO
-        ===================================================== */
+        ====================================================== */
 
         .hero {
 
@@ -344,7 +327,6 @@
                 75px 30px 65px;
         }
 
-
         .hero::before {
 
             content: "";
@@ -367,14 +349,12 @@
             pointer-events: none;
         }
 
-
         .hero-text {
 
             position: relative;
 
             z-index: 2;
         }
-
 
         .hero-kicker {
 
@@ -395,7 +375,6 @@
             margin-bottom: 15px;
         }
 
-
         .hero-kicker::before {
 
             content: "";
@@ -408,7 +387,6 @@
 
             border-radius: 20px;
         }
-
 
         .hero h1 {
 
@@ -424,11 +402,9 @@
             margin-bottom: 22px;
         }
 
-
         .hero h1 span {
             color: #ff1018;
         }
-
 
         .hero p {
 
@@ -444,7 +420,6 @@
             margin-bottom: 28px;
         }
 
-
         .hero-buttons {
 
             display: flex;
@@ -453,7 +428,6 @@
 
             gap: 12px;
         }
-
 
         .btn {
 
@@ -472,7 +446,6 @@
                 0.25s ease;
         }
 
-
         .btn-primary {
 
             background: #ff1018;
@@ -484,7 +457,6 @@
                 rgba(255,16,24,0.18);
         }
 
-
         .btn-primary:hover {
 
             background: #ff3037;
@@ -492,7 +464,6 @@
             transform:
                 translateY(-2px);
         }
-
 
         .btn-secondary {
 
@@ -504,7 +475,6 @@
             color: white;
         }
 
-
         .btn-secondary:hover {
 
             border-color: #ff1018;
@@ -513,8 +483,9 @@
 
         /* =====================================================
            HERO BANNER
-           IMAGE: movins-banner.png
-        ===================================================== */
+           الصورة الموجودة في GitHub:
+           movins-banner.png
+        ====================================================== */
 
         .hero-card {
 
@@ -522,14 +493,20 @@
 
             width: min(
                 100%,
-                350px
+                440px
             );
 
-            height: 390px;
+            /*
+             * IMPORTANT:
+             * مربع حقيقي
+             */
+            aspect-ratio: 1 / 1;
+
+            height: auto;
 
             margin: auto;
 
-            border-radius: 28px;
+            border-radius: 30px;
 
             overflow: hidden;
 
@@ -541,33 +518,23 @@
                 rgba(255,16,24,0.65);
 
             box-shadow:
-                0 30px 80px
-                rgba(0,0,0,0.55),
+                0 30px 90px
+                rgba(0,0,0,0.60),
 
-                0 0 35px
+                0 0 50px
                 rgba(255,16,24,0.10);
-
-            transition:
-                transform .35s ease,
-                box-shadow .35s ease;
         }
 
 
-        .hero-card:hover {
-
-            transform:
-                translateY(-5px);
-
-            box-shadow:
-                0 35px 90px
-                rgba(0,0,0,0.65),
-
-                0 0 45px
-                rgba(255,16,24,0.18);
-        }
-
+        /* =====================================================
+           BANNER IMAGE
+        ====================================================== */
 
         .hero-banner {
+
+            position: absolute;
+
+            inset: 0;
 
             width: 100%;
 
@@ -575,6 +542,9 @@
 
             display: block;
 
+            /*
+             * تجعل الصورة تملأ المربع
+             */
             object-fit: cover;
 
             object-position: center;
@@ -583,17 +553,130 @@
                 transform .5s ease;
         }
 
-
         .hero-card:hover .hero-banner {
 
             transform:
-                scale(1.035);
+                scale(1.025);
+        }
+
+
+        /* =====================================================
+           DARK OVERLAY
+        ====================================================== */
+
+        .hero-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0,0,0,0.03) 25%,
+                    rgba(0,0,0,0.10) 45%,
+                    rgba(0,0,0,0.70) 78%,
+                    rgba(0,0,0,0.97) 100%
+                );
+        }
+
+
+        /* =====================================================
+           TEXT ON BANNER
+        ====================================================== */
+
+        .hero-card-content {
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 5;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: flex-end;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding:
+                30px 25px 28px;
+        }
+
+        .hero-card-small {
+
+            color:
+                #ff1018;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                4px;
+
+            margin-bottom:
+                6px;
+
+            text-shadow:
+                0 2px 10px
+                rgba(0,0,0,.7);
+        }
+
+        .hero-card h2 {
+
+            color:
+                #ffffff;
+
+            font-size:
+                clamp(25px, 3vw, 35px);
+
+            line-height:
+                1.45;
+
+            margin-bottom:
+                8px;
+
+            font-weight:
+                900;
+
+            text-shadow:
+                0 3px 18px
+                rgba(0,0,0,.9);
+        }
+
+        .hero-card p {
+
+            color:
+                #c8cbd3;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.7;
+
+            margin: 0;
+
+            text-shadow:
+                0 2px 10px
+                rgba(0,0,0,.9);
         }
 
 
         /* =====================================================
            MAIN
-        ===================================================== */
+        ====================================================== */
 
         main {
 
@@ -607,7 +690,6 @@
             padding:
                 10px 30px 90px;
         }
-
 
         .section-header {
 
@@ -623,7 +705,6 @@
                 20px 0 24px;
         }
 
-
         .section-title {
 
             font-size:
@@ -634,11 +715,9 @@
             letter-spacing: -0.5px;
         }
 
-
         .section-title span {
             color: #ff1018;
         }
-
 
         .result-count {
 
@@ -652,7 +731,7 @@
 
         /* =====================================================
            FILTERS
-        ===================================================== */
+        ====================================================== */
 
         .filters {
 
@@ -669,7 +748,6 @@
             margin:
                 0 auto 32px;
         }
-
 
         .filter-btn {
 
@@ -699,7 +777,6 @@
                 0.22s ease;
         }
 
-
         .filter-btn:hover {
 
             color: white;
@@ -710,7 +787,6 @@
             transform:
                 translateY(-1px);
         }
-
 
         .filter-btn.active {
 
@@ -730,7 +806,7 @@
 
         /* =====================================================
            GRID
-        ===================================================== */
+        ====================================================== */
 
         .movie-grid {
 
@@ -747,8 +823,8 @@
 
 
         /* =====================================================
-           CARD
-        ===================================================== */
+           MOVIE CARD
+        ====================================================== */
 
         .movie-card {
 
@@ -772,7 +848,6 @@
                 box-shadow .28s ease;
         }
 
-
         .movie-card:hover {
 
             transform:
@@ -789,7 +864,7 @@
 
         /* =====================================================
            POSTER
-        ===================================================== */
+        ====================================================== */
 
         .poster-wrap {
 
@@ -810,7 +885,6 @@
                 );
         }
 
-
         .poster {
 
             width: 100%;
@@ -825,13 +899,11 @@
                 transform .45s ease;
         }
 
-
         .movie-card:hover .poster {
 
             transform:
                 scale(1.045);
         }
-
 
         .poster-overlay {
 
@@ -850,7 +922,7 @@
 
         /* =====================================================
            BADGE
-        ===================================================== */
+        ====================================================== */
 
         .badge {
 
@@ -875,16 +947,12 @@
             font-size: 11px;
 
             font-weight: 800;
-
-            box-shadow:
-                0 6px 20px
-                rgba(0,0,0,.25);
         }
 
 
         /* =====================================================
            RATING
-        ===================================================== */
+        ====================================================== */
 
         .rating {
 
@@ -917,7 +985,6 @@
             font-size: 12px;
         }
 
-
         .rating span {
 
             color:
@@ -929,14 +996,13 @@
 
         /* =====================================================
            CARD INFO
-        ===================================================== */
+        ====================================================== */
 
         .movie-info {
 
             padding:
                 17px;
         }
-
 
         .movie-type {
 
@@ -949,7 +1015,6 @@
 
             margin-bottom: 6px;
         }
-
 
         .movie-title {
 
@@ -966,7 +1031,6 @@
             min-height: 28px;
         }
 
-
         .movie-meta {
 
             color:
@@ -976,7 +1040,6 @@
 
             margin-bottom: 9px;
         }
-
 
         .movie-overview {
 
@@ -1002,7 +1065,7 @@
 
         /* =====================================================
            STATES
-        ===================================================== */
+        ====================================================== */
 
         .state {
 
@@ -1019,7 +1082,6 @@
                 #7e8490;
         }
 
-
         .state-icon {
 
             font-size:
@@ -1028,7 +1090,6 @@
             margin-bottom:
                 12px;
         }
-
 
         .state h3 {
 
@@ -1039,7 +1100,6 @@
             margin-bottom: 7px;
         }
 
-
         .error {
             color: #ff6268;
         }
@@ -1047,7 +1107,7 @@
 
         /* =====================================================
            MODAL
-        ===================================================== */
+        ====================================================== */
 
         .modal {
 
@@ -1075,11 +1135,9 @@
                 blur(12px);
         }
 
-
         .modal.show {
             display: flex;
         }
-
 
         .modal-box {
 
@@ -1114,7 +1172,6 @@
                 modalIn .25s ease;
         }
 
-
         @keyframes modalIn {
 
             from {
@@ -1135,7 +1192,6 @@
                     scale(1);
             }
         }
-
 
         .modal-close {
 
@@ -1163,7 +1219,6 @@
             cursor: pointer;
         }
 
-
         .modal-content {
 
             display: grid;
@@ -1176,7 +1231,6 @@
 
             padding: 30px;
         }
-
 
         .modal-poster {
 
@@ -1192,7 +1246,6 @@
             background: #08090d;
         }
 
-
         .modal-details {
 
             display: flex;
@@ -1203,7 +1256,6 @@
 
             padding-top: 10px;
         }
-
 
         .modal-type {
 
@@ -1217,7 +1269,6 @@
             margin-bottom: 8px;
         }
 
-
         .modal-title {
 
             font-size:
@@ -1230,7 +1281,6 @@
             margin-bottom: 12px;
         }
 
-
         .modal-meta {
 
             display: flex;
@@ -1241,7 +1291,6 @@
 
             margin-bottom: 22px;
         }
-
 
         .meta-pill {
 
@@ -1268,13 +1317,11 @@
             font-weight: 700;
         }
 
-
         .meta-pill.rating-pill {
 
             color:
                 #ffd54a;
         }
-
 
         .modal-overview-title {
 
@@ -1287,7 +1334,6 @@
 
             margin-bottom: 8px;
         }
-
 
         .modal-overview {
 
@@ -1304,7 +1350,6 @@
                 22px;
         }
 
-
         .modal-genres {
 
             display: flex;
@@ -1315,7 +1360,6 @@
 
             margin-bottom: 18px;
         }
-
 
         .genre-tag {
 
@@ -1336,7 +1380,6 @@
             font-size: 11px;
         }
 
-
         .hashtags {
 
             color:
@@ -1350,7 +1393,7 @@
 
         /* =====================================================
            FOOTER
-        ===================================================== */
+        ====================================================== */
 
         footer {
 
@@ -1369,7 +1412,6 @@
             font-size: 13px;
         }
 
-
         footer strong {
 
             color: white;
@@ -1381,7 +1423,6 @@
             font-size: 22px;
         }
 
-
         footer .red {
             color: #ff1018;
         }
@@ -1389,7 +1430,7 @@
 
         /* =====================================================
            TABLET
-        ===================================================== */
+        ====================================================== */
 
         @media (max-width: 1100px) {
 
@@ -1402,25 +1443,29 @@
                     );
             }
 
-
             .hero {
 
                 grid-template-columns:
                     1fr .8fr;
+            }
+
+            .hero-card {
+
+                width:
+                    min(100%, 390px);
             }
         }
 
 
         /* =====================================================
            MOBILE
-        ===================================================== */
+        ====================================================== */
 
         @media (max-width: 750px) {
 
             header {
                 position: sticky;
             }
-
 
             .header-inner {
 
@@ -1436,7 +1481,6 @@
                     14px 0 16px;
             }
 
-
             .logo {
 
                 font-size: 32px;
@@ -1445,14 +1489,12 @@
                     -2px;
             }
 
-
             .logo-sub {
 
                 font-size: 9px;
 
                 margin-top: 5px;
             }
-
 
             .top-search {
 
@@ -1461,12 +1503,10 @@
                 max-width: none;
             }
 
-
             .search-box {
 
                 min-height: 52px;
             }
-
 
             #searchInput {
 
@@ -1475,6 +1515,10 @@
                 font-size: 14px;
             }
 
+
+            /* =================================================
+               MOBILE HERO
+            ================================================= */
 
             .hero {
 
@@ -1495,12 +1539,10 @@
                     45px 5px 35px;
             }
 
-
             .hero-text {
 
                 width: 100%;
             }
-
 
             .hero-kicker {
 
@@ -1510,7 +1552,6 @@
                 font-size: 11px;
             }
 
-
             .hero h1 {
 
                 font-size: 42px;
@@ -1518,7 +1559,6 @@
                 letter-spacing:
                     -1px;
             }
-
 
             .hero p {
 
@@ -1530,7 +1570,6 @@
                     0 auto 22px;
             }
 
-
             .hero-buttons {
 
                 justify-content:
@@ -1538,40 +1577,63 @@
             }
 
 
-            /* -------------------------------------------------
-               MOBILE HERO BANNER
-            ------------------------------------------------- */
+            /* =================================================
+               MOBILE BANNER
+               مربع 100%
+            ================================================= */
 
             .hero-card {
 
                 width:
                     min(
-                        92%,
-                        360px
+                        100%,
+                        380px
                     );
 
+                aspect-ratio:
+                    1 / 1;
+
                 height:
-                    410px;
+                    auto;
 
                 border-radius:
-                    25px;
+                    28px;
+            }
 
-                margin:
-                    0 auto;
+            .hero-card-content {
+
+                padding:
+                    25px 18px 24px;
+            }
+
+            .hero-card-small {
+
+                font-size:
+                    10px;
+
+                letter-spacing:
+                    3px;
+            }
+
+            .hero-card h2 {
+
+                font-size:
+                    26px;
+
+                line-height:
+                    1.5;
+            }
+
+            .hero-card p {
+
+                font-size:
+                    12px;
             }
 
 
-            .hero-banner {
-
-                width: 100%;
-
-                height: 100%;
-
-                object-fit: cover;
-
-                object-position: center;
-            }
-
+            /* =================================================
+               MAIN
+            ================================================= */
 
             main {
 
@@ -1581,7 +1643,6 @@
                 padding:
                     5px 0 70px;
             }
-
 
             .section-header {
 
@@ -1600,12 +1661,15 @@
                     18px;
             }
 
-
             .section-title {
 
                 font-size: 28px;
             }
 
+
+            /* =================================================
+               FILTERS
+            ================================================= */
 
             .filters {
 
@@ -1630,11 +1694,9 @@
                     20px;
             }
 
-
             .filters::-webkit-scrollbar {
                 display: none;
             }
-
 
             .filter-btn {
 
@@ -1652,6 +1714,10 @@
             }
 
 
+            /* =================================================
+               MOVIE GRID
+            ================================================= */
+
             .movie-grid {
 
                 width: 100%;
@@ -1665,13 +1731,11 @@
                 gap: 12px;
             }
 
-
             .movie-card {
 
                 border-radius:
                     16px;
             }
-
 
             .movie-info {
 
@@ -1679,13 +1743,11 @@
                     11px;
             }
 
-
             .movie-type {
 
                 font-size:
                     10px;
             }
-
 
             .movie-title {
 
@@ -1696,13 +1758,11 @@
                     1.55;
             }
 
-
             .movie-meta {
 
                 font-size:
                     10px;
             }
-
 
             .movie-overview {
 
@@ -1716,7 +1776,6 @@
                     3;
             }
 
-
             .badge {
 
                 top: 7px;
@@ -1729,7 +1788,6 @@
                 padding:
                     5px 7px;
             }
-
 
             .rating {
 
@@ -1745,16 +1803,15 @@
             }
 
 
-            /* -------------------------------------------------
+            /* =================================================
                MODAL MOBILE
-            ------------------------------------------------- */
+            ================================================= */
 
             .modal {
 
                 padding:
                     12px;
             }
-
 
             .modal-box {
 
@@ -1764,7 +1821,6 @@
                 border-radius:
                     20px;
             }
-
 
             .modal-content {
 
@@ -1782,13 +1838,11 @@
                     22px 17px 28px;
             }
 
-
             .modal-poster {
 
                 width:
                     180px;
             }
-
 
             .modal-details {
 
@@ -1798,13 +1852,11 @@
                     center;
             }
 
-
             .modal-type {
 
                 font-size:
                     11px;
             }
-
 
             .modal-title {
 
@@ -1812,13 +1864,11 @@
                     25px;
             }
 
-
             .modal-meta {
 
                 justify-content:
                     center;
             }
-
 
             .modal-overview {
 
@@ -1829,20 +1879,17 @@
                     2;
             }
 
-
             .modal-genres {
 
                 justify-content:
                     center;
             }
 
-
             .hashtags {
 
                 font-size:
                     11px;
             }
-
 
             .modal-close {
 
@@ -1864,7 +1911,7 @@
 
         /* =====================================================
            VERY SMALL PHONES
-        ===================================================== */
+        ====================================================== */
 
         @media (max-width: 390px) {
 
@@ -1874,13 +1921,11 @@
                     1fr;
             }
 
-
             .poster-wrap {
 
                 aspect-ratio:
                     16 / 10;
             }
-
 
             .movie-title {
 
@@ -1888,21 +1933,25 @@
                     17px;
             }
 
-
             .hero h1 {
 
                 font-size:
                     37px;
             }
 
-
             .hero-card {
 
                 width:
-                    94%;
+                    100%;
 
-                height:
-                    390px;
+                aspect-ratio:
+                    1 / 1;
+            }
+
+            .hero-card h2 {
+
+                font-size:
+                    23px;
             }
         }
 
@@ -2018,20 +2067,47 @@
 
 
     <!-- =====================================================
-         MOVINS BANNER
-         الصورة موجودة بجانب index.html
+         BANNER
+         IMPORTANT:
+         الصورة من نفس Repository
     ====================================================== -->
 
     <div class="hero-card">
 
+
         <img
-            src="movins-banner.png"
-            alt="MOVINS Movies & Series"
             class="hero-banner"
+            src="movins-banner.png"
+            alt="MOVINS Movies and Series"
             loading="eager"
         >
 
+
+        <!-- الكتابة موجودة في HTML وليس داخل الصورة -->
+
+        <div class="hero-card-content">
+
+
+            <div class="hero-card-small">
+                MOVINS
+            </div>
+
+
+            <h2>
+                اكتشف قصتك القادمة
+            </h2>
+
+
+            <p>
+                أفلام • مسلسلات • قصص • تقييمات
+            </p>
+
+
+        </div>
+
+
     </div>
+
 
 </section>
 
@@ -2065,7 +2141,7 @@
 
 
     <!-- =====================================================
-         CATEGORIES
+         FILTERS
     ====================================================== -->
 
     <div class="filters">
@@ -2293,7 +2369,6 @@
 
 <script>
 
-
     /* =====================================================
        STATE
     ===================================================== */
@@ -2384,10 +2459,6 @@
                 data.items;
 
 
-            /*
-             * Latest updated first
-             */
-
             allItems.sort(
                 (a,b) => {
 
@@ -2454,6 +2525,46 @@
 
     function setFilter(filter) {
 
+        /*
+         * دعم زر الأفلام
+         */
+        if (filter === "movie") {
+
+            currentFilter = "movie";
+
+            document
+                .querySelectorAll(
+                    ".filter-btn"
+                )
+                .forEach(button => {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                });
+
+            renderMovies();
+
+            if (
+                window.innerWidth <= 750
+            ) {
+
+                document
+                    .getElementById(
+                        "moviesSection"
+                    )
+                    .scrollIntoView({
+                        behavior:
+                            "smooth"
+                    });
+
+            }
+
+            return;
+        }
+
+
         currentFilter =
             filter;
 
@@ -2475,10 +2586,6 @@
 
         renderMovies();
 
-
-        /*
-         * On mobile scroll to content
-         */
 
         if (
             window.innerWidth <= 750
@@ -2512,7 +2619,6 @@
                 this.value
                     .trim()
                     .toLowerCase();
-
 
             renderMovies();
 
@@ -2558,10 +2664,27 @@
 
 
         /* -------------------------------------------------
-           GENRE FILTER
+           MOVIE / TV FILTER
         ------------------------------------------------- */
 
         if (
+            currentFilter === "movie"
+        ) {
+
+            items =
+                items.filter(
+                    item =>
+                        item.type === "فيلم"
+                );
+
+        }
+
+
+        /* -------------------------------------------------
+           GENRE FILTER
+        ------------------------------------------------- */
+
+        else if (
             currentFilter !== "all" &&
             genreMap[currentFilter]
         ) {
@@ -2997,8 +3120,6 @@
                 : [];
 
 
-        /* POSTER */
-
         const modalPoster =
             document.getElementById(
                 "modalPoster"
@@ -3013,23 +3134,17 @@
             title;
 
 
-        /* TYPE */
-
         document.getElementById(
             "modalType"
         ).textContent =
             detailedType;
 
 
-        /* TITLE */
-
         document.getElementById(
             "modalTitle"
         ).textContent =
             title;
 
-
-        /* META */
 
         document.getElementById(
             "modalMeta"
@@ -3049,8 +3164,6 @@
 
         `;
 
-
-        /* GENRES */
 
         document.getElementById(
             "modalGenres"
@@ -3075,23 +3188,17 @@
                 "";
 
 
-        /* OVERVIEW */
-
         document.getElementById(
             "modalOverview"
         ).textContent =
             overview;
 
 
-        /* HASHTAGS */
-
         document.getElementById(
             "modalHashtags"
         ).textContent =
             hashtags.join("  ");
 
-
-        /* SHOW */
 
         movieModal.classList.add(
             "show"
@@ -3138,7 +3245,7 @@
 
 
     /* =====================================================
-       ESC KEY
+       ESC
     ===================================================== */
 
     document.addEventListener(
@@ -3223,7 +3330,6 @@
     ===================================================== */
 
     loadMovies();
-
 
 </script>
 
