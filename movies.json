@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-25T07:04:49.426930+00:00",
+  "updated_at": "2026-08-25T08:11:29.756634+00:00",
   "items": [
     {
       "id": 1288445,
@@ -19,7 +19,7 @@
       "trailer_key": "2Iqvbe98Gb4",
       "trailer_url": "https://www.youtube.com/watch?v=2Iqvbe98Gb4",
       "hashtags": "#MOVINS #أفلام #أكشن #إثارة #Mutiny",
-      "updated_at": "2026-08-25T07:04:42.695444+00:00"
+      "updated_at": "2026-08-25T08:11:22.331309+00:00"
     },
     {
       "id": 1084244,
@@ -41,7 +41,7 @@
       "trailer_key": "QftAW9TTmuQ",
       "trailer_url": "https://www.youtube.com/watch?v=QftAW9TTmuQ",
       "hashtags": "#MOVINS #أفلام #رسوم_متحركة #عائلي #كوميديا #مغامرة #Toy_Story_5",
-      "updated_at": "2026-08-25T07:04:42.854338+00:00"
+      "updated_at": "2026-08-25T08:11:22.495854+00:00"
     },
     {
       "id": 969681,
@@ -62,7 +62,7 @@
       "trailer_key": "P3uI5sLosKU",
       "trailer_url": "https://www.youtube.com/watch?v=P3uI5sLosKU",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #Spider_Man:_Brand_New_Day",
-      "updated_at": "2026-08-25T07:04:43.025850+00:00"
+      "updated_at": "2026-08-25T08:11:22.671750+00:00"
     },
     {
       "id": 1368337,
@@ -83,7 +83,7 @@
       "trailer_key": "AyIZ9tiiN8I",
       "trailer_url": "https://www.youtube.com/watch?v=AyIZ9tiiN8I",
       "hashtags": "#MOVINS #أفلام #مغامرة #أكشن #فانتازيا #The_Odyssey",
-      "updated_at": "2026-08-25T07:04:43.191914+00:00"
+      "updated_at": "2026-08-25T08:11:22.827541+00:00"
     },
     {
       "id": 1339713,
@@ -103,27 +103,7 @@
       "trailer_key": "gMC8kkwbIQQ",
       "trailer_url": "https://www.youtube.com/watch?v=gMC8kkwbIQQ",
       "hashtags": "#MOVINS #أفلام #رعب #إثارة #Obsession",
-      "updated_at": "2026-08-25T07:04:43.362779+00:00"
-    },
-    {
-      "id": 1291595,
-      "type": "فيلم",
-      "detailed_type": "فيلم رعب",
-      "title": "Insidious: Out of the Further",
-      "original_title": "Insidious: Out of the Further",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 6.7,
-      "genres": [
-        "رعب",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/4tTrW9dXCByS5wt2pXVWb58zNjz.jpg",
-      "trailer_key": "gXjurDkYnEM",
-      "trailer_url": "https://www.youtube.com/watch?v=gXjurDkYnEM",
-      "hashtags": "#MOVINS #أفلام #رعب #إثارة #Insidious:_Out_of_the_Further",
-      "updated_at": "2026-08-25T07:04:43.522278+00:00"
+      "updated_at": "2026-08-25T08:11:22.990141+00:00"
     },
     {
       "id": 1315772,
@@ -146,49 +126,48 @@
       "trailer_key": "V-O-uBaHk3c",
       "trailer_url": "https://www.youtube.com/watch?v=V-O-uBaHk3c",
       "hashtags": "#MOVINS #أفلام #مغامرة #رسوم_متحركة #كوميديا #عائلي #Minions_&_Monsters",
-      "updated_at": "2026-08-25T07:04:43.680300+00:00"
+      "updated_at": "2026-08-25T08:11:23.209101+00:00"
     },
     {
-      "id": 1003596,
+      "id": 1291595,
       "type": "فيلم",
-      "detailed_type": "فيلم أكشن",
-      "title": "Avengers: Doomsday",
-      "original_title": "Avengers: Doomsday",
+      "detailed_type": "فيلم رعب",
+      "title": "Insidious: Out of the Further",
+      "original_title": "Insidious: Out of the Further",
       "original_language": "en",
       "year": "2026",
-      "overview": "أبطال محبوبون من ثلاثة أكوان مختلفة يُدفعون نحو صدام مميت، ويواجهون تهديدًا مرعبًا قد يمحو وجودهم بالكامل… شيء يفوق كل ما عرفوه من قبل.",
-      "rating": 0.0,
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 6.7,
       "genres": [
-        "خيال علمي",
-        "أكشن",
-        "مغامرة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/jzPwsojjFStf5lR5Nm07w2hH56G.jpg",
-      "trailer_key": "X1aFkAkFASk",
-      "trailer_url": "https://www.youtube.com/watch?v=X1aFkAkFASk",
-      "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #Avengers:_Doomsday",
-      "updated_at": "2026-08-25T07:04:43.837601+00:00"
-    },
-    {
-      "id": 1101383,
-      "type": "فيلم",
-      "detailed_type": "فيلم خيال علمي",
-      "title": "The End of Oak Street",
-      "original_title": "The End of Oak Street",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "بعد حدث كوني غامض يقتلع شارع أوك من ضواحي المدينة وينقل الحي بأكمله إلى مكان مجهول، تكتشف عائلة \"بلات\" أن بقاءها على قيد الحياة يعتمد على تماسك أفرادها معًا، بينما يحاولون التأقلم مع محيطهم الذي أصبح غريبًا تمامًا عن ذي قبل.",
-      "rating": 6.4,
-      "genres": [
-        "خيال علمي",
-        "غموض",
+        "رعب",
         "إثارة"
       ],
-      "poster": "https://image.tmdb.org/t/p/w500/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg",
-      "trailer_key": "u4tgctWuHc0",
-      "trailer_url": "https://www.youtube.com/watch?v=u4tgctWuHc0",
-      "hashtags": "#MOVINS #أفلام #خيال_علمي #غموض #إثارة #The_End_of_Oak_Street",
-      "updated_at": "2026-08-25T07:04:43.999685+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/4tTrW9dXCByS5wt2pXVWb58zNjz.jpg",
+      "trailer_key": "gXjurDkYnEM",
+      "trailer_url": "https://www.youtube.com/watch?v=gXjurDkYnEM",
+      "hashtags": "#MOVINS #أفلام #رعب #إثارة #Insidious:_Out_of_the_Further",
+      "updated_at": "2026-08-25T08:11:23.377779+00:00"
+    },
+    {
+      "id": 1621552,
+      "type": "فيلم",
+      "detailed_type": "فيلم أكشن",
+      "title": "La captura",
+      "original_title": "La captura",
+      "original_language": "es",
+      "year": "2026",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 7.9,
+      "genres": [
+        "جريمة",
+        "أكشن",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/alpf5v4UqSFawPmG9RX03Or4BDk.jpg",
+      "trailer_key": "Rk0efhpa-5Y",
+      "trailer_url": "https://www.youtube.com/watch?v=Rk0efhpa-5Y",
+      "hashtags": "#MOVINS #أفلام #جريمة #أكشن #إثارة #La_captura",
+      "updated_at": "2026-08-25T08:11:23.535532+00:00"
     },
     {
       "id": 1083381,
@@ -209,7 +188,109 @@
       "trailer_key": "0HjdiohVOik",
       "trailer_url": "https://www.youtube.com/watch?v=0HjdiohVOik",
       "hashtags": "#MOVINS #أفلام #رعب #غموض #خيال_علمي #Backrooms",
-      "updated_at": "2026-08-25T07:04:44.165094+00:00"
+      "updated_at": "2026-08-25T08:11:23.702520+00:00"
+    },
+    {
+      "id": 1101383,
+      "type": "فيلم",
+      "detailed_type": "فيلم خيال علمي",
+      "title": "The End of Oak Street",
+      "original_title": "The End of Oak Street",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "بعد حدث كوني غامض يقتلع شارع أوك من ضواحي المدينة وينقل الحي بأكمله إلى مكان مجهول، تكتشف عائلة \"بلات\" أن بقاءها على قيد الحياة يعتمد على تماسك أفرادها معًا، بينما يحاولون التأقلم مع محيطهم الذي أصبح غريبًا تمامًا عن ذي قبل.",
+      "rating": 6.4,
+      "genres": [
+        "خيال علمي",
+        "غموض",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg",
+      "trailer_key": "u4tgctWuHc0",
+      "trailer_url": "https://www.youtube.com/watch?v=u4tgctWuHc0",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #غموض #إثارة #The_End_of_Oak_Street",
+      "updated_at": "2026-08-25T08:11:23.857845+00:00"
+    },
+    {
+      "id": 1212763,
+      "type": "فيلم",
+      "detailed_type": "فيلم رعب",
+      "title": "Evil Dead Burn",
+      "original_title": "Evil Dead Burn",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "بعد وفاة زوجها المفاجئة، تلجأ امرأة إلى أهل زوجها طلباً للعزاء. وبينما يتحولون إلى موتى أحياء واحداً تلو الآخر، تكتشف أن العهود التي قطعتها على نفسها في الحياة تبقى قائمة حتى بعد الموت",
+      "rating": 7.8,
+      "genres": [
+        "رعب"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
+      "trailer_key": "RddZObTlmA8",
+      "trailer_url": "https://www.youtube.com/watch?v=RddZObTlmA8",
+      "hashtags": "#MOVINS #أفلام #رعب #Evil_Dead_Burn",
+      "updated_at": "2026-08-25T08:11:24.030542+00:00"
+    },
+    {
+      "id": 1003596,
+      "type": "فيلم",
+      "detailed_type": "فيلم أكشن",
+      "title": "Avengers: Doomsday",
+      "original_title": "Avengers: Doomsday",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "أبطال محبوبون من ثلاثة أكوان مختلفة يُدفعون نحو صدام مميت، ويواجهون تهديدًا مرعبًا قد يمحو وجودهم بالكامل… شيء يفوق كل ما عرفوه من قبل.",
+      "rating": 0.0,
+      "genres": [
+        "خيال علمي",
+        "أكشن",
+        "مغامرة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/jzPwsojjFStf5lR5Nm07w2hH56G.jpg",
+      "trailer_key": "X1aFkAkFASk",
+      "trailer_url": "https://www.youtube.com/watch?v=X1aFkAkFASk",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #Avengers:_Doomsday",
+      "updated_at": "2026-08-25T08:11:24.191732+00:00"
+    },
+    {
+      "id": 87513,
+      "type": "فيلم",
+      "detailed_type": "فيلم أكشن",
+      "title": "Motor City",
+      "original_title": "Motor City",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 6.5,
+      "genres": [
+        "أكشن",
+        "إثارة",
+        "جريمة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/cWAVzTWm9xdc8skHH7h1vreUtcD.jpg",
+      "trailer_key": "t6RklhKu9os",
+      "trailer_url": "https://www.youtube.com/watch?v=t6RklhKu9os",
+      "hashtags": "#MOVINS #أفلام #أكشن #إثارة #جريمة #Motor_City",
+      "updated_at": "2026-08-25T08:11:24.418469+00:00"
+    },
+    {
+      "id": 687163,
+      "type": "فيلم",
+      "detailed_type": "فيلم خيال علمي",
+      "title": "Project Hail Mary",
+      "original_title": "Project Hail Mary",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "يستيقظ رايلاند غريس، مدرس العلوم، على متن مركبة فضائية تبعد سنوات ضوئية عن موطنه، فاقدًا للذاكرة تمامًا، لا يتذكر من هو ولا كيف وصل إلى هناك. ومع عودة ذاكرته تدريجيًا، يبدأ في اكتشاف مهمته: حل لغز المادة الغامضة التي تتسبب في انطفاء الشمس. عليه أن يستعين بمعرفته العلمية وأفكاره غير التقليدية لإنقاذ كل شيء على الأرض من الفناء... لكن صداقة غير متوقعة تعني أنه قد لا يضطر إلى القيام بذلك بمفرده.",
+      "rating": 8.6,
+      "genres": [
+        "خيال علمي",
+        "مغامرة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
+      "trailer_key": "NKYea63tQmI",
+      "trailer_url": "https://www.youtube.com/watch?v=NKYea63tQmI",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #Project_Hail_Mary",
+      "updated_at": "2026-08-25T08:11:24.576516+00:00"
     },
     {
       "id": 950028,
@@ -230,170 +311,7 @@
       "trailer_key": "nelkiuezJxg",
       "trailer_url": "https://www.youtube.com/watch?v=nelkiuezJxg",
       "hashtags": "#MOVINS #أفلام #كوميديا #دراما #رومانسي #The_Invite",
-      "updated_at": "2026-08-25T07:04:44.322369+00:00"
-    },
-    {
-      "id": 1621552,
-      "type": "فيلم",
-      "detailed_type": "فيلم أكشن",
-      "title": "La captura",
-      "original_title": "La captura",
-      "original_language": "es",
-      "year": "2026",
-      "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 7.8,
-      "genres": [
-        "جريمة",
-        "أكشن",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/alpf5v4UqSFawPmG9RX03Or4BDk.jpg",
-      "trailer_key": "Rk0efhpa-5Y",
-      "trailer_url": "https://www.youtube.com/watch?v=Rk0efhpa-5Y",
-      "hashtags": "#MOVINS #أفلام #جريمة #أكشن #إثارة #La_captura",
-      "updated_at": "2026-08-25T07:04:44.523472+00:00"
-    },
-    {
-      "id": 1204680,
-      "type": "فيلم",
-      "detailed_type": "فيلم كوميديا",
-      "title": "Coyote vs. Acme",
-      "original_title": "Coyote vs. Acme",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 7.2,
-      "genres": [
-        "كوميديا",
-        "مغامرة",
-        "عائلي"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/orkLtdgMGiO9rTVMqJ1kKwrnup1.jpg",
-      "trailer_key": "kMsiD1Nky5I",
-      "trailer_url": "https://www.youtube.com/watch?v=kMsiD1Nky5I",
-      "hashtags": "#MOVINS #أفلام #كوميديا #مغامرة #عائلي #Coyote_vs._Acme",
-      "updated_at": "2026-08-25T07:04:44.694932+00:00"
-    },
-    {
-      "id": 1212763,
-      "type": "فيلم",
-      "detailed_type": "فيلم رعب",
-      "title": "Evil Dead Burn",
-      "original_title": "Evil Dead Burn",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "بعد وفاة زوجها المفاجئة، تلجأ امرأة إلى أهل زوجها طلباً للعزاء. وبينما يتحولون إلى موتى أحياء واحداً تلو الآخر، تكتشف أن العهود التي قطعتها على نفسها في الحياة تبقى قائمة حتى بعد الموت",
-      "rating": 7.8,
-      "genres": [
-        "رعب"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
-      "trailer_key": "RddZObTlmA8",
-      "trailer_url": "https://www.youtube.com/watch?v=RddZObTlmA8",
-      "hashtags": "#MOVINS #أفلام #رعب #Evil_Dead_Burn",
-      "updated_at": "2026-08-25T07:04:44.853248+00:00"
-    },
-    {
-      "id": 1228710,
-      "type": "فيلم",
-      "detailed_type": "فيلم أكشن",
-      "title": "The Mandalorian and Grogu",
-      "original_title": "The Mandalorian and Grogu",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "سقطت الإمبراطورية الشريرة، لكن لا يزال قادة الحرب الإمبراطوريون متفرقين في أنحاء المجرة. وبينما تعمل الجمهورية الجديدة الناشئة على حماية كل ما قاتلت من أجله الثورة، تستعين بخدمات صائد الجوائز الماندالوري الأسطوري \"دين جارين\" ومتدربه الصغير \"غروغو\".",
-      "rating": 7.5,
-      "genres": [
-        "أكشن",
-        "مغامرة",
-        "خيال علمي"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/7GV5rrUJf0BRUhoh2cyFoeNthlQ.jpg",
-      "trailer_key": "uwild1rw7Aw",
-      "trailer_url": "https://www.youtube.com/watch?v=uwild1rw7Aw",
-      "hashtags": "#MOVINS #أفلام #أكشن #مغامرة #خيال_علمي #The_Mandalorian_and_Grogu",
-      "updated_at": "2026-08-25T07:04:45.080553+00:00"
-    },
-    {
-      "id": 687163,
-      "type": "فيلم",
-      "detailed_type": "فيلم خيال علمي",
-      "title": "Project Hail Mary",
-      "original_title": "Project Hail Mary",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "يستيقظ رايلاند غريس، مدرس العلوم، على متن مركبة فضائية تبعد سنوات ضوئية عن موطنه، فاقدًا للذاكرة تمامًا، لا يتذكر من هو ولا كيف وصل إلى هناك. ومع عودة ذاكرته تدريجيًا، يبدأ في اكتشاف مهمته: حل لغز المادة الغامضة التي تتسبب في انطفاء الشمس. عليه أن يستعين بمعرفته العلمية وأفكاره غير التقليدية لإنقاذ كل شيء على الأرض من الفناء... لكن صداقة غير متوقعة تعني أنه قد لا يضطر إلى القيام بذلك بمفرده.",
-      "rating": 8.6,
-      "genres": [
-        "خيال علمي",
-        "مغامرة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
-      "trailer_key": "NKYea63tQmI",
-      "trailer_url": "https://www.youtube.com/watch?v=NKYea63tQmI",
-      "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #Project_Hail_Mary",
-      "updated_at": "2026-08-25T07:04:45.245912+00:00"
-    },
-    {
-      "id": 1275779,
-      "type": "فيلم",
-      "detailed_type": "فيلم خيال علمي",
-      "title": "Disclosure Day",
-      "original_title": "Disclosure Day",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "يصبح خبير في الأمن السيبراني مُبلغ عن المخالفات بعد اكتشافه أسرارًا عن كائنات فضائية، فتطاردُه إحدى الشركات. وفي نفس الوقت، تتعاون معه خبيرة أرصاد جوية تواجه ظواهر غريبة ليثبتا وجود حياة تتجاوز فهمنا.",
-      "rating": 7.5,
-      "genres": [
-        "خيال علمي",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/AnJ8IQJI23hNpYXVNaythu061Ru.jpg",
-      "trailer_key": "icDuEHSxE-w",
-      "trailer_url": "https://www.youtube.com/watch?v=icDuEHSxE-w",
-      "hashtags": "#MOVINS #أفلام #خيال_علمي #إثارة #Disclosure_Day",
-      "updated_at": "2026-08-25T07:04:45.405227+00:00"
-    },
-    {
-      "id": 936075,
-      "type": "فيلم",
-      "detailed_type": "فيلم دراما",
-      "title": "Michael",
-      "original_title": "Michael",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "يروي الفيلم قصة حياة مايكل جاكسون بعيداً عن الموسيقى، متتبعاً رحلته منذ اكتشاف موهبته الاستثنائية كقائد لفرقة \"جاكسون فايف\"، وصولاً إلى الفنان الملهم الذي دفع طموحه الإبداعي سعياً حثيثاً ليصبح أعظم فنان استعراضي في العالم. ومن خلال تسليط الضوء على حياته خارج الأضواء وبعض أكثر عروضه شهرة في بدايات مسيرته المنفردة، يمنح الفيلم الجمهور فرصة لمشاهدة مايكل جاكسون كما لم يروه من قبل. من هنا تبدأ قصته.",
-      "rating": 8.7,
-      "genres": [
-        "موسيقى",
-        "دراما"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/2AvgnCwCakNiJqWZqaQhdGjWNey.jpg",
-      "trailer_key": "k-YAcjaLuSI",
-      "trailer_url": "https://www.youtube.com/watch?v=k-YAcjaLuSI",
-      "hashtags": "#MOVINS #أفلام #موسيقى #دراما #Michael",
-      "updated_at": "2026-08-25T07:04:45.648450+00:00"
-    },
-    {
-      "id": 1081003,
-      "type": "فيلم",
-      "detailed_type": "فيلم أكشن",
-      "title": "Supergirl",
-      "original_title": "Supergirl",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "عندما يوجّه عدوّ قاسٍ ولا يرحم ضربة مؤلمة تمسّ حياتها بشكل شخصي، تجد \"كارا زور-إل\"، المعروفة باسم سوبرجيرل، نفسها مضطرة للتعاون مع رفيق غير متوقع. وتنطلق معه في رحلة ملحمية عبر الفضاء، تسعى خلالها إلى الانتقام وتحقيق العدالة.",
-      "rating": 6.7,
-      "genres": [
-        "أكشن",
-        "مغامرة",
-        "خيال علمي"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
-      "trailer_key": "tzlY8XD1CGg",
-      "trailer_url": "https://www.youtube.com/watch?v=tzlY8XD1CGg",
-      "hashtags": "#MOVINS #أفلام #أكشن #مغامرة #خيال_علمي #Supergirl",
-      "updated_at": "2026-08-25T07:04:45.809290+00:00"
+      "updated_at": "2026-08-25T08:11:24.812098+00:00"
     },
     {
       "id": 1384216,
@@ -414,7 +332,90 @@
       "trailer_key": "-xSxaE1ClEE",
       "trailer_url": "https://www.youtube.com/watch?v=-xSxaE1ClEE",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #إثارة #The_Dog_Stars",
-      "updated_at": "2026-08-25T07:04:45.976666+00:00"
+      "updated_at": "2026-08-25T08:11:25.030164+00:00"
+    },
+    {
+      "id": 1275779,
+      "type": "فيلم",
+      "detailed_type": "فيلم خيال علمي",
+      "title": "Disclosure Day",
+      "original_title": "Disclosure Day",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "يصبح خبير في الأمن السيبراني مُبلغ عن المخالفات بعد اكتشافه أسرارًا عن كائنات فضائية، فتطاردُه إحدى الشركات. وفي نفس الوقت، تتعاون معه خبيرة أرصاد جوية تواجه ظواهر غريبة ليثبتا وجود حياة تتجاوز فهمنا.",
+      "rating": 7.5,
+      "genres": [
+        "خيال علمي",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/AnJ8IQJI23hNpYXVNaythu061Ru.jpg",
+      "trailer_key": "icDuEHSxE-w",
+      "trailer_url": "https://www.youtube.com/watch?v=icDuEHSxE-w",
+      "hashtags": "#MOVINS #أفلام #خيال_علمي #إثارة #Disclosure_Day",
+      "updated_at": "2026-08-25T08:11:25.189155+00:00"
+    },
+    {
+      "id": 1232569,
+      "type": "فيلم",
+      "detailed_type": "فيلم رعب",
+      "title": "Pinocchio: Unstrung",
+      "original_title": "Pinocchio: Unstrung",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 7.1,
+      "genres": [
+        "رعب",
+        "فانتازيا",
+        "غموض"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/eUJXk3bTvLBi5Zcb0BCedZU7lVL.jpg",
+      "trailer_key": "Xt3zQ8v2pzk",
+      "trailer_url": "https://www.youtube.com/watch?v=Xt3zQ8v2pzk",
+      "hashtags": "#MOVINS #أفلام #رعب #فانتازيا #غموض #Pinocchio:_Unstrung",
+      "updated_at": "2026-08-25T08:11:25.467279+00:00"
+    },
+    {
+      "id": 1560520,
+      "type": "فيلم",
+      "detailed_type": "فيلم أكشن",
+      "title": "Batman: Knightfall Part 1: Knightfall",
+      "original_title": "Batman: Knightfall Part 1: Knightfall",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 7.2,
+      "genres": [
+        "رسوم متحركة",
+        "أكشن",
+        "مغامرة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/9pKPTugulAt0EtH0g4gvJGffPSg.jpg",
+      "trailer_key": "90HAqMk7qv0",
+      "trailer_url": "https://www.youtube.com/watch?v=90HAqMk7qv0",
+      "hashtags": "#MOVINS #أفلام #رسوم_متحركة #أكشن #مغامرة #Batman:_Knightfall_Part_1:_Knightfall",
+      "updated_at": "2026-08-25T08:11:25.697370+00:00"
+    },
+    {
+      "id": 1284041,
+      "type": "فيلم",
+      "detailed_type": "فيلم رعب",
+      "title": "The Last House",
+      "original_title": "The Last House",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "تجد عائلة نفسها محاصرة داخل منزلها في ظروف غامضة، وتضطر إلى التكاتف للبقاء على قيد الحياة في ظل تناقص الموارد ووجود قوة غامضة تمنعها من الفرار.",
+      "rating": 6.9,
+      "genres": [
+        "رعب",
+        "خيال علمي",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/6JU7E8Vv2M11egkctWVOScxWR75.jpg",
+      "trailer_key": "MLxgaz2Zp1k",
+      "trailer_url": "https://www.youtube.com/watch?v=MLxgaz2Zp1k",
+      "hashtags": "#MOVINS #أفلام #رعب #خيال_علمي #إثارة #The_Last_House",
+      "updated_at": "2026-08-25T08:11:25.936687+00:00"
     },
     {
       "id": 95350,
@@ -435,47 +436,7 @@
       "trailer_key": "7UIBOsuUwc4",
       "trailer_url": "https://www.youtube.com/watch?v=7UIBOsuUwc4",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #خيال_علمي #Lanterns",
-      "updated_at": "2026-08-25T07:04:46.128931+00:00"
-    },
-    {
-      "id": 113962,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
-      "title": "Lioness",
-      "original_title": "Lioness",
-      "original_language": "en",
-      "year": "2023",
-      "overview": "بينما تسعى (جو) للحفاظ على استقرار حياتها الشخصية والعملية في آن واحد، تواجه العديد من العقبات في حرب المخابرات المركزية ضد الإرهاب، وتستعين بـ(كروز) من قوات المارينز للعمل عميلة سرية لحسابها في إحدى المهمات.",
-      "rating": 8.1,
-      "genres": [
-        "دراما",
-        "حربي وسياسة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/rzpHPSEgPTpRs8EHbygwsOw7jC0.jpg",
-      "trailer_key": "uEjcXhW7CXo",
-      "trailer_url": "https://www.youtube.com/watch?v=uEjcXhW7CXo",
-      "hashtags": "#MOVINS #مسلسلات #دراما #Lioness",
-      "updated_at": "2026-08-25T07:04:46.288860+00:00"
-    },
-    {
-      "id": 100757,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن ومغامرة",
-      "title": "Outer Banks",
-      "original_title": "Outer Banks",
-      "original_language": "en",
-      "year": "2020",
-      "overview": "على جزيرة في \"كارولينا الشمالية\" يقطنها الأغنياء والطبقة العاملة الكادحة، يعيش \"جون بي\" وفريقه المتكاتف من الأصدقاء أجواء الغموض والمغامرة خلال البحث عن كنز مفقود.",
-      "rating": 8.2,
-      "genres": [
-        "أكشن ومغامرة",
-        "غموض"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg",
-      "trailer_key": "pfY3j-3uQhk",
-      "trailer_url": "https://www.youtube.com/watch?v=pfY3j-3uQhk",
-      "hashtags": "#MOVINS #مسلسلات #أكشن #غموض #Outer_Banks",
-      "updated_at": "2026-08-25T07:04:46.487099+00:00"
+      "updated_at": "2026-08-25T08:11:26.095460+00:00"
     },
     {
       "id": 108978,
@@ -495,7 +456,7 @@
       "trailer_key": "PCbp1FfipPg",
       "trailer_url": "https://www.youtube.com/watch?v=PCbp1FfipPg",
       "hashtags": "#MOVINS #مسلسلات #أكشن #جريمة #Reacher",
-      "updated_at": "2026-08-25T07:04:46.643351+00:00"
+      "updated_at": "2026-08-25T08:11:26.255241+00:00"
     },
     {
       "id": 125988,
@@ -515,27 +476,7 @@
       "trailer_key": "8ZYhuvIv1pA",
       "trailer_url": "https://www.youtube.com/watch?v=8ZYhuvIv1pA",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #Silo",
-      "updated_at": "2026-08-25T07:04:46.799810+00:00"
-    },
-    {
-      "id": 278624,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
-      "title": "Lucky",
-      "original_title": "Lucky",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "عندما تفشل عملية سرقة بملايين الدولارات، تُجبر المحتالة \"لاكي\"،، على الفرار. وبين الهرب من الفيدراليين وزعيم جريمة لا يرحم، تقاتل \"لاكي\" للنجاة بحياتها ولإيجاد مخرج.",
-      "rating": 7.3,
-      "genres": [
-        "دراما",
-        "جريمة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
-      "trailer_key": "GAbT5qCTXR8",
-      "trailer_url": "https://www.youtube.com/watch?v=GAbT5qCTXR8",
-      "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #Lucky",
-      "updated_at": "2026-08-25T07:04:46.953706+00:00"
+      "updated_at": "2026-08-25T08:11:26.419363+00:00"
     },
     {
       "id": 30984,
@@ -556,49 +497,67 @@
       "trailer_key": "0c4IoCA5fY0",
       "trailer_url": "https://www.youtube.com/watch?v=0c4IoCA5fY0",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #خيال_علمي #BLEACH",
-      "updated_at": "2026-08-25T07:04:47.116019+00:00"
+      "updated_at": "2026-08-25T08:11:26.580995+00:00"
     },
     {
-      "id": 615,
+      "id": 100757,
       "type": "مسلسل",
-      "detailed_type": "مسلسل خيال علمي وفانتازيا",
-      "title": "Futurama",
-      "original_title": "Futurama",
+      "detailed_type": "مسلسل أكشن ومغامرة",
+      "title": "Outer Banks",
+      "original_title": "Outer Banks",
       "original_language": "en",
-      "year": "1999",
-      "overview": "يحكي المسلسل مغامرات صبي توصيل البيتزا (فيليب جي فراي) في مدينة نيويورك في أواخر القرن العشرين الذي تم تجميده عن غير قصد لألف عام، بعدها وجد عملاً في القرن الحادي والثلاثين المستقبلي في شركة التوصيل بين الكواكب Planet Express.",
-      "rating": 8.4,
+      "year": "2020",
+      "overview": "على جزيرة في \"كارولينا الشمالية\" يقطنها الأغنياء والطبقة العاملة الكادحة، يعيش \"جون بي\" وفريقه المتكاتف من الأصدقاء أجواء الغموض والمغامرة خلال البحث عن كنز مفقود.",
+      "rating": 8.2,
       "genres": [
-        "رسوم متحركة",
-        "كوميديا",
-        "خيال علمي وفانتازيا"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/eM8bbTn8C8vUwwS6upzzm7gX31u.jpg",
-      "trailer_key": "dUHzt5md1x0",
-      "trailer_url": "https://www.youtube.com/watch?v=dUHzt5md1x0",
-      "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #خيال_علمي #Futurama",
-      "updated_at": "2026-08-25T07:04:47.306717+00:00"
-    },
-    {
-      "id": 303351,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
-      "title": "Blodsoffer",
-      "original_title": "Blodsoffer",
-      "original_language": "sv",
-      "year": "2026",
-      "overview": "عقب جريمة قتل وحشية لضابطَين في الشرطة، يضطر محقق مثابر إلى التعاون على مضض مع والده، الشرطي السابق الذي تجمعه به علاقة متوترة، في محاولة لإلقاء القبض على القاتل.",
-      "rating": 5.9,
-      "genres": [
-        "دراما",
-        "جريمة",
+        "أكشن ومغامرة",
         "غموض"
       ],
-      "poster": "https://image.tmdb.org/t/p/w500/yKy3DWaPYr9o4LpllVC4uVzDId3.jpg",
-      "trailer_key": "YjgT9NMq3ww",
-      "trailer_url": "https://www.youtube.com/watch?v=YjgT9NMq3ww",
-      "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #غموض #Blodsoffer",
-      "updated_at": "2026-08-25T07:04:47.465817+00:00"
+      "poster": "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg",
+      "trailer_key": "pfY3j-3uQhk",
+      "trailer_url": "https://www.youtube.com/watch?v=pfY3j-3uQhk",
+      "hashtags": "#MOVINS #مسلسلات #أكشن #غموض #Outer_Banks",
+      "updated_at": "2026-08-25T08:11:26.737462+00:00"
+    },
+    {
+      "id": 278624,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل دراما",
+      "title": "Lucky",
+      "original_title": "Lucky",
+      "original_language": "en",
+      "year": "2026",
+      "overview": "عندما تفشل عملية سرقة بملايين الدولارات، تُجبر المحتالة \"لاكي\"،، على الفرار. وبين الهرب من الفيدراليين وزعيم جريمة لا يرحم، تقاتل \"لاكي\" للنجاة بحياتها ولإيجاد مخرج.",
+      "rating": 7.3,
+      "genres": [
+        "دراما",
+        "جريمة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
+      "trailer_key": "GAbT5qCTXR8",
+      "trailer_url": "https://www.youtube.com/watch?v=GAbT5qCTXR8",
+      "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #Lucky",
+      "updated_at": "2026-08-25T08:11:26.896600+00:00"
+    },
+    {
+      "id": 113962,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل دراما",
+      "title": "Lioness",
+      "original_title": "Lioness",
+      "original_language": "en",
+      "year": "2023",
+      "overview": "بينما تسعى (جو) للحفاظ على استقرار حياتها الشخصية والعملية في آن واحد، تواجه العديد من العقبات في حرب المخابرات المركزية ضد الإرهاب، وتستعين بـ(كروز) من قوات المارينز للعمل عميلة سرية لحسابها في إحدى المهمات.",
+      "rating": 8.1,
+      "genres": [
+        "دراما",
+        "حربي وسياسة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/rzpHPSEgPTpRs8EHbygwsOw7jC0.jpg",
+      "trailer_key": "uEjcXhW7CXo",
+      "trailer_url": "https://www.youtube.com/watch?v=uEjcXhW7CXo",
+      "hashtags": "#MOVINS #مسلسلات #دراما #Lioness",
+      "updated_at": "2026-08-25T08:11:27.052474+00:00"
     },
     {
       "id": 97546,
@@ -618,7 +577,49 @@
       "trailer_key": "BwPcMIDFVKw",
       "trailer_url": "https://www.youtube.com/watch?v=BwPcMIDFVKw",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #Ted_Lasso",
-      "updated_at": "2026-08-25T07:04:47.642873+00:00"
+      "updated_at": "2026-08-25T08:11:27.214527+00:00"
+    },
+    {
+      "id": 37854,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل أكشن ومغامرة",
+      "title": "ワンピース",
+      "original_title": "ワンピース",
+      "original_language": "ja",
+      "year": "1999",
+      "overview": "قبل سنوات عديدة، تم إعدام ملك القراصنة - جول دي روجر - تاركا وراءه كومة ضخمة من الكنوز و الون بيس - القطعه الواحده -  الشهيرة. من يجدها سيكون اسمه ملك القراصنة الجديد. مونكي دي لوفي، وهو صبي الذي استهلك واحدة من فواكه الشيطان، يعتقد أنه سوف يسير على خطى القرصان شانكس، ويجد الون بيس. محاط بسرب من المقاتلين الماهرين واللصوص على طول الطريق. يحضر مونكي دي لوفي حفنة من طاقمه يتبعونه، رورونوا زورو، نامي، اوسوب، سانجي، تشوبر، نيكو روبن، فرانكي وبروك. سوف يفعلون أي شيء للحصول على الون بيس!",
+      "rating": 8.8,
+      "genres": [
+        "أكشن ومغامرة",
+        "كوميديا",
+        "رسوم متحركة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/dB4EDhre2dsC2kxYDavyKWqLQwi.jpg",
+      "trailer_key": "1KMcoJBMWE4",
+      "trailer_url": "https://www.youtube.com/watch?v=1KMcoJBMWE4",
+      "hashtags": "#MOVINS #مسلسلات #أكشن #كوميديا #رسوم_متحركة #ワンピース",
+      "updated_at": "2026-08-25T08:11:27.458547+00:00"
+    },
+    {
+      "id": 94997,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل أكشن ومغامرة",
+      "title": "House of the Dragon",
+      "original_title": "House of the Dragon",
+      "original_language": "en",
+      "year": "2022",
+      "overview": "تدور الأحداث قبل 200 عام من أحداث مسلسل صراع العروش. حيث سيركز على تفاصيل عائلة \"آل تارغيريان\" ولمحات هامة في تاريخ العائلة التي حكمت ويستروس منذ زمن بعيد، وصولًا إلى رقصة التنانين والصراعات الداخلية في العائلة التي دمرت كل شيء وهددت بانقراض التنانين للأبد.",
+      "rating": 8.4,
+      "genres": [
+        "خيال علمي وفانتازيا",
+        "دراما",
+        "أكشن ومغامرة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/7V0Ebks0GgpKvQ7QbLAIdX5dos4.jpg",
+      "trailer_key": "0JlMjgqduVw",
+      "trailer_url": "https://www.youtube.com/watch?v=0JlMjgqduVw",
+      "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #أكشن #House_of_the_Dragon",
+      "updated_at": "2026-08-25T08:11:27.622353+00:00"
     }
   ]
 }
