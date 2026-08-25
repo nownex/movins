@@ -1,6 +1,5 @@
 import json
 import os
-
 import requests
 
 
@@ -18,6 +17,10 @@ if not TOKEN:
     )
 
 
+# =========================================================
+# FACEBOOK GRAPH API
+# =========================================================
+
 GRAPH_VERSION = "v26.0"
 
 GRAPH_URL = (
@@ -26,20 +29,25 @@ GRAPH_URL = (
 )
 
 
+# =========================================================
+# FILES
+# =========================================================
+
 MOVIES_FILE = "movies.json"
 
 POSTED_FILE = "posted_movies.json"
 
 
-# One Facebook post per workflow run
+# =========================================================
+# SETTINGS
+# =========================================================
+
+# One Facebook post per workflow run.
 MAX_POSTS_PER_RUN = 1
 
 
-# =========================================================
-# MOVINS WEBSITE
-# =========================================================
-
-MOVINS_URL = (
+# Your MOVINS website.
+SITE_URL = (
     "https://nownex.github.io/movins/"
 )
 
@@ -70,10 +78,23 @@ def load_movies():
         )
 
 
-    return data.get(
+    items = data.get(
         "items",
         []
     )
+
+
+    if not isinstance(
+        items,
+        list
+    ):
+
+        raise RuntimeError(
+            "Invalid movies.json format"
+        )
+
+
+    return items
 
 
 # =========================================================
@@ -116,7 +137,7 @@ def load_posted():
     except Exception as error:
 
         print(
-            "Posted file warning:",
+            "WARNING: Could not read posted_movies.json:",
             error
         )
 
@@ -147,7 +168,72 @@ def save_posted(posted):
 
 
 # =========================================================
-# BUILD MOVINS MOVIE URL
+# GET ITEM KEY
+# =========================================================
+
+def get_item_key(item):
+
+    """
+    Create a unique identifier.
+
+    Example:
+
+    movie-123
+    tv-123
+
+    This prevents a movie and a TV show
+    with the same TMDB ID from colliding.
+    """
+
+    item_id = item.get(
+        "id"
+    )
+
+
+    if not item_id:
+        return ""
+
+
+    item_type = (
+        item.get("type")
+        or ""
+    ).strip()
+
+
+    if item_type == "مسلسل":
+
+        return (
+            f"tv-{item_id}"
+        )
+
+
+    return (
+        f"movie-{item_id}"
+    )
+
+
+# =========================================================
+# GET URL TYPE
+# =========================================================
+
+def get_url_type(item):
+
+    item_type = (
+        item.get("type")
+        or ""
+    ).strip()
+
+
+    if item_type == "مسلسل":
+
+        return "tv"
+
+
+    return "movie"
+
+
+# =========================================================
+# BUILD DIRECT MOVIE URL
 # =========================================================
 
 def build_movie_url(item):
@@ -159,36 +245,17 @@ def build_movie_url(item):
 
     if not item_id:
 
-        return MOVINS_URL
+        return SITE_URL
 
 
-    item_type = (
-        item.get(
-            "type"
-        )
-        or ""
-    )
-
-
-    if item_type == "فيلم":
-
-        media_type = "movie"
-
-    elif item_type == "مسلسل":
-
-        media_type = "tv"
-
-    else:
-
-        media_type = "movie"
+    media_type =
+        get_url_type(item)
 
 
     return (
-        MOVINS_URL
-        + "?type="
-        + media_type
-        + "&id="
-        + str(item_id)
+        f"{SITE_URL}"
+        f"?movie={item_id}"
+        f"&type={media_type}"
     )
 
 
@@ -263,20 +330,27 @@ def build_caption(item):
     ):
 
         clean_genres = [
+
             str(g).strip()
+
             for g in genres
+
             if str(g).strip()
+
         ]
 
 
         genre_text = (
+
             " • ".join(
                 clean_genres[:5]
             )
-            if clean_genres
-            else "غير محدد"
-        )
 
+            if clean_genres
+
+            else "غير محدد"
+
+        )
 
     else:
 
@@ -317,7 +391,6 @@ def build_caption(item):
             or 0
         )
 
-
     except (
         TypeError,
         ValueError
@@ -343,17 +416,16 @@ def build_caption(item):
     ).strip()
 
 
-    # =====================================================
-    # MOVINS URL
-    # =====================================================
+    # -----------------------------------------------------
+    # DIRECT MOVIE PAGE
+    # -----------------------------------------------------
 
-    movie_url = build_movie_url(
-        item
-    )
+    movie_url =
+        build_movie_url(item)
 
 
     # =====================================================
-    # FACEBOOK CAPTION
+    # FACEBOOK POST
     # =====================================================
 
     caption = f"""🎬 {title}
@@ -365,7 +437,7 @@ def build_caption(item):
 🎞️ التصنيف: {genre_text}
 📅 السنة: {year}
 
-🎬 شاهد التريلر واكتشف القصة والتفاصيل داخل MOVINS:
+🌐 شاهد القصة والتفاصيل والتريلر:
 {movie_url}
 
 {hashtags}
@@ -390,7 +462,7 @@ def publish_to_facebook(item):
             "poster"
         )
         or ""
-    )
+    ).strip()
 
 
     if not poster:
@@ -403,12 +475,19 @@ def publish_to_facebook(item):
 
 
     # -----------------------------------------------------
+    # DIRECT MOVIE URL
+    # -----------------------------------------------------
+
+    movie_url =
+        build_movie_url(item)
+
+
+    # -----------------------------------------------------
     # CAPTION
     # -----------------------------------------------------
 
-    caption = build_caption(
-        item
-    )
+    caption =
+        build_caption(item)
 
 
     # -----------------------------------------------------
@@ -436,12 +515,15 @@ def publish_to_facebook(item):
     # -----------------------------------------------------
 
     print(
-        "--------------------------------------"
+        "======================================"
     )
 
+    print(
+        "MOVINS — FACEBOOK PUBLISH"
+    )
 
     print(
-        "Publishing to Facebook:"
+        "======================================"
     )
 
 
@@ -458,14 +540,20 @@ def publish_to_facebook(item):
 
 
     print(
-        f"Rating: "
-        f"{item.get('rating')}"
+        f"TMDB ID: "
+        f"{item.get('id')}"
     )
 
 
     print(
-        f"MOVINS URL: "
-        f"{build_movie_url(item)}"
+        f"Website URL: "
+        f"{movie_url}"
+    )
+
+
+    print(
+        f"Rating: "
+        f"{item.get('rating')}"
     )
 
 
@@ -475,7 +563,7 @@ def publish_to_facebook(item):
 
 
     print(
-        "Caption:"
+        "Facebook Caption:"
     )
 
 
@@ -493,11 +581,29 @@ def publish_to_facebook(item):
     # FACEBOOK REQUEST
     # -----------------------------------------------------
 
-    response = requests.post(
-        GRAPH_URL,
-        data=payload,
-        timeout=60
-    )
+    try:
+
+        response = requests.post(
+
+            GRAPH_URL,
+
+            data=payload,
+
+            timeout=60
+
+        )
+
+    except requests.RequestException as error:
+
+        print(
+            "Facebook connection error:"
+        )
+
+        print(
+            error
+        )
+
+        return False
 
 
     # -----------------------------------------------------
@@ -510,21 +616,48 @@ def publish_to_facebook(item):
             "Facebook API Error:"
         )
 
-
         print(
             response.text
         )
 
-
-        response.raise_for_status()
+        return False
 
 
     # -----------------------------------------------------
     # RESULT
     # -----------------------------------------------------
 
-    result = response.json()
+    try:
 
+        result =
+            response.json()
+
+    except ValueError:
+
+        print(
+            "Facebook returned invalid JSON:"
+        )
+
+        print(
+            response.text
+        )
+
+        return False
+
+
+    post_id = (
+        result.get(
+            "post_id"
+        )
+        or result.get(
+            "id"
+        )
+    )
+
+
+    print(
+        "======================================"
+    )
 
     print(
         "Facebook post successful."
@@ -532,13 +665,19 @@ def publish_to_facebook(item):
 
 
     print(
-        "Post ID:",
-        result.get(
-            "post_id"
-        )
-        or result.get(
-            "id"
-        )
+        f"Post ID: "
+        f"{post_id}"
+    )
+
+
+    print(
+        f"Movie URL: "
+        f"{movie_url}"
+    )
+
+
+    print(
+        "======================================"
     )
 
 
@@ -551,13 +690,29 @@ def publish_to_facebook(item):
 
 def main():
 
+    print(
+        "======================================"
+    )
+
+    print(
+        "MOVINS FACEBOOK PUBLISHER STARTED"
+    )
+
+    print(
+        "======================================"
+    )
+
+
     # -----------------------------------------------------
-    # LOAD
+    # LOAD DATA
     # -----------------------------------------------------
 
-    movies = load_movies()
+    movies =
+        load_movies()
 
-    posted = load_posted()
+
+    posted =
+        load_posted()
 
 
     print(
@@ -577,12 +732,15 @@ def main():
     # -----------------------------------------------------
 
     movies.sort(
+
         key=lambda item:
             item.get(
                 "updated_at",
                 ""
             ),
+
         reverse=True
+
     )
 
 
@@ -595,9 +753,8 @@ def main():
 
     for item in movies:
 
-        item_id = item.get(
-            "id"
-        )
+        item_id =
+            item.get("id")
 
 
         if not item_id:
@@ -605,13 +762,46 @@ def main():
             continue
 
 
-        if str(
-            item_id
-        ) not in posted:
+        item_key =
+            get_item_key(item)
 
-            new_items.append(
-                item
-            )
+
+        if not item_key:
+
+            continue
+
+
+        # -------------------------------------------------
+        # NEW FORMAT
+        # -------------------------------------------------
+
+        if item_key in posted:
+
+            continue
+
+
+        # -------------------------------------------------
+        # BACKWARD COMPATIBILITY
+        #
+        # Your old posted_movies.json may contain:
+        #
+        # 123
+        #
+        # instead of:
+        #
+        # movie-123
+        #
+        # So we also check the old format.
+        # -------------------------------------------------
+
+        if str(item_id) in posted:
+
+            continue
+
+
+        new_items.append(
+            item
+        )
 
 
     print(
@@ -628,6 +818,10 @@ def main():
 
         print(
             "Nothing new to publish."
+        )
+
+        print(
+            "MOVINS Facebook publisher finished."
         )
 
         return
@@ -650,34 +844,22 @@ def main():
             break
 
 
-        try:
-
-            success = (
-                publish_to_facebook(
-                    item
-                )
+        success =
+            publish_to_facebook(
+                item
             )
-
-
-        except Exception as error:
-
-            print(
-                "Publish error:"
-            )
-
-            print(
-                error
-            )
-
-            success = False
 
 
         if success:
 
-            posted.add(
-                str(
-                    item["id"]
+            item_key =
+                get_item_key(
+                    item
                 )
+
+
+            posted.add(
+                item_key
             )
 
 
@@ -689,9 +871,20 @@ def main():
             published_count += 1
 
 
+            print(
+                f"Saved as posted: "
+                f"{item_key}"
+            )
+
+
     # -----------------------------------------------------
     # RESULT
     # -----------------------------------------------------
+
+    print(
+        "======================================"
+    )
+
 
     print(
         f"Published this run: "
@@ -701,6 +894,11 @@ def main():
 
     print(
         "MOVINS Facebook publisher finished."
+    )
+
+
+    print(
+        "======================================"
     )
 
 
