@@ -12,42 +12,32 @@ import requests
 API_KEY = os.environ.get("TMDB_API_KEY")
 
 if not API_KEY:
-    raise RuntimeError(
-        "TMDB_API_KEY is missing"
-    )
+    raise RuntimeError("TMDB_API_KEY is missing")
 
 
 BASE_URL = "https://api.themoviedb.org/3"
 
-IMAGE_BASE = (
-    "https://image.tmdb.org/t/p/w500"
-)
-
+IMAGE_BASE = "https://image.tmdb.org/t/p/w500"
 
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",
     "accept": "application/json",
 }
 
-
 OUTPUT_FILE = "movies.json"
 
 
 # =========================================================
-# LIBRARY SETTINGS
+# SETTINGS
 # =========================================================
 
-# عدد صفحات الترند التي يتم جلبها في كل تشغيل.
-#
-# الصفحة الواحدة من TMDB تحتوي عادةً على حوالي 20 عملًا.
-#
-# 10 صفحات = حوالي 200 فيلم + 200 مسلسل
-# 20 صفحة = حوالي 400 فيلم + 400 مسلسل
-#
-# الأعمال القديمة الموجودة في movies.json
-# لن يتم حذفها.
-#
-TRENDING_PAGES = 10
+# عدد صفحات Trending التي يتم جلبها في كل تشغيل.
+# TMDB يسمح حتى 20 صفحة في هذا النوع من الطلبات.
+TRENDING_PAGES = 20
+
+# الحد الأقصى النهائي للملفات المحفوظة.
+# لا نضع 30 هنا حتى يحتفظ الموقع بأكبر مكتبة ممكنة.
+MAX_ITEMS = 10000
 
 
 # =========================================================
@@ -126,7 +116,7 @@ GENRE_PRIORITY = [
 
 
 # =========================================================
-# LANGUAGE RULES
+# TITLE LANGUAGE RULES
 # =========================================================
 
 KEEP_ORIGINAL_TITLE_LANGUAGES = {
@@ -153,21 +143,12 @@ FOREIGN_TITLE_LANGUAGES = {
 
 
 # =========================================================
-# HTTP HELPER
+# HTTP
 # =========================================================
 
-def tmdb_get(
-    endpoint,
-    params=None
-):
-    """
-    Common TMDB GET request.
-    """
+def tmdb_get(endpoint, params=None):
 
-    url = (
-        f"{BASE_URL}"
-        f"{endpoint}"
-    )
+    url = f"{BASE_URL}{endpoint}"
 
     response = requests.get(
         url,
@@ -182,101 +163,121 @@ def tmdb_get(
 
 
 # =========================================================
-# GET TRENDING
+# GET TRENDING PAGE
 # =========================================================
 
-def get_trending(
-    media_type,
-    pages=TRENDING_PAGES
-):
+def get_trending_page(media_type, page):
+
+    endpoint = f"/trending/{media_type}/week"
+
+    params = {
+        "language": "ar-SA",
+        "include_adult": "false",
+        "page": page,
+    }
+
+    data = tmdb_get(
+        endpoint,
+        params,
+    )
+
+    return data.get("results", [])
+
+
+# =========================================================
+# GET ALL TRENDING PAGES
+# =========================================================
+
+def get_all_trending(media_type):
 
     all_results = []
 
-    endpoint = (
-        f"/trending/"
-        f"{media_type}/week"
+    print(
+        f"Fetching {media_type} "
+        f"pages 1-{TRENDING_PAGES}..."
     )
-
 
     for page in range(
         1,
-        pages + 1
+        TRENDING_PAGES + 1
     ):
 
         try:
 
+            results = get_trending_page(
+                media_type,
+                page
+            )
+
             print(
-                f"Fetching trending "
-                f"{media_type} page "
-                f"{page}/{pages}..."
+                f"{media_type.upper()} "
+                f"page {page}: "
+                f"{len(results)} items"
             )
-
-
-            data = tmdb_get(
-                endpoint,
-                {
-                    "language": "ar-SA",
-                    "include_adult": "false",
-                    "page": page,
-                }
-            )
-
-
-            page_results = data.get(
-                "results",
-                []
-            )
-
-
-            if not page_results:
-
-                print(
-                    f"No more {media_type} "
-                    f"results on page {page}."
-                )
-
-                break
-
 
             all_results.extend(
-                page_results
+                results
             )
-
 
         except Exception as error:
 
             print(
-                f"Trending {media_type} "
-                f"page {page} warning:",
+                f"WARNING: failed "
+                f"{media_type} page {page}:",
                 error
             )
 
-            continue
+    return all_results
 
 
-    # -----------------------------------------------------
-    # Remove duplicates from TMDB pages
-    # -----------------------------------------------------
+# =========================================================
+# LOAD EXISTING DATA
+# =========================================================
 
-    unique = {}
+def load_existing():
 
-    for item in all_results:
+    if not os.path.exists(
+        OUTPUT_FILE
+    ):
 
-        item_id = item.get(
-            "id"
+        return []
+
+
+    try:
+
+        with open(
+            OUTPUT_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            data = json.load(file)
+
+
+        items = data.get(
+            "items",
+            []
         )
 
-        if not item_id:
-            continue
 
-        unique[
-            str(item_id)
-        ] = item
+        if isinstance(
+            items,
+            list
+        ):
+
+            return items
 
 
-    return list(
-        unique.values()
-    )
+    except Exception as error:
+
+        print(
+            "WARNING: could not read "
+            "existing movies.json:",
+            error
+        )
+
+
+    return []
 
 
 # =========================================================
@@ -287,9 +288,6 @@ def get_posters(
     media_type,
     item_id
 ):
-    """
-    Get all available posters for a movie/show.
-    """
 
     if media_type == "movie":
 
@@ -321,6 +319,7 @@ def get_posters(
             []
         )
 
+
     except Exception as error:
 
         print(
@@ -339,13 +338,11 @@ def get_best_poster(
     media_type,
     item
 ):
-    """
-    Poster selection rules.
-    """
 
     item_id = item.get(
         "id"
     )
+
 
     original_language = (
         item.get(
@@ -408,10 +405,13 @@ def get_best_poster(
 
 
     # -----------------------------------------------------
-    # 1. Original language
+    # ORIGINAL LANGUAGE
     # -----------------------------------------------------
 
-    if original_language in KEEP_ORIGINAL_TITLE_LANGUAGES:
+    if (
+        original_language
+        in KEEP_ORIGINAL_TITLE_LANGUAGES
+    ):
 
         original_poster = find_language(
             original_language
@@ -423,7 +423,7 @@ def get_best_poster(
 
 
     # -----------------------------------------------------
-    # 2. Foreign languages
+    # FOREIGN
     # -----------------------------------------------------
 
     if (
@@ -459,7 +459,7 @@ def get_best_poster(
 
 
     # -----------------------------------------------------
-    # 3. Neutral poster
+    # NEUTRAL
     # -----------------------------------------------------
 
     for poster in posters:
@@ -481,7 +481,7 @@ def get_best_poster(
 
 
     # -----------------------------------------------------
-    # 4. English fallback
+    # ENGLISH
     # -----------------------------------------------------
 
     english_poster = find_language(
@@ -494,7 +494,7 @@ def get_best_poster(
 
 
     # -----------------------------------------------------
-    # 5. Arabic fallback
+    # ARABIC
     # -----------------------------------------------------
 
     arabic_poster = find_language(
@@ -505,10 +505,6 @@ def get_best_poster(
 
         return arabic_poster
 
-
-    # -----------------------------------------------------
-    # 6. Original TMDB poster
-    # -----------------------------------------------------
 
     return fallback
 
@@ -521,9 +517,6 @@ def get_trailer(
     media_type,
     item_id
 ):
-    """
-    Get the best available YouTube trailer.
-    """
 
     if not item_id:
 
@@ -567,14 +560,19 @@ def get_trailer(
 
 
         youtube_videos = [
+
             video
+
             for video in videos
+
             if video.get(
                 "site"
             ) == "YouTube"
+
             and video.get(
                 "key"
             )
+
         ]
 
 
@@ -586,19 +584,20 @@ def get_trailer(
             }
 
 
-        # -------------------------------------------------
-        # 1. Official Trailer
-        # -------------------------------------------------
-
         official_trailers = [
+
             video
+
             for video in youtube_videos
+
             if video.get(
                 "type"
             ) == "Trailer"
+
             and video.get(
                 "official"
             ) is True
+
         ]
 
 
@@ -610,16 +609,16 @@ def get_trailer(
 
         else:
 
-            # -------------------------------------------------
-            # 2. Any Trailer
-            # -------------------------------------------------
-
             trailers = [
+
                 video
+
                 for video in youtube_videos
+
                 if video.get(
                     "type"
                 ) == "Trailer"
+
             ]
 
 
@@ -629,19 +628,20 @@ def get_trailer(
 
             else:
 
-                # -------------------------------------------------
-                # 3. Official Teaser
-                # -------------------------------------------------
-
                 teasers = [
+
                     video
+
                     for video in youtube_videos
+
                     if video.get(
                         "type"
                     ) == "Teaser"
+
                     and video.get(
                         "official"
                     ) is True
+
                 ]
 
 
@@ -670,19 +670,17 @@ def get_trailer(
             }
 
 
-        trailer_url = (
-            "https://www.youtube.com/watch?v="
-            + trailer_key
-        )
-
-
         return {
 
             "trailer_key":
                 trailer_key,
 
             "trailer_url":
-                trailer_url
+                (
+                    "https://www.youtube.com/watch?v="
+                    + trailer_key
+                )
+
         }
 
 
@@ -700,7 +698,7 @@ def get_trailer(
 
 
 # =========================================================
-# GET GENRE NAMES
+# GET GENRES
 # =========================================================
 
 def get_genres(
@@ -745,7 +743,10 @@ def get_genres(
         )
 
 
-        if name and name not in genres:
+        if (
+            name
+            and name not in genres
+        ):
 
             genres.append(
                 name
@@ -756,7 +757,7 @@ def get_genres(
 
 
 # =========================================================
-# GET DETAILED TYPE
+# DETAILED TYPE
 # =========================================================
 
 def get_detailed_type(
@@ -888,6 +889,7 @@ def generate_hashtags(
 
         "غربي":
             "#غربي",
+
     }
 
 
@@ -898,16 +900,15 @@ def generate_hashtags(
         )
 
 
-        if tag and tag not in tags:
+        if (
+            tag
+            and tag not in tags
+        ):
 
             tags.append(
                 tag
             )
 
-
-    # -----------------------------------------------------
-    # Title hashtag
-    # -----------------------------------------------------
 
     clean_title = str(
         title or ""
@@ -950,12 +951,9 @@ def generate_hashtags(
 
 def clean_item(
     item,
-    media_type
+    media_type,
+    old_item=None
 ):
-
-    # -----------------------------------------------------
-    # ORIGINAL TITLE
-    # -----------------------------------------------------
 
     if media_type == "movie":
 
@@ -967,7 +965,6 @@ def clean_item(
                 "title"
             )
         )
-
 
         date = (
             item.get(
@@ -986,7 +983,6 @@ def clean_item(
             )
         )
 
-
         date = (
             item.get(
                 "first_air_date"
@@ -994,20 +990,12 @@ def clean_item(
         )
 
 
-    # -----------------------------------------------------
-    # YEAR
-    # -----------------------------------------------------
-
     year = (
         date[:4]
         if date
         else ""
     )
 
-
-    # -----------------------------------------------------
-    # ORIGINAL LANGUAGE
-    # -----------------------------------------------------
 
     original_language = (
         item.get(
@@ -1017,16 +1005,29 @@ def clean_item(
     ).lower()
 
 
-    # -----------------------------------------------------
-    # ARABIC OVERVIEW
-    # -----------------------------------------------------
-
     overview = (
         item.get(
             "overview"
         )
         or ""
     ).strip()
+
+
+    # -----------------------------------------------------
+    # Keep previous overview if TMDB returns empty
+    # -----------------------------------------------------
+
+    if (
+        not overview
+        and old_item
+    ):
+
+        overview = str(
+            old_item.get(
+                "overview"
+            )
+            or ""
+        ).strip()
 
 
     if not overview:
@@ -1037,19 +1038,26 @@ def clean_item(
         )
 
 
-    # -----------------------------------------------------
-    # GENRES
-    # -----------------------------------------------------
-
     genres = get_genres(
         item,
         media_type
     )
 
 
-    # -----------------------------------------------------
-    # DETAILED TYPE
-    # -----------------------------------------------------
+    # Keep previous genres if necessary
+    if (
+        not genres
+        and old_item
+        and isinstance(
+            old_item.get("genres"),
+            list
+        )
+    ):
+
+        genres = old_item.get(
+            "genres"
+        )
+
 
     detailed_type = (
         get_detailed_type(
@@ -1058,10 +1066,6 @@ def clean_item(
         )
     )
 
-
-    # -----------------------------------------------------
-    # RATING
-    # -----------------------------------------------------
 
     try:
 
@@ -1093,6 +1097,20 @@ def clean_item(
     )
 
 
+    # Keep previous poster if API fails
+    if (
+        not poster
+        and old_item
+    ):
+
+        poster = str(
+            old_item.get(
+                "poster"
+            )
+            or ""
+        )
+
+
     # -----------------------------------------------------
     # TRAILER
     # -----------------------------------------------------
@@ -1103,9 +1121,31 @@ def clean_item(
     )
 
 
-    # -----------------------------------------------------
-    # HASHTAGS
-    # -----------------------------------------------------
+    # Keep previous trailer
+    # if TMDB temporarily returns nothing
+    if (
+        not trailer.get(
+            "trailer_key"
+        )
+        and old_item
+    ):
+
+        trailer = {
+
+            "trailer_key":
+                old_item.get(
+                    "trailer_key",
+                    ""
+                ),
+
+            "trailer_url":
+                old_item.get(
+                    "trailer_url",
+                    ""
+                )
+
+        }
+
 
     hashtags = generate_hashtags(
         title,
@@ -1113,10 +1153,6 @@ def clean_item(
         genres
     )
 
-
-    # =====================================================
-    # FINAL OBJECT
-    # =====================================================
 
     return {
 
@@ -1135,17 +1171,45 @@ def clean_item(
 
         "title":
             title
-            or "بدون عنوان",
+            or (
+                old_item.get(
+                    "title"
+                )
+                if old_item
+                else "بدون عنوان"
+            ),
 
         "original_title":
             title
-            or "بدون عنوان",
+            or (
+                old_item.get(
+                    "original_title"
+                )
+                if old_item
+                else "بدون عنوان"
+            ),
 
         "original_language":
-            original_language,
+            original_language
+            or (
+                old_item.get(
+                    "original_language",
+                    ""
+                )
+                if old_item
+                else ""
+            ),
 
         "year":
-            year,
+            year
+            or (
+                old_item.get(
+                    "year",
+                    ""
+                )
+                if old_item
+                else ""
+            ),
 
         "overview":
             overview,
@@ -1178,61 +1242,8 @@ def clean_item(
             datetime.now(
                 timezone.utc
             ).isoformat(),
+
     }
-
-
-# =========================================================
-# LOAD EXISTING MOVIES
-# =========================================================
-
-def load_existing_movies():
-
-    if not os.path.exists(
-        OUTPUT_FILE
-    ):
-
-        return []
-
-
-    try:
-
-        with open(
-            OUTPUT_FILE,
-            "r",
-            encoding="utf-8"
-        ) as file:
-
-            data = json.load(
-                file
-            )
-
-
-        items = data.get(
-            "items",
-            []
-        )
-
-
-        if not isinstance(
-            items,
-            list
-        ):
-
-            return []
-
-
-        return items
-
-
-    except Exception as error:
-
-        print(
-            "WARNING: Could not load "
-            "existing movies.json:",
-            error
-        )
-
-        return []
 
 
 # =========================================================
@@ -1254,124 +1265,101 @@ def main():
     )
 
 
-    # -----------------------------------------------------
-    # LOAD EXISTING LIBRARY
-    # -----------------------------------------------------
+    # =====================================================
+    # LOAD OLD DATABASE
+    # =====================================================
 
-    existing_items = (
-        load_existing_movies()
+    existing_items = load_existing()
+
+
+    print(
+        f"Existing items: "
+        f"{len(existing_items)}"
+    )
+
+
+    # =====================================================
+    # INDEX OLD ITEMS
+    # =====================================================
+
+    existing_map = {}
+
+
+    for item in existing_items:
+
+        try:
+
+            item_type = (
+                "movie"
+                if item.get("type")
+                == "فيلم"
+                else "tv"
+            )
+
+
+            item_id = str(
+                item.get(
+                    "id"
+                )
+            )
+
+
+            if item_id:
+
+                key = (
+                    f"{item_type}:"
+                    f"{item_id}"
+                )
+
+
+                existing_map[key] = item
+
+
+        except Exception:
+
+            continue
+
+
+    # =====================================================
+    # FETCH MOVIES
+    # =====================================================
+
+    movies = get_all_trending(
+        "movie"
     )
 
 
     print(
-        f"Existing library: "
-        f"{len(existing_items)} items"
-    )
-
-
-    # -----------------------------------------------------
-    # TRENDING MOVIES
-    # -----------------------------------------------------
-
-    print(
-        "Fetching trending movies..."
-    )
-
-    movies = get_trending(
-        "movie",
-        TRENDING_PAGES
-    )
-
-
-    print(
-        f"Movies received: "
+        f"Total movie results: "
         f"{len(movies)}"
     )
 
 
-    # -----------------------------------------------------
-    # TRENDING TV
-    # -----------------------------------------------------
+    # =====================================================
+    # FETCH TV
+    # =====================================================
 
-    print(
-        "Fetching trending TV..."
-    )
-
-    tv = get_trending(
-        "tv",
-        TRENDING_PAGES
+    tv = get_all_trending(
+        "tv"
     )
 
 
     print(
-        f"TV received: "
+        f"Total TV results: "
         f"{len(tv)}"
     )
 
 
-    # -----------------------------------------------------
-    # BUILD LIBRARY
-    #
-    # Existing items are kept.
-    # New / refreshed items replace
-    # their old versions.
-    # -----------------------------------------------------
+    # =====================================================
+    # PROCESS
+    # =====================================================
 
-    library = {}
+    discovered_map = {}
 
 
     # -----------------------------------------------------
-    # FIRST: EXISTING ITEMS
+    # MOVIES
     # -----------------------------------------------------
-
-    for item in existing_items:
-
-        if not isinstance(
-            item,
-            dict
-        ):
-
-            continue
-
-
-        item_id = item.get(
-            "id"
-        )
-
-
-        item_type = item.get(
-            "type"
-        )
-
-
-        if not item_id or not item_type:
-
-            continue
-
-
-        key = (
-            f"{item_type}-"
-            f"{item_id}"
-        )
-
-
-        library[key] = item
-
-
-    print(
-        f"Library before update: "
-        f"{len(library)} items"
-    )
-
-
-    # -----------------------------------------------------
-    # PROCESS MOVIES
-    # -----------------------------------------------------
-
-    new_movies = 0
-
-    updated_movies = 0
-
 
     for item in movies:
 
@@ -1382,37 +1370,38 @@ def main():
             continue
 
 
+        item_id = str(
+            item.get(
+                "id"
+            )
+        )
+
+
+        if not item_id:
+
+            continue
+
+
+        key = (
+            f"movie:"
+            f"{item_id}"
+        )
+
+
         try:
 
             clean = clean_item(
                 item,
-                "movie"
+                "movie",
+                existing_map.get(key)
             )
 
 
-            if not clean.get(
+            if clean.get(
                 "poster"
             ):
 
-                continue
-
-
-            key = (
-                f"فيلم-"
-                f"{clean.get('id')}"
-            )
-
-
-            if key in library:
-
-                updated_movies += 1
-
-            else:
-
-                new_movies += 1
-
-
-            library[key] = clean
+                discovered_map[key] = clean
 
 
         except Exception as error:
@@ -1424,13 +1413,8 @@ def main():
 
 
     # -----------------------------------------------------
-    # PROCESS TV
+    # TV
     # -----------------------------------------------------
-
-    new_tv = 0
-
-    updated_tv = 0
-
 
     for item in tv:
 
@@ -1441,37 +1425,38 @@ def main():
             continue
 
 
+        item_id = str(
+            item.get(
+                "id"
+            )
+        )
+
+
+        if not item_id:
+
+            continue
+
+
+        key = (
+            f"tv:"
+            f"{item_id}"
+        )
+
+
         try:
 
             clean = clean_item(
                 item,
-                "tv"
+                "tv",
+                existing_map.get(key)
             )
 
 
-            if not clean.get(
+            if clean.get(
                 "poster"
             ):
 
-                continue
-
-
-            key = (
-                f"مسلسل-"
-                f"{clean.get('id')}"
-            )
-
-
-            if key in library:
-
-                updated_tv += 1
-
-            else:
-
-                new_tv += 1
-
-
-            library[key] = clean
+                discovered_map[key] = clean
 
 
         except Exception as error:
@@ -1482,21 +1467,41 @@ def main():
             )
 
 
+    # =====================================================
+    # MERGE OLD + NEW
+    # =====================================================
+
+    merged = {}
+
+
     # -----------------------------------------------------
-    # FINAL RESULTS
+    # OLD FIRST
     # -----------------------------------------------------
 
+    for key, item in existing_map.items():
+
+        merged[key] = item
+
+
+    # -----------------------------------------------------
+    # NEW / UPDATED
+    # -----------------------------------------------------
+
+    for key, item in discovered_map.items():
+
+        merged[key] = item
+
+
     results = list(
-        library.values()
+        merged.values()
     )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # SORT
     #
     # Newest updated items first.
-    # Older items remain in the library.
-    # -----------------------------------------------------
+    # =====================================================
 
     results.sort(
 
@@ -1511,14 +1516,20 @@ def main():
     )
 
 
-    # -----------------------------------------------------
-    # IMPORTANT:
-    #
-    # NO 30 ITEM LIMIT.
-    #
-    # The complete accumulated library
-    # is saved.
-    # -----------------------------------------------------
+    # =====================================================
+    # MAXIMUM DATABASE
+    # =====================================================
+
+    if len(results) > MAX_ITEMS:
+
+        results = results[
+            :MAX_ITEMS
+        ]
+
+
+    # =====================================================
+    # SAVE
+    # =====================================================
 
     data = {
 
@@ -1529,12 +1540,9 @@ def main():
 
         "items":
             results,
+
     }
 
-
-    # -----------------------------------------------------
-    # SAVE
-    # -----------------------------------------------------
 
     with open(
         OUTPUT_FILE,
@@ -1550,33 +1558,27 @@ def main():
         )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # LOG
-    # -----------------------------------------------------
+    # =====================================================
 
     print(
         "======================================"
     )
 
     print(
-        f"New movies: {new_movies}"
+        f"Previously stored: "
+        f"{len(existing_items)}"
     )
 
     print(
-        f"Updated movies: {updated_movies}"
+        f"Discovered/updated now: "
+        f"{len(discovered_map)}"
     )
 
     print(
-        f"New TV: {new_tv}"
-    )
-
-    print(
-        f"Updated TV: {updated_tv}"
-    )
-
-    print(
-        f"TOTAL LIBRARY: "
-        f"{len(results)} items"
+        f"Total MOVINS database: "
+        f"{len(results)}"
     )
 
     print(
@@ -1587,13 +1589,28 @@ def main():
     for item in results[:20]:
 
         print(
+
             f"{item.get('detailed_type')}: "
             f"{item.get('title')} | "
             f"{item.get('original_language')} | "
             f"{item.get('rating')} | "
             f"Trailer: "
             f"{'YES' if item.get('trailer_url') else 'NO'}"
+
         )
+
+
+    print(
+        "======================================"
+    )
+
+    print(
+        "MOVINS TMDB UPDATE FINISHED"
+    )
+
+    print(
+        "======================================"
+    )
 
 
 # =========================================================
