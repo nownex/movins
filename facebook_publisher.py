@@ -1,5 +1,6 @@
 import json
 import os
+
 import requests
 
 
@@ -30,16 +31,15 @@ MOVIES_FILE = "movies.json"
 POSTED_FILE = "posted_movies.json"
 
 
-# =========================================================
-# SETTINGS
-# =========================================================
-
-# منشور واحد فقط في كل تشغيل
+# One Facebook post per workflow run
 MAX_POSTS_PER_RUN = 1
 
 
-# رابط موقع MOVINS
-SITE_URL = (
+# =========================================================
+# MOVINS WEBSITE
+# =========================================================
+
+MOVINS_URL = (
     "https://nownex.github.io/movins/"
 )
 
@@ -53,9 +53,11 @@ def load_movies():
     if not os.path.exists(
         MOVIES_FILE
     ):
+
         raise RuntimeError(
             "movies.json not found"
         )
+
 
     with open(
         MOVIES_FILE,
@@ -63,7 +65,10 @@ def load_movies():
         encoding="utf-8"
     ) as file:
 
-        data = json.load(file)
+        data = json.load(
+            file
+        )
+
 
     return data.get(
         "items",
@@ -80,7 +85,9 @@ def load_posted():
     if not os.path.exists(
         POSTED_FILE
     ):
+
         return set()
+
 
     try:
 
@@ -90,16 +97,21 @@ def load_posted():
             encoding="utf-8"
         ) as file:
 
-            data = json.load(file)
+            data = json.load(
+                file
+            )
+
 
         if isinstance(
             data,
             list
         ):
+
             return set(
                 str(x)
                 for x in data
             )
+
 
     except Exception as error:
 
@@ -107,6 +119,7 @@ def load_posted():
             "Posted file warning:",
             error
         )
+
 
     return set()
 
@@ -134,34 +147,48 @@ def save_posted(posted):
 
 
 # =========================================================
-# GET ITEM KEY
+# BUILD MOVINS MOVIE URL
 # =========================================================
 
-def get_item_key(item):
-
-    """
-    Use media type + TMDB ID.
-
-    Example:
-
-    فيلم 123
-    مسلسل 123
-
-    are treated as two different items.
-    """
+def build_movie_url(item):
 
     item_id = item.get(
         "id"
     )
 
+
+    if not item_id:
+
+        return MOVINS_URL
+
+
     item_type = (
-        item.get("type")
+        item.get(
+            "type"
+        )
         or ""
     )
 
+
+    if item_type == "فيلم":
+
+        media_type = "movie"
+
+    elif item_type == "مسلسل":
+
+        media_type = "tv"
+
+    else:
+
+        media_type = "movie"
+
+
     return (
-        f"{item_type}:"
-        f"{item_id}"
+        MOVINS_URL
+        + "?type="
+        + media_type
+        + "&id="
+        + str(item_id)
     )
 
 
@@ -176,7 +203,9 @@ def build_caption(item):
     # -----------------------------------------------------
 
     title = (
-        item.get("title")
+        item.get(
+            "title"
+        )
         or "بدون عنوان"
     )
 
@@ -186,9 +215,12 @@ def build_caption(item):
     # -----------------------------------------------------
 
     overview = (
-        item.get("overview")
+        item.get(
+            "overview"
+        )
         or "لا يوجد ملخص متوفر حاليًا."
     )
+
 
     overview = str(
         overview
@@ -200,12 +232,15 @@ def build_caption(item):
     # -----------------------------------------------------
 
     detailed_type = (
-        item.get("detailed_type")
+        item.get(
+            "detailed_type"
+        )
         or item.get(
             "type",
             "عمل"
         )
     )
+
 
     detailed_type = str(
         detailed_type
@@ -233,6 +268,7 @@ def build_caption(item):
             if str(g).strip()
         ]
 
+
         genre_text = (
             " • ".join(
                 clean_genres[:5]
@@ -241,11 +277,13 @@ def build_caption(item):
             else "غير محدد"
         )
 
+
     else:
 
         genre_text = str(
             genres
         ).strip()
+
 
         if not genre_text:
 
@@ -259,7 +297,9 @@ def build_caption(item):
     # -----------------------------------------------------
 
     year = (
-        item.get("year")
+        item.get(
+            "year"
+        )
         or "—"
     )
 
@@ -277,6 +317,7 @@ def build_caption(item):
             or 0
         )
 
+
     except (
         TypeError,
         ValueError
@@ -286,25 +327,16 @@ def build_caption(item):
 
 
     # -----------------------------------------------------
-    # TRAILER
-    # -----------------------------------------------------
-
-    trailer_url = str(
-        item.get(
-            "trailer_url"
-        )
-        or ""
-    ).strip()
-
-
-    # -----------------------------------------------------
     # HASHTAGS
     # -----------------------------------------------------
 
     hashtags = (
-        item.get("hashtags")
+        item.get(
+            "hashtags"
+        )
         or "#MOVINS #Movies"
     )
+
 
     hashtags = str(
         hashtags
@@ -312,69 +344,35 @@ def build_caption(item):
 
 
     # =====================================================
-    # BUILD POST
+    # MOVINS URL
     # =====================================================
 
-    caption_parts = [
-
-        f"🎬 {title}",
-
-        "",
-
-        overview,
-
-        "",
-
-        f"⭐ التقييم: {rating:.1f}/10",
-
-        f"🎭 النوع: {detailed_type}",
-
-        f"🎞️ التصنيف: {genre_text}",
-
-        f"📅 السنة: {year}",
-
-        "",
-
-        "🌐 اكتشف القصة والتفاصيل:",
-
-        SITE_URL,
-
-    ]
-
-
-    # -----------------------------------------------------
-    # TRAILER
-    # -----------------------------------------------------
-
-    if trailer_url:
-
-        caption_parts.extend([
-
-            "",
-
-            "▶️ شاهد التريلر:",
-
-            trailer_url,
-
-        ])
-
-
-    # -----------------------------------------------------
-    # HASHTAGS
-    # -----------------------------------------------------
-
-    caption_parts.extend([
-
-        "",
-
-        hashtags,
-
-    ])
-
-
-    return "\n".join(
-        caption_parts
+    movie_url = build_movie_url(
+        item
     )
+
+
+    # =====================================================
+    # FACEBOOK CAPTION
+    # =====================================================
+
+    caption = f"""🎬 {title}
+
+{overview}
+
+⭐ التقييم: {rating:.1f}/10
+🎭 النوع: {detailed_type}
+🎞️ التصنيف: {genre_text}
+📅 السنة: {year}
+
+🎬 شاهد التريلر واكتشف القصة والتفاصيل داخل MOVINS:
+{movie_url}
+
+{hashtags}
+"""
+
+
+    return caption
 
 
 # =========================================================
@@ -388,7 +386,9 @@ def publish_to_facebook(item):
     # -----------------------------------------------------
 
     poster = (
-        item.get("poster")
+        item.get(
+            "poster"
+        )
         or ""
     )
 
@@ -439,41 +439,50 @@ def publish_to_facebook(item):
         "--------------------------------------"
     )
 
+
     print(
-        "Publishing to Facebook"
+        "Publishing to Facebook:"
     )
+
 
     print(
         f"Title: "
         f"{item.get('title')}"
     )
 
+
     print(
         f"Type: "
         f"{item.get('detailed_type', item.get('type'))}"
     )
+
 
     print(
         f"Rating: "
         f"{item.get('rating')}"
     )
 
+
     print(
-        f"Trailer: "
-        f"{'YES' if item.get('trailer_url') else 'NO'}"
+        f"MOVINS URL: "
+        f"{build_movie_url(item)}"
     )
+
 
     print(
         "--------------------------------------"
     )
 
+
     print(
         "Caption:"
     )
 
+
     print(
         caption
     )
+
 
     print(
         "--------------------------------------"
@@ -484,25 +493,11 @@ def publish_to_facebook(item):
     # FACEBOOK REQUEST
     # -----------------------------------------------------
 
-    try:
-
-        response = requests.post(
-            GRAPH_URL,
-            data=payload,
-            timeout=60
-        )
-
-    except requests.RequestException as error:
-
-        print(
-            "Facebook connection error:"
-        )
-
-        print(
-            error
-        )
-
-        return False
+    response = requests.post(
+        GRAPH_URL,
+        data=payload,
+        timeout=60
+    )
 
 
     # -----------------------------------------------------
@@ -515,51 +510,35 @@ def publish_to_facebook(item):
             "Facebook API Error:"
         )
 
+
         print(
             response.text
         )
 
-        return False
+
+        response.raise_for_status()
 
 
     # -----------------------------------------------------
     # RESULT
     # -----------------------------------------------------
 
-    try:
-
-        result = response.json()
-
-    except ValueError:
-
-        print(
-            "Facebook returned invalid JSON:"
-        )
-
-        print(
-            response.text
-        )
-
-        return False
-
-
-    post_id = (
-        result.get(
-            "post_id"
-        )
-        or result.get(
-            "id"
-        )
-    )
+    result = response.json()
 
 
     print(
         "Facebook post successful."
     )
 
+
     print(
         "Post ID:",
-        post_id
+        result.get(
+            "post_id"
+        )
+        or result.get(
+            "id"
+        )
     )
 
 
@@ -626,12 +605,9 @@ def main():
             continue
 
 
-        item_key = get_item_key(
-            item
-        )
-
-
-        if item_key not in posted:
+        if str(
+            item_id
+        ) not in posted:
 
             new_items.append(
                 item
@@ -674,20 +650,34 @@ def main():
             break
 
 
-        success = publish_to_facebook(
-            item
-        )
+        try:
+
+            success = (
+                publish_to_facebook(
+                    item
+                )
+            )
+
+
+        except Exception as error:
+
+            print(
+                "Publish error:"
+            )
+
+            print(
+                error
+            )
+
+            success = False
 
 
         if success:
 
-            item_key = get_item_key(
-                item
-            )
-
-
             posted.add(
-                item_key
+                str(
+                    item["id"]
+                )
             )
 
 
