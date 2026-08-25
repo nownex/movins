@@ -27,6 +27,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
 
       # ===================================================
@@ -74,6 +76,36 @@ jobs:
 
 
       # ===================================================
+      # CHECK FILES
+      # ===================================================
+
+      - name: Check generated files
+        run: |
+
+          echo "======================================"
+
+          echo "MOVINS generated files"
+
+          echo "======================================"
+
+          if [ -f movies.json ]; then
+            echo "movies.json: OK"
+          else
+            echo "movies.json: MISSING"
+            exit 1
+          fi
+
+          if [ -f posted_movies.json ]; then
+            echo "posted_movies.json: OK"
+          else
+            echo "posted_movies.json: NOT FOUND"
+            echo "Creating empty posted_movies.json"
+
+            echo "[]" > posted_movies.json
+          fi
+
+
+      # ===================================================
       # SAVE UPDATED DATA
       # ===================================================
 
@@ -90,11 +122,12 @@ jobs:
 
           if git diff --cached --quiet; then
 
-            echo "No changes."
+            echo "No changes to commit."
 
           else
 
-            git commit -m "Update MOVINS movies"
+            git commit \
+              -m "Update MOVINS movies"
 
             git push
 
