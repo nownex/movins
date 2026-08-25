@@ -10,7 +10,9 @@ import requests
 TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
 
 if not TOKEN:
-    raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing")
+    raise RuntimeError(
+        "FACEBOOK_PAGE_TOKEN is missing"
+    )
 
 
 GRAPH_VERSION = "v26.0"
@@ -42,6 +44,9 @@ SITE_URL = "https://nownex.github.io/movins/"
 
 MAX_POSTS_PER_RUN = 1
 
+# أقصى طول للملخص داخل منشور فيسبوك
+MAX_OVERVIEW_LENGTH = 420
+
 
 # =========================================================
 # LOAD MOVIES
@@ -50,11 +55,9 @@ MAX_POSTS_PER_RUN = 1
 def load_movies():
 
     if not os.path.exists(MOVIES_FILE):
-
         raise RuntimeError(
             "movies.json not found"
         )
-
 
     with open(
         MOVIES_FILE,
@@ -64,12 +67,10 @@ def load_movies():
 
         data = json.load(file)
 
-
     items = data.get(
         "items",
         []
     )
-
 
     if not isinstance(
         items,
@@ -79,7 +80,6 @@ def load_movies():
         raise RuntimeError(
             "movies.json items must be a list"
         )
-
 
     return items
 
@@ -96,7 +96,6 @@ def load_posted():
 
         return set()
 
-
     try:
 
         with open(
@@ -107,7 +106,6 @@ def load_posted():
 
             data = json.load(file)
 
-
         if not isinstance(
             data,
             list
@@ -115,9 +113,7 @@ def load_posted():
 
             return set()
 
-
         result = set()
-
 
         for item in data:
 
@@ -133,7 +129,6 @@ def load_posted():
                     )
                 ).strip()
 
-
                 item_type = str(
                     item.get(
                         "type",
@@ -141,23 +136,22 @@ def load_posted():
                     )
                 ).strip()
 
-
                 if item_id:
 
                     result.add(
                         f"{item_type}:{item_id}"
                     )
 
-
             else:
 
-                result.add(
-                    str(item).strip()
-                )
+                value = str(
+                    item
+                ).strip()
 
+                if value:
+                    result.add(value)
 
         return result
-
 
     except Exception as e:
 
@@ -204,7 +198,6 @@ def get_media_type(item):
         )
     ).strip().lower()
 
-
     if item_type in (
         "فيلم",
         "movie",
@@ -212,7 +205,6 @@ def get_media_type(item):
     ):
 
         return "movie"
-
 
     return "tv"
 
@@ -241,16 +233,12 @@ def get_movie_key(item):
         item
     )
 
-
     if not movie_id:
-
         return ""
-
 
     media_type = get_media_type(
         item
     )
-
 
     return (
         f"{media_type}:{movie_id}"
@@ -260,15 +248,15 @@ def get_movie_key(item):
 # =========================================================
 # DIRECT MOVIE URL
 #
-# THIS IS THE IMPORTANT PART
+# IMPORTANT:
+#
+# Facebook receives the exact movie URL.
 #
 # Example:
 #
-# ?movie=tv-123
+# https://nownex.github.io/movins/?movie=tv-123
 #
-# or
-#
-# ?movie=movie-456
+# https://nownex.github.io/movins/?movie=movie-456
 #
 # =========================================================
 
@@ -278,16 +266,12 @@ def get_movie_url(item):
         item
     )
 
-
     if not movie_id:
-
         return SITE_URL
-
 
     media_type = get_media_type(
         item
     )
-
 
     return (
         SITE_URL
@@ -299,47 +283,121 @@ def get_movie_url(item):
 
 
 # =========================================================
+# CLEAN TEXT
+# =========================================================
+
+def clean_text(value):
+
+    if value is None:
+        return ""
+
+    text = str(value)
+
+    # إزالة المسافات الزائدة
+    text = " ".join(
+        text.split()
+    )
+
+    return text.strip()
+
+
+# =========================================================
+# SHORT OVERVIEW
+# =========================================================
+
+def build_short_overview(item):
+
+    overview = clean_text(
+        item.get(
+            "overview",
+            ""
+        )
+    )
+
+    if not overview:
+
+        return (
+            "اكتشف قصة هذا العمل "
+            "وتفاصيله على MOVINS."
+        )
+
+    if len(overview) <= MAX_OVERVIEW_LENGTH:
+
+        return overview
+
+    shortened = overview[
+        :MAX_OVERVIEW_LENGTH
+    ]
+
+    # لا نقطع الكلمة الأخيرة
+    if " " in shortened:
+
+        shortened = shortened.rsplit(
+            " ",
+            1
+        )[0]
+
+    return shortened + "..."
+
+
+# =========================================================
 # GENRES
 # =========================================================
 
-def build_genres(item):
+def get_genres_list(item):
 
     genres = item.get(
         "genres",
         []
     )
 
-
     if isinstance(
         genres,
         list
     ):
 
-        clean = []
-
+        result = []
 
         for genre in genres:
 
-            text = str(
+            value = clean_text(
                 genre
-            ).strip()
+            )
 
+            if value:
 
-            if text:
-
-                clean.append(
-                    text
+                result.append(
+                    value
                 )
 
+        return result
 
-        return " • ".join(
-            clean[:5]
-        )
-
-
-    return str(
+    value = clean_text(
         genres
-    ).strip()
+    )
+
+    if value:
+        return [value]
+
+    return []
+
+
+# =========================================================
+# GENRES FOR DISPLAY
+# =========================================================
+
+def build_genres(item):
+
+    genres = get_genres_list(
+        item
+    )
+
+    if not genres:
+        return ""
+
+    return " • ".join(
+        genres[:3]
+    )
 
 
 # =========================================================
@@ -353,56 +411,116 @@ def build_hashtags(item):
         ""
     )
 
-
     if isinstance(
         hashtags,
         list
     ):
 
+        cleaned = []
+
+        for value in hashtags:
+
+            value = clean_text(
+                value
+            )
+
+            if value:
+
+                cleaned.append(
+                    value
+                )
+
         hashtags = " ".join(
-            str(x)
-            for x in hashtags
+            cleaned
         )
 
-
-    hashtags = str(
+    hashtags = clean_text(
         hashtags
-    ).strip()
+    )
 
-
+    # إذا كانت البيانات تحتوي على هاشتاغات
     if hashtags:
 
-        return hashtags
+        # لا نريد عددًا ضخمًا من الهاشتاغات
+        parts = hashtags.split()
 
+        cleaned_parts = []
 
+        for part in parts:
+
+            if part.startswith("#"):
+
+                cleaned_parts.append(
+                    part
+                )
+
+        if cleaned_parts:
+
+            return " ".join(
+                cleaned_parts[:5]
+            )
+
+    # هاشتاغات افتراضية نظيفة
     return (
-        "#MOVINS #Movies #Series"
+        "#MOVINS #أفلام #مسلسلات"
     )
 
 
 # =========================================================
+# RATING
+# =========================================================
+
+def get_rating(item):
+
+    try:
+
+        rating = float(
+            item.get(
+                "rating"
+            ) or 0
+        )
+
+        if rating <= 0:
+            return "—"
+
+        return f"{rating:.1f}/10"
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return "—"
+
+
+# =========================================================
 # FACEBOOK CAPTION
+#
+# الهدف:
+#
+# 1. عنوان واضح
+# 2. Hook قصير
+# 3. ملخص مشوق
+# 4. التقييم
+# 5. النوع
+# 6. دعوة للنقر
+# 7. الرابط المباشر للبطاقة
 # =========================================================
 
 def build_caption(item):
 
-    title = str(
+    title = clean_text(
         item.get(
             "title"
         )
         or "بدون عنوان"
-    ).strip()
+    )
 
+    overview = build_short_overview(
+        item
+    )
 
-    overview = str(
-        item.get(
-            "overview"
-        )
-        or "اكتشف القصة والتفاصيل على MOVINS."
-    ).strip()
-
-
-    detailed_type = str(
+    detailed_type = clean_text(
         item.get(
             "detailed_type"
         )
@@ -410,54 +528,53 @@ def build_caption(item):
             "type"
         )
         or "عمل"
-    ).strip()
+    )
 
-
-    year = str(
+    year = clean_text(
         item.get(
             "year"
         )
         or "—"
-    ).strip()
-
+    )
 
     genres = build_genres(
         item
     )
 
+    rating = get_rating(
+        item
+    )
+
+    movie_url = get_movie_url(
+        item
+    )
 
     hashtags = build_hashtags(
         item
     )
 
 
-    movie_url = get_movie_url(
-        item
-    )
+    # -----------------------------------------------------
+    # اختيار نوع افتتاحية مناسبة
+    # -----------------------------------------------------
 
+    if detailed_type:
 
-    try:
+        hook = (
+            f"هل يستحق {title} المشاهدة؟ "
+            "اكتشف القصة والتفاصيل قبل أن تبدأ."
+        )
 
-        rating = float(
-            item.get(
-                "rating"
-            )
-            or 0
+    else:
+
+        hook = (
+            "اكتشف القصة والتفاصيل قبل المشاهدة."
         )
 
 
-        rating_text = (
-            f"{rating:.1f}/10"
-        )
-
-
-    except (
-        TypeError,
-        ValueError
-    ):
-
-        rating_text = "—"
-
+    # -----------------------------------------------------
+    # المنشور النهائي
+    # -----------------------------------------------------
 
     lines = [
 
@@ -465,21 +582,37 @@ def build_caption(item):
 
         "",
 
+        hook,
+
+        "",
+
         overview,
 
         "",
 
-        f"⭐ التقييم: {rating_text}",
+        f"⭐ التقييم: {rating}",
 
-        f"🎭 النوع: {detailed_type}",
+        f"🎭 {detailed_type}",
 
-        f"🎞️ التصنيف: {genres or 'غير محدد'}",
+        (
+            f"🎞️ {genres}"
+            if genres
+            else ""
+        ),
 
-        f"📅 السنة: {year}",
+        (
+            f"📅 {year}"
+            if year and year != "—"
+            else ""
+        ),
 
         "",
 
-        "🌐 اكتشف القصة والتفاصيل:",
+        "👀 تريد معرفة المزيد؟",
+
+        "اكتشف القصة الكاملة والتفاصيل والتريلر على MOVINS 👇",
+
+        "",
 
         movie_url,
 
@@ -490,8 +623,31 @@ def build_caption(item):
     ]
 
 
+    # إزالة الأسطر الفارغة المتكررة
+    final_lines = []
+
+    previous_empty = False
+
+    for line in lines:
+
+        if line == "":
+
+            if previous_empty:
+                continue
+
+            previous_empty = True
+
+        else:
+
+            previous_empty = False
+
+        final_lines.append(
+            line
+        )
+
+
     return "\n".join(
-        lines
+        final_lines
     )
 
 
@@ -501,13 +657,12 @@ def build_caption(item):
 
 def publish_to_facebook(item):
 
-    poster = str(
+    poster = clean_text(
         item.get(
             "poster"
         )
         or ""
-    ).strip()
-
+    )
 
     if not poster:
 
@@ -519,6 +674,11 @@ def publish_to_facebook(item):
 
 
     caption = build_caption(
+        item
+    )
+
+
+    movie_url = get_movie_url(
         item
     )
 
@@ -544,41 +704,33 @@ def publish_to_facebook(item):
         "--------------------------------------"
     )
 
-
     print(
         "Publishing to Facebook"
     )
-
 
     print(
         f"Title: {item.get('title', '')}"
     )
 
-
     print(
         f"ID: {item.get('id', '')}"
     )
 
-
     print(
-        f"Direct URL: {get_movie_url(item)}"
+        f"Direct movie URL: {movie_url}"
     )
-
 
     print(
         "--------------------------------------"
     )
 
-
     print(
         "Caption:"
     )
 
-
     print(
         caption
     )
-
 
     print(
         "--------------------------------------"
@@ -597,7 +749,6 @@ def publish_to_facebook(item):
 
         )
 
-
     except requests.RequestException as e:
 
         print(
@@ -610,7 +761,6 @@ def publish_to_facebook(item):
     try:
 
         result = response.json()
-
 
     except ValueError:
 
@@ -631,7 +781,6 @@ def publish_to_facebook(item):
             "Facebook API Error:"
         )
 
-
         print(
             json.dumps(
                 result,
@@ -640,14 +789,12 @@ def publish_to_facebook(item):
             )
         )
 
-
         return False
 
 
     print(
         "Facebook post successful."
     )
-
 
     print(
         "Post ID:",
@@ -677,7 +824,6 @@ def main():
     print(
         f"MOVINS items: {len(movies)}"
     )
-
 
     print(
         f"Already posted: {len(posted)}"
@@ -713,7 +859,6 @@ def main():
         movie_key = get_movie_key(
             item
         )
-
 
         if not movie_key:
 
@@ -770,7 +915,9 @@ def main():
         if success:
 
             posted.add(
-                get_movie_key(item)
+                get_movie_key(
+                    item
+                )
             )
 
 
@@ -790,7 +937,6 @@ def main():
         f"Published this run: "
         f"{published_count}"
     )
-
 
     print(
         "MOVINS Facebook publisher finished."
