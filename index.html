@@ -12,7 +12,7 @@
 
     <meta
         name="description"
-        content="MOVINS — اكتشف الأفلام والمسلسلات من خلال ملخصات واضحة وتصنيفات دقيقة."
+        content="MOVINS — اكتشف الأفلام والمسلسلات من خلال القصص والتقييمات والتريلرات."
     >
 
     <meta
@@ -48,7 +48,7 @@
 
         /* =====================================================
            RESET
-        ===================================================== */
+        ====================================================== */
 
         * {
             box-sizing: border-box;
@@ -1187,7 +1187,7 @@
 
             left: 15px;
 
-            z-index: 20;
+            z-index: 10;
 
             width: 40px;
 
@@ -1203,18 +1203,6 @@
             font-size: 22px;
 
             cursor: pointer;
-
-            transition: .2s ease;
-        }
-
-
-        .modal-close:hover {
-
-            background:
-                #ff1018;
-
-            transform:
-                rotate(90deg);
         }
 
 
@@ -1253,7 +1241,7 @@
 
             flex-direction: column;
 
-            justify-content: center;
+            justify-content: flex-start;
 
             padding-top: 10px;
         }
@@ -1400,21 +1388,21 @@
 
             line-height: 1.8;
 
-            margin-bottom: 28px;
+            margin-bottom: 25px;
         }
 
 
         /* =====================================================
-           TRAILER SECTION
+           TRAILER
         ====================================================== */
 
         .trailer-section {
 
             width: 100%;
 
-            margin-top: 8px;
+            margin-top: 5px;
 
-            padding-top: 25px;
+            padding-top: 20px;
 
             border-top:
                 1px solid
@@ -1428,7 +1416,7 @@
 
             align-items: center;
 
-            gap: 9px;
+            gap: 8px;
 
             color: #ffffff;
 
@@ -1436,7 +1424,7 @@
 
             font-weight: 900;
 
-            margin-bottom: 14px;
+            margin-bottom: 13px;
         }
 
 
@@ -1448,8 +1436,7 @@
 
             height: 22px;
 
-            background:
-                #ff1018;
+            background: #ff1018;
 
             border-radius: 10px;
         }
@@ -1461,98 +1448,60 @@
 
             width: 100%;
 
-            aspect-ratio:
-                16 / 9;
+            aspect-ratio: 16 / 9;
+
+            background:
+                #05060a;
+
+            border:
+                1px solid #292d38;
+
+            border-radius: 17px;
 
             overflow: hidden;
 
-            border-radius: 16px;
-
-            background:
-                #050609;
-
-            border:
-                1px solid
-                #292d38;
-
             box-shadow:
-                0 20px 50px
-                rgba(0,0,0,0.35);
+                0 18px 45px
+                rgba(0,0,0,.35);
         }
 
 
         .trailer-player iframe {
 
-            position: absolute;
-
-            inset: 0;
-
             width: 100%;
 
             height: 100%;
 
-            border: 0;
+            display: block;
+
+            border: none;
         }
 
 
-        .trailer-empty {
+        .no-trailer {
 
-            width: 100%;
+            display: none;
 
-            aspect-ratio:
-                16 / 9;
+            padding:
+                25px;
 
-            display: flex;
+            text-align:
+                center;
 
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            text-align: center;
+            color:
+                #777d89;
 
             background:
-                linear-gradient(
-                    145deg,
-                    #171a22,
-                    #090a0f
-                );
+                #0b0d13;
 
             border:
-                1px solid #292d38;
+                1px solid #252934;
 
-            border-radius: 16px;
+            border-radius:
+                14px;
 
-            color: #777d8b;
-
-            padding: 25px;
-        }
-
-
-        .trailer-empty-icon {
-
-            font-size: 40px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .trailer-empty strong {
-
-            color: #d8dae0;
-
-            font-size: 15px;
-
-            margin-bottom: 5px;
-        }
-
-
-        .trailer-empty span {
-
-            font-size: 12px;
-
-            color: #6e7480;
+            font-size:
+                13px;
         }
 
 
@@ -1939,19 +1888,19 @@
 
             /* =================================================
                MODAL MOBILE
-            ================================================== */
+            ================================================= */
 
             .modal {
 
                 padding:
-                    10px;
+                    8px;
             }
 
 
             .modal-box {
 
                 max-height:
-                    95vh;
+                    96vh;
 
                 border-radius:
                     20px;
@@ -1965,19 +1914,20 @@
                 flex-direction:
                     column;
 
-                align-items: center;
+                align-items:
+                    center;
 
-                gap: 20px;
+                gap: 18px;
 
                 padding:
-                    22px 16px 30px;
+                    24px 15px 28px;
             }
 
 
             .modal-poster {
 
                 width:
-                    180px;
+                    175px;
             }
 
 
@@ -2018,9 +1968,6 @@
 
                 line-height:
                     2;
-
-                margin-bottom:
-                    20px;
             }
 
 
@@ -2035,9 +1982,6 @@
 
                 font-size:
                     11px;
-
-                margin-bottom:
-                    22px;
             }
 
 
@@ -2047,10 +1991,7 @@
                     right;
 
                 margin-top:
-                    4px;
-
-                padding-top:
-                    22px;
+                    3px;
             }
 
 
@@ -2060,18 +2001,11 @@
                     flex-start;
 
                 font-size:
-                    16px;
+                    15px;
             }
 
 
             .trailer-player {
-
-                border-radius:
-                    13px;
-            }
-
-
-            .trailer-empty {
 
                 border-radius:
                     13px;
@@ -2128,13 +2062,6 @@
                 font-size:
                     37px;
             }
-
-
-            .modal-poster {
-
-                width:
-                    160px;
-            }
         }
 
     </style>
@@ -2152,7 +2079,6 @@
 <header>
 
     <div class="header-inner">
-
 
         <a
             href="#"
@@ -2220,8 +2146,8 @@
         <p>
 
             اكتشف الأفلام والمسلسلات التي تستحق وقتك،
-            تعرّف على القصة والتصنيف والتقييم في مكان واحد،
-            واختر مغامرتك القادمة قبل أن تبدأ المشاهدة.
+            تعرّف على القصة والتصنيف والتقييم والتريلر
+            في مكان واحد، واختر مغامرتك القادمة قبل أن تبدأ المشاهدة.
 
         </p>
 
@@ -2243,6 +2169,14 @@
                 الأفلام
             </button>
 
+
+            <button
+                class="btn btn-secondary"
+                onclick="setFilter('tv')"
+            >
+                المسلسلات
+            </button>
+
         </div>
 
     </div>
@@ -2261,7 +2195,7 @@
             </h2>
 
             <p>
-                أفلام • مسلسلات • قصص • تقييمات
+                أفلام • مسلسلات • قصص • تريلرات
             </p>
 
         </div>
@@ -2304,6 +2238,24 @@
     ====================================================== -->
 
     <div class="filters">
+
+
+        <button
+            class="filter-btn"
+            data-filter="movie"
+            onclick="setFilter('movie')"
+        >
+            الأفلام
+        </button>
+
+
+        <button
+            class="filter-btn"
+            data-filter="tv"
+            onclick="setFilter('tv')"
+        >
+            المسلسلات
+        </button>
 
 
         <button
@@ -2357,24 +2309,6 @@
             onclick="setFilter('animation')"
         >
             رسوم
-        </button>
-
-
-        <button
-            class="filter-btn"
-            data-filter="movie"
-            onclick="setFilter('movie')"
-        >
-            الأفلام
-        </button>
-
-
-        <button
-            class="filter-btn"
-            data-filter="tv"
-            onclick="setFilter('tv')"
-        >
-            المسلسلات
         </button>
 
 
@@ -2449,8 +2383,6 @@
         <div class="modal-content">
 
 
-            <!-- POSTER -->
-
             <img
                 id="modalPoster"
                 class="modal-poster"
@@ -2462,16 +2394,12 @@
             <div class="modal-details">
 
 
-                <!-- TYPE -->
-
                 <div
                     id="modalType"
                     class="modal-type"
                 >
                 </div>
 
-
-                <!-- TITLE -->
 
                 <h2
                     id="modalTitle"
@@ -2480,8 +2408,6 @@
                 </h2>
 
 
-                <!-- META -->
-
                 <div
                     id="modalMeta"
                     class="modal-meta"
@@ -2489,16 +2415,12 @@
                 </div>
 
 
-                <!-- GENRES -->
-
                 <div
                     id="modalGenres"
                     class="modal-genres"
                 >
                 </div>
 
-
-                <!-- OVERVIEW -->
 
                 <div class="modal-overview-title">
                     القصة
@@ -2512,8 +2434,6 @@
                 </p>
 
 
-                <!-- HASHTAGS -->
-
                 <div
                     id="modalHashtags"
                     class="hashtags"
@@ -2522,23 +2442,39 @@
 
 
                 <!-- =================================================
-                     TRAILER
+                     TRAILER INSIDE MOVIE CARD
                 ================================================== -->
 
                 <div
                     id="trailerSection"
                     class="trailer-section"
+                    style="display:none;"
                 >
 
                     <div class="trailer-title">
-                        شاهد التريلر
+                        🎬 شاهد التريلر
+                    </div>
+
+
+                    <div class="trailer-player">
+
+                        <iframe
+                            id="trailerFrame"
+                            src=""
+                            title="MOVINS Trailer"
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                        ></iframe>
+
                     </div>
 
 
                     <div
-                        id="trailerContainer"
+                        id="noTrailer"
+                        class="no-trailer"
                     >
-
+                        لا يتوفر تريلر لهذا العمل حاليًا.
                     </div>
 
                 </div>
@@ -2575,7 +2511,7 @@
             font-size:11px;
         "
     >
-        البيانات والصور مقدمة بواسطة TMDB.
+        البيانات والصور والتريلرات مقدمة بواسطة TMDB / YouTube.
     </p>
 
 </footer>
@@ -2629,15 +2565,21 @@
         );
 
 
-    const trailerContainer =
+    const trailerFrame =
         document.getElementById(
-            "trailerContainer"
+            "trailerFrame"
+        );
+
+
+    const noTrailer =
+        document.getElementById(
+            "noTrailer"
         );
 
 
     /* =====================================================
        LOAD MOVIES.JSON
-    ====================================================== */
+    ===================================================== */
 
     async function loadMovies() {
 
@@ -2686,12 +2628,10 @@
                 data.items;
 
 
-            /*
-             * Latest updated first
-             */
+            /* Latest updated first */
 
             allItems.sort(
-                (a,b) => {
+                (a, b) => {
 
                     return (
                         new Date(
@@ -2707,6 +2647,18 @@
 
 
             renderMovies();
+
+
+            /*
+             * IMPORTANT:
+             * If Facebook sends:
+             *
+             * ?type=tv&id=1399
+             *
+             * automatically open the correct card.
+             */
+
+            openMovieFromUrl();
 
 
         } catch (error) {
@@ -2752,7 +2704,7 @@
 
     /* =====================================================
        FILTER
-    ====================================================== */
+    ===================================================== */
 
     function setFilter(filter) {
 
@@ -2778,10 +2730,6 @@
         renderMovies();
 
 
-        /*
-         * Scroll to content
-         */
-
         if (
             window.innerWidth <= 750
         ) {
@@ -2804,7 +2752,7 @@
 
     /* =====================================================
        SEARCH
-    ====================================================== */
+    ===================================================== */
 
     searchInput.addEventListener(
         "input",
@@ -2824,7 +2772,7 @@
 
     /* =====================================================
        GENRE MAP
-    ====================================================== */
+    ===================================================== */
 
     const genreMap = {
 
@@ -2851,7 +2799,7 @@
 
     /* =====================================================
        RENDER
-    ====================================================== */
+    ===================================================== */
 
     function renderMovies() {
 
@@ -2860,7 +2808,7 @@
 
 
         /* -------------------------------------------------
-           MEDIA TYPE FILTER
+           TYPE FILTER
         ------------------------------------------------- */
 
         if (
@@ -2870,8 +2818,7 @@
             items =
                 items.filter(
                     item =>
-                        item.type ===
-                        "فيلم"
+                        item.type === "فيلم"
                 );
 
         }
@@ -2884,8 +2831,7 @@
             items =
                 items.filter(
                     item =>
-                        item.type ===
-                        "مسلسل"
+                        item.type === "مسلسل"
                 );
 
         }
@@ -2896,9 +2842,7 @@
         ------------------------------------------------- */
 
         if (
-            genreMap[
-                currentFilter
-            ]
+            genreMap[currentFilter]
         ) {
 
             const selectedGenre =
@@ -2908,28 +2852,23 @@
 
 
             items =
-                items.filter(item => {
+                items.filter(
+                    item => {
 
-                    const genres =
-                        Array.isArray(
-                            item.genres
-                        )
-                            ? item.genres
-                            : [];
+                        const genres =
+                            Array.isArray(
+                                item.genres
+                            )
+                                ? item.genres
+                                : [];
 
 
-                    /*
-                     * رسوم متحركة:
-                     * ندعم "رسوم متحركة"
-                     * فقط لأن هذا هو الاسم
-                     * الموجود في Python.
-                     */
+                        return genres.includes(
+                            selectedGenre
+                        );
 
-                    return genres.includes(
-                        selectedGenre
-                    );
-
-                });
+                    }
+                );
 
         }
 
@@ -2941,92 +2880,81 @@
         if (currentSearch) {
 
             items =
-                items.filter(item => {
+                items.filter(
+                    item => {
 
-                    const title =
-                        String(
-                            item.title || ""
-                        )
-                        .toLowerCase();
-
-
-                    const originalTitle =
-                        String(
-                            item.original_title || ""
-                        )
-                        .toLowerCase();
+                        const title =
+                            String(
+                                item.title || ""
+                            )
+                            .toLowerCase();
 
 
-                    const overview =
-                        String(
-                            item.overview || ""
-                        )
-                        .toLowerCase();
+                        const overview =
+                            String(
+                                item.overview || ""
+                            )
+                            .toLowerCase();
 
 
-                    const type =
-                        String(
-                            item.type || ""
-                        )
-                        .toLowerCase();
+                        const type =
+                            String(
+                                item.type || ""
+                            )
+                            .toLowerCase();
 
 
-                    const detailedType =
-                        String(
-                            item.detailed_type || ""
-                        )
-                        .toLowerCase();
+                        const detailedType =
+                            String(
+                                item.detailed_type || ""
+                            )
+                            .toLowerCase();
 
 
-                    const genres =
-                        Array.isArray(
-                            item.genres
-                        )
-                            ? item.genres
-                                .join(" ")
-                                .toLowerCase()
-                            : "";
+                        const genres =
+                            Array.isArray(
+                                item.genres
+                            )
+                                ? item.genres
+                                    .join(" ")
+                                    .toLowerCase()
+                                : "";
 
 
-                    return (
+                        return (
 
-                        title.includes(
-                            currentSearch
-                        )
+                            title.includes(
+                                currentSearch
+                            )
 
-                        ||
+                            ||
 
-                        originalTitle.includes(
-                            currentSearch
-                        )
+                            overview.includes(
+                                currentSearch
+                            )
 
-                        ||
+                            ||
 
-                        overview.includes(
-                            currentSearch
-                        )
+                            type.includes(
+                                currentSearch
+                            )
 
-                        ||
+                            ||
 
-                        type.includes(
-                            currentSearch
-                        )
+                            detailedType.includes(
+                                currentSearch
+                            )
 
-                        ||
+                            ||
 
-                        detailedType.includes(
-                            currentSearch
-                        )
+                            genres.includes(
+                                currentSearch
+                            )
 
-                        ||
+                        );
 
-                        genres.includes(
-                            currentSearch
-                        )
-
-                    );
-
-                });
+                    }
+                );
 
         }
 
@@ -3089,7 +3017,7 @@
         movieGrid.innerHTML =
             items
                 .map(
-                    (item,index) =>
+                    (item, index) =>
                         createMovieCard(
                             item,
                             index
@@ -3102,17 +3030,21 @@
 
     /* =====================================================
        CREATE CARD
-    ====================================================== */
+    ===================================================== */
 
     function createMovieCard(
         item,
         index
     ) {
 
+        const rawTitle =
+            item.title ||
+            "بدون عنوان";
+
+
         const title =
             escapeHtml(
-                item.title ||
-                "بدون عنوان"
+                rawTitle
             );
 
 
@@ -3176,7 +3108,7 @@
                         <img
                             class="poster"
                             src="${escapeAttribute(poster)}"
-                            alt="${escapeAttribute(title)}"
+                            alt="${escapeAttribute(rawTitle)}"
                             loading="lazy"
                             onerror="
                                 this.style.display='none'
@@ -3262,8 +3194,8 @@
 
 
     /* =====================================================
-       OPEN MOVIE
-    ====================================================== */
+       OPEN MOVIE FROM CARD
+    ===================================================== */
 
     function openMovieFromCard(card) {
 
@@ -3299,231 +3231,103 @@
 
 
     /* =====================================================
-       BUILD TRAILER
-    ====================================================== */
+       OPEN MOVIE FROM FACEBOOK URL
+    ===================================================== */
 
-    function renderTrailer(item) {
+    function openMovieFromUrl() {
 
-        const trailerKey =
-            String(
-                item.trailer_key ||
-                ""
-            ).trim();
-
-
-        const trailerUrl =
-            String(
-                item.trailer_url ||
-                ""
-            ).trim();
-
-
-        /*
-         * Prefer trailer_key.
-         * If it doesn't exist, try to extract
-         * the YouTube ID from trailer_url.
-         */
-
-        let videoId =
-            trailerKey;
-
-
-        if (
-            !videoId &&
-            trailerUrl
-        ) {
-
-            videoId =
-                extractYouTubeId(
-                    trailerUrl
-                );
-
-        }
-
-
-        /*
-         * No trailer
-         */
-
-        if (!videoId) {
-
-            trailerContainer.innerHTML = `
-
-                <div class="trailer-empty">
-
-                    <div class="trailer-empty-icon">
-                        🎬
-                    </div>
-
-                    <strong>
-                        التريلر غير متوفر حاليًا
-                    </strong>
-
-                    <span>
-                        لم يتم العثور على فيديو رسمي لهذا العمل.
-                    </span>
-
-                </div>
-
-            `;
-
-            trailerSection.style.display =
-                "block";
-
-            return;
-
-        }
-
-
-        /*
-         * YouTube embed
-         */
-
-        const safeVideoId =
-            encodeURIComponent(
-                videoId
+        const params =
+            new URLSearchParams(
+                window.location.search
             );
 
 
-        trailerContainer.innerHTML = `
-
-            <div class="trailer-player">
-
-                <iframe
-                    src="https://www.youtube.com/embed/${safeVideoId}?rel=0&modestbranding=1"
-                    title="MOVINS Trailer"
-                    loading="lazy"
-                    allow="
-                        accelerometer;
-                        autoplay;
-                        clipboard-write;
-                        encrypted-media;
-                        gyroscope;
-                        picture-in-picture;
-                        web-share
-                    "
-                    allowfullscreen
-                ></iframe>
-
-            </div>
-
-        `;
+        const id =
+            params.get(
+                "id"
+            );
 
 
-        trailerSection.style.display =
-            "block";
-
-    }
-
-
-    /* =====================================================
-       EXTRACT YOUTUBE ID
-    ====================================================== */
-
-    function extractYouTubeId(
-        url
-    ) {
-
-        try {
-
-            const parsed =
-                new URL(
-                    url
-                );
+        const type =
+            params.get(
+                "type"
+            );
 
 
-            /*
-             * youtube.com/watch?v=...
-             */
+        if (!id) {
+            return;
+        }
 
-            if (
-                parsed.hostname.includes(
-                    "youtube.com"
-                )
-            ) {
 
-                const videoId =
-                    parsed.searchParams.get(
-                        "v"
+        const item =
+            allItems.find(
+                item => {
+
+                    const sameId =
+                        String(
+                            item.id
+                        ) ===
+                        String(
+                            id
+                        );
+
+
+                    const sameType =
+                        (
+                            type === "movie" &&
+                            item.type === "فيلم"
+                        )
+                        ||
+                        (
+                            type === "tv" &&
+                            item.type === "مسلسل"
+                        );
+
+
+                    return (
+                        sameId &&
+                        sameType
                     );
-
-
-                if (videoId) {
-
-                    return videoId;
 
                 }
+            );
 
 
-                /*
-                 * youtube.com/embed/...
-                 */
-
-                const parts =
-                    parsed.pathname
-                        .split("/")
-                        .filter(Boolean);
-
-
-                const embedIndex =
-                    parts.indexOf(
-                        "embed"
-                    );
-
-
-                if (
-                    embedIndex !== -1 &&
-                    parts[
-                        embedIndex + 1
-                    ]
-                ) {
-
-                    return parts[
-                        embedIndex + 1
-                    ];
-
-                }
-
-            }
-
-
-            /*
-             * youtu.be/...
-             */
-
-            if (
-                parsed.hostname.includes(
-                    "youtu.be"
-                )
-            ) {
-
-                return parsed.pathname
-                    .replace(
-                        "/",
-                        ""
-                    );
-
-            }
-
-
-        } catch (error) {
+        if (!item) {
 
             console.warn(
-                "Invalid YouTube URL:",
-                url
+                "MOVINS: item not found for URL",
+                {
+                    id,
+                    type
+                }
             );
 
+            return;
         }
 
 
-        return "";
+        /*
+         * Wait until rendering is finished.
+         */
+
+        setTimeout(
+            () => {
+
+                openMovieModal(
+                    item
+                );
+
+            },
+            150
+        );
 
     }
 
 
     /* =====================================================
        MODAL
-    ====================================================== */
+    ===================================================== */
 
     function openMovieModal(item) {
 
@@ -3630,11 +3434,7 @@
             </span>
 
             <span class="meta-pill">
-                ${
-                    item.type === "فيلم"
-                    ? "فيلم"
-                    : "مسلسل"
-                }
+                MOVINS
             </span>
 
         `;
@@ -3691,13 +3491,13 @@
            TRAILER
         ------------------------------------------------- */
 
-        renderTrailer(
+        setupTrailer(
             item
         );
 
 
         /* -------------------------------------------------
-           SHOW
+           SHOW MODAL
         ------------------------------------------------- */
 
         movieModal.classList.add(
@@ -3713,19 +3513,94 @@
 
 
     /* =====================================================
+       TRAILER SETUP
+    ===================================================== */
+
+    function setupTrailer(item) {
+
+        const trailerKey =
+            String(
+                item.trailer_key || ""
+            ).trim();
+
+
+        /*
+         * Reset first.
+         * This also stops the previous trailer.
+         */
+
+        trailerFrame.src = "";
+
+
+        noTrailer.style.display =
+            "none";
+
+
+        trailerSection.style.display =
+            "none";
+
+
+        if (!trailerKey) {
+
+            /*
+             * No trailer available.
+             */
+
+            trailerSection.style.display =
+                "block";
+
+
+            trailerFrame.style.display =
+                "none";
+
+
+            noTrailer.style.display =
+                "block";
+
+
+            return;
+        }
+
+
+        /*
+         * YouTube embedded player.
+         *
+         * The visitor stays inside MOVINS.
+         */
+
+        trailerFrame.src =
+            "https://www.youtube.com/embed/" +
+            encodeURIComponent(
+                trailerKey
+            ) +
+            "?rel=0&modestbranding=1";
+
+
+        trailerFrame.style.display =
+            "block";
+
+
+        trailerSection.style.display =
+            "block";
+
+    }
+
+
+    /* =====================================================
        CLOSE MODAL
-    ====================================================== */
+    ===================================================== */
 
     function closeMovieModal() {
 
         /*
-         * Remove iframe completely.
-         * This stops YouTube playback when
-         * the modal is closed.
+         * Stop YouTube immediately.
          */
 
-        trailerContainer.innerHTML =
-            "";
+        trailerFrame.src = "";
+
+
+        trailerSection.style.display =
+            "none";
 
 
         movieModal.classList.remove(
@@ -3740,13 +3615,7 @@
     }
 
 
-    /* =====================================================
-       CLOSE OUTSIDE
-    ====================================================== */
-
-    function closeModalOutside(
-        event
-    ) {
+    function closeModalOutside(event) {
 
         if (
             event.target ===
@@ -3762,7 +3631,7 @@
 
     /* =====================================================
        ESC KEY
-    ====================================================== */
+    ===================================================== */
 
     document.addEventListener(
         "keydown",
@@ -3782,11 +3651,9 @@
 
     /* =====================================================
        SECURITY
-    ====================================================== */
+    ===================================================== */
 
-    function escapeHtml(
-        value
-    ) {
+    function escapeHtml(value) {
 
         return String(value)
 
@@ -3818,9 +3685,7 @@
     }
 
 
-    function escapeAttribute(
-        value
-    ) {
+    function escapeAttribute(value) {
 
         return escapeHtml(
             value
@@ -3831,7 +3696,7 @@
 
     /* =====================================================
        SCROLL
-    ====================================================== */
+    ===================================================== */
 
     function scrollToMovies() {
 
@@ -3849,10 +3714,9 @@
 
     /* =====================================================
        START
-    ====================================================== */
+    ===================================================== */
 
     loadMovies();
-
 
 </script>
 
