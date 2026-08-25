@@ -30,8 +30,18 @@ MOVIES_FILE = "movies.json"
 POSTED_FILE = "posted_movies.json"
 
 
-# One Facebook post per workflow run
+# =========================================================
+# SETTINGS
+# =========================================================
+
+# منشور واحد فقط في كل تشغيل
 MAX_POSTS_PER_RUN = 1
+
+
+# رابط موقع MOVINS
+SITE_URL = (
+    "https://nownex.github.io/movins/"
+)
 
 
 # =========================================================
@@ -91,8 +101,12 @@ def load_posted():
                 for x in data
             )
 
-    except Exception:
-        pass
+    except Exception as error:
+
+        print(
+            "Posted file warning:",
+            error
+        )
 
     return set()
 
@@ -117,6 +131,38 @@ def save_posted(posted):
             ensure_ascii=False,
             indent=2
         )
+
+
+# =========================================================
+# GET ITEM KEY
+# =========================================================
+
+def get_item_key(item):
+
+    """
+    Use media type + TMDB ID.
+
+    Example:
+
+    فيلم 123
+    مسلسل 123
+
+    are treated as two different items.
+    """
+
+    item_id = item.get(
+        "id"
+    )
+
+    item_type = (
+        item.get("type")
+        or ""
+    )
+
+    return (
+        f"{item_type}:"
+        f"{item_id}"
+    )
 
 
 # =========================================================
@@ -202,7 +248,10 @@ def build_caption(item):
         ).strip()
 
         if not genre_text:
-            genre_text = "غير محدد"
+
+            genre_text = (
+                "غير محدد"
+            )
 
 
     # -----------------------------------------------------
@@ -237,6 +286,18 @@ def build_caption(item):
 
 
     # -----------------------------------------------------
+    # TRAILER
+    # -----------------------------------------------------
+
+    trailer_url = str(
+        item.get(
+            "trailer_url"
+        )
+        or ""
+    ).strip()
+
+
+    # -----------------------------------------------------
     # HASHTAGS
     # -----------------------------------------------------
 
@@ -251,32 +312,69 @@ def build_caption(item):
 
 
     # =====================================================
-    # FACEBOOK POST
-    #
-    # IMPORTANT:
-    #
-    # The story starts immediately after the title.
-    # Rating / genre / year / link come AFTER the story.
-    #
-    # Facebook itself decides where to display "See more".
+    # BUILD POST
     # =====================================================
 
-    caption = f"""🎬 {title}
+    caption_parts = [
 
-{overview}
+        f"🎬 {title}",
 
-⭐ التقييم: {rating:.1f}/10
-🎭 النوع: {detailed_type}
-🎞️ التصنيف: {genre_text}
-📅 السنة: {year}
+        "",
 
-🌐 اكتشف القصة والتفاصيل:
-https://nownex.github.io/movins/
+        overview,
 
-{hashtags}
-"""
+        "",
 
-    return caption
+        f"⭐ التقييم: {rating:.1f}/10",
+
+        f"🎭 النوع: {detailed_type}",
+
+        f"🎞️ التصنيف: {genre_text}",
+
+        f"📅 السنة: {year}",
+
+        "",
+
+        "🌐 اكتشف القصة والتفاصيل:",
+
+        SITE_URL,
+
+    ]
+
+
+    # -----------------------------------------------------
+    # TRAILER
+    # -----------------------------------------------------
+
+    if trailer_url:
+
+        caption_parts.extend([
+
+            "",
+
+            "▶️ شاهد التريلر:",
+
+            trailer_url,
+
+        ])
+
+
+    # -----------------------------------------------------
+    # HASHTAGS
+    # -----------------------------------------------------
+
+    caption_parts.extend([
+
+        "",
+
+        hashtags,
+
+    ])
+
+
+    return "\n".join(
+        caption_parts
+    )
 
 
 # =========================================================
@@ -342,19 +440,27 @@ def publish_to_facebook(item):
     )
 
     print(
-        "Publishing to Facebook:"
+        "Publishing to Facebook"
     )
 
     print(
-        f"Title: {item.get('title')}"
+        f"Title: "
+        f"{item.get('title')}"
     )
 
     print(
-        f"Type: {item.get('detailed_type', item.get('type'))}"
+        f"Type: "
+        f"{item.get('detailed_type', item.get('type'))}"
     )
 
     print(
-        f"Rating: {item.get('rating')}"
+        f"Rating: "
+        f"{item.get('rating')}"
+    )
+
+    print(
+        f"Trailer: "
+        f"{'YES' if item.get('trailer_url') else 'NO'}"
     )
 
     print(
@@ -378,11 +484,25 @@ def publish_to_facebook(item):
     # FACEBOOK REQUEST
     # -----------------------------------------------------
 
-    response = requests.post(
-        GRAPH_URL,
-        data=payload,
-        timeout=60
-    )
+    try:
+
+        response = requests.post(
+            GRAPH_URL,
+            data=payload,
+            timeout=60
+        )
+
+    except requests.RequestException as error:
+
+        print(
+            "Facebook connection error:"
+        )
+
+        print(
+            error
+        )
+
+        return False
 
 
     # -----------------------------------------------------
@@ -399,29 +519,47 @@ def publish_to_facebook(item):
             response.text
         )
 
-        response.raise_for_status()
+        return False
 
 
     # -----------------------------------------------------
     # RESULT
     # -----------------------------------------------------
 
-    result = response.json()
+    try:
+
+        result = response.json()
+
+    except ValueError:
+
+        print(
+            "Facebook returned invalid JSON:"
+        )
+
+        print(
+            response.text
+        )
+
+        return False
 
 
-    print(
-        "Facebook post successful."
-    )
-
-
-    print(
-        "Post ID:",
+    post_id = (
         result.get(
             "post_id"
         )
         or result.get(
             "id"
         )
+    )
+
+
+    print(
+        "Facebook post successful."
+    )
+
+    print(
+        "Post ID:",
+        post_id
     )
 
 
@@ -484,10 +622,16 @@ def main():
 
 
         if not item_id:
+
             continue
 
 
-        if str(item_id) not in posted:
+        item_key = get_item_key(
+            item
+        )
+
+
+        if item_key not in posted:
 
             new_items.append(
                 item
@@ -526,6 +670,7 @@ def main():
             published_count
             >= MAX_POSTS_PER_RUN
         ):
+
             break
 
 
@@ -536,10 +681,13 @@ def main():
 
         if success:
 
+            item_key = get_item_key(
+                item
+            )
+
+
             posted.add(
-                str(
-                    item["id"]
-                )
+                item_key
             )
 
 
