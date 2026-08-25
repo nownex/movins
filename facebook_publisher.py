@@ -1,21 +1,20 @@
 import json
 import os
 import requests
+from datetime import datetime, timezone
 
 
 # =========================================================
-# MOVINS — FACEBOOK PUBLISHER
+# NOWNEX / MOVINS — FACEBOOK PUBLISHER
 # =========================================================
 
 TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
 
 if not TOKEN:
-    raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing")
+    raise RuntimeError(
+        "FACEBOOK_PAGE_TOKEN is missing."
+    )
 
-
-# =========================================================
-# FACEBOOK GRAPH API
-# =========================================================
 
 GRAPH_VERSION = "v26.0"
 
@@ -29,789 +28,417 @@ GRAPH_URL = (
 # FILES
 # =========================================================
 
-MOVIES_FILE = "movies.json"
 POSTED_FILE = "posted_movies.json"
 
 
 # =========================================================
-# SETTINGS
+# MOVINS WEBSITE
 # =========================================================
 
-# منشور واحد فقط في كل تشغيل
-MAX_POSTS_PER_RUN = 1
-
-
-# رابط موقع MOVINS
 SITE_URL = "https://nownex.github.io/movins/"
 
 
 # =========================================================
-# LOAD MOVIES
+# LOAD JSON
 # =========================================================
 
-def load_movies():
+def load_json(filename, default):
 
-    if not os.path.exists(MOVIES_FILE):
-        raise RuntimeError(
-            "movies.json not found"
-        )
-
-    with open(
-        MOVIES_FILE,
-        "r",
-        encoding="utf-8"
-    ) as file:
-
-        data = json.load(file)
-
-    items = data.get(
-        "items",
-        []
-    )
-
-    if not isinstance(items, list):
-        raise RuntimeError(
-            "Invalid movies.json format"
-        )
-
-    return items
-
-
-# =========================================================
-# LOAD POSTED
-# =========================================================
-
-def load_posted():
-
-    if not os.path.exists(
-        POSTED_FILE
-    ):
-        return set()
+    if not os.path.exists(filename):
+        return default
 
     try:
 
         with open(
-            POSTED_FILE,
+            filename,
             "r",
             encoding="utf-8"
-        ) as file:
+        ) as f:
 
-            data = json.load(file)
+            return json.load(f)
 
-        if isinstance(
-            data,
-            list
-        ):
-
-            return {
-                str(x)
-                for x in data
-            }
-
-    except Exception as error:
+    except Exception as e:
 
         print(
-            "WARNING: Could not read "
-            "posted_movies.json:",
-            error
+            f"WARNING: Could not read {filename}: {e}"
         )
 
-    return set()
+        return default
 
 
 # =========================================================
-# SAVE POSTED
+# SAVE JSON
 # =========================================================
 
-def save_posted(posted):
+def save_json(filename, data):
 
     with open(
-        POSTED_FILE,
+        filename,
         "w",
         encoding="utf-8"
-    ) as file:
+    ) as f:
 
         json.dump(
-            sorted(
-                list(posted)
-            ),
-            file,
+            data,
+            f,
             ensure_ascii=False,
             indent=2
         )
 
 
 # =========================================================
-# UNIQUE ITEM KEY
+# POSTED MOVIES
 # =========================================================
 
-def get_item_key(item):
+posted_movies = load_json(
+    POSTED_FILE,
+    []
+)
 
-    """
-    إنشاء معرف فريد للعمل.
 
-    فيلم:
-        movie-123
+# =========================================================
+# NORMALIZE POSTED IDS
+# =========================================================
 
-    مسلسل:
-        tv-123
-    """
+def normalize_posted_id(item):
 
-    item_id = item.get(
-        "id"
+    if isinstance(item, dict):
+
+        item_type = str(
+            item.get("type", "")
+        ).strip().lower()
+
+        item_id = str(
+            item.get("id", "")
+        ).strip()
+
+        if item_type and item_id:
+
+            return (
+                f"{item_type}:{item_id}"
+            )
+
+        if item_id:
+
+            return item_id
+
+
+    return str(item).strip()
+
+
+posted_keys = set(
+    normalize_posted_id(item)
+    for item in posted_movies
+)
+
+
+# =========================================================
+# MOVIE TYPE
+# =========================================================
+
+def get_media_type(item):
+
+    item_type = str(
+        item.get("type", "")
+    ).strip().lower()
+
+
+    if item_type in (
+        "فيلم",
+        "movie",
+        "film"
+    ):
+
+        return "movie"
+
+
+    return "tv"
+
+
+# =========================================================
+# MOVIE ID
+# =========================================================
+
+def get_movie_id(item):
+
+    return str(
+        item.get("id", "")
+    ).strip()
+
+
+# =========================================================
+# UNIQUE KEY
+# =========================================================
+
+def get_movie_key(item):
+
+    media_type = get_media_type(
+        item
     )
 
-    if not item_id:
+    movie_id = get_movie_id(
+        item
+    )
+
+
+    if not movie_id:
+
         return ""
 
-    media_type = str(
-        item.get("type") or ""
-    ).strip()
-
-    if media_type == "مسلسل":
-
-        return (
-            f"tv-{item_id}"
-        )
 
     return (
-        f"movie-{item_id}"
+        f"{media_type}:{movie_id}"
     )
 
 
 # =========================================================
-# MEDIA TYPE FOR WEBSITE
-# =========================================================
-
-def get_url_type(item):
-
-    media_type = str(
-        item.get("type") or ""
-    ).strip()
-
-    if media_type == "مسلسل":
-
-        return "tv"
-
-    return "movie"
-
-
-# =========================================================
-# DIRECT MOVIE / TV URL
+# IMPORTANT:
+# EXACT MOVIE / SERIES URL
+#
+# Example:
+#
+# https://nownex.github.io/movins/?movie=tv-123
+#
+# This is the URL Facebook receives.
+# The MOVINS HTML reads this URL and opens
+# the exact movie card automatically.
 # =========================================================
 
 def build_movie_url(item):
 
-    item_id = item.get(
-        "id"
-    )
-
-    if not item_id:
-
-        return SITE_URL
-
-    media_type = get_url_type(
+    media_type = get_media_type(
         item
     )
 
+    movie_id = get_movie_id(
+        item
+    )
+
+
+    if not movie_id:
+
+        return SITE_URL
+
+
     return (
-        f"{SITE_URL}"
-        f"?movie={item_id}"
-        f"&type={media_type}"
+        SITE_URL +
+        "?movie=" +
+        f"{media_type}-{movie_id}"
     )
 
 
 # =========================================================
-# BUILD FACEBOOK CAPTION
+# HASHTAGS
 # =========================================================
 
-def build_caption(item):
+def build_hashtags(item):
 
-    # -----------------------------------------------------
-    # TITLE
-    # -----------------------------------------------------
-
-    title = (
-        item.get("title")
-        or "بدون عنوان"
+    hashtags = item.get(
+        "hashtags",
+        ""
     )
 
-
-    # -----------------------------------------------------
-    # OVERVIEW
-    # -----------------------------------------------------
-
-    overview = (
-        item.get("overview")
-        or "لا يوجد ملخص متوفر حاليًا."
-    )
-
-    overview = str(
-        overview
-    ).strip()
-
-
-    # -----------------------------------------------------
-    # TYPE
-    # -----------------------------------------------------
-
-    detailed_type = (
-        item.get("detailed_type")
-        or item.get("type")
-        or "عمل"
-    )
-
-    detailed_type = str(
-        detailed_type
-    ).strip()
-
-
-    # -----------------------------------------------------
-    # GENRES
-    # -----------------------------------------------------
-
-    genres = item.get(
-        "genres",
-        []
-    )
 
     if isinstance(
-        genres,
+        hashtags,
         list
     ):
 
-        clean_genres = [
-
-            str(g).strip()
-
-            for g in genres
-
-            if str(g).strip()
-
-        ]
-
-        genre_text = (
-
-            " • ".join(
-                clean_genres[:5]
-            )
-
-            if clean_genres
-
-            else "غير محدد"
-
+        hashtags = " ".join(
+            str(x)
+            for x in hashtags
         )
 
-    else:
-
-        genre_text = str(
-            genres
-        ).strip()
-
-        if not genre_text:
-
-            genre_text = (
-                "غير محدد"
-            )
-
-
-    # -----------------------------------------------------
-    # YEAR
-    # -----------------------------------------------------
-
-    year = (
-        item.get("year")
-        or "—"
-    )
-
-
-    # -----------------------------------------------------
-    # RATING
-    # -----------------------------------------------------
-
-    try:
-
-        rating = float(
-            item.get("rating")
-            or 0
-        )
-
-    except (
-        TypeError,
-        ValueError
-    ):
-
-        rating = 0.0
-
-
-    # -----------------------------------------------------
-    # HASHTAGS
-    # -----------------------------------------------------
-
-    hashtags = (
-        item.get("hashtags")
-        or "#MOVINS #Movies"
-    )
 
     hashtags = str(
         hashtags
     ).strip()
 
 
-    # -----------------------------------------------------
-    # DIRECT WEBSITE URL
-    # -----------------------------------------------------
+    if hashtags:
 
-    movie_url = build_movie_url(
-        item
+        return hashtags
+
+
+    return "#MOVINS #أفلام #مسلسلات"
+
+
+# =========================================================
+# GENRES
+# =========================================================
+
+def build_genres(item):
+
+    genres = item.get(
+        "genres",
+        []
     )
 
 
-    # =====================================================
-    # FACEBOOK POST
-    # =====================================================
+    if not isinstance(
+        genres,
+        list
+    ):
 
-    caption = f"""🎬 {title}
+        return ""
 
-{overview}
 
-⭐ التقييم: {rating:.1f}/10
-🎭 النوع: {detailed_type}
-🎞️ التصنيف: {genre_text}
-📅 السنة: {year}
+    clean_genres = []
 
-🌐 شاهد القصة والتفاصيل والتريلر:
-{movie_url}
+    for genre in genres:
 
-{hashtags}
-"""
+        genre = str(
+            genre
+        ).strip()
 
-    return caption
+
+        if genre:
+
+            clean_genres.append(
+                genre
+            )
+
+
+    return " • ".join(
+        clean_genres
+    )
 
 
 # =========================================================
-# PUBLISH TO FACEBOOK
+# CAPTION
 # =========================================================
 
-def publish_to_facebook(item):
+def build_caption(item):
 
-    # -----------------------------------------------------
-    # POSTER
-    # -----------------------------------------------------
-
-    poster = (
-        item.get("poster")
-        or ""
+    title = str(
+        item.get(
+            "title",
+            "بدون عنوان"
+        )
     ).strip()
 
-    if not poster:
 
-        print(
-            "SKIP: no poster"
+    overview = str(
+        item.get(
+            "overview",
+            "اكتشف تفاصيل هذا العمل على MOVINS."
+        )
+    ).strip()
+
+
+    year = str(
+        item.get(
+            "year",
+            ""
+        )
+    ).strip()
+
+
+    detailed_type = str(
+        item.get(
+            "detailed_type",
+            item.get(
+                "type",
+                "عمل"
+            )
+        )
+    ).strip()
+
+
+    rating = item.get(
+        "rating",
+        ""
+    )
+
+
+    try:
+
+        rating_text = (
+            f"{float(rating):.1f}"
         )
 
-        return False
+    except Exception:
+
+        rating_text = (
+            str(rating)
+            if rating
+            else ""
+        )
 
 
-    # -----------------------------------------------------
-    # WEBSITE URL
-    # -----------------------------------------------------
+    genres = build_genres(
+        item
+    )
+
 
     movie_url = build_movie_url(
         item
     )
 
 
-    # -----------------------------------------------------
-    # CAPTION
-    # -----------------------------------------------------
-
-    caption = build_caption(
+    hashtags = build_hashtags(
         item
     )
 
 
-    # -----------------------------------------------------
-    # PAYLOAD
-    # -----------------------------------------------------
-
-    payload = {
-
-        "url":
-            poster,
-
-        "caption":
-            caption,
-
-        "published":
-            "true",
-
-        "access_token":
-            TOKEN,
-
-    }
+    lines = []
 
 
     # -----------------------------------------------------
-    # LOG
+    # TITLE
     # -----------------------------------------------------
 
-    print(
-        "======================================"
+    lines.append(
+        f"🎬 {title}"
     )
 
-    print(
-        "MOVINS — FACEBOOK PUBLISH"
-    )
 
-    print(
-        "======================================"
-    )
-
-    print(
-        f"Title: {item.get('title')}"
-    )
-
-    print(
-        "Type: "
-        f"{item.get('detailed_type', item.get('type'))}"
-    )
-
-    print(
-        f"TMDB ID: {item.get('id')}"
-    )
-
-    print(
-        f"Website URL: {movie_url}"
-    )
-
-    print(
-        f"Rating: {item.get('rating')}"
-    )
-
-    print(
-        "--------------------------------------"
-    )
-
-    print(
-        "Facebook Caption:"
-    )
-
-    print(
-        caption
-    )
-
-    print(
-        "--------------------------------------"
-    )
+    lines.append("")
 
 
     # -----------------------------------------------------
-    # FACEBOOK REQUEST
+    # TYPE / YEAR
     # -----------------------------------------------------
 
-    try:
+    info = []
 
-        response = requests.post(
 
-            GRAPH_URL,
+    if detailed_type:
 
-            data=payload,
-
-            timeout=60
-
-        )
-
-    except requests.RequestException as error:
-
-        print(
-            "Facebook connection error:"
-        )
-
-        print(
-            error
-        )
-
-        return False
-
-
-    # -----------------------------------------------------
-    # FACEBOOK ERROR
-    # -----------------------------------------------------
-
-    if not response.ok:
-
-        print(
-            "Facebook API Error:"
-        )
-
-        print(
-            response.text
-        )
-
-        return False
-
-
-    # -----------------------------------------------------
-    # RESULT
-    # -----------------------------------------------------
-
-    try:
-
-        result = response.json()
-
-    except ValueError:
-
-        print(
-            "Facebook returned invalid JSON:"
-        )
-
-        print(
-            response.text
-        )
-
-        return False
-
-
-    post_id = (
-
-        result.get(
-            "post_id"
-        )
-
-        or
-
-        result.get(
-            "id"
-        )
-
-    )
-
-
-    print(
-        "======================================"
-    )
-
-    print(
-        "Facebook post successful."
-    )
-
-    print(
-        f"Post ID: {post_id}"
-    )
-
-    print(
-        f"Movie URL: {movie_url}"
-    )
-
-    print(
-        "======================================"
-    )
-
-
-    return True
-
-
-# =========================================================
-# MAIN
-# =========================================================
-
-def main():
-
-    print(
-        "======================================"
-    )
-
-    print(
-        "MOVINS FACEBOOK PUBLISHER STARTED"
-    )
-
-    print(
-        "======================================"
-    )
-
-
-    # -----------------------------------------------------
-    # LOAD
-    # -----------------------------------------------------
-
-    movies = load_movies()
-
-    posted = load_posted()
-
-
-    print(
-        f"MOVINS items: {len(movies)}"
-    )
-
-    print(
-        f"Already posted: {len(posted)}"
-    )
-
-
-    # -----------------------------------------------------
-    # NEWEST FIRST
-    # -----------------------------------------------------
-
-    movies.sort(
-
-        key=lambda item:
-            item.get(
-                "updated_at",
-                ""
-            ),
-
-        reverse=True
-
-    )
-
-
-    # -----------------------------------------------------
-    # FIND NEW ITEMS
-    # -----------------------------------------------------
-
-    new_items = []
-
-
-    for item in movies:
-
-        item_id = item.get(
-            "id"
-        )
-
-        if not item_id:
-
-            continue
-
-
-        item_key = get_item_key(
-            item
-        )
-
-        if not item_key:
-
-            continue
-
-
-        # -------------------------------------------------
-        # NEW FORMAT
-        # -------------------------------------------------
-
-        if item_key in posted:
-
-            continue
-
-
-        # -------------------------------------------------
-        # OLD FORMAT COMPATIBILITY
-        # -------------------------------------------------
-
-        if str(item_id) in posted:
-
-            continue
-
-
-        new_items.append(
-            item
+        info.append(
+            detailed_type
         )
 
 
-    print(
-        f"New items: {len(new_items)}"
-    )
+    if year:
 
-
-    # -----------------------------------------------------
-    # NOTHING NEW
-    # -----------------------------------------------------
-
-    if not new_items:
-
-        print(
-            "Nothing new to publish."
-        )
-
-        print(
-            "MOVINS Facebook publisher finished."
-        )
-
-        return
-
-
-    # -----------------------------------------------------
-    # PUBLISH
-    # -----------------------------------------------------
-
-    published_count = 0
-
-
-    for item in new_items:
-
-        if (
-            published_count
-            >= MAX_POSTS_PER_RUN
-        ):
-
-            break
-
-
-        success = publish_to_facebook(
-            item
+        info.append(
+            year
         )
 
 
-        if success:
+    if info:
 
-            item_key = get_item_key(
-                item
-            )
-
-
-            posted.add(
-                item_key
-            )
-
-
-            save_posted(
-                posted
-            )
-
-
-            published_count += 1
-
-
-            print(
-                f"Saved as posted: "
-                f"{item_key}"
-            )
+        lines.append(
+            " • ".join(info)
+        )
 
 
     # -----------------------------------------------------
-    # RESULT
+    # RATING
     # -----------------------------------------------------
 
-    print(
-        "======================================"
-    )
+    if rating_text:
 
-    print(
-        f"Published this run: "
-        f"{published_count}"
-    )
-
-    print(
-        "MOVINS Facebook publisher finished."
-    )
-
-    print(
-        "======================================"
-    )
+        lines.append(
+            f"⭐ التقييم: {rating_text}/10"
+        )
 
 
-# =========================================================
-# START
-# =========================================================
+    # -----------------------------------------------------
+    # GENRES
+    # -----------------------------------------------------
 
-if __name__ == "__main__":
+    if genres:
 
-    main()
+        lines.append(
