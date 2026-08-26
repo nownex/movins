@@ -7,7 +7,9 @@ import requests
 # MOVINS — FACEBOOK PUBLISHER
 # =========================================================
 
-TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
+TOKEN = os.environ.get(
+    "FACEBOOK_PAGE_TOKEN"
+)
 
 if not TOKEN:
     raise RuntimeError(
@@ -15,26 +17,11 @@ if not TOKEN:
     )
 
 
-# =========================================================
-# FACEBOOK PAGE
-# =========================================================
-
-PAGE_ID = os.environ.get(
-    "FACEBOOK_PAGE_ID",
-    "1269050452957956"
-)
-
-
-# =========================================================
-# GRAPH API
-# =========================================================
-
 GRAPH_VERSION = "v26.0"
 
 GRAPH_URL = (
     f"https://graph.facebook.com/"
-    f"{GRAPH_VERSION}/"
-    f"{PAGE_ID}/photos"
+    f"{GRAPH_VERSION}/me/photos"
 )
 
 
@@ -43,23 +30,80 @@ GRAPH_URL = (
 # =========================================================
 
 MOVIES_FILE = "movies.json"
+
 POSTED_FILE = "posted_movies.json"
+
+ROTATION_FILE = "facebook_rotation.json"
 
 
 # =========================================================
 # MOVINS WEBSITE
 # =========================================================
 
-SITE_URL = "https://nownex.github.io/movins/"
+SITE_URL = (
+    "https://nownex.github.io/movins/"
+)
 
 
 # =========================================================
 # SETTINGS
 # =========================================================
 
+# مهم:
+# منشور واحد فقط في كل تشغيل.
 MAX_POSTS_PER_RUN = 1
 
 MAX_OVERVIEW_LENGTH = 420
+
+
+# =========================================================
+# ROTATION
+#
+# فيلم ثم مسلسل ثم فيلم ثم مسلسل...
+#
+# والفئات تتغير:
+#
+# رعب
+# أكشن
+# كوميديا
+# دراما
+# خيال علمي
+# غموض
+# جريمة
+# مغامرة
+# فانتازيا
+# رومانسي
+# رسوم متحركة
+# إثارة
+# =========================================================
+
+GENRE_ROTATION = [
+
+    "رعب",
+
+    "أكشن",
+
+    "كوميديا",
+
+    "دراما",
+
+    "خيال علمي",
+
+    "غموض",
+
+    "جريمة",
+
+    "مغامرة",
+
+    "فانتازيا",
+
+    "رومانسي",
+
+    "رسوم متحركة",
+
+    "إثارة",
+
+]
 
 
 # =========================================================
@@ -191,12 +235,13 @@ def load_posted():
         return result
 
 
-    except Exception as e:
+    except Exception as error:
 
         print(
             f"WARNING: could not read "
-            f"{POSTED_FILE}: {e}"
+            f"{POSTED_FILE}: {error}"
         )
+
 
         return set()
 
@@ -205,7 +250,9 @@ def load_posted():
 # SAVE POSTED
 # =========================================================
 
-def save_posted(posted):
+def save_posted(
+    posted
+):
 
     with open(
         POSTED_FILE,
@@ -224,10 +271,135 @@ def save_posted(posted):
 
 
 # =========================================================
+# LOAD ROTATION
+# =========================================================
+
+def load_rotation():
+
+    default = {
+
+        "type_index":
+            0,
+
+        "genre_index":
+            0,
+
+    }
+
+
+    if not os.path.exists(
+        ROTATION_FILE
+    ):
+
+        return default
+
+
+    try:
+
+        with open(
+            ROTATION_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            data = json.load(
+                file
+            )
+
+
+        if not isinstance(
+            data,
+            dict
+        ):
+
+            return default
+
+
+        try:
+
+            type_index = int(
+                data.get(
+                    "type_index",
+                    0
+                )
+            )
+
+        except (
+            TypeError,
+            ValueError
+        ):
+
+            type_index = 0
+
+
+        try:
+
+            genre_index = int(
+                data.get(
+                    "genre_index",
+                    0
+                )
+            )
+
+        except (
+            TypeError,
+            ValueError
+        ):
+
+            genre_index = 0
+
+
+        return {
+
+            "type_index":
+                type_index,
+
+            "genre_index":
+                genre_index,
+
+        }
+
+
+    except Exception as error:
+
+        print(
+            f"WARNING: could not read "
+            f"{ROTATION_FILE}: {error}"
+        )
+
+
+        return default
+
+
+# =========================================================
+# SAVE ROTATION
+# =========================================================
+
+def save_rotation(
+    rotation
+):
+
+    with open(
+        ROTATION_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            rotation,
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+
+
+# =========================================================
 # MEDIA TYPE
 # =========================================================
 
-def get_media_type(item):
+def get_media_type(
+    item
+):
 
     item_type = str(
         item.get(
@@ -250,10 +422,27 @@ def get_media_type(item):
 
 
 # =========================================================
+# ARABIC MEDIA TYPE
+# =========================================================
+
+def get_arabic_type(
+    media_type
+):
+
+    if media_type == "movie":
+
+        return "فيلم"
+
+    return "مسلسل"
+
+
+# =========================================================
 # MOVIE ID
 # =========================================================
 
-def get_movie_id(item):
+def get_movie_id(
+    item
+):
 
     return str(
         item.get(
@@ -267,7 +456,9 @@ def get_movie_id(item):
 # UNIQUE MOVIE KEY
 # =========================================================
 
-def get_movie_key(item):
+def get_movie_key(
+    item
+):
 
     movie_id = get_movie_id(
         item
@@ -293,7 +484,9 @@ def get_movie_key(item):
 # DIRECT MOVIE URL
 # =========================================================
 
-def get_movie_url(item):
+def get_movie_url(
+    item
+):
 
     movie_id = get_movie_id(
         item
@@ -323,7 +516,9 @@ def get_movie_url(item):
 # CLEAN TEXT
 # =========================================================
 
-def clean_text(value):
+def clean_text(
+    value
+):
 
     if value is None:
 
@@ -347,7 +542,9 @@ def clean_text(value):
 # SHORT OVERVIEW
 # =========================================================
 
-def build_short_overview(item):
+def build_short_overview(
+    item
+):
 
     overview = clean_text(
         item.get(
@@ -395,7 +592,9 @@ def build_short_overview(item):
 # GET GENRES LIST
 # =========================================================
 
-def get_genres_list(item):
+def get_genres_list(
+    item
+):
 
     genres = item.get(
         "genres",
@@ -442,10 +641,12 @@ def get_genres_list(item):
 
 
 # =========================================================
-# GENRES
+# BUILD GENRES
 # =========================================================
 
-def build_genres(item):
+def build_genres(
+    item
+):
 
     genres = get_genres_list(
         item
@@ -466,7 +667,9 @@ def build_genres(item):
 # HASHTAGS
 # =========================================================
 
-def build_hashtags(item):
+def build_hashtags(
+    item
+):
 
     hashtags = item.get(
         "hashtags",
@@ -523,7 +726,9 @@ def build_hashtags(item):
                 continue
 
 
-            if not part.startswith("#"):
+            if not part.startswith(
+                "#"
+            ):
 
                 part = "#" + part
 
@@ -540,9 +745,21 @@ def build_hashtags(item):
             )
 
 
+    media_type = get_media_type(
+        item
+    )
+
+
+    if media_type == "movie":
+
+        return (
+            "#MOVINS "
+            "#أفلام"
+        )
+
+
     return (
         "#MOVINS "
-        "#أفلام "
         "#مسلسلات"
     )
 
@@ -551,7 +768,9 @@ def build_hashtags(item):
 # RATING
 # =========================================================
 
-def get_rating(item):
+def get_rating(
+    item
+):
 
     try:
 
@@ -585,24 +804,18 @@ def get_rating(item):
 # POPULARITY
 # =========================================================
 
-def get_popularity(item):
+def get_popularity(
+    item
+):
 
     try:
 
-        popularity = float(
+        return float(
             item.get(
                 "popularity"
             )
             or 0
         )
-
-
-        if popularity < 0:
-
-            return 0.0
-
-
-        return popularity
 
 
     except (
@@ -614,30 +827,18 @@ def get_popularity(item):
 
 
 # =========================================================
-# FACEBOOK SELECTION SCORE
-#
-# Primary:
-#     TMDB popularity
-#
-# Fallback:
-#     rating
-#
-# This keeps the most popular
-# content at the top.
+# VOTE COUNT
 # =========================================================
 
-def get_selection_score(item):
-
-    popularity = get_popularity(
-        item
-    )
-
+def get_vote_count(
+    item
+):
 
     try:
 
-        rating = float(
+        return int(
             item.get(
-                "rating"
+                "vote_count"
             )
             or 0
         )
@@ -648,13 +849,7 @@ def get_selection_score(item):
         ValueError
     ):
 
-        rating = 0.0
-
-
-    return (
-        popularity,
-        rating
-    )
+        return 0
 
 
 # =========================================================
@@ -682,7 +877,9 @@ ENDINGS = [
 # GET ROTATING ENDING
 # =========================================================
 
-def get_ending(item):
+def get_ending(
+    item
+):
 
     movie_id = get_movie_id(
         item
@@ -727,10 +924,63 @@ def get_ending(item):
 
 
 # =========================================================
+# GENRE MATCH
+# =========================================================
+
+def genre_matches(
+    item,
+    wanted_genre
+):
+
+    genres = get_genres_list(
+        item
+    )
+
+
+    if wanted_genre in genres:
+
+        return True
+
+
+    # -----------------------------------------------------
+    # Special cases
+    # -----------------------------------------------------
+
+    if wanted_genre == "أكشن":
+
+        return (
+            "أكشن" in genres
+            or
+            "أكشن ومغامرة" in genres
+        )
+
+
+    if wanted_genre == "خيال علمي":
+
+        return (
+            "خيال علمي" in genres
+            or
+            "خيال علمي وفانتازيا" in genres
+        )
+
+
+    if wanted_genre == "رسوم متحركة":
+
+        return (
+            "رسوم متحركة" in genres
+        )
+
+
+    return False
+
+
+# =========================================================
 # FACEBOOK CAPTION
 # =========================================================
 
-def build_caption(item):
+def build_caption(
+    item
+):
 
     title = clean_text(
         item.get(
@@ -803,7 +1053,8 @@ def build_caption(item):
 
         f"🎭 النوع: {detailed_type}",
 
-        f"🎞️ التصنيف: {genres or 'غير محدد'}",
+        f"🎞️ التصنيف: "
+        f"{genres or 'غير محدد'}",
 
         f"📅 السنة: {year}",
 
@@ -828,10 +1079,222 @@ def build_caption(item):
 
 
 # =========================================================
+# SELECT CANDIDATES
+#
+# أهم جزء في النظام.
+#
+# الأولوية:
+#
+# 1. نوع المحتوى المطلوب
+# 2. الفئة المطلوبة
+# 3. الشعبية Popularity
+# 4. Vote Count
+#
+# التقييم ليس العامل الأساسي.
+# =========================================================
+
+def select_candidates(
+    movies,
+    posted,
+    wanted_media_type,
+    wanted_genre
+):
+
+    candidates = []
+
+
+    for item in movies:
+
+        movie_key = get_movie_key(
+            item
+        )
+
+
+        if not movie_key:
+
+            continue
+
+
+        # لا تعيد نشر العمل
+        if movie_key in posted:
+
+            continue
+
+
+        media_type = get_media_type(
+            item
+        )
+
+
+        # نوع العمل
+        if media_type != wanted_media_type:
+
+            continue
+
+
+        # الفئة المطلوبة
+        if not genre_matches(
+            item,
+            wanted_genre
+        ):
+
+            continue
+
+
+        popularity = get_popularity(
+            item
+        )
+
+
+        vote_count = get_vote_count(
+            item
+        )
+
+
+        # -------------------------------------------------
+        # Ignore completely empty TMDB entries
+        # -------------------------------------------------
+
+        if (
+            popularity <= 0
+            and vote_count <= 0
+        ):
+
+            continue
+
+
+        candidates.append(
+            item
+        )
+
+
+    # =====================================================
+    # SORT
+    #
+    # Popularity أولاً
+    # Vote count ثانيًا
+    #
+    # لا نعطي Rating أولوية.
+    # =====================================================
+
+    candidates.sort(
+
+        key=lambda item: (
+
+            get_popularity(
+                item
+            ),
+
+            get_vote_count(
+                item
+            ),
+
+        ),
+
+        reverse=True
+
+    )
+
+
+    return candidates
+
+
+# =========================================================
+# FALLBACK BY TYPE
+#
+# إذا لم نجد الفئة المطلوبة،
+# نبحث عن أفضل عمل من نفس النوع.
+#
+# =========================================================
+
+def select_type_fallback(
+    movies,
+    posted,
+    wanted_media_type
+):
+
+    candidates = []
+
+
+    for item in movies:
+
+        movie_key = get_movie_key(
+            item
+        )
+
+
+        if not movie_key:
+
+            continue
+
+
+        if movie_key in posted:
+
+            continue
+
+
+        if (
+            get_media_type(
+                item
+            )
+            != wanted_media_type
+        ):
+
+            continue
+
+
+        popularity = get_popularity(
+            item
+        )
+
+
+        vote_count = get_vote_count(
+            item
+        )
+
+
+        if (
+            popularity <= 0
+            and vote_count <= 0
+        ):
+
+            continue
+
+
+        candidates.append(
+            item
+        )
+
+
+    candidates.sort(
+
+        key=lambda item: (
+
+            get_popularity(
+                item
+            ),
+
+            get_vote_count(
+                item
+            ),
+
+        ),
+
+        reverse=True
+
+    )
+
+
+    return candidates
+
+
+# =========================================================
 # PUBLISH TO FACEBOOK
 # =========================================================
 
-def publish_to_facebook(item):
+def publish_to_facebook(
+    item
+):
 
     poster = clean_text(
         item.get(
@@ -878,7 +1341,7 @@ def publish_to_facebook(item):
 
 
     print(
-        "======================================"
+        "--------------------------------------"
     )
 
 
@@ -888,17 +1351,20 @@ def publish_to_facebook(item):
 
 
     print(
-        f"Page ID: {PAGE_ID}"
+        f"Page ID: "
+        f"1269050452957956"
     )
 
 
     print(
-        f"Title: {item.get('title', '')}"
+        f"Title: "
+        f"{item.get('title', '')}"
     )
 
 
     print(
-        f"ID: {item.get('id', '')}"
+        f"ID: "
+        f"{item.get('id', '')}"
     )
 
 
@@ -915,12 +1381,19 @@ def publish_to_facebook(item):
 
 
     print(
-        f"Direct Movie URL: {movie_url}"
+        f"Vote Count: "
+        f"{get_vote_count(item)}"
     )
 
 
     print(
-        "======================================"
+        f"Direct Movie URL: "
+        f"{movie_url}"
+    )
+
+
+    print(
+        "--------------------------------------"
     )
 
 
@@ -935,7 +1408,7 @@ def publish_to_facebook(item):
 
 
     print(
-        "======================================"
+        "--------------------------------------"
     )
 
 
@@ -952,10 +1425,11 @@ def publish_to_facebook(item):
         )
 
 
-    except requests.RequestException as e:
+    except requests.RequestException as error:
 
         print(
-            f"Facebook request error: {e}"
+            f"Facebook request error: "
+            f"{error}"
         )
 
         return False
@@ -1025,11 +1499,6 @@ def publish_to_facebook(item):
 
 def main():
 
-    movies = load_movies()
-
-    posted = load_posted()
-
-
     print(
         "======================================"
     )
@@ -1045,72 +1514,242 @@ def main():
     )
 
 
+    movies = load_movies()
+
+    posted = load_posted()
+
+    rotation = load_rotation()
+
+
     print(
-        f"MOVINS items: {len(movies)}"
+        f"MOVINS items: "
+        f"{len(movies)}"
     )
 
 
     print(
-        f"Already posted: {len(posted)}"
+        f"Already posted: "
+        f"{len(posted)}"
     )
 
 
     # =====================================================
-    # FIND UNPOSTED ITEMS
+    # CURRENT ROTATION
     # =====================================================
 
-    new_items = []
-
-
-    for item in movies:
-
-        movie_key = get_movie_key(
-            item
+    type_index = (
+        rotation.get(
+            "type_index",
+            0
         )
+        % 2
+    )
 
 
-        if not movie_key:
-
-            continue
-
-
-        if movie_key in posted:
-
-            continue
-
-
-        # -------------------------------------------------
-        # Ignore items without a poster
-        # -------------------------------------------------
-
-        if not clean_text(
-            item.get(
-                "poster",
-                ""
-            )
-        ):
-
-            continue
-
-
-        new_items.append(
-            item
+    genre_index = (
+        rotation.get(
+            "genre_index",
+            0
         )
+        % len(
+            GENRE_ROTATION
+        )
+    )
+
+
+    # 0 = movie
+    # 1 = tv
+
+    wanted_media_type = (
+        "movie"
+        if type_index == 0
+        else "tv"
+    )
+
+
+    wanted_genre = (
+        GENRE_ROTATION[
+            genre_index
+        ]
+    )
 
 
     print(
-        f"New items: {len(new_items)}"
+        "======================================"
+    )
+
+
+    print(
+        "CURRENT ROTATION:"
+    )
+
+
+    print(
+        f"Type: "
+        f"{get_arabic_type(wanted_media_type)}"
+    )
+
+
+    print(
+        f"Genre: "
+        f"{wanted_genre}"
+    )
+
+
+    print(
+        "======================================"
     )
 
 
     # =====================================================
-    # NOTHING NEW
+    # PRIMARY SELECTION
     # =====================================================
 
-    if not new_items:
+    candidates = select_candidates(
+
+        movies,
+
+        posted,
+
+        wanted_media_type,
+
+        wanted_genre
+
+    )
+
+
+    print(
+        f"Candidates for "
+        f"{get_arabic_type(wanted_media_type)} "
+        f"+ {wanted_genre}: "
+        f"{len(candidates)}"
+    )
+
+
+    # =====================================================
+    # FALLBACK
+    #
+    # إذا لم توجد فئة محددة،
+    # لا نكسر التناوب.
+    #
+    # نبحث عن أشهر عمل من نفس النوع.
+    # =====================================================
+
+    if not candidates:
 
         print(
-            "Nothing new to publish."
+            "No exact genre match."
+        )
+
+
+        print(
+            "Using same-type popularity fallback."
+        )
+
+
+        candidates = select_type_fallback(
+
+            movies,
+
+            posted,
+
+            wanted_media_type
+
+        )
+
+
+    # =====================================================
+    # FINAL FALLBACK
+    #
+    # إذا لم نجد أي فيلم/مسلسل من النوع المطلوب،
+    # نبحث عن أي عمل جديد.
+    # =====================================================
+
+    if not candidates:
+
+        print(
+            "No candidates for requested type."
+        )
+
+
+        print(
+            "Using global popularity fallback."
+        )
+
+
+        global_candidates = []
+
+
+        for item in movies:
+
+            movie_key = get_movie_key(
+                item
+            )
+
+
+            if not movie_key:
+
+                continue
+
+
+            if movie_key in posted:
+
+                continue
+
+
+            popularity = get_popularity(
+                item
+            )
+
+
+            vote_count = get_vote_count(
+                item
+            )
+
+
+            if (
+                popularity <= 0
+                and vote_count <= 0
+            ):
+
+                continue
+
+
+            global_candidates.append(
+                item
+            )
+
+
+        global_candidates.sort(
+
+            key=lambda item: (
+
+                get_popularity(
+                    item
+                ),
+
+                get_vote_count(
+                    item
+                ),
+
+            ),
+
+            reverse=True
+
+        )
+
+
+        candidates = global_candidates
+
+
+    # =====================================================
+    # NOTHING
+    # =====================================================
+
+    if not candidates:
+
+        print(
+            "No new items available."
         )
 
 
@@ -1118,31 +1757,8 @@ def main():
 
 
     # =====================================================
-    # SORT BY POPULARITY
-    #
-    # Highest popularity first.
-    #
-    # If popularity is equal,
-    # higher rating wins.
-    # =====================================================
-
-    new_items.sort(
-
-        key=get_selection_score,
-
-        reverse=True
-
-    )
-
-
-    # =====================================================
     # SHOW TOP CANDIDATES
     # =====================================================
-
-    print(
-        "--------------------------------------"
-    )
-
 
     print(
         "TOP FACEBOOK CANDIDATES:"
@@ -1150,94 +1766,171 @@ def main():
 
 
     for index, item in enumerate(
-        new_items[:10],
+        candidates[:10],
         start=1
     ):
 
         print(
 
             f"{index}. "
-            f"{item.get('title', 'بدون عنوان')} | "
+            f"{item.get('title', '')} | "
+
+            f"Type: "
+            f"{item.get('type', '')} | "
+
+            f"Genre: "
+            f"{build_genres(item)} | "
+
             f"Popularity: "
             f"{get_popularity(item):.2f} | "
+
             f"Rating: "
-            f"{get_rating(item)}"
+            f"{get_rating(item)} | "
+
+            f"Votes: "
+            f"{get_vote_count(item)}"
 
         )
 
 
+    # =====================================================
+    # SELECT ONE
+    # =====================================================
+
+    selected = candidates[0]
+
+
     print(
-        "--------------------------------------"
+        "======================================"
+    )
+
+
+    print(
+        "SELECTED FOR FACEBOOK:"
+    )
+
+
+    print(
+        f"Title: "
+        f"{selected.get('title', '')}"
+    )
+
+
+    print(
+        f"Type: "
+        f"{selected.get('type', '')}"
+    )
+
+
+    print(
+        f"Genre: "
+        f"{build_genres(selected)}"
+    )
+
+
+    print(
+        f"Popularity: "
+        f"{get_popularity(selected):.2f}"
+    )
+
+
+    print(
+        f"Rating: "
+        f"{get_rating(selected)}"
+    )
+
+
+    print(
+        "======================================"
     )
 
 
     # =====================================================
-    # PUBLISH
+    # PUBLISH ONLY ONE
     # =====================================================
 
     published_count = 0
 
 
-    for item in new_items:
-
-        if (
-            published_count
-            >= MAX_POSTS_PER_RUN
-        ):
-
-            break
+    success = publish_to_facebook(
+        selected
+    )
 
 
-        print(
-            "SELECTED FOR FACEBOOK:"
+    if success:
+
+        movie_key = get_movie_key(
+            selected
         )
 
 
-        print(
-            f"Title: "
-            f"{item.get('title', '')}"
+        posted.add(
+            movie_key
         )
 
 
-        print(
-            f"Popularity: "
-            f"{get_popularity(item):.2f}"
+        save_posted(
+            posted
         )
 
 
-        print(
-            f"Rating: "
-            f"{get_rating(item)}"
-        )
+        published_count += 1
 
 
-        success = publish_to_facebook(
-            item
-        )
+        # =================================================
+        # ADVANCE ROTATION ONLY AFTER SUCCESS
+        # =================================================
 
+        rotation = {
 
-        if success:
+            "type_index":
+                (
+                    type_index + 1
+                ) % 2,
 
-            posted.add(
-                get_movie_key(
-                    item
+            "genre_index":
+                (
+                    genre_index + 1
                 )
-            )
+                % len(
+                    GENRE_ROTATION
+                ),
+
+        }
 
 
-            save_posted(
-                posted
-            )
+        save_rotation(
+            rotation
+        )
 
 
-            published_count += 1
+        print(
+            "Rotation advanced successfully."
+        )
 
 
-        else:
+        print(
+            f"Next type: "
+            f"{'فيلم' if rotation['type_index'] == 0 else 'مسلسل'}"
+        )
 
-            print(
-                "Facebook publishing failed."
-            )
+
+        print(
+            f"Next genre: "
+            f"{GENRE_ROTATION[rotation['genre_index']]}"
+        )
+
+
+    else:
+
+        print(
+            "Facebook publishing failed."
+        )
+
+
+        print(
+            "Rotation was NOT advanced."
+        )
 
 
     # =====================================================
