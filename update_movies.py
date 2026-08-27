@@ -34,6 +34,18 @@ OUTPUT_FILE = "movies.json"
 
 
 # =========================================================
+# SETTINGS
+# =========================================================
+
+# عدد الصفحات التي يتم جلبها من TMDB
+# كل صفحة تحتوي تقريبًا على 20 عملًا.
+DISCOVER_PAGES = 20
+
+# الحد الأقصى النهائي للأعمال في الموقع
+MAX_ITEMS = 400
+
+
+# =========================================================
 # TMDB GENRES
 # =========================================================
 
@@ -136,6 +148,101 @@ FOREIGN_TITLE_LANGUAGES = {
 
 
 # =========================================================
+# TITLE LANGUAGE FILTER
+#
+# IMPORTANT:
+# We do NOT reject a movie because of its original language.
+#
+# Example:
+# Japanese movie + English title = ALLOWED
+#
+# Japanese title = REJECTED
+# Korean title = REJECTED
+# Chinese title = REJECTED
+#
+# Arabic / English / French titles = ALLOWED
+# =========================================================
+
+def has_allowed_title(title):
+
+    title = str(
+        title or ""
+    ).strip()
+
+    if not title:
+        return False
+
+    arabic = 0
+    latin = 0
+    other_letters = 0
+
+    for char in title:
+
+        if not char.isalpha():
+            continue
+
+        code = ord(char)
+
+        # -------------------------------------------------
+        # Arabic
+        # -------------------------------------------------
+
+        if (
+            0x0600 <= code <= 0x06FF
+            or 0x0750 <= code <= 0x077F
+            or 0x08A0 <= code <= 0x08FF
+        ):
+
+            arabic += 1
+
+        # -------------------------------------------------
+        # Latin
+        # -------------------------------------------------
+
+        elif (
+            0x0041 <= code <= 0x005A
+            or 0x0061 <= code <= 0x007A
+            or 0x00C0 <= code <= 0x024F
+            or 0x1E00 <= code <= 0x1EFF
+        ):
+
+            latin += 1
+
+        else:
+
+            other_letters += 1
+
+
+    allowed_letters = (
+        arabic
+        + latin
+    )
+
+
+    total_letters = (
+        allowed_letters
+        + other_letters
+    )
+
+
+    if total_letters == 0:
+
+        return False
+
+
+    # -----------------------------------------------------
+    # Reject titles mainly written in
+    # non-Arabic / non-Latin scripts.
+    # -----------------------------------------------------
+
+    return (
+        allowed_letters > 0
+        and
+        allowed_letters >= other_letters
+    )
+
+
+# =========================================================
 # HTTP HELPER
 # =========================================================
 
@@ -191,6 +298,92 @@ def get_trending(
 
 
 # =========================================================
+# GET MANY DISCOVERED ITEMS
+# =========================================================
+
+def get_discover(
+    media_type
+):
+
+    results = []
+
+
+    for page in range(
+        1,
+        DISCOVER_PAGES + 1
+    ):
+
+        print(
+            f"Fetching {media_type} page {page}/"
+            f"{DISCOVER_PAGES}..."
+        )
+
+
+        endpoint = (
+            f"/discover/"
+            f"{media_type}"
+        )
+
+
+        params = {
+
+            "language":
+                "ar-SA",
+
+            "page":
+                page,
+
+            "include_adult":
+                "false",
+
+            "sort_by":
+                "popularity.desc",
+
+            "vote_count.gte":
+                5,
+
+        }
+
+
+        try:
+
+            data = tmdb_get(
+                endpoint,
+                params
+            )
+
+
+            page_results = data.get(
+                "results",
+                []
+            )
+
+
+            results.extend(
+                page_results
+            )
+
+
+            if not page_results:
+
+                break
+
+
+        except Exception as error:
+
+            print(
+                f"Discover warning "
+                f"{media_type} page {page}:",
+                error
+            )
+
+            break
+
+
+    return results
+
+
+# =========================================================
 # GET POSTERS
 # =========================================================
 
@@ -213,6 +406,7 @@ def get_posters(
             f"{item_id}/images"
         )
 
+
     try:
 
         data = tmdb_get(
@@ -223,10 +417,12 @@ def get_posters(
             }
         )
 
+
         return data.get(
             "posters",
             []
         )
+
 
     except Exception as error:
 
@@ -251,6 +447,7 @@ def get_best_poster(
         "id"
     )
 
+
     original_language = (
         item.get(
             "original_language"
@@ -260,6 +457,7 @@ def get_best_poster(
 
 
     fallback = ""
+
 
     if item.get(
         "poster_path"
@@ -301,12 +499,14 @@ def get_best_poster(
                     "file_path"
                 )
 
+
                 if path:
 
                     return (
                         IMAGE_BASE
                         + path
                     )
+
 
         return ""
 
@@ -320,6 +520,7 @@ def get_best_poster(
         original_poster = find_language(
             original_language
         )
+
 
         if original_poster:
 
@@ -339,6 +540,7 @@ def get_best_poster(
             "en"
         )
 
+
         if english_poster:
 
             return english_poster
@@ -348,6 +550,7 @@ def get_best_poster(
             "fr"
         )
 
+
         if french_poster:
 
             return french_poster
@@ -356,6 +559,7 @@ def get_best_poster(
         arabic_poster = find_language(
             "ar"
         )
+
 
         if arabic_poster:
 
@@ -376,6 +580,7 @@ def get_best_poster(
                 "file_path"
             )
 
+
             if path:
 
                 return (
@@ -392,6 +597,7 @@ def get_best_poster(
         "en"
     )
 
+
     if english_poster:
 
         return english_poster
@@ -404,6 +610,7 @@ def get_best_poster(
     arabic_poster = find_language(
         "ar"
     )
+
 
     if arabic_poster:
 
@@ -574,6 +781,7 @@ def get_trailer(
             "Trailer API warning:",
             error
         )
+
 
         return {
             "trailer_key": "",
@@ -823,6 +1031,88 @@ def generate_hashtags(
 
 
 # =========================================================
+# SELECT DISPLAY TITLE
+#
+# Priority:
+# 1. Arabic translated title
+# 2. English title
+# 3. French title
+# 4. Original title only if allowed
+# =========================================================
+
+def get_display_title(
+    item,
+    media_type
+):
+
+    if media_type == "movie":
+
+        arabic_title = (
+            item.get(
+                "title"
+            )
+            or ""
+        ).strip()
+
+
+        original_title = (
+            item.get(
+                "original_title"
+            )
+            or ""
+        ).strip()
+
+
+    else:
+
+        arabic_title = (
+            item.get(
+                "name"
+            )
+            or ""
+        ).strip()
+
+
+        original_title = (
+            item.get(
+                "original_name"
+            )
+            or ""
+        ).strip()
+
+
+    # -----------------------------------------------------
+    # If Arabic title returned by TMDB is actually Arabic
+    # -----------------------------------------------------
+
+    if (
+        arabic_title
+        and has_allowed_title(
+            arabic_title
+        )
+    ):
+
+        return arabic_title
+
+
+    # -----------------------------------------------------
+    # Original title may be English / French
+    # -----------------------------------------------------
+
+    if (
+        original_title
+        and has_allowed_title(
+            original_title
+        )
+    ):
+
+        return original_title
+
+
+    return ""
+
+
+# =========================================================
 # CLEAN ITEM
 # =========================================================
 
@@ -831,17 +1121,33 @@ def clean_item(
     media_type
 ):
 
+    title = get_display_title(
+        item,
+        media_type
+    )
+
+
+    # -----------------------------------------------------
+    # IMPORTANT:
+    # Reject only if the DISPLAYED title is written in
+    # an unwanted script.
+    #
+    # Original language does NOT matter.
+    # -----------------------------------------------------
+
+    if not title:
+
+        return None
+
+
+    if not has_allowed_title(
+        title
+    ):
+
+        return None
+
+
     if media_type == "movie":
-
-        title = (
-            item.get(
-                "original_title"
-            )
-            or item.get(
-                "title"
-            )
-        )
-
 
         date = (
             item.get(
@@ -850,16 +1156,6 @@ def clean_item(
         )
 
     else:
-
-        title = (
-            item.get(
-                "original_name"
-            )
-            or item.get(
-                "name"
-            )
-        )
-
 
         date = (
             item.get(
@@ -939,8 +1235,6 @@ def clean_item(
 
     # =====================================================
     # POPULARITY
-    #
-    # NEW
     # =====================================================
 
     try:
@@ -962,8 +1256,6 @@ def clean_item(
 
     # =====================================================
     # VOTE COUNT
-    #
-    # NEW
     # =====================================================
 
     try:
@@ -1018,12 +1310,10 @@ def clean_item(
             detailed_type,
 
         "title":
-            title
-            or "بدون عنوان",
+            title,
 
         "original_title":
-            title
-            or "بدون عنوان",
+            title,
 
         "original_language":
             original_language,
@@ -1036,10 +1326,6 @@ def clean_item(
 
         "rating":
             rating,
-
-        # =================================================
-        # NEW
-        # =================================================
 
         "popularity":
             popularity,
@@ -1094,52 +1380,112 @@ def main():
     )
 
 
-    # -----------------------------------------------------
-    # MOVIES
-    # -----------------------------------------------------
+    # =====================================================
+    # TRENDING MOVIES
+    # =====================================================
 
     print(
         "Fetching trending movies..."
     )
 
-    movies = get_trending(
+
+    trending_movies = get_trending(
         "movie"
     )
 
 
     print(
-        f"Movies received: "
-        f"{len(movies)}"
+        f"Trending movies received: "
+        f"{len(trending_movies)}"
     )
 
 
-    # -----------------------------------------------------
-    # TV
-    # -----------------------------------------------------
+    # =====================================================
+    # TRENDING TV
+    # =====================================================
 
     print(
         "Fetching trending TV..."
     )
 
-    tv = get_trending(
+
+    trending_tv = get_trending(
         "tv"
     )
 
 
     print(
-        f"TV received: "
+        f"Trending TV received: "
+        f"{len(trending_tv)}"
+    )
+
+
+    # =====================================================
+    # DISCOVER MOVIES
+    # =====================================================
+
+    print(
+        "Fetching popular movies..."
+    )
+
+
+    movies = get_discover(
+        "movie"
+    )
+
+
+    print(
+        f"Discover movies received: "
+        f"{len(movies)}"
+    )
+
+
+    # =====================================================
+    # DISCOVER TV
+    # =====================================================
+
+    print(
+        "Fetching popular TV..."
+    )
+
+
+    tv = get_discover(
+        "tv"
+    )
+
+
+    print(
+        f"Discover TV received: "
         f"{len(tv)}"
+    )
+
+
+    # =====================================================
+    # COMBINE
+    #
+    # Trending first because these are currently popular.
+    # =====================================================
+
+    movie_items = (
+        trending_movies
+        + movies
+    )
+
+
+    tv_items = (
+        trending_tv
+        + tv
     )
 
 
     results = []
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # MOVIES
-    # -----------------------------------------------------
+    # =====================================================
 
-    for item in movies:
+    for item in movie_items:
 
         if not item.get(
             "poster_path"
@@ -1156,7 +1502,7 @@ def main():
             )
 
 
-            if clean.get(
+            if clean and clean.get(
                 "poster"
             ):
 
@@ -1173,11 +1519,11 @@ def main():
             )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # TV
-    # -----------------------------------------------------
+    # =====================================================
 
-    for item in tv:
+    for item in tv_items:
 
         if not item.get(
             "poster_path"
@@ -1194,7 +1540,7 @@ def main():
             )
 
 
-            if clean.get(
+            if clean and clean.get(
                 "poster"
             ):
 
@@ -1211,9 +1557,9 @@ def main():
             )
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # REMOVE DUPLICATES
-    # -----------------------------------------------------
+    # =====================================================
 
     unique = {}
 
@@ -1237,16 +1583,42 @@ def main():
     )
 
 
-    # -----------------------------------------------------
+    # =====================================================
+    # SORT BY POPULARITY
+    #
+    # Most popular works appear first.
+    # =====================================================
+
+    results.sort(
+
+        key=lambda item:
+            (
+                float(
+                    item.get(
+                        "popularity",
+                        0
+                    )
+                    or 0
+                )
+            ),
+
+        reverse=True
+
+    )
+
+
+    # =====================================================
     # LIMIT
-    # -----------------------------------------------------
+    # =====================================================
 
-    results = results[:30]
+    results = results[
+        :MAX_ITEMS
+    ]
 
 
-    # -----------------------------------------------------
+    # =====================================================
     # SAVE
-    # -----------------------------------------------------
+    # =====================================================
 
     data = {
 
@@ -1274,21 +1646,27 @@ def main():
         )
 
 
+    # =====================================================
+    # LOG
+    # =====================================================
+
     print(
         "======================================"
     )
+
 
     print(
         f"MOVINS: "
         f"{len(results)} items saved."
     )
 
+
     print(
         "======================================"
     )
 
 
-    for item in results[:10]:
+    for item in results[:20]:
 
         print(
             f"{item.get('detailed_type')}: "
