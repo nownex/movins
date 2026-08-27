@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: "0 */3 * * *"
+    - cron: "17 */3 * * *"
 
 
 permissions:
@@ -104,6 +104,15 @@ jobs:
             echo "[]" > posted_movies.json
           fi
 
+          if [ -f facebook_rotation.json ]; then
+            echo "facebook_rotation.json: OK"
+          else
+            echo "facebook_rotation.json: NOT FOUND"
+            echo "Creating default facebook_rotation.json"
+
+            echo '{"type_index":0,"genre_index":0}' > facebook_rotation.json
+          fi
+
 
       # ===================================================
       # SAVE UPDATED DATA
@@ -117,7 +126,7 @@ jobs:
           git config user.email "actions@github.com"
 
 
-          git add movies.json posted_movies.json
+          git add movies.json posted_movies.json facebook_rotation.json
 
 
           if git diff --cached --quiet; then
