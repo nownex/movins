@@ -49,59 +49,94 @@ SITE_URL = (
 # SETTINGS
 # =========================================================
 
-# مهم:
-# منشور واحد فقط في كل تشغيل.
+# منشور واحد فقط في كل تشغيل
 MAX_POSTS_PER_RUN = 1
 
 MAX_OVERVIEW_LENGTH = 420
 
 
 # =========================================================
-# ROTATION
+# FACEBOOK ROTATION
 #
-# فيلم ثم مسلسل ثم فيلم ثم مسلسل...
+# الترتيب مضمون:
 #
-# والفئات تتغير:
+# 1  فيلم     رعب
+# 2  مسلسل    أكشن
+# 3  فيلم     كوميديا
+# 4  مسلسل    دراما
+# 5  فيلم     خيال علمي
+# 6  مسلسل    غموض
+# 7  فيلم     جريمة
+# 8  مسلسل    مغامرة
+# 9  فيلم     فانتازيا
+# 10 مسلسل    رومانسي
+# 11 فيلم     رسوم متحركة
+# 12 مسلسل    إثارة
 #
-# رعب
-# أكشن
-# كوميديا
-# دراما
-# خيال علمي
-# غموض
-# جريمة
-# مغامرة
-# فانتازيا
-# رومانسي
-# رسوم متحركة
-# إثارة
+# ثم تبدأ الدورة من جديد.
 # =========================================================
 
-GENRE_ROTATION = [
+ROTATION_SEQUENCE = [
 
-    "رعب",
+    {
+        "type": "movie",
+        "genre": "رعب"
+    },
 
-    "أكشن",
+    {
+        "type": "tv",
+        "genre": "أكشن"
+    },
 
-    "كوميديا",
+    {
+        "type": "movie",
+        "genre": "كوميديا"
+    },
 
-    "دراما",
+    {
+        "type": "tv",
+        "genre": "دراما"
+    },
 
-    "خيال علمي",
+    {
+        "type": "movie",
+        "genre": "خيال علمي"
+    },
 
-    "غموض",
+    {
+        "type": "tv",
+        "genre": "غموض"
+    },
 
-    "جريمة",
+    {
+        "type": "movie",
+        "genre": "جريمة"
+    },
 
-    "مغامرة",
+    {
+        "type": "tv",
+        "genre": "مغامرة"
+    },
 
-    "فانتازيا",
+    {
+        "type": "movie",
+        "genre": "فانتازيا"
+    },
 
-    "رومانسي",
+    {
+        "type": "tv",
+        "genre": "رومانسي"
+    },
 
-    "رسوم متحركة",
+    {
+        "type": "movie",
+        "genre": "رسوم متحركة"
+    },
 
-    "إثارة",
+    {
+        "type": "tv",
+        "genre": "إثارة"
+    },
 
 ]
 
@@ -277,13 +312,7 @@ def save_posted(
 def load_rotation():
 
     default = {
-
-        "type_index":
-            0,
-
-        "genre_index":
-            0,
-
+        "index": 0
     }
 
 
@@ -317,9 +346,9 @@ def load_rotation():
 
         try:
 
-            type_index = int(
+            index = int(
                 data.get(
-                    "type_index",
+                    "index",
                     0
                 )
             )
@@ -329,34 +358,12 @@ def load_rotation():
             ValueError
         ):
 
-            type_index = 0
-
-
-        try:
-
-            genre_index = int(
-                data.get(
-                    "genre_index",
-                    0
-                )
-            )
-
-        except (
-            TypeError,
-            ValueError
-        ):
-
-            genre_index = 0
+            index = 0
 
 
         return {
-
-            "type_index":
-                type_index,
-
-            "genre_index":
-                genre_index,
-
+            "index":
+                index
         }
 
 
@@ -942,10 +949,6 @@ def genre_matches(
         return True
 
 
-    # -----------------------------------------------------
-    # Special cases
-    # -----------------------------------------------------
-
     if wanted_genre == "أكشن":
 
         return (
@@ -968,6 +971,31 @@ def genre_matches(
 
         return (
             "رسوم متحركة" in genres
+        )
+
+
+    if wanted_genre == "مغامرة":
+
+        return (
+            "مغامرة" in genres
+            or
+            "أكشن ومغامرة" in genres
+        )
+
+
+    if wanted_genre == "فانتازيا":
+
+        return (
+            "فانتازيا" in genres
+            or
+            "خيال علمي وفانتازيا" in genres
+        )
+
+
+    if wanted_genre == "إثارة":
+
+        return (
+            "إثارة" in genres
         )
 
 
@@ -1080,17 +1108,6 @@ def build_caption(
 
 # =========================================================
 # SELECT CANDIDATES
-#
-# أهم جزء في النظام.
-#
-# الأولوية:
-#
-# 1. نوع المحتوى المطلوب
-# 2. الفئة المطلوبة
-# 3. الشعبية Popularity
-# 4. Vote Count
-#
-# التقييم ليس العامل الأساسي.
 # =========================================================
 
 def select_candidates(
@@ -1115,7 +1132,6 @@ def select_candidates(
             continue
 
 
-        # لا تعيد نشر العمل
         if movie_key in posted:
 
             continue
@@ -1126,13 +1142,11 @@ def select_candidates(
         )
 
 
-        # نوع العمل
         if media_type != wanted_media_type:
 
             continue
 
 
-        # الفئة المطلوبة
         if not genre_matches(
             item,
             wanted_genre
@@ -1151,10 +1165,6 @@ def select_candidates(
         )
 
 
-        # -------------------------------------------------
-        # Ignore completely empty TMDB entries
-        # -------------------------------------------------
-
         if (
             popularity <= 0
             and vote_count <= 0
@@ -1169,12 +1179,7 @@ def select_candidates(
 
 
     # =====================================================
-    # SORT
-    #
-    # Popularity أولاً
-    # Vote count ثانيًا
-    #
-    # لا نعطي Rating أولوية.
+    # MOST POPULAR FIRST
     # =====================================================
 
     candidates.sort(
@@ -1200,11 +1205,7 @@ def select_candidates(
 
 
 # =========================================================
-# FALLBACK BY TYPE
-#
-# إذا لم نجد الفئة المطلوبة،
-# نبحث عن أفضل عمل من نفس النوع.
-#
+# SAME TYPE FALLBACK
 # =========================================================
 
 def select_type_fallback(
@@ -1239,6 +1240,80 @@ def select_type_fallback(
             )
             != wanted_media_type
         ):
+
+            continue
+
+
+        popularity = get_popularity(
+            item
+        )
+
+
+        vote_count = get_vote_count(
+            item
+        )
+
+
+        if (
+            popularity <= 0
+            and vote_count <= 0
+        ):
+
+            continue
+
+
+        candidates.append(
+            item
+        )
+
+
+    candidates.sort(
+
+        key=lambda item: (
+
+            get_popularity(
+                item
+            ),
+
+            get_vote_count(
+                item
+            ),
+
+        ),
+
+        reverse=True
+
+    )
+
+
+    return candidates
+
+
+# =========================================================
+# GLOBAL FALLBACK
+# =========================================================
+
+def select_global_fallback(
+    movies,
+    posted
+):
+
+    candidates = []
+
+
+    for item in movies:
+
+        movie_key = get_movie_key(
+            item
+        )
+
+
+        if not movie_key:
+
+            continue
+
+
+        if movie_key in posted:
 
             continue
 
@@ -1365,6 +1440,12 @@ def publish_to_facebook(
     print(
         f"ID: "
         f"{item.get('id', '')}"
+    )
+
+
+    print(
+        f"Type: "
+        f"{item.get('type', '')}"
     )
 
 
@@ -1534,42 +1615,37 @@ def main():
 
 
     # =====================================================
-    # CURRENT ROTATION
+    # GET CURRENT ROTATION POSITION
     # =====================================================
 
-    type_index = (
+    rotation_index = (
         rotation.get(
-            "type_index",
-            0
-        )
-        % 2
-    )
-
-
-    genre_index = (
-        rotation.get(
-            "genre_index",
+            "index",
             0
         )
         % len(
-            GENRE_ROTATION
+            ROTATION_SEQUENCE
         )
     )
 
 
-    # 0 = movie
-    # 1 = tv
+    current_rotation = (
+        ROTATION_SEQUENCE[
+            rotation_index
+        ]
+    )
+
 
     wanted_media_type = (
-        "movie"
-        if type_index == 0
-        else "tv"
+        current_rotation[
+            "type"
+        ]
     )
 
 
     wanted_genre = (
-        GENRE_ROTATION[
-            genre_index
+        current_rotation[
+            "genre"
         ]
     )
 
@@ -1581,6 +1657,13 @@ def main():
 
     print(
         "CURRENT ROTATION:"
+    )
+
+
+    print(
+        f"Step: "
+        f"{rotation_index + 1}/"
+        f"{len(ROTATION_SEQUENCE)}"
     )
 
 
@@ -1619,20 +1702,17 @@ def main():
 
 
     print(
-        f"Candidates for "
-        f"{get_arabic_type(wanted_media_type)} "
-        f"+ {wanted_genre}: "
+        f"Exact candidates: "
         f"{len(candidates)}"
     )
 
 
     # =====================================================
-    # FALLBACK
+    # FALLBACK 1
     #
-    # إذا لم توجد فئة محددة،
-    # لا نكسر التناوب.
+    # نفس النوع، لكن أي تصنيف.
     #
-    # نبحث عن أشهر عمل من نفس النوع.
+    # التناوب يبقى محفوظًا قدر الإمكان.
     # =====================================================
 
     if not candidates:
@@ -1643,7 +1723,7 @@ def main():
 
 
         print(
-            "Using same-type popularity fallback."
+            "Using same-type fallback."
         )
 
 
@@ -1659,16 +1739,15 @@ def main():
 
 
     # =====================================================
-    # FINAL FALLBACK
+    # FALLBACK 2
     #
-    # إذا لم نجد أي فيلم/مسلسل من النوع المطلوب،
-    # نبحث عن أي عمل جديد.
+    # إذا لم يوجد أي عمل من النوع المطلوب.
     # =====================================================
 
     if not candidates:
 
         print(
-            "No candidates for requested type."
+            "No same-type items available."
         )
 
 
@@ -1677,69 +1756,13 @@ def main():
         )
 
 
-        global_candidates = []
+        candidates = select_global_fallback(
 
+            movies,
 
-        for item in movies:
-
-            movie_key = get_movie_key(
-                item
-            )
-
-
-            if not movie_key:
-
-                continue
-
-
-            if movie_key in posted:
-
-                continue
-
-
-            popularity = get_popularity(
-                item
-            )
-
-
-            vote_count = get_vote_count(
-                item
-            )
-
-
-            if (
-                popularity <= 0
-                and vote_count <= 0
-            ):
-
-                continue
-
-
-            global_candidates.append(
-                item
-            )
-
-
-        global_candidates.sort(
-
-            key=lambda item: (
-
-                get_popularity(
-                    item
-                ),
-
-                get_vote_count(
-                    item
-                ),
-
-            ),
-
-            reverse=True
+            posted
 
         )
-
-
-        candidates = global_candidates
 
 
     # =====================================================
@@ -1766,8 +1789,11 @@ def main():
 
 
     for index, item in enumerate(
+
         candidates[:10],
+
         start=1
+
     ):
 
         print(
@@ -1878,29 +1904,35 @@ def main():
 
 
         # =================================================
-        # ADVANCE ROTATION ONLY AFTER SUCCESS
+        # ADVANCE TO NEXT STEP
+        #
+        # لا يتم التقدم إلا بعد نجاح النشر.
         # =================================================
+
+        next_index = (
+            rotation_index + 1
+        ) % len(
+            ROTATION_SEQUENCE
+        )
+
 
         rotation = {
 
-            "type_index":
-                (
-                    type_index + 1
-                ) % 2,
-
-            "genre_index":
-                (
-                    genre_index + 1
-                )
-                % len(
-                    GENRE_ROTATION
-                ),
+            "index":
+                next_index
 
         }
 
 
         save_rotation(
             rotation
+        )
+
+
+        next_rotation = (
+            ROTATION_SEQUENCE[
+                next_index
+            ]
         )
 
 
@@ -1911,13 +1943,13 @@ def main():
 
         print(
             f"Next type: "
-            f"{'فيلم' if rotation['type_index'] == 0 else 'مسلسل'}"
+            f"{get_arabic_type(next_rotation['type'])}"
         )
 
 
         print(
             f"Next genre: "
-            f"{GENRE_ROTATION[rotation['genre_index']]}"
+            f"{next_rotation['genre']}"
         )
 
 
