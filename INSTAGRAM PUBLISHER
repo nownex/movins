@@ -1,0 +1,1682 @@
+import json
+import os
+import requests
+
+
+# =========================================================
+# MOVINS — INSTAGRAM PUBLISHER
+# =========================================================
+
+TOKEN = os.environ.get(
+    "INSTAGRAM_ACCESS_TOKEN"
+)
+
+INSTAGRAM_USER_ID = os.environ.get(
+    "INSTAGRAM_USER_ID"
+)
+
+
+if not TOKEN:
+
+    raise RuntimeError(
+        "INSTAGRAM_ACCESS_TOKEN is missing"
+    )
+
+
+if not INSTAGRAM_USER_ID:
+
+    raise RuntimeError(
+        "INSTAGRAM_USER_ID is missing"
+    )
+
+
+# =========================================================
+# GRAPH API
+# =========================================================
+
+GRAPH_VERSION = "v26.0"
+
+BASE_GRAPH_URL = (
+    f"https://graph.facebook.com/"
+    f"{GRAPH_VERSION}"
+)
+
+
+# =========================================================
+# FILES
+# =========================================================
+
+MOVIES_FILE = "movies.json"
+
+POSTED_FILE = "instagram_posted_movies.json"
+
+ROTATION_FILE = "instagram_rotation.json"
+
+
+# =========================================================
+# MOVINS WEBSITE
+# =========================================================
+
+SITE_URL = (
+    "https://nownex.github.io/movins/"
+)
+
+
+# =========================================================
+# SETTINGS
+# =========================================================
+
+MAX_OVERVIEW_LENGTH = 300
+
+
+# =========================================================
+# INSTAGRAM ROTATION
+#
+# فيلم ثم مسلسل مع تنويع التصنيفات
+# =========================================================
+
+ROTATION_SEQUENCE = [
+
+    {
+        "type": "movie",
+        "genre": "رعب"
+    },
+
+    {
+        "type": "tv",
+        "genre": "أكشن"
+    },
+
+    {
+        "type": "movie",
+        "genre": "كوميديا"
+    },
+
+    {
+        "type": "tv",
+        "genre": "دراما"
+    },
+
+    {
+        "type": "movie",
+        "genre": "خيال علمي"
+    },
+
+    {
+        "type": "tv",
+        "genre": "غموض"
+    },
+
+    {
+        "type": "movie",
+        "genre": "جريمة"
+    },
+
+    {
+        "type": "tv",
+        "genre": "مغامرة"
+    },
+
+    {
+        "type": "movie",
+        "genre": "فانتازيا"
+    },
+
+    {
+        "type": "tv",
+        "genre": "رومانسي"
+    },
+
+    {
+        "type": "movie",
+        "genre": "رسوم متحركة"
+    },
+
+    {
+        "type": "tv",
+        "genre": "إثارة"
+    },
+
+]
+
+
+# =========================================================
+# LOAD MOVIES
+# =========================================================
+
+def load_movies():
+
+    if not os.path.exists(
+        MOVIES_FILE
+    ):
+
+        raise RuntimeError(
+            "movies.json not found"
+        )
+
+
+    with open(
+        MOVIES_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        data = json.load(
+            file
+        )
+
+
+    items = data.get(
+        "items",
+        []
+    )
+
+
+    if not isinstance(
+        items,
+        list
+    ):
+
+        raise RuntimeError(
+            "movies.json items must be a list"
+        )
+
+
+    return items
+
+
+# =========================================================
+# LOAD POSTED
+# =========================================================
+
+def load_posted():
+
+    if not os.path.exists(
+        POSTED_FILE
+    ):
+
+        return set()
+
+
+    try:
+
+        with open(
+            POSTED_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            data = json.load(
+                file
+            )
+
+
+        if not isinstance(
+            data,
+            list
+        ):
+
+            return set()
+
+
+        return set(
+            str(value)
+            for value in data
+            if str(value).strip()
+        )
+
+
+    except Exception as error:
+
+        print(
+            f"WARNING: could not read "
+            f"{POSTED_FILE}: {error}"
+        )
+
+        return set()
+
+
+# =========================================================
+# SAVE POSTED
+# =========================================================
+
+def save_posted(
+    posted
+):
+
+    with open(
+        POSTED_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            sorted(
+                list(posted)
+            ),
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+
+
+# =========================================================
+# LOAD ROTATION
+# =========================================================
+
+def load_rotation():
+
+    default = {
+        "index": 0
+    }
+
+
+    if not os.path.exists(
+        ROTATION_FILE
+    ):
+
+        return default
+
+
+    try:
+
+        with open(
+            ROTATION_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            data = json.load(
+                file
+            )
+
+
+        if not isinstance(
+            data,
+            dict
+        ):
+
+            return default
+
+
+        return {
+
+            "index": int(
+                data.get(
+                    "index",
+                    0
+                )
+            )
+
+        }
+
+
+    except Exception as error:
+
+        print(
+            f"WARNING: could not read "
+            f"{ROTATION_FILE}: {error}"
+        )
+
+        return default
+
+
+# =========================================================
+# SAVE ROTATION
+# =========================================================
+
+def save_rotation(
+    rotation
+):
+
+    with open(
+        ROTATION_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            rotation,
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+
+
+# =========================================================
+# CLEAN TEXT
+# =========================================================
+
+def clean_text(
+    value
+):
+
+    if value is None:
+
+        return ""
+
+
+    return " ".join(
+        str(value).split()
+    ).strip()
+
+
+# =========================================================
+# MEDIA TYPE
+# =========================================================
+
+def get_media_type(
+    item
+):
+
+    item_type = clean_text(
+        item.get(
+            "type",
+            ""
+        )
+    ).lower()
+
+
+    if item_type in (
+        "فيلم",
+        "movie",
+        "film"
+    ):
+
+        return "movie"
+
+
+    return "tv"
+
+
+# =========================================================
+# ARABIC TYPE
+# =========================================================
+
+def get_arabic_type(
+    media_type
+):
+
+    if media_type == "movie":
+
+        return "فيلم"
+
+
+    return "مسلسل"
+
+
+# =========================================================
+# MOVIE KEY
+# =========================================================
+
+def get_movie_key(
+    item
+):
+
+    movie_id = clean_text(
+        item.get(
+            "id",
+            ""
+        )
+    )
+
+
+    if not movie_id:
+
+        return ""
+
+
+    return (
+        f"{get_media_type(item)}:"
+        f"{movie_id}"
+    )
+
+
+# =========================================================
+# MOVIE URL
+# =========================================================
+
+def get_movie_url(
+    item
+):
+
+    movie_id = clean_text(
+        item.get(
+            "id",
+            ""
+        )
+    )
+
+
+    if not movie_id:
+
+        return SITE_URL
+
+
+    return (
+        SITE_URL
+        + "?movie="
+        + get_media_type(item)
+        + "-"
+        + movie_id
+    )
+
+
+# =========================================================
+# GENRES
+# =========================================================
+
+def get_genres_list(
+    item
+):
+
+    genres = item.get(
+        "genres",
+        []
+    )
+
+
+    if isinstance(
+        genres,
+        list
+    ):
+
+        return [
+
+            clean_text(
+                genre
+            )
+
+            for genre in genres
+
+            if clean_text(
+                genre
+            )
+
+        ]
+
+
+    value = clean_text(
+        genres
+    )
+
+
+    if value:
+
+        return [value]
+
+
+    return []
+
+
+# =========================================================
+# GENRE MATCH
+# =========================================================
+
+def genre_matches(
+    item,
+    wanted_genre
+):
+
+    genres = get_genres_list(
+        item
+    )
+
+
+    if wanted_genre in genres:
+
+        return True
+
+
+    if wanted_genre == "أكشن":
+
+        return (
+
+            "أكشن" in genres
+
+            or
+
+            "أكشن ومغامرة" in genres
+
+        )
+
+
+    if wanted_genre == "خيال علمي":
+
+        return (
+
+            "خيال علمي" in genres
+
+            or
+
+            "خيال علمي وفانتازيا" in genres
+
+        )
+
+
+    if wanted_genre == "مغامرة":
+
+        return (
+
+            "مغامرة" in genres
+
+            or
+
+            "أكشن ومغامرة" in genres
+
+        )
+
+
+    if wanted_genre == "فانتازيا":
+
+        return (
+
+            "فانتازيا" in genres
+
+            or
+
+            "خيال علمي وفانتازيا" in genres
+
+        )
+
+
+    return False
+
+
+# =========================================================
+# POPULARITY
+# =========================================================
+
+def get_popularity(
+    item
+):
+
+    try:
+
+        return float(
+            item.get(
+                "popularity",
+                0
+            )
+            or 0
+        )
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return 0.0
+
+
+# =========================================================
+# VOTE COUNT
+# =========================================================
+
+def get_vote_count(
+    item
+):
+
+    try:
+
+        return int(
+            item.get(
+                "vote_count",
+                0
+            )
+            or 0
+        )
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return 0
+
+
+# =========================================================
+# RATING
+# =========================================================
+
+def get_rating(
+    item
+):
+
+    try:
+
+        rating = float(
+            item.get(
+                "rating",
+                0
+            )
+            or 0
+        )
+
+
+        if rating <= 0:
+
+            return "—"
+
+
+        return (
+            f"{rating:.1f}/10"
+        )
+
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return "—"
+
+
+# =========================================================
+# SHORT OVERVIEW
+# =========================================================
+
+def build_short_overview(
+    item
+):
+
+    overview = clean_text(
+        item.get(
+            "overview",
+            ""
+        )
+    )
+
+
+    if not overview:
+
+        return (
+            "اكتشف قصة هذا العمل "
+            "وتفاصيله على MOVINS."
+        )
+
+
+    if len(
+        overview
+    ) <= MAX_OVERVIEW_LENGTH:
+
+        return overview
+
+
+    shortened = overview[
+        :MAX_OVERVIEW_LENGTH
+    ]
+
+
+    if " " in shortened:
+
+        shortened = shortened.rsplit(
+            " ",
+            1
+        )[0]
+
+
+    return shortened + "..."
+
+
+# =========================================================
+# HASHTAGS
+# =========================================================
+
+def build_hashtags(
+    item
+):
+
+    tags = [
+
+        "#MOVINS",
+
+        "#افلام",
+
+        "#مسلسلات",
+
+        "#سينما",
+
+        "#Movie"
+
+    ]
+
+
+    media_type = get_media_type(
+        item
+    )
+
+
+    if media_type == "movie":
+
+        tags.append(
+            "#Movies"
+        )
+
+    else:
+
+        tags.append(
+            "#Series"
+        )
+
+
+    for genre in get_genres_list(
+        item
+    )[:2]:
+
+        genre_tag = (
+            genre
+            .replace(
+                " ",
+                "_"
+            )
+        )
+
+
+        if genre_tag:
+
+            tags.append(
+                "#" + genre_tag
+            )
+
+
+    unique = []
+
+
+    for tag in tags:
+
+        if tag not in unique:
+
+            unique.append(
+                tag
+            )
+
+
+    return " ".join(
+        unique[:10]
+    )
+
+
+# =========================================================
+# INSTAGRAM CAPTION
+# =========================================================
+
+def build_caption(
+    item
+):
+
+    title = clean_text(
+        item.get(
+            "title"
+        )
+        or "بدون عنوان"
+    )
+
+
+    overview = build_short_overview(
+        item
+    )
+
+
+    year = clean_text(
+        item.get(
+            "year"
+        )
+        or "—"
+    )
+
+
+    genres = " • ".join(
+        get_genres_list(
+            item
+        )[:3]
+    )
+
+
+    media_type = get_arabic_type(
+        get_media_type(item)
+    )
+
+
+    rating = get_rating(
+        item
+    )
+
+
+    hashtags = build_hashtags(
+        item
+    )
+
+
+    lines = [
+
+        f"🎬 {title}",
+
+        "",
+
+        overview,
+
+        "",
+
+        f"⭐ التقييم: {rating}",
+
+        f"🎭 {media_type}",
+
+        f"🎞️ {genres or 'غير محدد'}",
+
+        f"📅 {year}",
+
+        "",
+
+        "🍿 هل ستشاهده؟",
+
+        "👇 تابع MOVINS للمزيد من الأفلام والمسلسلات",
+
+        "",
+
+        hashtags
+
+    ]
+
+
+    return "\n".join(
+        lines
+    )
+
+
+# =========================================================
+# SELECT CANDIDATES
+# =========================================================
+
+def select_candidates(
+    movies,
+    posted,
+    wanted_type,
+    wanted_genre
+):
+
+    candidates = []
+
+
+    for item in movies:
+
+        key = get_movie_key(
+            item
+        )
+
+
+        if not key:
+
+            continue
+
+
+        if key in posted:
+
+            continue
+
+
+        if (
+
+            get_media_type(
+                item
+            )
+
+            != wanted_type
+
+        ):
+
+            continue
+
+
+        if not genre_matches(
+            item,
+            wanted_genre
+        ):
+
+            continue
+
+
+        candidates.append(
+            item
+        )
+
+
+    candidates.sort(
+
+        key=lambda item: (
+
+            get_popularity(
+                item
+            ),
+
+            get_vote_count(
+                item
+            )
+
+        ),
+
+        reverse=True
+
+    )
+
+
+    return candidates
+
+
+# =========================================================
+# TYPE FALLBACK
+# =========================================================
+
+def select_type_fallback(
+    movies,
+    posted,
+    wanted_type
+):
+
+    candidates = []
+
+
+    for item in movies:
+
+        key = get_movie_key(
+            item
+        )
+
+
+        if not key:
+
+            continue
+
+
+        if key in posted:
+
+            continue
+
+
+        if (
+
+            get_media_type(
+                item
+            )
+
+            != wanted_type
+
+        ):
+
+            continue
+
+
+        candidates.append(
+            item
+        )
+
+
+    candidates.sort(
+
+        key=lambda item: (
+
+            get_popularity(
+                item
+            ),
+
+            get_vote_count(
+                item
+            )
+
+        ),
+
+        reverse=True
+
+    )
+
+
+    return candidates
+
+
+# =========================================================
+# GLOBAL FALLBACK
+# =========================================================
+
+def select_global_fallback(
+    movies,
+    posted
+):
+
+    candidates = []
+
+
+    for item in movies:
+
+        key = get_movie_key(
+            item
+        )
+
+
+        if not key:
+
+            continue
+
+
+        if key in posted:
+
+            continue
+
+
+        candidates.append(
+            item
+        )
+
+
+    candidates.sort(
+
+        key=lambda item: (
+
+            get_popularity(
+                item
+            ),
+
+            get_vote_count(
+                item
+            )
+
+        ),
+
+        reverse=True
+
+    )
+
+
+    return candidates
+
+
+# =========================================================
+# CREATE INSTAGRAM CONTAINER
+# =========================================================
+
+def create_media_container(
+    image_url,
+    caption
+):
+
+    url = (
+
+        f"{BASE_GRAPH_URL}/"
+
+        f"{INSTAGRAM_USER_ID}/media"
+
+    )
+
+
+    payload = {
+
+        "image_url":
+            image_url,
+
+        "caption":
+            caption,
+
+        "access_token":
+            TOKEN
+
+    }
+
+
+    try:
+
+        response = requests.post(
+
+            url,
+
+            data=payload,
+
+            timeout=60
+
+        )
+
+
+    except requests.RequestException as error:
+
+        print(
+            "Instagram request error:",
+            error
+        )
+
+        return ""
+
+
+    try:
+
+        result = response.json()
+
+    except ValueError:
+
+        print(
+            "Instagram returned invalid JSON:"
+        )
+
+        print(
+            response.text
+        )
+
+        return ""
+
+
+    if not response.ok:
+
+        print(
+            "Instagram API Error:"
+        )
+
+        print(
+            json.dumps(
+                result,
+                ensure_ascii=False,
+                indent=2
+            )
+        )
+
+        return ""
+
+
+    return clean_text(
+        result.get(
+            "id"
+        )
+    )
+
+
+# =========================================================
+# PUBLISH INSTAGRAM CONTAINER
+# =========================================================
+
+def publish_media_container(
+    creation_id
+):
+
+    url = (
+
+        f"{BASE_GRAPH_URL}/"
+
+        f"{INSTAGRAM_USER_ID}/media_publish"
+
+    )
+
+
+    payload = {
+
+        "creation_id":
+            creation_id,
+
+        "access_token":
+            TOKEN
+
+    }
+
+
+    try:
+
+        response = requests.post(
+
+            url,
+
+            data=payload,
+
+            timeout=60
+
+        )
+
+
+    except requests.RequestException as error:
+
+        print(
+            "Instagram publish error:",
+            error
+        )
+
+        return False
+
+
+    try:
+
+        result = response.json()
+
+    except ValueError:
+
+        print(
+            "Instagram returned invalid JSON:"
+        )
+
+        print(
+            response.text
+        )
+
+        return False
+
+
+    if not response.ok:
+
+        print(
+            "Instagram API Error:"
+        )
+
+        print(
+            json.dumps(
+                result,
+                ensure_ascii=False,
+                indent=2
+            )
+        )
+
+        return False
+
+
+    print(
+        "Instagram post successful."
+    )
+
+
+    print(
+        "Instagram Media ID:",
+        result.get(
+            "id"
+        )
+    )
+
+
+    return True
+
+
+# =========================================================
+# PUBLISH TO INSTAGRAM
+# =========================================================
+
+def publish_to_instagram(
+    item
+):
+
+    poster = clean_text(
+        item.get(
+            "poster",
+            ""
+        )
+    )
+
+
+    if not poster:
+
+        print(
+            "SKIP: no poster"
+        )
+
+        return False
+
+
+    caption = build_caption(
+        item
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+    print(
+        "PUBLISHING TO INSTAGRAM"
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+    print(
+        f"Title: "
+        f"{item.get('title', '')}"
+    )
+
+
+    print(
+        f"Type: "
+        f"{item.get('type', '')}"
+    )
+
+
+    print(
+        f"Poster: "
+        f"{poster}"
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+    print(
+        "Creating Instagram media container..."
+    )
+
+
+    creation_id = create_media_container(
+
+        poster,
+
+        caption
+
+    )
+
+
+    if not creation_id:
+
+        print(
+            "Failed to create "
+            "Instagram media container."
+        )
+
+        return False
+
+
+    print(
+        f"Container created: "
+        f"{creation_id}"
+    )
+
+
+    print(
+        "Publishing Instagram media..."
+    )
+
+
+    return publish_media_container(
+        creation_id
+    )
+
+
+# =========================================================
+# MAIN
+# =========================================================
+
+def main():
+
+    print(
+        "======================================"
+    )
+
+
+    print(
+        "MOVINS INSTAGRAM PUBLISHER"
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+    movies = load_movies()
+
+    posted = load_posted()
+
+    rotation = load_rotation()
+
+
+    rotation_index = (
+
+        rotation.get(
+            "index",
+            0
+        )
+
+        % len(
+            ROTATION_SEQUENCE
+        )
+
+    )
+
+
+    current = (
+
+        ROTATION_SEQUENCE[
+            rotation_index
+        ]
+
+    )
+
+
+    wanted_type = (
+        current[
+            "type"
+        ]
+    )
+
+
+    wanted_genre = (
+        current[
+            "genre"
+        ]
+    )
+
+
+    print(
+        f"Current type: "
+        f"{get_arabic_type(wanted_type)}"
+    )
+
+
+    print(
+        f"Current genre: "
+        f"{wanted_genre}"
+    )
+
+
+    # =====================================================
+    # PRIMARY
+    # =====================================================
+
+    candidates = select_candidates(
+
+        movies,
+
+        posted,
+
+        wanted_type,
+
+        wanted_genre
+
+    )
+
+
+    # =====================================================
+    # TYPE FALLBACK
+    # =====================================================
+
+    if not candidates:
+
+        print(
+            "No exact match."
+        )
+
+
+        candidates = select_type_fallback(
+
+            movies,
+
+            posted,
+
+            wanted_type
+
+        )
+
+
+    # =====================================================
+    # GLOBAL FALLBACK
+    # =====================================================
+
+    if not candidates:
+
+        print(
+            "No type match."
+        )
+
+
+        candidates = select_global_fallback(
+
+            movies,
+
+            posted
+
+        )
+
+
+    if not candidates:
+
+        print(
+            "No new movies available."
+        )
+
+        return
+
+
+    # =====================================================
+    # SELECT
+    # =====================================================
+
+    selected = candidates[0]
+
+
+    print(
+        "======================================"
+    )
+
+
+    print(
+        "SELECTED FOR INSTAGRAM"
+    )
+
+
+    print(
+        f"Title: "
+        f"{selected.get('title', '')}"
+    )
+
+
+    print(
+        f"Type: "
+        f"{selected.get('type', '')}"
+    )
+
+
+    print(
+        f"Genre: "
+        f"{' • '.join(get_genres_list(selected))}"
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+    # =====================================================
+    # PUBLISH
+    # =====================================================
+
+    success = publish_to_instagram(
+        selected
+    )
+
+
+    if not success:
+
+        print(
+            "Instagram publishing failed."
+        )
+
+        return
+
+
+    # =====================================================
+    # SAVE POSTED
+    # =====================================================
+
+    movie_key = get_movie_key(
+        selected
+    )
+
+
+    posted.add(
+        movie_key
+    )
+
+
+    save_posted(
+        posted
+    )
+
+
+    # =====================================================
+    # NEXT ROTATION
+    # =====================================================
+
+    next_index = (
+
+        rotation_index + 1
+
+    ) % len(
+        ROTATION_SEQUENCE
+    )
+
+
+    save_rotation({
+
+        "index":
+            next_index
+
+    })
+
+
+    next_rotation = (
+
+        ROTATION_SEQUENCE[
+            next_index
+        ]
+
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+    print(
+        "INSTAGRAM PUBLISHING SUCCESSFUL"
+    )
+
+
+    print(
+        f"Next type: "
+        f"{get_arabic_type(next_rotation['type'])}"
+    )
+
+
+    print(
+        f"Next genre: "
+        f"{next_rotation['genre']}"
+    )
+
+
+    print(
+        "======================================"
+    )
+
+
+# =========================================================
+# START
+# =========================================================
+
+if __name__ == "__main__":
+
+    main()
