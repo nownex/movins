@@ -9,10 +9,7 @@ if not TOKEN:
     raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing")
 
 
-PAGE_ID = "126905452957956"
-
-
-url = f"https://graph.facebook.com/v26.0/{PAGE_ID}"
+url = "https://graph.facebook.com/v26.0/me"
 
 params = {
     "fields": "id,name,instagram_business_account{id,username}",
