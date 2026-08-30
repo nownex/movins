@@ -9,22 +9,33 @@ if not TOKEN:
     raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing")
 
 
-url = "https://graph.facebook.com/v26.0/me"
+PAGE_ID = "1269050452957956"
+
+url = f"https://graph.facebook.com/v26.0/{PAGE_ID}"
 
 params = {
-    "fields": "id,name,instagram_business_account{id,username}",
+    "fields": (
+        "id,"
+        "name,"
+        "instagram_business_account{id,username}"
+    ),
     "access_token": TOKEN
 }
 
 
-response = requests.get(url, params=params)
+response = requests.get(
+    url,
+    params=params
+)
 
 
 print("Status:", response.status_code)
 
+data = response.json()
+
 print(
     json.dumps(
-        response.json(),
+        data,
         indent=2,
         ensure_ascii=False
     )
