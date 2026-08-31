@@ -1973,6 +1973,26 @@ footer .red {
     الأفلام
 </button>
 
+
+<!-- =====================================================
+     MOVIE NEWS BUTTON
+     إضافة مستقلة ولا تؤثر على نظام الأفلام
+===================================================== -->
+
+<a
+    href="movie-news.html"
+    class="btn btn-secondary"
+    style="
+        text-decoration:none;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+    "
+>
+    🎬 أخبار الأفلام
+</a>
+
+
 </div>
 
 </div>
@@ -2390,19 +2410,6 @@ async function loadMovies() {
         renderMovies();
 
 
-        /*
-         * IMPORTANT:
-         * If Facebook opens:
-         *
-         * ?movie=tv-123
-         *
-         * or
-         *
-         * ?movie=movie-123
-         *
-         * open the exact movie.
-         */
-
         openMovieFromUrl();
 
 
@@ -2558,8 +2565,6 @@ function renderMovies() {
         [...allItems];
 
 
-    /* FILTER */
-
     if (
         currentFilter !== "all" &&
         genreMap[currentFilter]
@@ -2594,8 +2599,6 @@ function renderMovies() {
     }
 
 
-    /* MOVIE */
-
     if (
         currentFilter === "movie"
     ) {
@@ -2611,8 +2614,6 @@ function renderMovies() {
 
     }
 
-
-    /* SEARCH */
 
     if (currentSearch) {
 
@@ -2700,17 +2701,6 @@ function renderMovies() {
             });
 
     }
-
-
-    /*
-     * =================================================
-     * IMPORTANT CHANGE
-     *
-     * تم حذف حد 30 عنصر.
-     * الآن يتم عرض جميع العناصر الموجودة
-     * في movies.json بعد تطبيق البحث/التصنيف.
-     * =================================================
-     */
 
 
     resultCount.textContent =
@@ -2988,7 +2978,7 @@ function getMovieUrl(item) {
 
 
 /* =====================================================
-   OPEN MOVIE FROM FACEBOOK / URL
+   OPEN MOVIE FROM URL
 ===================================================== */
 
 function openMovieFromUrl() {
@@ -3016,10 +3006,6 @@ function openMovieFromUrl() {
     let targetType = "";
 
 
-    /*
-     * ?movie=tv-1399
-     */
-
     if (movieParam) {
 
         const match =
@@ -3040,12 +3026,6 @@ function openMovieFromUrl() {
 
     }
 
-
-    /*
-     * Also support:
-     *
-     * ?id=1399&type=tv
-     */
 
     if (
         !targetId &&
@@ -3118,14 +3098,6 @@ function openMovieFromUrl() {
             200
         );
 
-    } else {
-
-        console.warn(
-            "MOVINS: movie not found:",
-            targetType,
-            targetId
-        );
-
     }
 
 }
@@ -3185,8 +3157,6 @@ function openMovieModal(
         "";
 
 
-    /* POSTER */
-
     const modalPoster =
         document.getElementById(
             "modalPoster"
@@ -3201,23 +3171,17 @@ function openMovieModal(
         title;
 
 
-    /* TYPE */
-
     document.getElementById(
         "modalType"
     ).textContent =
         detailedType;
 
 
-    /* TITLE */
-
     document.getElementById(
         "modalTitle"
     ).textContent =
         title;
 
-
-    /* META */
 
     document.getElementById(
         "modalMeta"
@@ -3237,8 +3201,6 @@ function openMovieModal(
 
     `;
 
-
-    /* GENRES */
 
     document.getElementById(
         "modalGenres"
@@ -3261,25 +3223,17 @@ function openMovieModal(
         "";
 
 
-    /* OVERVIEW */
-
     document.getElementById(
         "modalOverview"
     ).textContent =
         overview;
 
 
-    /* HASHTAGS */
-
     document.getElementById(
         "modalHashtags"
     ).textContent =
         hashtags;
 
-
-    /* =================================================
-       TRAILER
-    ================================================= */
 
     const trailerSection =
         document.getElementById(
@@ -3311,10 +3265,6 @@ function openMovieModal(
         trailerKey;
 
 
-    /*
-     * Extract YouTube ID
-     */
-
     if (
         !youtubeId &&
         trailerUrl
@@ -3335,10 +3285,6 @@ function openMovieModal(
 
     }
 
-
-    /*
-     * Trailer
-     */
 
     if (youtubeId) {
 
@@ -3364,8 +3310,6 @@ function openMovieModal(
     }
 
 
-    /* SHOW */
-
     movieModal.classList.add(
         "show"
     );
@@ -3375,14 +3319,6 @@ function openMovieModal(
         "modal-open"
     );
 
-
-    /*
-     * Only update URL when user
-     * opened the card normally.
-     *
-     * When Facebook already supplied
-     * ?movie=... we don't reload/change it.
-     */
 
     if (updateUrl) {
 
