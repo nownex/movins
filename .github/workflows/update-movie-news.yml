@@ -1,195 +1,181 @@
 name: MOVINS Movie News Update
 
 on:
-
-  # تشغيل تلقائي كل 6 ساعات
-  schedule:
-    - cron: "0 */6 * * *"
-
-  # تشغيل يدوي
   workflow_dispatch:
 
-  # تشغيل عند تعديل الملفات المهمة فقط
-  push:
-    paths:
-      - "update_movie_news.py"
-      - "requirements.txt"
-      - ".github/workflows/update-movie-news.yml"
+  schedule:
+    # كل 6 ساعات
+    - cron: "0 */6 * * *"
 
-
-# السماح للـ Action بتعديل ملفات المستودع
 permissions:
   contents: write
 
-
-# منع تشغيل تحديثين في نفس الوقت
+# يمنع تشغيل عمليتين في نفس الوقت وبالتالي يمنع تعارض movie-news.json
 concurrency:
-  group: movins-movie-news
+  group: movins-movie-news-update
   cancel-in-progress: false
 
-
 jobs:
-
   update:
-
     runs-on: ubuntu-latest
-
 
     steps:
 
-
-      # ================================================
-      # DOWNLOAD REPOSITORY
-      # ================================================
+      # ======================================================
+      # CHECKOUT
+      # ======================================================
 
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 
-      # ================================================
-      # SETUP PYTHON
-      # ================================================
+      # ======================================================
+      # PYTHON
+      # ======================================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
 
-      # ================================================
-      # INSTALL LIBRARIES
-      # ================================================
+      # ======================================================
+      # INSTALL DEPENDENCIES
+      # ======================================================
 
       - name: Install dependencies
         run: |
-
           python -m pip install --upgrade pip
+          pip install requests feedparser beautifulsoup4
 
-          pip install -r requirements.txt
 
-
-      # ================================================
+      # ======================================================
       # CHECK GEMINI API KEY
-      # ================================================
+      # ======================================================
 
       - name: Check Gemini API Key
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-
           if [ -z "$GEMINI_API_KEY" ]; then
-
             echo "ERROR: GEMINI_API_KEY is missing."
-
+            echo "Add GEMINI_API_KEY in:"
+            echo "Repository Settings → Secrets and variables → Actions"
             exit 1
-
           fi
 
-          echo "Gemini API Key found."
+          echo "GEMINI_API_KEY found."
 
 
-      # ================================================
+      # ======================================================
+      # GET LATEST REPOSITORY VERSION
+      # ======================================================
+
+      - name: Sync with latest repository
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
+
+      # ======================================================
       # UPDATE MOVIE NEWS
-      # ================================================
+      # ======================================================
 
       - name: Update movie news
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-
           python update_movie_news.py
 
 
-      # ================================================
+      # ======================================================
       # CHECK GENERATED NEWS
-      # ================================================
+      # ======================================================
 
       - name: Check generated news
         run: |
-
-          python - << 'PYTHON'
-
+          python - <<'PYTHON'
           import json
+          import os
 
+          filename = "movie-news.json"
 
-          with open(
-              "movie-news.json",
-              "r",
-              encoding="utf-8"
-          ) as file:
-
-              data = json.load(file)
-
-
-          items = data.get(
-              "items",
-              []
-          )
-
-
-          print(
-              "MOVIE NEWS:",
-              len(items)
-          )
-
-
-          if not items:
-
+          if not os.path.exists(filename):
               raise RuntimeError(
-                  "No movie news generated"
+                  "movie-news.json was not created"
               )
 
+          with open(
+              filename,
+              "r",
+              encoding="utf-8"
+          ) as f:
+              data = json.load(f)
 
-          print(
-              "Movie news generated successfully."
-          )
+          items = data.get("items", [])
 
+          print()
+          print("=================================")
+          print("MOVIE NEWS:", len(items))
+          print("=================================")
+          print()
+
+          if len(items) == 0:
+              raise RuntimeError(
+                  "No movie or series news generated"
+              )
+
+          for i, item in enumerate(items, 1):
+
+              title = item.get("title", "")
+              image = item.get("image", "")
+              summary = item.get("summary", "")
+
+              print(f"{i}. {title}")
+
+              if not image:
+                  raise RuntimeError(
+                      f"Article {i} has no image"
+                  )
+
+              if len(summary) < 120:
+                  raise RuntimeError(
+                      f"Article {i} summary is too short"
+                  )
           PYTHON
 
 
-      # ================================================
-      # COMMIT AND PUSH NEWS
-      # ================================================
+      # ======================================================
+      # COMMIT AND PUSH
+      # ======================================================
 
       - name: Commit and push news
         run: |
-
           git config user.name "MOVINS News Bot"
+          git config user.email "actions@github.com"
 
-          git config user.email "movins-bot@users.noreply.github.com"
-
-
-          # إضافة ملف الأخبار فقط
           git add movie-news.json
 
-
-          # التحقق من وجود تغييرات
           if git diff --cached --quiet; then
-
-            echo "No news changes."
-
+            echo "No changes to commit."
             exit 0
-
           fi
 
-
-          # إنشاء Commit
           git commit -m "Update MOVINS movie news"
 
-
-          # محاولة رفع التحديث
           git push origin main
 
 
-      # ================================================
-      # COMPLETE
-      # ================================================
+      # ======================================================
+      # JOB SUMMARY
+      # ======================================================
 
-      - name: Update completed
+      - name: Complete job
         run: |
-
-          echo "================================"
-          echo "MOVINS UPDATE COMPLETED"
-          echo "================================"
+          echo "================================="
+          echo "MOVINS NEWS UPDATE COMPLETED"
+          echo "================================="
