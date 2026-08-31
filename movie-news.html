@@ -3,862 +3,847 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta
-    name="description"
-    content="آخر أخبار الأفلام والمسلسلات والأعمال القادمة وتطورات السينما."
->
+    <meta
+        name="description"
+        content="آخر أخبار الأفلام والمسلسلات والأعمال القادمة وتطورات السينما."
+    >
 
-<meta
-    name="theme-color"
-    content="#07080d"
->
+    <meta
+        name="theme-color"
+        content="#07080d"
+    >
 
-<title>MOVINS — أخبار الأفلام</title>
+    <title>MOVINS — أخبار الأفلام</title>
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- FONTS -->
 
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
->
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
 
-<style>
 
-/* =====================================================
-   RESET
-===================================================== */
+    <style>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-html {
-    scroll-behavior: smooth;
-}
+        * {
 
-body {
+            box-sizing: border-box;
 
-    min-height: 100vh;
+            margin: 0;
 
-    font-family:
-        "Cairo",
-        Arial,
-        sans-serif;
+            padding: 0;
 
-    background:
+        }
 
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(255,16,24,0.12),
-            transparent 35%
-        ),
 
-        #07080d;
+        html {
 
-    color: #ffffff;
+            scroll-behavior: smooth;
 
-    overflow-x: hidden;
+        }
 
-}
 
+        body {
 
-/* =====================================================
-   HEADER
-===================================================== */
+            min-height: 100vh;
 
-header {
+            font-family:
 
-    position: sticky;
+                "Cairo",
+                Arial,
+                sans-serif;
 
-    top: 0;
+            background:
 
-    z-index: 1000;
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(255,16,24,0.12),
+                    transparent 35%
+                ),
 
-    background:
-        rgba(7,8,13,.96);
+                #07080d;
 
-    backdrop-filter:
-        blur(20px);
+            color: #ffffff;
 
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.07);
+            overflow-x: hidden;
 
-}
+        }
 
-.header-inner {
 
-    width:
-        min(
-            1400px,
-            calc(100% - 40px)
-        );
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
-    min-height: 82px;
+        header {
 
-    margin: auto;
+            position: sticky;
 
-    display: flex;
+            top: 0;
 
-    align-items: center;
+            z-index: 1000;
 
-    justify-content: space-between;
+            background:
 
-}
+                rgba(7,8,13,.94);
 
+            backdrop-filter:
 
-.logo {
+                blur(20px);
 
-    text-decoration: none;
+            border-bottom:
 
-    color: white;
+                1px solid
+                rgba(255,255,255,.07);
 
-    font-family:
-        Arial,
-        sans-serif;
+        }
 
-    font-size: 34px;
 
-    font-weight: 900;
+        .header-inner {
 
-    letter-spacing: -2px;
+            width:
 
-}
+                min(
+                    1400px,
+                    calc(100% - 40px)
+                );
 
-.logo .red {
+            min-height: 82px;
 
-    color: #ff1018;
+            margin: auto;
 
-}
+            display: flex;
 
+            align-items: center;
 
-.back-button {
+            justify-content: space-between;
 
-    text-decoration: none;
+        }
 
-    color: white;
 
-    background: #12151e;
+        /* =====================================================
+           LOGO
+        ===================================================== */
 
-    border:
-        1px solid #2a2e39;
+        .logo {
 
-    padding:
-        11px 20px;
+            text-decoration: none;
 
-    border-radius: 14px;
+            color: white;
 
-    font-size: 13px;
+            font-family:
 
-    font-weight: 800;
+                Arial,
+                sans-serif;
 
-    transition:
-        .25s ease;
+            font-size: 34px;
 
-}
+            font-weight: 900;
 
-.back-button:hover {
+            letter-spacing: -2px;
 
-    background: #ff1018;
+        }
 
-    border-color: #ff1018;
 
-}
+        .logo .red {
 
+            color: #ff1018;
 
-/* =====================================================
-   HERO
-===================================================== */
+        }
 
-.hero {
 
-    width:
-        min(
-            1100px,
-            calc(100% - 40px)
-        );
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
 
-    margin: auto;
+        .back-button {
 
-    padding:
-        75px 20px 50px;
+            text-decoration: none;
 
-    text-align: center;
+            color: white;
 
-}
+            background: #12151e;
 
+            border:
 
-.hero-label {
+                1px solid
+                #2a2e39;
 
-    color: #ff1018;
+            padding:
 
-    font-size: 13px;
+                10px 18px;
 
-    font-weight: 900;
+            border-radius: 12px;
 
-    letter-spacing: 3px;
+            font-size: 13px;
 
-    margin-bottom: 15px;
+            font-weight: 800;
 
-}
+            transition:
 
+                .25s ease;
 
-.hero h1 {
+        }
 
-    font-size:
-        clamp(
-            40px,
-            6vw,
-            68px
-        );
 
-    font-weight: 900;
+        .back-button:hover {
 
-    margin-bottom: 18px;
+            background: #ff1018;
 
-}
+            border-color: #ff1018;
 
+        }
 
-.hero h1 span {
 
-    color: #ff1018;
+        /* =====================================================
+           HERO
+        ===================================================== */
 
-}
+        .hero {
 
+            width:
 
-.hero p {
+                min(
+                    1400px,
+                    calc(100% - 40px)
+                );
 
-    max-width: 800px;
+            margin: auto;
 
-    margin: auto;
+            padding:
 
-    color: #9fa4b0;
+                70px 20px 45px;
 
-    font-size: 16px;
+            text-align: center;
 
-    line-height: 2;
+        }
 
-}
 
+        .hero-label {
 
-/* =====================================================
-   MAIN
-===================================================== */
+            color: #ff1018;
 
-main {
+            font-size: 13px;
 
-    width:
-        min(
-            1400px,
-            calc(100% - 40px)
-        );
+            font-weight: 900;
 
-    margin: auto;
+            letter-spacing: 2px;
 
-    padding:
-        30px 20px 100px;
+            margin-bottom: 12px;
 
-}
+        }
 
 
-/* =====================================================
-   SECTION HEADER
-===================================================== */
+        .hero h1 {
 
-.section-header {
+            font-size:
 
-    display: flex;
+                clamp(
+                    38px,
+                    6vw,
+                    68px
+                );
 
-    justify-content: space-between;
+            font-weight: 900;
 
-    align-items: center;
+            margin-bottom: 18px;
 
-    margin-bottom: 30px;
+        }
 
-    gap: 20px;
 
-}
+        .hero h1 span {
 
+            color: #ff1018;
 
-.section-title {
+        }
 
-    font-size: 30px;
 
-    font-weight: 900;
+        .hero p {
 
-}
+            max-width: 850px;
 
+            margin: auto;
 
-.news-count {
+            color: #9fa4b0;
 
-    color: #777d8b;
+            font-size: 16px;
 
-    font-size: 13px;
+            line-height: 2;
 
-}
+        }
 
 
-/* =====================================================
-   NEWS GRID
-===================================================== */
+        /* =====================================================
+           MAIN
+        ===================================================== */
 
-.news-grid {
+        main {
 
-    display: grid;
+            width:
 
-    grid-template-columns:
-        repeat(
-            3,
-            minmax(0,1fr)
-        );
+                min(
+                    1400px,
+                    calc(100% - 40px)
+                );
 
-    gap: 22px;
+            margin: auto;
 
-}
+            padding:
 
+                20px 20px 100px;
 
-/* =====================================================
-   NEWS CARD
-===================================================== */
+        }
 
-.news-card {
 
-    background: #10131b;
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
 
-    border:
-        1px solid #20242e;
+        .section-header {
 
-    border-radius: 20px;
+            display: flex;
 
-    overflow: hidden;
+            justify-content: space-between;
 
-    transition:
-        .3s ease;
+            align-items: center;
 
-}
+            margin-bottom: 30px;
 
+            gap: 20px;
 
-.news-card:hover {
+        }
 
-    transform:
-        translateY(-7px);
 
-    border-color:
-        rgba(255,16,24,.65);
+        .section-title {
 
-    box-shadow:
-        0 25px 60px
-        rgba(0,0,0,.45);
+            font-size: 30px;
 
-}
+            font-weight: 900;
 
+        }
 
-/* =====================================================
-   NEWS IMAGE
-===================================================== */
 
-.news-image-wrap {
+        .news-count {
 
-    position: relative;
+            color: #777d8b;
 
-    width: 100%;
+            font-size: 13px;
 
-    aspect-ratio:
-        16 / 9;
+        }
 
-    overflow: hidden;
 
-    background:
-        linear-gradient(
-            135deg,
-            #161b28,
-            #090b11
-        );
+        /* =====================================================
+           NEWS GRID
+        ===================================================== */
 
-}
+        .news-grid {
 
+            display: grid;
 
-/* الصورة */
+            grid-template-columns:
 
-.news-image {
+                repeat(
+                    3,
+                    minmax(0,1fr)
+                );
 
-    width: 100%;
+            gap: 22px;
 
-    height: 100%;
+        }
 
-    object-fit: cover;
 
-    display: block;
+        /* =====================================================
+           NEWS CARD
+        ===================================================== */
 
-    transition:
-        transform .4s ease;
+        .news-card {
 
-}
+            background: #10131b;
 
+            border:
 
-/* عند تحريك البطاقة */
+                1px solid
+                #20242e;
 
-.news-card:hover .news-image {
+            border-radius: 20px;
 
-    transform:
-        scale(1.05);
+            overflow: hidden;
 
-}
+            transition:
 
+                .3s ease;
 
-/* الصورة الافتراضية */
+        }
 
-.news-image-placeholder {
 
-    width: 100%;
+        .news-card:hover {
 
-    height: 100%;
+            transform:
 
-    display: flex;
+                translateY(-7px);
 
-    flex-direction: column;
+            border-color:
 
-    align-items: center;
+                rgba(255,16,24,.65);
 
-    justify-content: center;
+            box-shadow:
 
-    gap: 10px;
+                0 25px 60px
+                rgba(0,0,0,.45);
 
-    color: #747b8a;
+        }
 
-    background:
 
-        radial-gradient(
-            circle at center,
-            rgba(255,16,24,.10),
-            transparent 55%
-        ),
+        /* =====================================================
+           IMAGE
+        ===================================================== */
 
-        #0c0f16;
+        .news-image-wrap {
 
-}
+            position: relative;
 
+            width: 100%;
 
-.placeholder-logo {
+            aspect-ratio:
 
-    font-family: Arial;
+                16 / 9;
 
-    font-size: 30px;
+            overflow: hidden;
 
-    font-weight: 900;
+            background:
 
-    color: white;
+                linear-gradient(
+                    135deg,
+                    #0d1018,
+                    #171c27
+                );
 
-    letter-spacing: -2px;
+        }
 
-}
 
+        .news-image {
 
-.placeholder-logo span {
+            width: 100%;
 
-    color: #ff1018;
+            height: 100%;
 
-}
+            object-fit: cover;
 
+            display: block;
 
-.placeholder-text {
+            transition:
 
-    font-size: 11px;
+                transform .4s ease;
 
-    color: #717887;
+        }
 
-}
 
+        .news-card:hover .news-image {
 
-/* =====================================================
-   CATEGORY
-===================================================== */
+            transform:
 
-.news-category {
+                scale(1.06);
 
-    position: absolute;
+        }
 
-    top: 12px;
 
-    right: 12px;
+        /* =====================================================
+           IMAGE FALLBACK
+        ===================================================== */
 
-    background: #ff1018;
+        .image-placeholder {
 
-    color: white;
+            width: 100%;
 
-    padding:
-        6px 11px;
+            height: 100%;
 
-    border-radius: 8px;
+            display: flex;
 
-    font-size: 10px;
+            align-items: center;
 
-    font-weight: 900;
+            justify-content: center;
 
-    z-index: 5;
+            font-size: 55px;
 
-}
+            opacity: .55;
 
+        }
 
-/* =====================================================
-   NEWS CONTENT
-===================================================== */
 
-.news-content {
+        /* =====================================================
+           CATEGORY
+        ===================================================== */
 
-    padding: 20px;
+        .news-category {
 
-}
+            position: absolute;
 
+            top: 12px;
 
-.news-date {
+            right: 12px;
 
-    color: #777d8b;
+            background: #ff1018;
 
-    font-size: 11px;
+            color: white;
 
-    margin-bottom: 8px;
+            padding:
 
-}
+                6px 11px;
 
+            border-radius: 8px;
 
-.news-title {
+            font-size: 10px;
 
-    font-size: 19px;
+            font-weight: 900;
 
-    line-height: 1.7;
+            box-shadow:
 
-    font-weight: 900;
+                0 8px 25px
+                rgba(0,0,0,.25);
 
-    margin-bottom: 10px;
+        }
 
-}
 
+        /* =====================================================
+           NEWS CONTENT
+        ===================================================== */
 
-.news-description {
+        .news-content {
 
-    color: #a7abb6;
+            padding: 20px;
 
-    font-size: 13px;
+        }
 
-    line-height: 2;
 
-}
+        /* =====================================================
+           META
+        ===================================================== */
 
+        .news-meta {
 
-/* =====================================================
-   SOURCE BUTTON
-===================================================== */
+            display: flex;
 
-.news-source {
+            align-items: center;
 
-    display: inline-flex;
+            justify-content: space-between;
 
-    align-items: center;
+            gap: 10px;
 
-    margin-top: 18px;
+            margin-bottom: 10px;
 
-    color: white;
+            color: #777d8b;
 
-    background:
-        rgba(255,16,24,.12);
+            font-size: 11px;
 
-    border:
-        1px solid
-        rgba(255,16,24,.35);
+        }
 
-    padding:
-        8px 13px;
 
-    border-radius: 9px;
+        .news-source-name {
 
-    text-decoration: none;
+            color: #ff3037;
 
-    font-size: 11px;
+            font-weight: 800;
 
-    font-weight: 800;
+        }
 
-    transition:
-        .25s ease;
 
-}
+        /* =====================================================
+           TITLE
+        ===================================================== */
 
+        .news-title {
 
-.news-source:hover {
+            font-size: 19px;
 
-    background: #ff1018;
+            line-height: 1.7;
 
-    border-color: #ff1018;
+            font-weight: 900;
 
-}
+            margin-bottom: 10px;
 
+        }
 
-/* =====================================================
-   STATES
-===================================================== */
 
-.state {
+        /* =====================================================
+           DESCRIPTION
+        ===================================================== */
 
-    grid-column:
-        1 / -1;
+        .news-description {
 
-    text-align: center;
+            color: #a7abb6;
 
-    padding:
-        100px 20px;
+            font-size: 13px;
 
-    color: #818794;
+            line-height: 2;
 
-}
+            display: -webkit-box;
 
+            -webkit-line-clamp: 3;
 
-.state-icon {
+            -webkit-box-orient: vertical;
 
-    font-size: 48px;
+            overflow: hidden;
 
-    margin-bottom: 15px;
+        }
 
-}
 
+        /* =====================================================
+           SOURCE LINK
+        ===================================================== */
 
-.state h3 {
+        .news-source {
 
-    color: white;
+            display: inline-flex;
 
-    margin-bottom: 8px;
+            align-items: center;
 
-}
+            gap: 6px;
 
+            margin-top: 17px;
 
-/* =====================================================
-   FOOTER
-===================================================== */
+            color: #ff3037;
 
-footer {
+            text-decoration: none;
 
-    text-align: center;
+            font-size: 12px;
 
-    border-top:
-        1px solid #1d2028;
+            font-weight: 800;
 
-    padding:
-        40px 20px;
+            transition:
 
-    color: #656b77;
+                .2s ease;
 
-    font-size: 13px;
+        }
 
-}
 
-footer strong {
+        .news-source:hover {
 
-    color: white;
+            color: white;
 
-    font-family: Arial;
+        }
 
-    font-size: 24px;
 
-}
+        /* =====================================================
+           STATES
+        ===================================================== */
 
-footer .red {
+        .state {
 
-    color: #ff1018;
+            grid-column:
 
-}
+                1 / -1;
 
+            text-align: center;
 
-/* =====================================================
-   TABLET
-===================================================== */
+            padding:
 
-@media (max-width:900px) {
+                100px 20px;
 
-    .news-grid {
+            color: #818794;
 
-        grid-template-columns:
-            repeat(
-                2,
-                minmax(0,1fr)
-            );
+        }
 
-    }
 
-}
+        .state-icon {
 
+            font-size: 50px;
 
-/* =====================================================
-   MOBILE
-===================================================== */
+            margin-bottom: 15px;
 
-@media (max-width:600px) {
+        }
 
-    header {
 
-        position: relative;
+        .state h3 {
 
-    }
+            color: white;
 
+            margin-bottom: 8px;
 
-    .header-inner {
+        }
 
-        width:
-            calc(100% - 24px);
 
-        min-height: 72px;
+        /* =====================================================
+           FOOTER
+        ===================================================== */
 
-    }
+        footer {
 
+            text-align: center;
 
-    .logo {
+            border-top:
 
-        font-size: 28px;
+                1px solid #1d2028;
 
-    }
+            padding:
 
+                40px 20px;
 
-    .back-button {
+            color: #656b77;
 
-        padding:
-            9px 13px;
+            font-size: 13px;
 
-        font-size: 11px;
+        }
 
-        border-radius: 12px;
 
-    }
+        footer strong {
 
+            color: white;
 
-    .hero {
+            font-family: Arial;
 
-        width:
-            calc(100% - 24px);
+            font-size: 24px;
 
-        padding:
-            45px 5px 30px;
+        }
 
-    }
 
+        footer .red {
 
-    .hero-label {
+            color: #ff1018;
 
-        font-size: 11px;
+        }
 
-        letter-spacing: 2px;
 
-    }
+        /* =====================================================
+           MOBILE
+        ===================================================== */
 
+        @media (max-width: 900px) {
 
-    .hero h1 {
+            .news-grid {
 
-        font-size: 42px;
+                grid-template-columns:
 
-        line-height: 1.3;
+                    repeat(
+                        2,
+                        minmax(0,1fr)
+                    );
 
-    }
+            }
 
+        }
 
-    .hero p {
 
-        font-size: 13px;
+        @media (max-width: 600px) {
 
-        line-height: 2;
+            .header-inner {
 
-    }
+                width:
 
+                    calc(
+                        100% - 24px
+                    );
 
-    main {
+            }
 
-        width:
-            calc(100% - 24px);
 
-        padding:
-            20px 0 70px;
+            .logo {
 
-    }
+                font-size: 28px;
 
+            }
 
-    .section-header {
 
-        flex-direction: row;
+            .back-button {
 
-        align-items: center;
+                padding:
 
-        margin-bottom: 20px;
+                    8px 12px;
 
-    }
+                font-size: 11px;
 
+            }
 
-    .section-title {
 
-        font-size: 24px;
+            .hero {
 
-    }
+                width:
 
+                    calc(
+                        100% - 24px
+                    );
 
-    .news-count {
+                padding:
 
-        font-size: 11px;
+                    45px 10px 30px;
 
-    }
+            }
 
 
-    .news-grid {
+            .hero p {
 
-        grid-template-columns:
-            1fr;
+                font-size: 13px;
 
-        gap: 16px;
+            }
 
-    }
 
+            main {
 
-    .news-card {
+                width:
 
-        border-radius: 18px;
+                    calc(
+                        100% - 24px
+                    );
 
-    }
+                padding:
 
+                    15px 0 70px;
 
-    .news-content {
+            }
 
-        padding: 17px;
 
-    }
+            .section-header {
 
+                flex-direction: column;
 
-    .news-title {
+                align-items: center;
 
-        font-size: 18px;
+                text-align: center;
 
-    }
+            }
 
 
-    .news-description {
+            .news-grid {
 
-        font-size: 12px;
+                grid-template-columns:
 
-    }
+                    1fr;
 
-}
+                gap: 15px;
 
-</style>
+            }
+
+
+            .news-title {
+
+                font-size: 17px;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -872,27 +857,32 @@ footer .red {
 
 <header>
 
-<div class="header-inner">
-
-<a
-    href="./"
-    class="logo"
->
-    MOV<span class="red">INS</span>
-</a>
+    <div class="header-inner">
 
 
-<a
-    href="./"
-    class="back-button"
->
-    ← العودة إلى الأفلام
-</a>
+        <a
+            href="./"
+            class="logo"
+        >
 
-</div>
+            MOV<span class="red">INS</span>
+
+        </a>
+
+
+        <a
+            href="./"
+            class="back-button"
+        >
+
+            ← العودة إلى الأفلام
+
+        </a>
+
+
+    </div>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -901,34 +891,35 @@ footer .red {
 
 <section class="hero">
 
-<div class="hero-label">
-    MOVINS • MOVIE NEWS
-</div>
+
+    <div class="hero-label">
+
+        MOVINS • MOVIE NEWS
+
+    </div>
 
 
-<h1>
+    <h1>
 
-    آخر
+        آخر
 
-    <span>
-        أخبار الأفلام
-    </span>
+        <span>
+            أخبار الأفلام
+        </span>
 
-</h1>
+    </h1>
 
 
-<p>
+    <p>
 
-    تابع أحدث أخبار السينما،
-    الأفلام والمسلسلات القادمة،
-    تطورات الإنتاج،
-    أخبار النجوم،
-    والإعلانات الرسمية الجديدة.
+        تابع أحدث أخبار السينما والأفلام والمسلسلات القادمة،
+        تطورات الإنتاج، أخبار النجوم، الإعلانات الرسمية
+        وكل جديد في عالم الترفيه.
 
-</p>
+    </p>
+
 
 </section>
-
 
 
 <!-- =====================================================
@@ -938,52 +929,68 @@ footer .red {
 <main>
 
 
-<div class="section-header">
-
-<h2 class="section-title">
-
-    📰 أحدث الأخبار
-
-</h2>
+    <div class="section-header">
 
 
-<div
-    id="newsCount"
-    class="news-count"
->
-    جاري تحميل الأخبار...
-</div>
+        <h2 class="section-title">
 
-</div>
+            📰 أحدث الأخبار
+
+        </h2>
 
 
+        <div
+            id="newsCount"
+            class="news-count"
+        >
 
-<section
-    id="newsGrid"
-    class="news-grid"
->
+            جاري تحميل الأخبار...
 
-<div class="state">
+        </div>
 
-<div class="state-icon">
-    📰
-</div>
 
-<h3>
-    جاري تحميل الأخبار...
-</h3>
+    </div>
 
-<p>
-    لحظات فقط
-</p>
 
-</div>
+    <!-- NEWS GRID -->
 
-</section>
+    <section
+        id="newsGrid"
+        class="news-grid"
+    >
+
+
+        <div class="state">
+
+
+            <div class="state-icon">
+
+                📰
+
+            </div>
+
+
+            <h3>
+
+                جاري تحميل الأخبار...
+
+            </h3>
+
+
+            <p>
+
+                لحظات فقط
+
+            </p>
+
+
+        </div>
+
+
+    </section>
 
 
 </main>
-
 
 
 <!-- =====================================================
@@ -992,22 +999,27 @@ footer .red {
 
 <footer>
 
-<strong>
 
-    MOV<span class="red">INS</span>
+    <strong>
 
-</strong>
+        MOV<span class="red">INS</span>
+
+    </strong>
 
 
-<p style="margin-top:10px;">
+    <p style="margin-top:10px;">
 
-    أخبار الأفلام والمسلسلات في مكان واحد.
+        أخبار الأفلام والمسلسلات في مكان واحد.
 
-</p>
+    </p>
+
 
 </footer>
 
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script>
 
@@ -1017,12 +1029,14 @@ footer .red {
 ===================================================== */
 
 const newsGrid =
+
     document.getElementById(
         "newsGrid"
     );
 
 
 const newsCount =
+
     document.getElementById(
         "newsCount"
     );
@@ -1035,44 +1049,126 @@ const newsCount =
 
 function escapeHtml(value) {
 
+
     return String(
+
         value || ""
+
     )
 
     .replaceAll(
+
         "&",
+
         "&amp;"
+
     )
 
     .replaceAll(
+
         "<",
+
         "&lt;"
+
     )
 
     .replaceAll(
+
         ">",
+
         "&gt;"
+
     )
 
     .replaceAll(
+
         '"',
+
         "&quot;"
+
     )
 
     .replaceAll(
+
         "'",
+
         "&#039;"
+
     );
 
 }
 
 
 
+/* =====================================================
+   ESCAPE ATTRIBUTE
+===================================================== */
+
 function escapeAttribute(value) {
 
-    return escapeHtml(
-        value
-    );
+    return escapeHtml(value);
+
+}
+
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(dateValue) {
+
+
+    if (!dateValue) {
+
+        return "";
+
+    }
+
+
+    try {
+
+
+        const date = new Date(
+            dateValue
+        );
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return dateValue;
+
+        }
+
+
+        return date.toLocaleDateString(
+
+            "ar",
+
+            {
+
+                year: "numeric",
+
+                month: "long",
+
+                day: "numeric"
+
+            }
+
+        );
+
+
+    }
+
+    catch (error) {
+
+        return dateValue;
+
+    }
 
 }
 
@@ -1084,17 +1180,22 @@ function escapeAttribute(value) {
 
 async function loadNews() {
 
+
     try {
 
+
         const response =
+
             await fetch(
 
                 "movie-news.json?t=" +
                 Date.now(),
 
                 {
+
                     cache:
                         "no-store"
+
                 }
 
             );
@@ -1102,9 +1203,11 @@ async function loadNews() {
 
         if (!response.ok) {
 
+
             throw new Error(
 
                 "movie-news.json HTTP " +
+
                 response.status
 
             );
@@ -1113,10 +1216,12 @@ async function loadNews() {
 
 
         const data =
+
             await response.json();
 
 
         const items =
+
             Array.isArray(
                 data.items
             )
@@ -1135,36 +1240,54 @@ async function loadNews() {
         );
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
+
 
         console.error(
+
             "MOVINS NEWS ERROR:",
+
             error
+
         );
 
 
         newsGrid.innerHTML = `
 
-        <div class="state">
+            <div class="state">
 
-            <div class="state-icon">
-                ⚠️
+                <div class="state-icon">
+
+                    ⚠️
+
+                </div>
+
+
+                <h3>
+
+                    تعذر تحميل الأخبار
+
+                </h3>
+
+
+                <p>
+
+                    تأكد من وجود ملف
+                    movie-news.json
+
+                    ثم أعد المحاولة.
+
+                </p>
+
             </div>
-
-            <h3>
-                لا توجد أخبار متاحة حاليًا
-            </h3>
-
-            <p>
-                تعذر تحميل ملف الأخبار.
-            </p>
-
-        </div>
 
         `;
 
 
         newsCount.textContent =
+
             "تعذر تحميل الأخبار";
 
     }
@@ -1179,31 +1302,53 @@ async function loadNews() {
 
 function renderNews(items) {
 
+
     newsCount.textContent =
-        `${items.length} خبر متاح`;
+
+        items.length
+
+        ?
+
+        `${items.length} خبر متاح`
+
+        :
+
+        "لا توجد أخبار حاليًا";
 
 
     if (!items.length) {
 
+
         newsGrid.innerHTML = `
 
-        <div class="state">
+            <div class="state">
 
-            <div class="state-icon">
-                📰
+
+                <div class="state-icon">
+
+                    📰
+
+                </div>
+
+
+                <h3>
+
+                    لا توجد أخبار حاليًا
+
+                </h3>
+
+
+                <p>
+
+                    سيتم إضافة أخبار جديدة قريبًا.
+
+                </p>
+
+
             </div>
 
-            <h3>
-                لا توجد أخبار حاليًا
-            </h3>
-
-            <p>
-                سيتم إضافة أخبار جديدة قريبًا.
-            </p>
-
-        </div>
-
         `;
+
 
         return;
 
@@ -1211,56 +1356,16 @@ function renderNews(items) {
 
 
     newsGrid.innerHTML =
+
         items
+
         .map(
             createNewsCard
         )
+
         .join("");
 
-}
 
-
-
-/* =====================================================
-   IMAGE FALLBACK
-===================================================== */
-
-function imageFallback(element) {
-
-    const wrapper =
-        element.parentElement;
-
-
-    element.remove();
-
-
-    const placeholder =
-        document.createElement(
-            "div"
-        );
-
-
-    placeholder.className =
-        "news-image-placeholder";
-
-
-    placeholder.innerHTML = `
-
-        <div class="placeholder-logo">
-            MOV<span>INS</span>
-        </div>
-
-        <div class="placeholder-text">
-            MOVIE NEWS
-        </div>
-
-    `;
-
-
-    wrapper.insertBefore(
-        placeholder,
-        wrapper.firstChild
-    );
 
 }
 
@@ -1272,174 +1377,290 @@ function imageFallback(element) {
 
 function createNewsCard(item) {
 
+
     const title =
+
         escapeHtml(
-            item.title
+
+            item.title ||
+
+            "بدون عنوان"
+
         );
 
 
     const description =
+
         escapeHtml(
-            item.description
+
+            item.description ||
+
+            "لا يوجد وصف متاح لهذا الخبر."
+
         );
 
 
     const image =
-        item.image || "";
+
+        item.image ||
+
+        "";
 
 
     const category =
+
         escapeHtml(
+
             item.category ||
+
             "أخبار الأفلام"
+
         );
 
 
     const date =
+
         escapeHtml(
-            item.date ||
-            ""
+
+            formatDate(
+
+                item.date
+
+            )
+
+        );
+
+
+    const source =
+
+        escapeHtml(
+
+            item.source ||
+
+            "MOVINS"
+
         );
 
 
     const url =
-        item.url || "";
+
+        item.url ||
+
+        "";
 
 
-    const imageHtml =
+    let imageHtml = "";
 
-        image
 
-        ?
+    if (image) {
 
-        `
 
-        <img
+        imageHtml = `
 
-            class="news-image"
+            <img
 
-            src="${escapeAttribute(image)}"
+                class="news-image"
 
-            alt="${escapeAttribute(title)}"
+                src="${escapeAttribute(image)}"
 
-            loading="lazy"
+                alt="${escapeAttribute(title)}"
 
-            onerror="imageFallback(this)"
+                loading="lazy"
 
-        >
+                referrerpolicy="no-referrer"
 
-        `
+                onerror="this.remove(); this.parentElement.querySelector('.image-placeholder').style.display='flex';"
 
-        :
+            >
 
-        `
+            <div
 
-        <div
-            class="news-image-placeholder"
-        >
+                class="image-placeholder"
 
-            <div class="placeholder-logo">
-                MOV<span>INS</span>
+                style="display:none;"
+
+            >
+
+                🎬
+
             </div>
-
-            <div class="placeholder-text">
-                MOVIE NEWS
-            </div>
-
-        </div>
 
         `;
 
 
+    }
+
+    else {
+
+
+        imageHtml = `
+
+            <div
+
+                class="image-placeholder"
+
+            >
+
+                🎬
+
+            </div>
+
+        `;
+
+    }
+
+
+
     return `
 
-    <article
-        class="news-card"
-    >
 
+        <article
 
-        <div
-            class="news-image-wrap"
-        >
+            class="news-card"
 
-            ${imageHtml}
-
-
-            <div
-                class="news-category"
-            >
-                ${category}
-            </div>
-
-        </div>
-
-
-
-        <div
-            class="news-content"
         >
 
 
+            <!-- IMAGE -->
+
             <div
-                class="news-date"
+
+                class="news-image-wrap"
+
             >
-                ${date}
-            </div>
 
 
-
-            <h2
-                class="news-title"
-            >
-                ${title}
-            </h2>
+                ${imageHtml}
 
 
+                <div
 
-            <p
-                class="news-description"
-            >
-                ${description}
-            </p>
-
-
-
-            ${
-                url
-
-                ?
-
-                `
-
-                <a
-
-                    class="news-source"
-
-                    href="${escapeAttribute(url)}"
-
-                    target="_blank"
-
-                    rel="noopener noreferrer"
+                    class="news-category"
 
                 >
-                    اقرأ المصدر ←
-                </a>
 
-                `
+                    ${category}
 
-                :
-
-                ""
-
-            }
+                </div>
 
 
-        </div>
+            </div>
 
 
-    </article>
+
+            <!-- CONTENT -->
+
+            <div
+
+                class="news-content"
+
+            >
+
+
+                <!-- META -->
+
+                <div
+
+                    class="news-meta"
+
+                >
+
+
+                    <span>
+
+                        ${date}
+
+                    </span>
+
+
+                    <span
+
+                        class="news-source-name"
+
+                    >
+
+                        ${source}
+
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- TITLE -->
+
+                <h2
+
+                    class="news-title"
+
+                >
+
+                    ${title}
+
+                </h2>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <p
+
+                    class="news-description"
+
+                >
+
+                    ${description}
+
+                </p>
+
+
+
+                <!-- LINK -->
+
+                ${
+
+                    url
+
+                    ?
+
+                    `
+
+                    <a
+
+                        class="news-source"
+
+                        href="${escapeAttribute(url)}"
+
+                        target="_blank"
+
+                        rel="noopener noreferrer"
+
+                    >
+
+                        قراءة الخبر
+
+                        ←
+
+                    </a>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+            </div>
+
+
+        </article>
+
 
     `;
+
 
 }
 
