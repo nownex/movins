@@ -1,120 +1,121 @@
 import json
 import re
 import html
+import time
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 
-import feedparser
 import requests
-from bs4 import BeautifulSoup
+import feedparser
 
 
 # =========================================================
 # MOVINS — MOVIE NEWS ENGINE
 # =========================================================
 
+OUTPUT_FILE = "movie-news.json"
 
 MAX_ARTICLES = 30
 
+TIMEOUT = 20
 
-SOURCES = [
+
+# =========================================================
+# RSS SOURCES
+# =========================================================
+
+FEEDS = [
 
     {
         "name": "Variety",
-        "feed": "https://variety.com/v/film/feed/",
-        "category": "أخبار الأفلام"
-    },
-
-    {
-        "name": "Deadline",
-        "feed": "https://deadline.com/feed/",
-        "category": "أخبار السينما"
+        "category": "أخبار السينما",
+        "url": "https://variety.com/feed/"
     },
 
     {
         "name": "The Hollywood Reporter",
-        "feed": "https://www.hollywoodreporter.com/topic/movies/feed/",
-        "category": "هوليوود"
+        "category": "أخبار السينما",
+        "url": "https://www.hollywoodreporter.com/feed/"
     },
 
     {
         "name": "IndieWire",
-        "feed": "https://www.indiewire.com/feed/",
-        "category": "أفلام ومسلسلات"
+        "category": "أخبار الأفلام",
+        "url": "https://www.indiewire.com/feed/"
     },
 
     {
-        "name": "ComingSoon",
-        "feed": "https://www.comingsoon.net/feed",
-        "category": "أفلام ومسلسلات"
-    }
+        "name": "Collider",
+        "category": "أفلام ومسلسلات",
+        "url": "https://collider.com/feed/"
+    },
 
 ]
 
 
 # =========================================================
-# HEADERS
+# SESSION
 # =========================================================
 
+session = requests.Session()
 
-HEADERS = {
-
-    "User-Agent":
-
-    "Mozilla/5.0 "
-    "(Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 "
-    "(KHTML, like Gecko) "
-    "Chrome/120.0 Safari/537.36"
-
-}
+session.headers.update(
+    {
+        "User-Agent": (
+            "Mozilla/5.0 "
+            "(Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 "
+            "(KHTML, like Gecko) "
+            "Chrome/124.0 Safari/537.36"
+        )
+    }
+)
 
 
 # =========================================================
-# CLEAN TEXT
+# CLEAN HTML
 # =========================================================
 
+def clean_text(value):
 
-def clean_text(text):
-
-    if not text:
+    if not value:
         return ""
 
-    text = html.unescape(text)
+    value = html.unescape(str(value))
 
-    soup = BeautifulSoup(
-        text,
-        "html.parser"
-    )
-
-    text = soup.get_text(
+    value = re.sub(
+        r"<[^>]+>",
         " ",
-        strip=True
+        value
     )
 
-    text = re.sub(
+    value = re.sub(
         r"\s+",
         " ",
-        text
+        value
     )
 
-    return text.strip()
+    return value.strip()
 
 
 # =========================================================
-# GET IMAGE FROM RSS
+# EXTRACT IMAGE FROM RSS
 # =========================================================
 
+def get_entry_image(entry):
 
-def get_image(entry):
+    # -----------------------------------------------------
+    # media_content
+    # -----------------------------------------------------
 
-    # RSS media content
+    media_content = entry.get(
+        "media_content",
+        []
+    )
 
-    if hasattr(
-        entry,
-        "media_content"
-    ):
+    if media_content:
 
-        for media in entry.media_content:
+        for media in media_content:
 
             url = media.get(
                 "url"
@@ -125,14 +126,18 @@ def get_image(entry):
                 return url
 
 
-    # RSS media thumbnail
+    # -----------------------------------------------------
+    # media_thumbnail
+    # -----------------------------------------------------
 
-    if hasattr(
-        entry,
-        "media_thumbnail"
-    ):
+    media_thumbnail = entry.get(
+        "media_thumbnail",
+        []
+    )
 
-        for media in entry.media_thumbnail:
+    if media_thumbnail:
+
+        for media in media_thumbnail:
 
             url = media.get(
                 "url"
@@ -143,199 +148,273 @@ def get_image(entry):
                 return url
 
 
-    # Enclosures
+    # -----------------------------------------------------
+    # enclosures
+    # -----------------------------------------------------
 
-    if hasattr(
-        entry,
-        "enclosures"
-    ):
+    enclosures = entry.get(
+        "enclosures",
+        []
+    )
 
-        for enclosure in entry.enclosures:
+    if enclosures:
+
+        for enclosure in enclosures:
+
+            enclosure_type = str(
+                enclosure.get(
+                    "type",
+                    ""
+                )
+            ).lower()
 
             url = enclosure.get(
                 "href"
             )
 
-            media_type = enclosure.get(
-                "type",
-                ""
-            )
-
             if (
                 url
                 and
-                "image" in media_type
+                "image" in enclosure_type
             ):
 
                 return url
 
 
-    # Find image inside HTML summary
+    # -----------------------------------------------------
+    # LINKS
+    # -----------------------------------------------------
 
-    content = ""
+    links = entry.get(
+        "links",
+        []
+    )
 
-    if hasattr(
-        entry,
-        "summary"
-    ):
+    for link in links:
 
-        content = entry.summary
-
-
-    elif hasattr(
-        entry,
-        "description"
-    ):
-
-        content = entry.description
-
-
-    if content:
-
-        soup = BeautifulSoup(
-            content,
-            "html.parser"
-        )
-
-        image = soup.find(
-            "img"
-        )
-
-        if image:
-
-            src = image.get(
-                "src"
+        link_type = str(
+            link.get(
+                "type",
+                ""
             )
+        ).lower()
 
-            if src:
+        href = link.get(
+            "href"
+        )
 
-                return src
+        if (
+            href
+            and
+            "image" in link_type
+        ):
+
+            return href
 
 
     return ""
 
 
 # =========================================================
-# GET DATE
+# PARSE DATE
 # =========================================================
 
+def parse_date(entry):
 
-def get_date(entry):
-
-    date_struct = None
-
-
-    if hasattr(
-        entry,
-        "published_parsed"
-    ):
-
-        date_struct = entry.published_parsed
-
-
-    elif hasattr(
-        entry,
-        "updated_parsed"
-    ):
-
-        date_struct = entry.updated_parsed
-
-
-    if date_struct:
-
-        try:
-
-            dt = datetime(
-                *date_struct[:6],
-                tzinfo=timezone.utc
-            )
-
-            return dt.strftime(
-                "%Y-%m-%d"
-            )
-
-        except Exception:
-
-            pass
-
-
-    return datetime.now(
-        timezone.utc
-    ).strftime(
-        "%Y-%m-%d"
+    published = (
+        entry.get("published")
+        or
+        entry.get("updated")
+        or
+        ""
     )
 
 
+    if not published:
+
+        return datetime.now(
+            timezone.utc
+        ).isoformat()
+
+
+    try:
+
+        date = parsedate_to_datetime(
+            published
+        )
+
+        if date.tzinfo is None:
+
+            date = date.replace(
+                tzinfo=timezone.utc
+            )
+
+        return date.isoformat()
+
+
+    except Exception:
+
+        return datetime.now(
+            timezone.utc
+        ).isoformat()
+
+
 # =========================================================
-# GET DESCRIPTION
+# CREATE ARTICLE
 # =========================================================
 
+def create_article(
+    entry,
+    source
+):
 
-def get_description(entry):
+    title = clean_text(
+        entry.get(
+            "title",
+            ""
+        )
+    )
 
-    text = ""
+
+    description = clean_text(
+
+        entry.get(
+            "summary",
+            ""
+        )
+
+        or
+
+        entry.get(
+            "description",
+            ""
+        )
+
+    )
 
 
-    if hasattr(
-        entry,
-        "summary"
-    ):
+    url = (
 
-        text = clean_text(
-            entry.summary
+        entry.get(
+            "link",
+            ""
+        )
+
+        or
+
+        entry.get(
+            "id",
+            ""
+        )
+
+    )
+
+
+    image = get_entry_image(
+        entry
+    )
+
+
+    date = parse_date(
+        entry
+    )
+
+
+    if not title:
+
+        return None
+
+
+    # Avoid very short articles
+
+    if len(title) < 5:
+
+        return None
+
+
+    if not description:
+
+        description = (
+            "تابع آخر التطورات والأخبار "
+            "المتعلقة بعالم السينما والأفلام."
         )
 
 
-    elif hasattr(
-        entry,
-        "description"
-    ):
+    return {
 
-        text = clean_text(
-            entry.description
-        )
+        "title":
+            title,
 
+        "description":
+            description[:500],
 
-    # Limit description
+        "image":
+            image,
 
-    if len(text) > 280:
+        "category":
+            source["category"],
 
-        text = (
-            text[:277]
-            +
-            "..."
-        )
+        "date":
+            date,
 
+        "published_at":
+            date,
 
-    return text
+        "source":
+            source["name"],
+
+        "url":
+            url
+
+    }
 
 
 # =========================================================
-# FETCH RSS
+# DOWNLOAD RSS
 # =========================================================
-
 
 def fetch_feed(source):
 
+    print()
+
     print(
-        f"Fetching: {source['name']}"
+        "=" * 60
+    )
+
+    print(
+        "SOURCE:",
+        source["name"]
+    )
+
+    print(
+        source["url"]
+    )
+
+    print(
+        "=" * 60
     )
 
 
     try:
 
-        response = requests.get(
+        response = session.get(
 
-            source["feed"],
+            source["url"],
 
-            headers=HEADERS,
-
-            timeout=20
+            timeout=TIMEOUT
 
         )
 
 
-        response.raise_for_status()
+        print(
+            "STATUS:",
+            response.status_code
+        )
+
+
+        if response.status_code != 200:
+
+            return []
 
 
         feed = feedparser.parse(
@@ -343,80 +422,33 @@ def fetch_feed(source):
         )
 
 
-        articles = []
-
-
-        for entry in feed.entries:
-
-            title = clean_text(
-                entry.get(
-                    "title",
-                    ""
-                )
-            )
-
-
-            url = entry.get(
-                "link",
-                ""
-            )
-
-
-            if not title or not url:
-
-                continue
-
-
-            description = (
-                get_description(
-                    entry
-                )
-            )
-
-
-            image = get_image(
-                entry
-            )
-
-
-            date = get_date(
-                entry
-            )
-
-
-            article = {
-
-                "title": title,
-
-                "description":
-                    description,
-
-                "image":
-                    image,
-
-                "category":
-                    source["category"],
-
-                "date":
-                    date,
-
-                "source":
-                    source["name"],
-
-                "url":
-                    url
-
-            }
-
-
-            articles.append(
-                article
-            )
+        entries = feed.entries
 
 
         print(
-            f"  Found {len(articles)} articles"
+            "ARTICLES FOUND:",
+            len(entries)
         )
+
+
+        articles = []
+
+
+        for entry in entries:
+
+            article = create_article(
+
+                entry,
+                source
+
+            )
+
+
+            if article:
+
+                articles.append(
+                    article
+                )
 
 
         return articles
@@ -425,7 +457,8 @@ def fetch_feed(source):
     except Exception as error:
 
         print(
-            f"ERROR {source['name']}: {error}"
+            "ERROR:",
+            error
         )
 
         return []
@@ -435,21 +468,41 @@ def fetch_feed(source):
 # REMOVE DUPLICATES
 # =========================================================
 
-
-def remove_duplicates(articles):
+def remove_duplicates(items):
 
     unique = []
 
     seen = set()
 
 
-    for article in articles:
+    for item in items:
 
-        key = (
+        title = (
 
-            article["title"]
+            item.get(
+                "title",
+                ""
+            )
+
             .lower()
+
             .strip()
+
+        )
+
+
+        if not title:
+
+            continue
+
+
+        key = re.sub(
+
+            r"[^a-z0-9]+",
+
+            "",
+
+            title
 
         )
 
@@ -465,7 +518,7 @@ def remove_duplicates(articles):
 
 
         unique.append(
-            article
+            item
         )
 
 
@@ -473,76 +526,116 @@ def remove_duplicates(articles):
 
 
 # =========================================================
-# MAIN
+# SORT ARTICLES
 # =========================================================
 
+def sort_articles(items):
 
-def main():
+    def get_date(item):
 
-    all_articles = []
-
-
-    for source in SOURCES:
-
-        articles = fetch_feed(
-            source
-        )
-
-        all_articles.extend(
-            articles
-        )
-
-
-    # Remove duplicate titles
-
-    all_articles = remove_duplicates(
-        all_articles
-    )
-
-
-    # Sort by date
-
-    all_articles.sort(
-
-        key=lambda item:
-        item.get(
+        value = item.get(
             "date",
             ""
-        ),
+        )
+
+
+        try:
+
+            return datetime.fromisoformat(
+                value.replace(
+                    "Z",
+                    "+00:00"
+                )
+            )
+
+
+        except Exception:
+
+            return datetime.min.replace(
+                tzinfo=timezone.utc
+            )
+
+
+    return sorted(
+
+        items,
+
+        key=get_date,
 
         reverse=True
 
     )
 
 
-    # Keep only latest articles
+# =========================================================
+# LOAD OLD NEWS
+# =========================================================
 
-    all_articles = (
-        all_articles[
-            :MAX_ARTICLES
-        ]
-    )
+def load_old_news():
 
+    try:
+
+        with open(
+
+            OUTPUT_FILE,
+
+            "r",
+
+            encoding="utf-8"
+
+        ) as file:
+
+            data = json.load(
+                file
+            )
+
+
+        items = data.get(
+            "items",
+            []
+        )
+
+
+        if isinstance(
+            items,
+            list
+        ):
+
+            return items
+
+
+    except Exception:
+
+        pass
+
+
+    return []
+
+
+# =========================================================
+# SAVE JSON
+# =========================================================
+
+def save_news(items):
 
     data = {
 
         "updated_at":
 
-        datetime.now(
-            timezone.utc
-        ).isoformat(),
-
+            datetime.now(
+                timezone.utc
+            ).isoformat(),
 
         "items":
 
-        all_articles
+            items
 
     }
 
 
     with open(
 
-        "movie-news.json",
+        OUTPUT_FILE,
 
         "w",
 
@@ -563,24 +656,157 @@ def main():
         )
 
 
+# =========================================================
+# MAIN
+# =========================================================
+
+def main():
+
     print()
 
     print(
-        "=============================="
+        "=" * 60
     )
 
     print(
-        f"SUCCESS: {len(all_articles)} articles saved"
+        "MOVINS MOVIE NEWS ENGINE"
     )
 
     print(
-        "movie-news.json updated"
+        "=" * 60
+    )
+
+
+    all_articles = []
+
+
+    # -----------------------------------------------------
+    # GET NEW ARTICLES
+    # -----------------------------------------------------
+
+    for source in FEEDS:
+
+        articles = fetch_feed(
+            source
+        )
+
+
+        all_articles.extend(
+            articles
+        )
+
+
+        time.sleep(
+            1
+        )
+
+
+    print()
+
+    print(
+        "TOTAL NEW ARTICLES:",
+        len(all_articles)
+    )
+
+
+    # -----------------------------------------------------
+    # REMOVE DUPLICATES
+    # -----------------------------------------------------
+
+    all_articles = remove_duplicates(
+        all_articles
+    )
+
+
+    print(
+        "AFTER DUPLICATES:",
+        len(all_articles)
+    )
+
+
+    # -----------------------------------------------------
+    # SORT
+    # -----------------------------------------------------
+
+    all_articles = sort_articles(
+        all_articles
+    )
+
+
+    # -----------------------------------------------------
+    # KEEP LATEST
+    # -----------------------------------------------------
+
+    all_articles = all_articles[
+        :MAX_ARTICLES
+    ]
+
+
+    # -----------------------------------------------------
+    # SAFETY:
+    # IF ALL FEEDS FAIL,
+    # KEEP OLD NEWS INSTEAD OF
+    # DESTROYING movie-news.json
+    # -----------------------------------------------------
+
+    if not all_articles:
+
+        old_items = load_old_news()
+
+
+        if old_items:
+
+            print()
+
+            print(
+                "WARNING: NO NEW ARTICLES"
+            )
+
+            print(
+                "KEEPING OLD NEWS:",
+                len(old_items)
+            )
+
+            all_articles = old_items
+
+
+    # -----------------------------------------------------
+    # SAVE
+    # -----------------------------------------------------
+
+    save_news(
+        all_articles
+    )
+
+
+    print()
+
+    print(
+        "=" * 60
     )
 
     print(
-        "=============================="
+        "SUCCESS"
     )
 
+    print(
+        "NEWS SAVED:",
+        len(all_articles)
+    )
+
+    print(
+        "FILE:",
+        OUTPUT_FILE
+    )
+
+    print(
+        "=" * 60
+    )
+
+
+# =========================================================
+# START
+# =========================================================
 
 if __name__ == "__main__":
 
