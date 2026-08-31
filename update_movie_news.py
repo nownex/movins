@@ -6,7 +6,7 @@ import html
 import hashlib
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 
 import requests
 import feedparser
@@ -28,7 +28,12 @@ if not GEMINI_API_KEY:
 OUTPUT_FILE = "movie-news.json"
 
 MAX_NEWS = 12
+
 REQUEST_TIMEOUT = 25
+
+MIN_ARTICLE_TEXT = 120
+
+session = requests.Session()
 
 HEADERS = {
     "User-Agent": (
@@ -36,6 +41,11 @@ HEADERS = {
         "AppleWebKit/537.36 "
         "(KHTML, like Gecko) "
         "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept": (
+        "text/html,application/xhtml+xml,"
+        "application/xml;q=0.9,image/avif,image/webp,"
+        "image/apng,*/*;q=0.8"
     ),
     "Accept-Language": "ar,en-US;q=0.9,en;q=0.8"
 }
@@ -47,15 +57,14 @@ HEADERS = {
 
 RSS_FEEDS = [
 
-    # ================= ARABIC =================
-
     {
         "name": "Google News Arabic Movies",
         "url": (
             "https://news.google.com/rss/search?"
-            "q=(%D8%A3%D9%81%D9%84%D8%A7%D9%85+OR+%D9%81%D9%8A%D9%84%D9%85+"
-            "OR+%D8%B3%D9%8A%D9%86%D9%85%D8%A7+OR+%D9%85%D8%B3%D9%84%D8%B3%D9%84+"
-            "OR+%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA+OR+%D8%B4%D8%A8%D8%A7%D9%83+%D8%A7%D9%84%D8%AA%D8%B0%D8%A7%D9%83%D8%B1)"
+            "q=%D8%A3%D9%81%D9%84%D8%A7%D9%85+OR+"
+            "%D8%B3%D9%8A%D9%86%D9%85%D8%A7+OR+"
+            "%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA+OR+"
+            "%D9%86%D8%AA%D9%81%D9%84%D9%8A%D9%83%D8%B3"
             "&hl=ar&gl=SA&ceid=SA:ar"
         ),
         "category": "أفلام ومسلسلات"
@@ -65,17 +74,13 @@ RSS_FEEDS = [
         "name": "Google News Arabic Cinema",
         "url": (
             "https://news.google.com/rss/search?"
-            "q=(%D8%A3%D9%81%D9%84%D8%A7%D9%85+%D9%85%D9%86%D8%AA%D8%B8%D8%B1%D8%A9+"
-            "OR+%D9%81%D9%8A%D9%84%D9%85+%D8%AC%D8%AF%D9%8A%D8%AF+"
-            "OR+%D8%A5%D8%B5%D8%AF%D8%A7%D8%B1+%D9%81%D9%8A%D9%84%D9%85+"
-            "OR+%D8%A5%D9%8A%D8%B1%D8%A7%D8%AF%D8%A7%D8%AA+%D8%A7%D9%84%D8%A3%D9%81%D9%84%D8%A7%D9%85)"
+            "q=%D8%A5%D8%B5%D8%AF%D8%A7%D8%B1+%D9%81%D9%8A%D9%84%D9%85+"
+            "OR+%D8%B4%D8%A8%D8%A7%D9%83+%D8%A7%D9%84%D8%AA%D8%B0%D8%A7%D9%83%D8%B1+"
+            "OR+%D9%85%D8%B3%D9%84%D8%B3%D9%84"
             "&hl=ar&gl=SA&ceid=SA:ar"
         ),
-        "category": "أفلام"
+        "category": "أفلام ومسلسلات"
     },
-
-
-    # ================= INTERNATIONAL =================
 
     {
         "name": "Variety",
@@ -90,8 +95,8 @@ RSS_FEEDS = [
     },
 
     {
-        "name": "The Hollywood Reporter",
-        "url": "https://www.hollywoodreporter.com/feed/",
+        "name": "Collider",
+        "url": "https://collider.com/feed/",
         "category": "أفلام ومسلسلات"
     },
 
@@ -99,8 +104,8 @@ RSS_FEEDS = [
         "name": "Google News Movies",
         "url": (
             "https://news.google.com/rss/search?"
-            "q=(movie+OR+film+OR+box+office+OR+movie+release+"
-            "OR+movie+trailer+OR+Netflix+series+OR+TV+series)"
+            "q=movie+OR+film+OR+Netflix+series+OR+"
+            "TV+series+OR+film+trailer+OR+box+office"
             "&hl=en-US&gl=US&ceid=US:en"
         ),
         "category": "أفلام ومسلسلات"
@@ -117,7 +122,6 @@ MOVIE_KEYWORDS = [
     "movie",
     "movies",
     "film",
-    "films",
     "cinema",
     "box office",
     "trailer",
@@ -126,9 +130,13 @@ MOVIE_KEYWORDS = [
     "netflix",
     "disney",
     "marvel",
+    "warner",
     "hollywood",
-    "series",
-    "tv",
+    "actor",
+    "actress",
+    "director",
+    "tv series",
+    "television",
     "season",
     "episode",
     "streaming",
@@ -137,7 +145,6 @@ MOVIE_KEYWORDS = [
     "أفلام",
     "سينما",
     "شباك التذاكر",
-    "إيرادات",
     "مسلسل",
     "مسلسلات",
     "موسم",
@@ -146,27 +153,24 @@ MOVIE_KEYWORDS = [
     "ديزني",
     "مارفل",
     "هوليوود",
-    "منصة"
+    "ممثل",
+    "ممثلة",
+    "مخرج",
+    "عرض"
 ]
 
 
 BAD_KEYWORDS = [
 
-    "politics",
-    "election",
-    "president",
-    "war",
     "football",
     "soccer",
     "basketball",
+    "election",
+    "president",
     "stock market",
 
-    "سياسة",
-    "انتخابات",
-    "حرب",
     "كرة القدم",
-    "برشلونة",
-    "ريال مدريد"
+    "انتخابات"
 ]
 
 
@@ -191,28 +195,24 @@ def clean_text(text):
         strip=True
     )
 
-    # إصلاح HTML entities الرقمية
     text = html.unescape(text)
+
+    replacements = {
+        "&8217;": "'",
+        "&#8217;": "'",
+        "&8220;": '"',
+        "&#8220;": '"',
+        "&8221;": '"',
+        "&#8221;": '"'
+    }
+
+    for old, new in replacements.items():
+        text = text.replace(old, new)
 
     text = re.sub(
         r"\s+",
         " ",
         text
-    )
-
-    text = text.replace(
-        "&8217;",
-        "'"
-    )
-
-    text = text.replace(
-        "&8220;",
-        '"'
-    )
-
-    text = text.replace(
-        "&8221;",
-        '"'
     )
 
     return text.strip()
@@ -224,9 +224,7 @@ def clean_text(text):
 
 def is_movie_news(title, description):
 
-    text = (
-        f"{title} {description}"
-    ).lower()
+    text = f"{title} {description}".lower()
 
     good = any(
         word.lower() in text
@@ -242,87 +240,58 @@ def is_movie_news(title, description):
 
 
 # ============================================================
-# RESOLVE GOOGLE NEWS LINK
+# IMAGE VALIDATION
 # ============================================================
 
-def resolve_article_url(url):
+def is_valid_image(url):
+
+    if not url:
+        return False
+
+    if not isinstance(url, str):
+        return False
+
+    if not url.startswith("http"):
+        return False
+
+    lower = url.lower()
+
+    bad_words = [
+        "logo",
+        "favicon",
+        "icon.",
+        "/icon",
+        "avatar",
+        "placeholder",
+        "default-image",
+        "sprite"
+    ]
+
+    if any(word in lower for word in bad_words):
+        return False
+
+    return True
+
+
+# ============================================================
+# RESOLVE FINAL URL
+# ============================================================
+
+def resolve_url(url):
 
     if not url:
         return ""
 
     try:
 
-        response = requests.get(
+        response = session.get(
             url,
             headers=HEADERS,
             timeout=REQUEST_TIMEOUT,
             allow_redirects=True
         )
 
-        final_url = response.url
-
-        # إذا خرجنا من Google News
-        if (
-            "news.google.com" not in urlparse(
-                final_url
-            ).netloc.lower()
-        ):
-            return final_url
-
-        soup = BeautifulSoup(
-            response.text,
-            "html.parser"
-        )
-
-        # canonical
-        canonical = soup.find(
-            "link",
-            attrs={
-                "rel": "canonical"
-            }
-        )
-
-        if canonical:
-
-            href = canonical.get(
-                "href",
-                ""
-            )
-
-            if (
-                href
-                and "news.google.com" not in href
-            ):
-                return href
-
-        # ابحث عن رابط خارجي
-        for tag in soup.find_all(
-            "a",
-            href=True
-        ):
-
-            href = tag.get("href")
-
-            if not href:
-                continue
-
-            absolute = urljoin(
-                final_url,
-                href
-            )
-
-            domain = urlparse(
-                absolute
-            ).netloc.lower()
-
-            if (
-                domain
-                and "google.com" not in domain
-                and "googleusercontent.com" not in domain
-            ):
-                return absolute
-
-        return final_url
+        return response.url or url
 
     except Exception as error:
 
@@ -335,172 +304,133 @@ def resolve_article_url(url):
 
 
 # ============================================================
-# FETCH ARTICLE PAGE
-# ============================================================
-
-def fetch_article(url):
-
-    if not url:
-        return None, ""
-
-    try:
-
-        response = requests.get(
-            url,
-            headers=HEADERS,
-            timeout=REQUEST_TIMEOUT,
-            allow_redirects=True
-        )
-
-        if response.status_code != 200:
-            return None, ""
-
-        soup = BeautifulSoup(
-            response.text,
-            "html.parser"
-        )
-
-        return soup, response.url
-
-    except Exception as error:
-
-        print(
-            "ARTICLE FETCH ERROR:",
-            error
-        )
-
-        return None, ""
-
-
-# ============================================================
-# EXTRACT ARTICLE TEXT
-# ============================================================
-
-def get_article_text(soup):
-
-    if not soup:
-        return ""
-
-    # حذف العناصر غير المهمة
-    for tag in soup(
-        [
-            "script",
-            "style",
-            "nav",
-            "footer",
-            "header",
-            "aside",
-            "form"
-        ]
-    ):
-        tag.decompose()
-
-    article = soup.find("article")
-
-    if article:
-
-        paragraphs = article.find_all("p")
-
-    else:
-
-        paragraphs = soup.find_all("p")
-
-    texts = []
-
-    for p in paragraphs:
-
-        text = clean_text(
-            p.get_text(
-                " ",
-                strip=True
-            )
-        )
-
-        if len(text) < 40:
-            continue
-
-        texts.append(text)
-
-    text = "\n".join(texts)
-
-    # نحتاج كمية كافية ولكن لا نرسل مقالاً ضخماً
-    return text[:9000]
-
-
-# ============================================================
-# GET RSS IMAGE
+# RSS IMAGE
 # ============================================================
 
 def get_rss_image(entry):
 
+    # media_content
     try:
 
-        media = entry.get(
+        for item in entry.get(
             "media_content",
             []
-        )
+        ):
 
-        for item in media:
-
-            url = item.get(
+            image = item.get(
                 "url",
                 ""
             )
 
-            if url.startswith("http"):
-                return url
+            if is_valid_image(image):
+                return image
 
     except Exception:
         pass
 
+
+    # media_thumbnail
     try:
 
-        media = entry.get(
+        for item in entry.get(
             "media_thumbnail",
             []
-        )
+        ):
 
-        for item in media:
-
-            url = item.get(
+            image = item.get(
                 "url",
                 ""
             )
 
-            if url.startswith("http"):
-                return url
+            if is_valid_image(image):
+                return image
 
     except Exception:
         pass
+
+
+    # enclosures
+    try:
+
+        for item in entry.get(
+            "enclosures",
+            []
+        ):
+
+            image = (
+                item.get("href")
+                or item.get("url")
+                or ""
+            )
+
+            if is_valid_image(image):
+                return image
+
+    except Exception:
+        pass
+
+
+    # HTML inside RSS
+    try:
+
+        content = (
+            entry.get("summary", "")
+            or entry.get("description", "")
+            or ""
+        )
+
+        soup = BeautifulSoup(
+            content,
+            "html.parser"
+        )
+
+        image_tag = soup.find("img")
+
+        if image_tag:
+
+            image = (
+                image_tag.get("src")
+                or image_tag.get("data-src")
+                or image_tag.get("data-lazy-src")
+                or ""
+            )
+
+            if is_valid_image(image):
+                return image
+
+    except Exception:
+        pass
+
 
     return ""
 
 
 # ============================================================
-# GET ARTICLE IMAGE
+# GET IMAGE FROM ARTICLE HTML
 # ============================================================
 
-def get_article_image(soup, page_url):
+def extract_article_image(soup, base_url):
 
-    if not soup:
-        return ""
-
-    # الأولوية للصورة الرئيسية للمقال
-
-    meta_types = [
+    # OpenGraph
+    meta_selectors = [
 
         ("property", "og:image"),
+        ("property", "og:image:url"),
+        ("property", "og:image:secure_url"),
+
         ("name", "twitter:image"),
-        ("property", "twitter:image"),
-        ("name", "twitter:image:src")
+        ("name", "twitter:image:src"),
+
+        ("itemprop", "image")
     ]
 
-    for attr_name, attr_value in meta_types:
+
+    for attribute, value in meta_selectors:
 
         tag = soup.find(
             "meta",
             attrs={
-                attr_name: attr_value
+                attribute: value
             }
         )
 
@@ -511,33 +441,77 @@ def get_article_image(soup, page_url):
                 ""
             ).strip()
 
-            if image:
+            image = urljoin(
+                base_url,
+                image
+            )
 
-                image = urljoin(
-                    page_url,
-                    image
-                )
+            if is_valid_image(image):
+                return image
 
-                if is_valid_image(image):
-                    return image
 
-    # صور article
-    article = soup.find("article")
+    # JSON-LD
+    for script in soup.find_all(
+        "script",
+        type="application/ld+json"
+    ):
 
-    if article:
+        try:
 
-        images = article.find_all("img")
+            raw = script.string
 
-    else:
+            if not raw:
+                continue
 
-        images = soup.find_all("img")
+            data = json.loads(raw)
 
-    for img in images:
+            objects = (
+                data
+                if isinstance(data, list)
+                else [data]
+            )
+
+            for obj in objects:
+
+                if not isinstance(obj, dict):
+                    continue
+
+                image = obj.get("image")
+
+                if isinstance(image, list) and image:
+                    image = image[0]
+
+                if isinstance(image, dict):
+                    image = (
+                        image.get("url")
+                        or image.get("contentUrl")
+                    )
+
+                if isinstance(image, str):
+
+                    image = urljoin(
+                        base_url,
+                        image
+                    )
+
+                    if is_valid_image(image):
+                        return image
+
+        except Exception:
+            pass
+
+
+    # Article images
+    images = soup.find_all("img")
+
+    for tag in images:
 
         image = (
-            img.get("data-src")
-            or img.get("data-lazy-src")
-            or img.get("src")
+
+            tag.get("data-src")
+            or tag.get("data-lazy-src")
+            or tag.get("data-original")
+            or tag.get("src")
             or ""
         )
 
@@ -545,88 +519,248 @@ def get_article_image(soup, page_url):
             continue
 
         image = urljoin(
-            page_url,
+            base_url,
             image
         )
 
-        if is_valid_image(image):
-            return image
+        if not is_valid_image(image):
+            continue
+
+        return image
+
 
     return ""
 
 
 # ============================================================
-# VALIDATE IMAGE
+# GET ARTICLE DATA
 # ============================================================
 
-def is_valid_image(url):
+def get_article_data(url):
+
+    result = {
+        "url": url,
+        "image": "",
+        "text": ""
+    }
 
     if not url:
-        return False
+        return result
 
-    if not url.startswith("http"):
-        return False
 
-    lower = url.lower()
+    try:
 
-    bad_words = [
+        print("RESOLVING ARTICLE...")
 
-        "logo",
-        "favicon",
-        "icon",
-        "avatar",
-        "placeholder",
-        "default",
+        final_url = resolve_url(url)
 
-        # منع صور Google News
-        "news.google.com",
-        "gstatic.com",
-        "google.com/images",
-        "googleusercontent.com"
-    ]
+        result["url"] = final_url
 
-    if any(
-        word in lower
-        for word in bad_words
-    ):
-        return False
+        print("FETCHING ARTICLE...")
 
-    # امتدادات أو خدمات صور معروفة
-    return True
+        response = session.get(
+            final_url,
+            headers=HEADERS,
+            timeout=REQUEST_TIMEOUT,
+            allow_redirects=True
+        )
+
+        if response.status_code != 200:
+
+            print(
+                "ARTICLE STATUS:",
+                response.status_code
+            )
+
+            return result
+
+
+        soup = BeautifulSoup(
+            response.text,
+            "html.parser"
+        )
+
+
+        # REMOVE USELESS TAGS
+        for tag in soup([
+            "script",
+            "style",
+            "nav",
+            "footer",
+            "header",
+            "aside",
+            "form",
+            "noscript"
+        ]):
+
+            tag.decompose()
+
+
+        # IMAGE
+        image = extract_article_image(
+            soup,
+            response.url
+        )
+
+        result["image"] = image
+
+
+        # ARTICLE TEXT
+        article = soup.find("article")
+
+        if article:
+
+            text = article.get_text(
+                " ",
+                strip=True
+            )
+
+        else:
+
+            paragraphs = soup.find_all("p")
+
+            text = " ".join(
+                p.get_text(
+                    " ",
+                    strip=True
+                )
+                for p in paragraphs
+            )
+
+
+        text = clean_text(text)
+
+        result["text"] = text[:10000]
+
+        print(
+            "ARTICLE TEXT LENGTH:",
+            len(result["text"])
+        )
+
+
+    except Exception as error:
+
+        print(
+            "ARTICLE ERROR:",
+            error
+        )
+
+
+    return result
 
 
 # ============================================================
-# DATE
+# FIND AVAILABLE GEMINI MODEL
 # ============================================================
 
-def get_date(entry):
+GEMINI_MODEL = None
 
-    published = (
-        entry.get("published")
-        or entry.get("updated")
-        or ""
+
+def get_gemini_model():
+
+    global GEMINI_MODEL
+
+    if GEMINI_MODEL:
+        return GEMINI_MODEL
+
+
+    url = (
+        "https://generativelanguage.googleapis.com/"
+        "v1beta/models"
     )
 
-    if published:
+    try:
 
-        try:
+        response = session.get(
+            url,
+            params={
+                "key": GEMINI_API_KEY
+            },
+            timeout=30
+        )
 
-            date = parsedate_to_datetime(
-                published
+        response.raise_for_status()
+
+        data = response.json()
+
+        models = data.get(
+            "models",
+            []
+        )
+
+
+        preferred = [
+
+            "gemini-2.5-flash",
+            "gemini-2.0-flash",
+            "gemini-2.0-flash-lite",
+            "gemini-1.5-flash"
+        ]
+
+
+        available = []
+
+        for model in models:
+
+            name = model.get(
+                "name",
+                ""
+            ).replace(
+                "models/",
+                ""
             )
 
-            return date.strftime(
-                "%Y-%m-%dT%H:%M:%SZ"
+            methods = model.get(
+                "supportedGenerationMethods",
+                []
             )
 
-        except Exception:
-            pass
+            if (
+                "generateContent" in methods
+                and name
+            ):
 
-    return datetime.now(
-        timezone.utc
-    ).strftime(
-        "%Y-%m-%dT%H:%M:%SZ"
-    )
+                available.append(name)
+
+
+        for preferred_name in preferred:
+
+            if preferred_name in available:
+
+                GEMINI_MODEL = preferred_name
+
+                print(
+                    "USING GEMINI MODEL:",
+                    GEMINI_MODEL
+                )
+
+                return GEMINI_MODEL
+
+
+        if available:
+
+            GEMINI_MODEL = available[0]
+
+            print(
+                "USING GEMINI MODEL:",
+                GEMINI_MODEL
+            )
+
+            return GEMINI_MODEL
+
+
+    except Exception as error:
+
+        print(
+            "MODEL LIST ERROR:",
+            error
+        )
+
+
+    # fallback
+    GEMINI_MODEL = "gemini-2.0-flash"
+
+    return GEMINI_MODEL
 
 
 # ============================================================
@@ -635,13 +769,12 @@ def get_date(entry):
 
 def call_gemini(prompt):
 
-    # نحاول أكثر من نموذج لتجنب مشكلة 404
-    models = [
+    model = get_gemini_model()
 
-        "gemini-2.5-flash",
-        "gemini-2.0-flash",
-        "gemini-2.0-flash-lite"
-    ]
+    url = (
+        "https://generativelanguage.googleapis.com/"
+        f"v1beta/models/{model}:generateContent"
+    )
 
     payload = {
 
@@ -661,188 +794,181 @@ def call_gemini(prompt):
 
         "generationConfig": {
 
-            "temperature": 0.35,
+            "temperature": 0.5,
 
-            "maxOutputTokens": 1800
+            "maxOutputTokens": 1400
         }
     }
 
-    for model in models:
 
-        try:
+    response = session.post(
+        url,
+        params={
+            "key": GEMINI_API_KEY
+        },
+        json=payload,
+        timeout=90
+    )
 
-            url = (
-                "https://generativelanguage.googleapis.com/"
-                f"v1beta/models/{model}:generateContent"
-            )
+    response.raise_for_status()
 
-            response = requests.post(
-                url,
-                params={
-                    "key": GEMINI_API_KEY
-                },
-                json=payload,
-                timeout=90
-            )
+    data = response.json()
 
-            if response.status_code != 200:
 
-                print(
-                    f"GEMINI MODEL FAILED {model}:",
-                    response.status_code
-                )
+    try:
 
-                continue
+        return data[
+            "candidates"
+        ][0][
+            "content"
+        ][
+            "parts"
+        ][0][
+            "text"
+        ].strip()
 
-            data = response.json()
+    except Exception:
 
-            candidates = data.get(
-                "candidates",
-                []
-            )
+        print(
+            "GEMINI BAD RESPONSE:",
+            data
+        )
 
-            if not candidates:
-                continue
-
-            content = candidates[0].get(
-                "content",
-                {}
-            )
-
-            parts = content.get(
-                "parts",
-                []
-            )
-
-            if not parts:
-                continue
-
-            result = parts[0].get(
-                "text",
-                ""
-            ).strip()
-
-            if result:
-                print(
-                    "GEMINI MODEL:",
-                    model
-                )
-
-                return result
-
-        except Exception as error:
-
-            print(
-                f"GEMINI ERROR {model}:",
-                error
-            )
-
-    return ""
+        return ""
 
 
 # ============================================================
-# TRANSLATE + REAL LONG SUMMARY
+# TRANSLATE + LONG SUMMARY
 # ============================================================
 
 def translate_and_summarize(
     title,
-    rss_description,
+    description,
     article_text
 ):
 
+    article_text = (
+        article_text[:7000]
+        if article_text
+        else ""
+    )
+
+
     prompt = f"""
-أنت محرر محترف لموقع عربي متخصص في أخبار الأفلام والمسلسلات اسمه MOVINS.
+أنت محرر عربي محترف متخصص في أخبار الأفلام والمسلسلات لموقع MOVINS.
 
-أمامك عنوان الخبر ووصفه ونص من المقال الأصلي.
+حوّل الخبر التالي إلى محتوى عربي احترافي.
 
-المهمة:
+المطلوب:
 
-أولاً:
-ترجم العنوان إلى العربية ترجمة طبيعية واحترافية.
+1. ترجمة العنوان إلى العربية ترجمة طبيعية.
+2. كتابة ملخص عربي طويل ومفصل.
 
-ثانياً:
-اكتب ملخصاً عربياً طويلاً ومفصلاً.
+شروط الملخص:
 
-قواعد إلزامية:
+- بين 140 و220 كلمة تقريباً.
+- من 7 إلى 10 جمل.
+- يجب أن يكون عدة أسطر وليس فقرة قصيرة جداً.
+- اشرح الخبر بوضوح.
+- اذكر أهم المعلومات المتوفرة.
+- وضح أهمية الخبر للجمهور إذا كانت المعلومات تسمح بذلك.
+- لا تخترع أي معلومات غير موجودة.
+- لا تكرر نفس الجملة.
+- استخدم العربية الفصحى.
+- أسماء الأفلام والمسلسلات والأشخاص يمكن إبقاؤها بلغتها الأصلية عند الحاجة.
 
-- الملخص يجب أن يحتوي بين 180 و300 كلمة.
-- يجب أن يتكون من عدة فقرات أو على الأقل 8 إلى 12 جملة.
-- لا تكتب ملخصاً قصيراً.
-- اشرح تفاصيل الخبر المهمة.
-- وضح ما الذي حدث.
-- وضح الأشخاص أو الأفلام أو المسلسلات المعنية.
-- وضح سبب أهمية الخبر للجمهور.
-- استخدم فقط المعلومات الموجودة في النص.
-- لا تخترع معلومات.
-- ترجم النص كاملاً إلى العربية بأسلوب صحفي ممتاز.
-- يمكن إبقاء أسماء الأفلام والمسلسلات والأشخاص الأجنبية كما هي عند الحاجة.
-- لا تستخدم اللغة الإنجليزية في الجمل العربية إلا للأسماء والعناوين.
-- لا تضع مقدمة مثل: "إليك الملخص".
-- لا تضع نقاطاً أو تعداداً.
+أعد النتيجة بهذا الشكل فقط:
 
-أعد النتيجة فقط بهذا الشكل:
-
-TITLE:
-العنوان العربي
+TITLE: عنوان عربي هنا
 
 SUMMARY:
-ملخص عربي طويل ومفصل من 180 إلى 300 كلمة.
+ملخص عربي طويل هنا.
 
-========================
-
-العنوان الأصلي:
-
+ORIGINAL TITLE:
 {title}
 
-========================
+RSS DESCRIPTION:
+{description}
 
-وصف RSS:
-
-{rss_description}
-
-========================
-
-نص المقال:
-
+ARTICLE TEXT:
 {article_text}
 """
 
-    result = call_gemini(prompt)
+    try:
 
-    if not result:
+        result = call_gemini(prompt)
+
+        if not result:
+            return "", ""
+
+
+        title_match = re.search(
+            r"TITLE:\s*(.*?)(?=\s*SUMMARY:)",
+            result,
+            re.S | re.I
+        )
+
+
+        summary_match = re.search(
+            r"SUMMARY:\s*(.*)",
+            result,
+            re.S | re.I
+        )
+
+
+        arabic_title = ""
+
+        arabic_summary = ""
+
+
+        if title_match:
+
+            arabic_title = clean_text(
+                title_match.group(1)
+            )
+
+
+        if summary_match:
+
+            arabic_summary = clean_text(
+                summary_match.group(1)
+            )
+
+
+        if not arabic_title:
+
+            arabic_title = clean_text(
+                title
+            )
+
+
+        if len(arabic_summary) < 150:
+
+            # لا نفشل الخبر بالكامل
+            # نستعمل الوصف والنص المتاح
+            fallback = clean_text(
+                f"{description} {article_text}"
+            )
+
+            if len(fallback) > len(arabic_summary):
+
+                arabic_summary = fallback[:1800]
+
+
+        return (
+            arabic_title,
+            arabic_summary
+        )
+
+
+    except Exception as error:
+
+        print(
+            "GEMINI ERROR:",
+            error
+        )
+
         return "", ""
-
-    title_match = re.search(
-        r"TITLE:\s*(.*?)(?=\s*SUMMARY:|$)",
-        result,
-        re.S | re.I
-    )
-
-    summary_match = re.search(
-        r"SUMMARY:\s*(.+)",
-        result,
-        re.S | re.I
-    )
-
-    arabic_title = ""
-    arabic_summary = ""
-
-    if title_match:
-
-        arabic_title = clean_text(
-            title_match.group(1)
-        )
-
-    if summary_match:
-
-        arabic_summary = clean_text(
-            summary_match.group(1)
-        )
-
-    return (
-        arabic_title,
-        arabic_summary
-    )
 
 
 # ============================================================
@@ -871,6 +997,7 @@ def load_old_ids():
     ):
         return set()
 
+
     try:
 
         with open(
@@ -880,6 +1007,7 @@ def load_old_ids():
         ) as file:
 
             data = json.load(file)
+
 
         return {
 
@@ -891,11 +1019,57 @@ def load_old_ids():
             )
 
             if item.get("id")
+
         }
+
 
     except Exception:
 
         return set()
+
+
+# ============================================================
+# DATE
+# ============================================================
+
+def get_date(entry):
+
+    published = (
+        entry.get("published")
+        or entry.get("updated")
+        or ""
+    )
+
+
+    if published:
+
+        try:
+
+            date = parsedate_to_datetime(
+                published
+            )
+
+            if date.tzinfo is None:
+
+                date = date.replace(
+                    tzinfo=timezone.utc
+                )
+
+            return date.astimezone(
+                timezone.utc
+            ).strftime(
+                "%Y-%m-%dT%H:%M:%SZ"
+            )
+
+        except Exception:
+            pass
+
+
+    return datetime.now(
+        timezone.utc
+    ).strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
+    )
 
 
 # ============================================================
@@ -905,16 +1079,9 @@ def load_old_ids():
 def main():
 
     print(
-        "================================="
+        "MOVINS MOVIE NEWS ENGINE STARTED"
     )
 
-    print(
-        "MOVINS NEWS ENGINE STARTED"
-    )
-
-    print(
-        "================================="
-    )
 
     old_ids = load_old_ids()
 
@@ -928,27 +1095,39 @@ def main():
         if len(articles) >= MAX_NEWS:
             break
 
-        print()
+
+        print(
+            "\n================================"
+        )
+
         print(
             "FETCHING:",
             source["name"]
         )
 
+
         try:
 
             feed = feedparser.parse(
-                source["url"]
+                source["url"],
+                request_headers=HEADERS
             )
+
+
+            entries = feed.entries
+
 
             print(
                 "ENTRIES:",
-                len(feed.entries)
+                len(entries)
             )
 
-            for entry in feed.entries:
+
+            for entry in entries:
 
                 if len(articles) >= MAX_NEWS:
                     break
+
 
                 original_title = clean_text(
                     entry.get(
@@ -957,30 +1136,36 @@ def main():
                     )
                 )
 
-                description = clean_text(
+
+                original_description = clean_text(
                     entry.get(
                         "summary",
                         ""
                     )
-                    or entry.get(
+                    or
+                    entry.get(
                         "description",
                         ""
                     )
                 )
 
-                rss_link = entry.get(
+
+                link = entry.get(
                     "link",
                     ""
                 )
 
+
                 if not original_title:
                     continue
 
+
                 if not is_movie_news(
                     original_title,
-                    description
+                    original_description
                 ):
                     continue
+
 
                 normalized_title = (
                     original_title
@@ -988,181 +1173,141 @@ def main():
                     .strip()
                 )
 
+
                 if normalized_title in seen_titles:
                     continue
 
 
-                # ==========================================
-                # RESOLVE REAL ARTICLE URL
-                # ==========================================
-
-                print(
-                    "RESOLVING ARTICLE..."
-                )
-
-                article_url = resolve_article_url(
-                    rss_link
-                )
-
                 article_id = make_id(
                     original_title,
-                    article_url
+                    link
                 )
+
 
                 if article_id in old_ids:
                     continue
 
 
-                # ==========================================
-                # FETCH REAL ARTICLE
-                # ==========================================
-
                 print(
-                    "FETCHING ARTICLE..."
-                )
-
-                soup, final_url = fetch_article(
-                    article_url
-                )
-
-                if not soup:
-
-                    print(
-                        "SKIPPED — ARTICLE NOT ACCESSIBLE"
-                    )
-
-                    continue
-
-
-                # ==========================================
-                # GET REAL ARTICLE TEXT
-                # ==========================================
-
-                article_text = get_article_text(
-                    soup
-                )
-
-                # إذا كان المقال قصيراً نستخدم RSS أيضاً
-                if len(article_text) < 300:
-
-                    article_text = (
-                        description
-                        + "\n\n"
-                        + original_title
-                    )
-
-                print(
-                    "ARTICLE TEXT LENGTH:",
-                    len(article_text)
-                )
-
-
-                # ==========================================
-                # GET REAL IMAGE
-                # ==========================================
-
-                image = get_article_image(
-                    soup,
-                    final_url
-                )
-
-                if not is_valid_image(image):
-
-                    rss_image = get_rss_image(
-                        entry
-                    )
-
-                    if is_valid_image(
-                        rss_image
-                    ):
-                        image = rss_image
-
-
-                # لا ننشر بدون صورة حقيقية
-                if not is_valid_image(image):
-
-                    print(
-                        "SKIPPED — NO REAL ARTICLE IMAGE"
-                    )
-
-                    continue
-
-
-                # ==========================================
-                # SOURCE NAME
-                # ==========================================
-
-                domain = urlparse(
-                    final_url
-                ).netloc.replace(
-                    "www.",
-                    ""
-                )
-
-                source_name = domain
-
-                try:
-
-                    entry_source = entry.get(
-                        "source",
-                        {}
-                    )
-
-                    if isinstance(
-                        entry_source,
-                        dict
-                    ):
-
-                        source_name = (
-                            entry_source.get(
-                                "title",
-                                source_name
-                            )
-                        )
-
-                except Exception:
-                    pass
-
-
-                # ==========================================
-                # TRANSLATE + LONG SUMMARY
-                # ==========================================
-
-                print()
-                print(
-                    "TRANSLATING AND SUMMARIZING:"
-                )
-
-                print(
+                    "\nPROCESSING:",
                     original_title
                 )
+
+
+                # --------------------------------------------
+                # RSS IMAGE
+                # --------------------------------------------
+
+                image = get_rss_image(
+                    entry
+                )
+
+
+                # --------------------------------------------
+                # ARTICLE
+                # --------------------------------------------
+
+                article_data = get_article_data(
+                    link
+                )
+
+
+                final_link = (
+                    article_data["url"]
+                    or link
+                )
+
+
+                article_text = article_data[
+                    "text"
+                ]
+
+
+                # Prefer real article image
+                if is_valid_image(
+                    article_data["image"]
+                ):
+
+                    image = article_data[
+                        "image"
+                    ]
+
+
+                # --------------------------------------------
+                # SOURCE NAME
+                # --------------------------------------------
+
+                entry_source = entry.get(
+                    "source",
+                    {}
+                )
+
+
+                if isinstance(
+                    entry_source,
+                    dict
+                ):
+
+                    source_name = (
+                        entry_source.get(
+                            "title"
+                        )
+                        or source["name"]
+                    )
+
+                else:
+
+                    source_name = source["name"]
+
+
+                # --------------------------------------------
+                # GEMINI
+                # --------------------------------------------
+
+                print(
+                    "TRANSLATING AND SUMMARIZING..."
+                )
+
 
                 arabic_title, arabic_summary = (
                     translate_and_summarize(
                         original_title,
-                        description,
+                        original_description,
                         article_text
                     )
                 )
 
+
                 if not arabic_title:
 
                     print(
-                        "SKIPPED — TRANSLATION FAILED"
+                        "SKIPPED — NO TITLE"
                     )
 
                     continue
 
 
-                # نرفض الملخص القصير فعلاً
-                if len(arabic_summary) < 600:
+                if not arabic_summary:
+
+                    arabic_summary = (
+                        original_description
+                        or article_text
+                        or "لم تتوفر تفاصيل إضافية عن هذا الخبر."
+                    )
+
+
+                # --------------------------------------------
+                # IMPORTANT:
+                # DO NOT DELETE NEWS BECAUSE IMAGE FAILED
+                # --------------------------------------------
+
+                if not is_valid_image(image):
 
                     print(
-                        "SKIPPED — SUMMARY TOO SHORT:",
-                        len(arabic_summary)
+                        "WARNING — NO ARTICLE IMAGE, KEEPING NEWS"
                     )
 
-                    continue
+                    image = ""
 
 
                 item = {
@@ -1175,7 +1320,7 @@ def main():
 
                     "image": image,
 
-                    "link": final_url,
+                    "link": final_link,
 
                     "source": source_name,
 
@@ -1190,32 +1335,33 @@ def main():
                     "originalTitle": original_title
                 }
 
-                articles.append(
-                    item
-                )
+
+                articles.append(item)
 
                 seen_titles.add(
                     normalized_title
                 )
 
-                print()
+
                 print(
-                    "✓ ADDED:",
+                    "ADDED:",
                     arabic_title
                 )
 
                 print(
-                    "✓ SUMMARY:",
-                    len(arabic_summary),
-                    "characters"
+                    "IMAGE:",
+                    "YES"
+                    if image
+                    else "NO"
                 )
 
                 print(
-                    "✓ IMAGE:",
-                    image[:100]
+                    "SUMMARY LENGTH:",
+                    len(arabic_summary)
                 )
 
-                time.sleep(2)
+
+                time.sleep(1)
 
 
         except Exception as error:
@@ -1242,6 +1388,7 @@ def main():
         "items": articles
     }
 
+
     with open(
         OUTPUT_FILE,
         "w",
@@ -1256,9 +1403,8 @@ def main():
         )
 
 
-    print()
     print(
-        "================================="
+        "\n================================="
     )
 
     print(
@@ -1271,12 +1417,25 @@ def main():
     )
 
 
+    # لا نجعل GitHub Action يفشل
+    # حتى لو كانت المصادر مؤقتاً فارغة
+
     if not articles:
 
-        raise RuntimeError(
-            "No movie or series news generated"
+        print(
+            "WARNING: No news generated this run."
         )
 
+        print(
+            "Keeping workflow successful."
+        )
+
+        return
+
+
+# ============================================================
+# RUN
+# ============================================================
 
 if __name__ == "__main__":
 
