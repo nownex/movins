@@ -92,7 +92,7 @@ header {
     z-index: 1000;
 
     background:
-        rgba(7,8,13,.94);
+        rgba(7,8,13,.96);
 
     backdrop-filter:
         blur(20px);
@@ -161,9 +161,9 @@ header {
         1px solid #2a2e39;
 
     padding:
-        10px 18px;
+        11px 20px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
     font-size: 13px;
 
@@ -191,14 +191,14 @@ header {
 
     width:
         min(
-            1400px,
+            1100px,
             calc(100% - 40px)
         );
 
     margin: auto;
 
     padding:
-        70px 20px 45px;
+        75px 20px 50px;
 
     text-align: center;
 
@@ -213,9 +213,9 @@ header {
 
     font-weight: 900;
 
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 
 }
 
@@ -224,7 +224,7 @@ header {
 
     font-size:
         clamp(
-            38px,
+            40px,
             6vw,
             68px
         );
@@ -273,7 +273,7 @@ main {
     margin: auto;
 
     padding:
-        20px 20px 100px;
+        30px 20px 100px;
 
 }
 
@@ -370,6 +370,10 @@ main {
 }
 
 
+/* =====================================================
+   NEWS IMAGE
+===================================================== */
+
 .news-image-wrap {
 
     position: relative;
@@ -381,10 +385,17 @@ main {
 
     overflow: hidden;
 
-    background: #08090d;
+    background:
+        linear-gradient(
+            135deg,
+            #161b28,
+            #090b11
+        );
 
 }
 
+
+/* الصورة */
 
 .news-image {
 
@@ -402,6 +413,8 @@ main {
 }
 
 
+/* عند تحريك البطاقة */
+
 .news-card:hover .news-image {
 
     transform:
@@ -409,6 +422,74 @@ main {
 
 }
 
+
+/* الصورة الافتراضية */
+
+.news-image-placeholder {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #747b8a;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(255,16,24,.10),
+            transparent 55%
+        ),
+
+        #0c0f16;
+
+}
+
+
+.placeholder-logo {
+
+    font-family: Arial;
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    color: white;
+
+    letter-spacing: -2px;
+
+}
+
+
+.placeholder-logo span {
+
+    color: #ff1018;
+
+}
+
+
+.placeholder-text {
+
+    font-size: 11px;
+
+    color: #717887;
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
 
 .news-category {
 
@@ -431,8 +512,14 @@ main {
 
     font-weight: 900;
 
+    z-index: 5;
+
 }
 
+
+/* =====================================================
+   NEWS CONTENT
+===================================================== */
 
 .news-content {
 
@@ -476,19 +563,49 @@ main {
 }
 
 
+/* =====================================================
+   SOURCE BUTTON
+===================================================== */
+
 .news-source {
 
-    display: inline-block;
+    display: inline-flex;
 
-    margin-top: 15px;
+    align-items: center;
 
-    color: #ff3037;
+    margin-top: 18px;
+
+    color: white;
+
+    background:
+        rgba(255,16,24,.12);
+
+    border:
+        1px solid
+        rgba(255,16,24,.35);
+
+    padding:
+        8px 13px;
+
+    border-radius: 9px;
 
     text-decoration: none;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: 800;
+
+    transition:
+        .25s ease;
+
+}
+
+
+.news-source:hover {
+
+    background: #ff1018;
+
+    border-color: #ff1018;
 
 }
 
@@ -568,7 +685,7 @@ footer .red {
 
 
 /* =====================================================
-   MOBILE
+   TABLET
 ===================================================== */
 
 @media (max-width:900px) {
@@ -586,12 +703,25 @@ footer .red {
 }
 
 
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media (max-width:600px) {
+
+    header {
+
+        position: relative;
+
+    }
+
 
     .header-inner {
 
         width:
             calc(100% - 24px);
+
+        min-height: 72px;
 
     }
 
@@ -606,9 +736,11 @@ footer .red {
     .back-button {
 
         padding:
-            8px 12px;
+            9px 13px;
 
         font-size: 11px;
+
+        border-radius: 12px;
 
     }
 
@@ -619,7 +751,25 @@ footer .red {
             calc(100% - 24px);
 
         padding:
-            45px 10px 30px;
+            45px 5px 30px;
+
+    }
+
+
+    .hero-label {
+
+        font-size: 11px;
+
+        letter-spacing: 2px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 42px;
+
+        line-height: 1.3;
 
     }
 
@@ -627,6 +777,8 @@ footer .red {
     .hero p {
 
         font-size: 13px;
+
+        line-height: 2;
 
     }
 
@@ -637,18 +789,32 @@ footer .red {
             calc(100% - 24px);
 
         padding:
-            15px 0 70px;
+            20px 0 70px;
 
     }
 
 
     .section-header {
 
-        flex-direction: column;
+        flex-direction: row;
 
         align-items: center;
 
-        text-align: center;
+        margin-bottom: 20px;
+
+    }
+
+
+    .section-title {
+
+        font-size: 24px;
+
+    }
+
+
+    .news-count {
+
+        font-size: 11px;
 
     }
 
@@ -658,14 +824,35 @@ footer .red {
         grid-template-columns:
             1fr;
 
-        gap: 15px;
+        gap: 16px;
+
+    }
+
+
+    .news-card {
+
+        border-radius: 18px;
+
+    }
+
+
+    .news-content {
+
+        padding: 17px;
 
     }
 
 
     .news-title {
 
-        font-size: 17px;
+        font-size: 18px;
+
+    }
+
+
+    .news-description {
+
+        font-size: 12px;
 
     }
 
@@ -679,7 +866,9 @@ footer .red {
 <body>
 
 
-<!-- HEADER -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -705,7 +894,10 @@ footer .red {
 </header>
 
 
-<!-- HERO -->
+
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero">
 
@@ -738,7 +930,10 @@ footer .red {
 </section>
 
 
-<!-- MAIN -->
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main>
 
@@ -760,6 +955,7 @@ footer .red {
 </div>
 
 </div>
+
 
 
 <section
@@ -789,7 +985,10 @@ footer .red {
 </main>
 
 
-<!-- FOOTER -->
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -807,6 +1006,7 @@ footer .red {
 </p>
 
 </footer>
+
 
 
 <script>
@@ -828,8 +1028,9 @@ const newsCount =
     );
 
 
+
 /* =====================================================
-   ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHtml(value) {
@@ -866,11 +1067,15 @@ function escapeHtml(value) {
 }
 
 
+
 function escapeAttribute(value) {
 
-    return escapeHtml(value);
+    return escapeHtml(
+        value
+    );
 
 }
+
 
 
 /* =====================================================
@@ -898,8 +1103,10 @@ async function loadNews() {
         if (!response.ok) {
 
             throw new Error(
+
                 "movie-news.json HTTP " +
                 response.status
+
             );
 
         }
@@ -913,9 +1120,13 @@ async function loadNews() {
             Array.isArray(
                 data.items
             )
+
             ?
+
             data.items
+
             :
+
             [];
 
 
@@ -945,7 +1156,7 @@ async function loadNews() {
             </h3>
 
             <p>
-                سيتم تحديث الأخبار قريبًا.
+                تعذر تحميل ملف الأخبار.
             </p>
 
         </div>
@@ -959,6 +1170,7 @@ async function loadNews() {
     }
 
 }
+
 
 
 /* =====================================================
@@ -1008,6 +1220,52 @@ function renderNews(items) {
 }
 
 
+
+/* =====================================================
+   IMAGE FALLBACK
+===================================================== */
+
+function imageFallback(element) {
+
+    const wrapper =
+        element.parentElement;
+
+
+    element.remove();
+
+
+    const placeholder =
+        document.createElement(
+            "div"
+        );
+
+
+    placeholder.className =
+        "news-image-placeholder";
+
+
+    placeholder.innerHTML = `
+
+        <div class="placeholder-logo">
+            MOV<span>INS</span>
+        </div>
+
+        <div class="placeholder-text">
+            MOVIE NEWS
+        </div>
+
+    `;
+
+
+    wrapper.insertBefore(
+        placeholder,
+        wrapper.firstChild
+    );
+
+}
+
+
+
 /* =====================================================
    CREATE NEWS CARD
 ===================================================== */
@@ -1044,12 +1302,53 @@ function createNewsCard(item) {
         );
 
 
-    const source =
-        item.source || "";
-
-
     const url =
         item.url || "";
+
+
+    const imageHtml =
+
+        image
+
+        ?
+
+        `
+
+        <img
+
+            class="news-image"
+
+            src="${escapeAttribute(image)}"
+
+            alt="${escapeAttribute(title)}"
+
+            loading="lazy"
+
+            onerror="imageFallback(this)"
+
+        >
+
+        `
+
+        :
+
+        `
+
+        <div
+            class="news-image-placeholder"
+        >
+
+            <div class="placeholder-logo">
+                MOV<span>INS</span>
+            </div>
+
+            <div class="placeholder-text">
+                MOVIE NEWS
+            </div>
+
+        </div>
+
+        `;
 
 
     return `
@@ -1058,25 +1357,12 @@ function createNewsCard(item) {
         class="news-card"
     >
 
+
         <div
             class="news-image-wrap"
         >
 
-            ${
-                image
-                ?
-                `
-                <img
-                    class="news-image"
-                    src="${escapeAttribute(image)}"
-                    alt="${escapeAttribute(title)}"
-                    loading="lazy"
-                    onerror="this.style.display='none'"
-                >
-                `
-                :
-                ""
-            }
+            ${imageHtml}
 
 
             <div
@@ -1086,6 +1372,7 @@ function createNewsCard(item) {
             </div>
 
         </div>
+
 
 
         <div
@@ -1100,11 +1387,13 @@ function createNewsCard(item) {
             </div>
 
 
+
             <h2
                 class="news-title"
             >
                 ${title}
             </h2>
+
 
 
             <p
@@ -1114,31 +1403,46 @@ function createNewsCard(item) {
             </p>
 
 
+
             ${
                 url
+
                 ?
+
                 `
+
                 <a
+
                     class="news-source"
+
                     href="${escapeAttribute(url)}"
+
                     target="_blank"
+
                     rel="noopener noreferrer"
+
                 >
                     اقرأ المصدر ←
                 </a>
+
                 `
+
                 :
+
                 ""
+
             }
 
 
         </div>
+
 
     </article>
 
     `;
 
 }
+
 
 
 /* =====================================================
