@@ -6,10 +6,10 @@ on:
   schedule:
     - cron: "0 */6 * * *"
 
-  # تشغيل يدوي من GitHub Actions
+  # تشغيل يدوي
   workflow_dispatch:
 
-  # تشغيل عند تعديل ملفات المشروع
+  # تشغيل عند تعديل الملفات المهمة فقط
   push:
     paths:
       - "update_movie_news.py"
@@ -17,14 +17,14 @@ on:
       - ".github/workflows/update-movie-news.yml"
 
 
-# السماح للـ Action بتعديل المستودع
+# السماح للـ Action بتعديل ملفات المستودع
 permissions:
   contents: write
 
 
 # منع تشغيل تحديثين في نفس الوقت
 concurrency:
-  group: movins-movie-news-update
+  group: movins-movie-news
   cancel-in-progress: false
 
 
@@ -38,31 +38,29 @@ jobs:
     steps:
 
 
-      # =================================================
+      # ================================================
       # DOWNLOAD REPOSITORY
-      # =================================================
+      # ================================================
 
       - name: Checkout repository
         uses: actions/checkout@v4
-
         with:
           fetch-depth: 0
 
 
-      # =================================================
+      # ================================================
       # SETUP PYTHON
-      # =================================================
+      # ================================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
-
         with:
           python-version: "3.11"
 
 
-      # =================================================
+      # ================================================
       # INSTALL LIBRARIES
-      # =================================================
+      # ================================================
 
       - name: Install dependencies
         run: |
@@ -72,14 +70,13 @@ jobs:
           pip install -r requirements.txt
 
 
-      # =================================================
+      # ================================================
       # CHECK GEMINI API KEY
-      # =================================================
+      # ================================================
 
       - name: Check Gemini API Key
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-
         run: |
 
           if [ -z "$GEMINI_API_KEY" ]; then
@@ -90,25 +87,24 @@ jobs:
 
           fi
 
-          echo "Gemini API Key detected successfully."
+          echo "Gemini API Key found."
 
 
-      # =================================================
+      # ================================================
       # UPDATE MOVIE NEWS
-      # =================================================
+      # ================================================
 
       - name: Update movie news
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-
         run: |
 
           python update_movie_news.py
 
 
-      # =================================================
+      # ================================================
       # CHECK GENERATED NEWS
-      # =================================================
+      # ================================================
 
       - name: Check generated news
         run: |
@@ -147,15 +143,15 @@ jobs:
 
 
           print(
-              "News generated successfully."
+              "Movie news generated successfully."
           )
 
           PYTHON
 
 
-      # =================================================
+      # ================================================
       # COMMIT AND PUSH NEWS
-      # =================================================
+      # ================================================
 
       - name: Commit and push news
         run: |
@@ -165,11 +161,11 @@ jobs:
           git config user.email "movins-bot@users.noreply.github.com"
 
 
-          # إضافة ملف الأخبار
+          # إضافة ملف الأخبار فقط
           git add movie-news.json
 
 
-          # إذا لم تتغير الأخبار
+          # التحقق من وجود تغييرات
           if git diff --cached --quiet; then
 
             echo "No news changes."
@@ -179,16 +175,21 @@ jobs:
           fi
 
 
-          # إنشاء Commit محلي
+          # إنشاء Commit
           git commit -m "Update MOVINS movie news"
 
 
-          # جلب أحدث تغييرات المستودع
-          git pull origin main --rebase
-
-
-          # إرسال الأخبار إلى GitHub
+          # محاولة رفع التحديث
           git push origin main
 
 
-          echo "News pushed successfully."
+      # ================================================
+      # COMPLETE
+      # ================================================
+
+      - name: Update completed
+        run: |
+
+          echo "================================"
+          echo "MOVINS UPDATE COMPLETED"
+          echo "================================"
