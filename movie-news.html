@@ -23,7 +23,10 @@
 <title>MOVINS — أخبار الأفلام</title>
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
 
 <link
     rel="preconnect"
@@ -39,25 +42,35 @@
 
 <style>
 
+
 /* =====================================================
    RESET
 ===================================================== */
 
 * {
+
     box-sizing: border-box;
+
     margin: 0;
+
     padding: 0;
+
 }
 
+
 html {
+
     scroll-behavior: smooth;
+
 }
+
 
 body {
 
     min-height: 100vh;
 
     font-family:
+
         "Cairo",
         Arial,
         sans-serif;
@@ -65,14 +78,18 @@ body {
     background:
 
         radial-gradient(
+
             circle at 50% -10%,
-            rgba(255,16,24,0.12),
+
+            rgba(255,16,24,.12),
+
             transparent 35%
+
         ),
 
         #07080d;
 
-    color: #ffffff;
+    color: white;
 
     overflow-x: hidden;
 
@@ -89,26 +106,35 @@ header {
 
     top: 0;
 
-    z-index: 1000;
+    z-index: 100;
 
     background:
-        rgba(7,8,13,.94);
+
+        rgba(7,8,13,.96);
 
     backdrop-filter:
+
         blur(20px);
 
     border-bottom:
+
         1px solid
+
         rgba(255,255,255,.07);
 
 }
 
+
 .header-inner {
 
     width:
+
         min(
+
             1400px,
+
             calc(100% - 40px)
+
         );
 
     min-height: 82px;
@@ -131,6 +157,7 @@ header {
     color: white;
 
     font-family:
+
         Arial,
         sans-serif;
 
@@ -141,6 +168,7 @@ header {
     letter-spacing: -2px;
 
 }
+
 
 .logo .red {
 
@@ -158,9 +186,11 @@ header {
     background: #12151e;
 
     border:
+
         1px solid #2a2e39;
 
     padding:
+
         10px 18px;
 
     border-radius: 12px;
@@ -169,10 +199,10 @@ header {
 
     font-weight: 800;
 
-    transition:
-        .25s ease;
+    transition: .25s;
 
 }
+
 
 .back-button:hover {
 
@@ -190,14 +220,19 @@ header {
 .hero {
 
     width:
+
         min(
+
             1400px,
+
             calc(100% - 40px)
+
         );
 
     margin: auto;
 
     padding:
+
         70px 20px 45px;
 
     text-align: center;
@@ -223,10 +258,15 @@ header {
 .hero h1 {
 
     font-size:
+
         clamp(
+
             38px,
+
             6vw,
+
             68px
+
         );
 
     font-weight: 900;
@@ -265,21 +305,26 @@ header {
 main {
 
     width:
+
         min(
+
             1400px,
+
             calc(100% - 40px)
+
         );
 
     margin: auto;
 
     padding:
+
         20px 20px 100px;
 
 }
 
 
 /* =====================================================
-   SECTION HEADER
+   SECTION
 ===================================================== */
 
 .section-header {
@@ -316,7 +361,7 @@ main {
 
 
 /* =====================================================
-   NEWS GRID
+   GRID
 ===================================================== */
 
 .news-grid {
@@ -324,9 +369,13 @@ main {
     display: grid;
 
     grid-template-columns:
+
         repeat(
+
             3,
+
             minmax(0,1fr)
+
         );
 
     gap: 22px;
@@ -335,7 +384,7 @@ main {
 
 
 /* =====================================================
-   NEWS CARD
+   CARD
 ===================================================== */
 
 .news-card {
@@ -343,14 +392,16 @@ main {
     background: #10131b;
 
     border:
+
         1px solid #20242e;
 
     border-radius: 20px;
 
     overflow: hidden;
 
-    transition:
-        .3s ease;
+    cursor: pointer;
+
+    transition: .3s;
 
 }
 
@@ -358,13 +409,17 @@ main {
 .news-card:hover {
 
     transform:
+
         translateY(-7px);
 
     border-color:
-        rgba(255,16,24,.65);
+
+        rgba(255,16,24,.8);
 
     box-shadow:
+
         0 25px 60px
+
         rgba(0,0,0,.45);
 
 }
@@ -376,17 +431,11 @@ main {
 
     width: 100%;
 
-    aspect-ratio:
-        16 / 9;
+    aspect-ratio: 16 / 9;
 
     overflow: hidden;
 
-    background:
-        linear-gradient(
-            135deg,
-            #11141d,
-            #07080d
-        );
+    background: #08090d;
 
 }
 
@@ -402,6 +451,7 @@ main {
     display: block;
 
     transition:
+
         transform .4s ease;
 
 }
@@ -410,7 +460,80 @@ main {
 .news-card:hover .news-image {
 
     transform:
+
         scale(1.05);
+
+}
+
+
+/* =====================================================
+   NO IMAGE
+===================================================== */
+
+.no-image {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    background:
+
+        radial-gradient(
+
+            circle at top,
+
+            #202735,
+
+            #090b11 70%
+
+        );
+
+}
+
+
+.no-image img {
+
+    width: 85px;
+
+    height: 85px;
+
+    object-fit: contain;
+
+    background: white;
+
+    padding: 14px;
+
+    border-radius: 18px;
+
+}
+
+
+.no-image-name {
+
+    color: white;
+
+    font-weight: 900;
+
+    font-size: 17px;
+
+}
+
+
+.no-image-text {
+
+    color: #777d8b;
+
+    font-size: 12px;
 
 }
 
@@ -428,9 +551,10 @@ main {
     color: white;
 
     padding:
-        6px 11px;
 
-    border-radius: 8px;
+        7px 12px;
+
+    border-radius: 9px;
 
     font-size: 10px;
 
@@ -478,39 +602,45 @@ main {
 
     line-height: 2;
 
+    display:
+
+        -webkit-box;
+
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
 }
 
 
-.news-source {
+.read-more {
 
     display: inline-block;
 
-    margin-top: 15px;
+    margin-top: 18px;
 
     color: #ff3037;
 
-    text-decoration: none;
-
     font-size: 12px;
 
-    font-weight: 800;
+    font-weight: 900;
 
 }
 
 
 /* =====================================================
-   STATES
+   STATE
 ===================================================== */
 
 .state {
 
-    grid-column:
-        1 / -1;
+    grid-column: 1 / -1;
 
     text-align: center;
 
-    padding:
-        100px 20px;
+    padding: 100px 20px;
 
     color: #818794;
 
@@ -526,11 +656,291 @@ main {
 }
 
 
-.state h3 {
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+
+        rgba(0,0,0,.82);
+
+    backdrop-filter:
+
+        blur(12px);
+
+}
+
+
+.modal.active {
+
+    display: flex;
+
+}
+
+
+.modal-box {
+
+    width:
+
+        min(
+
+            850px,
+
+            100%
+
+        );
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #10131b;
+
+    border:
+
+        1px solid #292e3a;
+
+    border-radius: 24px;
+
+    position: relative;
+
+    box-shadow:
+
+        0 30px 100px
+
+        rgba(0,0,0,.7);
+
+}
+
+
+.modal-image {
+
+    width: 100%;
+
+    max-height: 420px;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+.modal-fallback {
+
+    height: 250px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #171c28,
+
+            #080a10
+
+        );
+
+}
+
+
+.modal-fallback img {
+
+    width: 90px;
+
+    height: 90px;
+
+    background: white;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+}
+
+
+.modal-content {
+
+    padding: 35px;
+
+}
+
+
+.modal-category {
+
+    display: inline-block;
+
+    background: #ff1018;
+
+    padding:
+
+        7px 13px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    margin-bottom: 16px;
+
+}
+
+
+.modal-title {
+
+    font-size:
+
+        clamp(
+
+            24px,
+
+            4vw,
+
+            42px
+
+        );
+
+    line-height: 1.6;
+
+    margin-bottom: 18px;
+
+}
+
+
+.modal-meta {
+
+    color: #858b99;
+
+    font-size: 13px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.modal-summary {
+
+    color: #c0c4ce;
+
+    font-size: 17px;
+
+    line-height: 2.2;
+
+}
+
+
+.modal-original-title {
+
+    margin-top: 25px;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    background: #0a0c12;
+
+    color: #777d8b;
+
+    font-size: 13px;
+
+}
+
+
+.original-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: 30px;
+
+    background: #ff1018;
 
     color: white;
 
-    margin-bottom: 8px;
+    text-decoration: none;
+
+    padding:
+
+        13px 20px;
+
+    border-radius: 12px;
+
+    font-weight: 900;
+
+    transition: .25s;
+
+}
+
+
+.original-link:hover {
+
+    transform:
+
+        translateY(-2px);
+
+    background: #ff3037;
+
+}
+
+
+.close-modal {
+
+    position: absolute;
+
+    top: 15px;
+
+    left: 15px;
+
+    z-index: 5;
+
+    width: 42px;
+
+    height: 42px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+
+        rgba(0,0,0,.7);
+
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
 
 }
 
@@ -544,9 +954,11 @@ footer {
     text-align: center;
 
     border-top:
+
         1px solid #1d2028;
 
     padding:
+
         40px 20px;
 
     color: #656b77;
@@ -554,6 +966,7 @@ footer {
     font-size: 13px;
 
 }
+
 
 footer strong {
 
@@ -564,6 +977,7 @@ footer strong {
     font-size: 24px;
 
 }
+
 
 footer .red {
 
@@ -581,9 +995,13 @@ footer .red {
     .news-grid {
 
         grid-template-columns:
+
             repeat(
+
                 2,
+
                 minmax(0,1fr)
+
             );
 
     }
@@ -596,6 +1014,7 @@ footer .red {
     .header-inner {
 
         width:
+
             calc(100% - 24px);
 
     }
@@ -610,8 +1029,7 @@ footer .red {
 
     .back-button {
 
-        padding:
-            8px 12px;
+        padding: 8px 12px;
 
         font-size: 11px;
 
@@ -621,9 +1039,11 @@ footer .red {
     .hero {
 
         width:
+
             calc(100% - 24px);
 
         padding:
+
             45px 10px 30px;
 
     }
@@ -639,9 +1059,11 @@ footer .red {
     main {
 
         width:
+
             calc(100% - 24px);
 
         padding:
+
             15px 0 70px;
 
     }
@@ -660,21 +1082,28 @@ footer .red {
 
     .news-grid {
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
 
         gap: 15px;
 
     }
 
 
-    .news-title {
+    .modal-content {
 
-        font-size: 17px;
+        padding: 25px 20px;
+
+    }
+
+
+    .modal-summary {
+
+        font-size: 15px;
 
     }
 
 }
+
 
 </style>
 
@@ -684,9 +1113,7 @@ footer .red {
 <body>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- HEADER -->
 
 <header>
 
@@ -696,7 +1123,9 @@ footer .red {
     href="./"
     class="logo"
 >
-    MOV<span class="red">INS</span>
+
+MOV<span class="red">INS</span>
+
 </a>
 
 
@@ -704,7 +1133,9 @@ footer .red {
     href="./"
     class="back-button"
 >
-    ← العودة إلى الأفلام
+
+← العودة إلى الأفلام
+
 </a>
 
 </div>
@@ -712,48 +1143,41 @@ footer .red {
 </header>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+<!-- HERO -->
 
 <section class="hero">
 
 <div class="hero-label">
 
-    MOVINS • MOVIE NEWS
+MOVINS • MOVIE NEWS
 
 </div>
 
 
 <h1>
 
-    آخر
+آخر
 
-    <span>
+<span>
 
-        أخبار الأفلام
+أخبار الأفلام
 
-    </span>
+</span>
 
 </h1>
 
 
 <p>
 
-    تابع أحدث أخبار السينما،
-    الأفلام والمسلسلات القادمة،
-    تطورات الإنتاج،
-    أخبار النجوم،
-    والإعلانات الرسمية الجديدة.
+تابع أحدث أخبار السينما والأفلام والمسلسلات،
+مع ملخصات عربية وروابط مباشرة للمصادر الأصلية.
 
 </p>
 
 </section>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<!-- MAIN -->
 
 <main>
 
@@ -762,7 +1186,7 @@ footer .red {
 
 <h2 class="section-title">
 
-    📰 أحدث الأخبار
+📰 أحدث الأخبار
 
 </h2>
 
@@ -772,7 +1196,7 @@ footer .red {
     class="news-count"
 >
 
-    جاري تحميل الأخبار...
+جاري تحميل الأخبار...
 
 </div>
 
@@ -784,56 +1208,67 @@ footer .red {
     class="news-grid"
 >
 
-<div class="state">
-
-<div class="state-icon">
-
-    📰
-
-</div>
-
-
-<h3>
-
-    جاري تحميل الأخبار...
-
-</h3>
-
-
-<p>
-
-    لحظات فقط
-
-</p>
-
-</div>
-
 </section>
 
 
 </main>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+<!-- FOOTER -->
 
 <footer>
 
 <strong>
 
-    MOV<span class="red">INS</span>
+MOV<span class="red">INS</span>
 
 </strong>
 
 
 <p style="margin-top:10px;">
 
-    أخبار الأفلام والمسلسلات في مكان واحد.
+أخبار الأفلام والمسلسلات في مكان واحد.
 
 </p>
 
 </footer>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    id="newsModal"
+    class="modal"
+>
+
+<div
+    class="modal-box"
+>
+
+
+<button
+    id="closeModal"
+    class="close-modal"
+>
+
+×
+
+
+</button>
+
+
+<div
+    id="modalBody"
+>
+
+</div>
+
+
+</div>
+
+</div>
 
 
 <script>
@@ -844,19 +1279,42 @@ footer .red {
 ===================================================== */
 
 const newsGrid =
-    document.getElementById(
-        "newsGrid"
-    );
+
+document.getElementById(
+    "newsGrid"
+);
 
 
 const newsCount =
-    document.getElementById(
-        "newsCount"
-    );
+
+document.getElementById(
+    "newsCount"
+);
+
+
+const newsModal =
+
+document.getElementById(
+    "newsModal"
+);
+
+
+const modalBody =
+
+document.getElementById(
+    "modalBody"
+);
+
+
+const closeModal =
+
+document.getElementById(
+    "closeModal"
+);
 
 
 /* =====================================================
-   ESCAPE HTML
+   ESCAPE
 ===================================================== */
 
 function escapeHtml(value) {
@@ -893,13 +1351,11 @@ function escapeHtml(value) {
 }
 
 
-function escapeAttribute(value) {
+/* =====================================================
+   NEWS DATA
+===================================================== */
 
-    return escapeHtml(
-        value
-    );
-
-}
+let newsItems = [];
 
 
 /* =====================================================
@@ -911,141 +1367,60 @@ async function loadNews() {
     try {
 
         const response =
-            await fetch(
 
-                "movie-news.json?t=" +
-                Date.now(),
+        await fetch(
 
-                {
-                    cache:
-                        "no-store"
-                }
+            "movie-news.json?t=" +
 
-            );
+            Date.now(),
+
+            {
+
+                cache: "no-store"
+
+            }
+
+        );
 
 
         if (!response.ok) {
 
             throw new Error(
-
-                "تعذر العثور على ملف الأخبار. HTTP " +
-
+                "HTTP " +
                 response.status
-
             );
 
         }
 
 
         const data =
-            await response.json();
+
+        await response.json();
 
 
-        /*
-        =================================================
+        newsItems =
 
-        دعم جميع أشكال JSON المحتملة
+        Array.isArray(
+            data.items
+        )
 
-        {
-            "items": [...]
-        }
+        ?
 
-        أو
+        data.items
 
-        {
-            "articles": [...]
-        }
+        :
 
-        أو
-
-        {
-            "news": [...]
-        }
-
-        أو
-
-        [...]
-
-        =================================================
-        */
-
-
-        let items = [];
-
-
-        if (
-
-            Array.isArray(
-                data
-            )
-
-        ) {
-
-            items = data;
-
-        }
-
-
-        else if (
-
-            Array.isArray(
-                data.items
-            )
-
-        ) {
-
-            items = data.items;
-
-        }
-
-
-        else if (
-
-            Array.isArray(
-                data.articles
-            )
-
-        ) {
-
-            items = data.articles;
-
-        }
-
-
-        else if (
-
-            Array.isArray(
-                data.news
-            )
-
-        ) {
-
-            items = data.news;
-
-        }
-
-
-        console.log(
-            "MOVINS NEWS DATA:",
-            data
-        );
-
-
-        console.log(
-            "ARTICLES LOADED:",
-            items.length
-        );
+        [];
 
 
         renderNews(
-            items
+            newsItems
         );
 
 
     } catch (error) {
 
         console.error(
-            "MOVINS NEWS ERROR:",
             error
         );
 
@@ -1060,19 +1435,15 @@ async function loadNews() {
 
             </div>
 
-
             <h3>
 
-                لا توجد أخبار متاحة حاليًا
+                لا توجد أخبار متاحة حالياً
 
             </h3>
 
-
             <p>
 
-                ${escapeHtml(
-                    error.message
-                )}
+                سيتم تحديث الأخبار قريباً.
 
             </p>
 
@@ -1082,7 +1453,8 @@ async function loadNews() {
 
 
         newsCount.textContent =
-            "تعذر تحميل الأخبار";
+
+        "تعذر تحميل الأخبار";
 
     }
 
@@ -1096,7 +1468,8 @@ async function loadNews() {
 function renderNews(items) {
 
     newsCount.textContent =
-        `${items.length} خبر متاح`;
+
+    `${items.length} خبر متاح`;
 
 
     if (!items.length) {
@@ -1111,25 +1484,15 @@ function renderNews(items) {
 
             </div>
 
-
             <h3>
 
-                لا توجد أخبار حاليًا
+                لا توجد أخبار حالياً
 
             </h3>
-
-
-            <p>
-
-                تم تشغيل نظام الأخبار بنجاح،
-                لكن لم يتم العثور على مقالات.
-
-            </p>
 
         </div>
 
         `;
-
 
         return;
 
@@ -1137,135 +1500,117 @@ function renderNews(items) {
 
 
     newsGrid.innerHTML =
-        items
-        .map(
-            createNewsCard
+
+    items
+
+    .map(
+
+        (item, index) =>
+
+        createNewsCard(
+            item,
+            index
         )
-        .join("");
+
+    )
+
+    .join("");
 
 }
 
 
 /* =====================================================
-   CREATE NEWS CARD
+   CREATE CARD
 ===================================================== */
 
-function createNewsCard(item) {
-
-
-    /*
-    =================================================
-    TITLE
-    =================================================
-    */
-
+function createNewsCard(
+    item,
+    index
+) {
 
     const title =
-        escapeHtml(
 
-            item.title ||
-            item.name ||
-            "خبر جديد"
-
-        );
-
-
-    /*
-    =================================================
-    DESCRIPTION
-    =================================================
-    */
+    escapeHtml(
+        item.title
+    );
 
 
     const description =
-        escapeHtml(
 
-            item.description ||
-            item.summary ||
-            item.content ||
-            ""
+    escapeHtml(
 
-        );
+        item.summary ||
 
+        item.description
 
-    /*
-    =================================================
-    IMAGE
-    =================================================
-    */
-
-
-    const image =
-
-        item.image ||
-        item.image_url ||
-        item.thumbnail ||
-        item.picture ||
-        "";
-
-
-    /*
-    =================================================
-    CATEGORY
-    =================================================
-    */
+    );
 
 
     const category =
-        escapeHtml(
 
-            item.category ||
-            item.section ||
-            "أخبار الأفلام"
+    escapeHtml(
 
-        );
+        item.category ||
 
+        "أخبار السينما"
 
-    /*
-    =================================================
-    DATE
-    =================================================
-    */
+    );
 
 
     const date =
-        escapeHtml(
 
-            item.date ||
-            item.published ||
-            item.published_at ||
-            item.pubDate ||
-            ""
+    escapeHtml(
+        item.date
+    );
 
+
+    let imageHtml = "";
+
+
+    if (item.image) {
+
+        imageHtml = `
+
+        <img
+
+            class="news-image"
+
+            src="${escapeHtml(item.image)}"
+
+            alt="${title}"
+
+            loading="lazy"
+
+            onerror="
+                this.parentElement.innerHTML =
+                createFallbackImage(
+                    ${index}
+                )
+            "
+
+        >
+
+        `;
+
+    } else {
+
+        imageHtml =
+
+        createFallbackImage(
+            index
         );
 
-
-    /*
-    =================================================
-    URL
-    =================================================
-    */
-
-
-    const url =
-
-        item.url ||
-        item.link ||
-        item.source_url ||
-        "";
-
-
-    /*
-    =================================================
-    CREATE CARD
-    =================================================
-    */
+    }
 
 
     return `
 
     <article
+
         class="news-card"
+
+        onclick="openNews(${index})"
+
     >
 
 
@@ -1273,36 +1618,7 @@ function createNewsCard(item) {
             class="news-image-wrap"
         >
 
-
-            ${
-                image
-                ?
-                `
-
-                <img
-
-                    class="news-image"
-
-                    src="${escapeAttribute(
-                        image
-                    )}"
-
-                    alt="${escapeAttribute(
-                        title
-                    )}"
-
-                    loading="lazy"
-
-                    referrerpolicy="no-referrer"
-
-                    onerror="this.style.display='none'"
-
-                >
-
-                `
-                :
-                ""
-            }
+            ${imageHtml}
 
 
             <div
@@ -1317,29 +1633,18 @@ function createNewsCard(item) {
         </div>
 
 
-
         <div
             class="news-content"
         >
 
 
-            ${
-                date
-                ?
-                `
+            <div
+                class="news-date"
+            >
 
-                <div
-                    class="news-date"
-                >
+                ${date}
 
-                    ${date}
-
-                </div>
-
-                `
-                :
-                ""
-            }
+            </div>
 
 
             <h2
@@ -1351,52 +1656,22 @@ function createNewsCard(item) {
             </h2>
 
 
-            ${
-                description
-                ?
-                `
+            <p
+                class="news-description"
+            >
 
-                <p
-                    class="news-description"
-                >
+                ${description}
 
-                    ${description}
-
-                </p>
-
-                `
-                :
-                ""
-            }
+            </p>
 
 
-            ${
-                url
-                ?
-                `
+            <div
+                class="read-more"
+            >
 
-                <a
+                اقرأ الملخص ←
 
-                    class="news-source"
-
-                    href="${escapeAttribute(
-                        url
-                    )}"
-
-                    target="_blank"
-
-                    rel="noopener noreferrer"
-
-                >
-
-                    اقرأ المصدر ←
-
-                </a>
-
-                `
-                :
-                ""
-            }
+            </div>
 
 
         </div>
@@ -1407,6 +1682,381 @@ function createNewsCard(item) {
     `;
 
 }
+
+
+/* =====================================================
+   FALLBACK IMAGE
+===================================================== */
+
+function createFallbackImage(index) {
+
+    const item =
+
+    newsItems[index];
+
+
+    if (!item) {
+
+        return "";
+
+    }
+
+
+    return `
+
+    <div
+        class="no-image"
+    >
+
+        <img
+
+            src="${escapeHtml(
+                item.sourceLogo || ""
+            )}"
+
+            alt="${escapeHtml(
+                item.source || ""
+            )}"
+
+        >
+
+
+        <div
+            class="no-image-name"
+        >
+
+            ${escapeHtml(
+                item.source || "MOVINS"
+            )}
+
+        </div>
+
+
+        <div
+            class="no-image-text"
+        >
+
+            أخبار السينما
+
+        </div>
+
+
+    </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   OPEN NEWS
+===================================================== */
+
+function openNews(index) {
+
+    const item =
+
+    newsItems[index];
+
+
+    if (!item) {
+
+        return;
+
+    }
+
+
+    const title =
+
+    escapeHtml(
+        item.title
+    );
+
+
+    const summary =
+
+    escapeHtml(
+
+        item.summary ||
+
+        item.description ||
+
+        "لا يتوفر ملخص لهذا الخبر حالياً."
+
+    );
+
+
+    const source =
+
+    escapeHtml(
+        item.source
+    );
+
+
+    const date =
+
+    escapeHtml(
+        item.date
+    );
+
+
+    const category =
+
+    escapeHtml(
+        item.category
+    );
+
+
+    const originalTitle =
+
+    escapeHtml(
+        item.originalTitle
+    );
+
+
+    let visual = "";
+
+
+    if (item.image) {
+
+        visual = `
+
+        <img
+
+            class="modal-image"
+
+            src="${escapeHtml(item.image)}"
+
+            alt="${title}"
+
+            onerror="
+                this.outerHTML =
+                '<div class=&quot;modal-fallback&quot;>' +
+                '<img src=&quot;${escapeHtml(
+                    item.sourceLogo || ""
+                )}&quot;>' +
+                '<strong>${source}</strong>' +
+                '</div>'
+            "
+
+        >
+
+        `;
+
+    } else {
+
+        visual = `
+
+        <div
+            class="modal-fallback"
+        >
+
+            <img
+
+                src="${escapeHtml(
+                    item.sourceLogo || ""
+                )}"
+
+            >
+
+
+            <strong>
+
+                ${source}
+
+            </strong>
+
+
+        </div>
+
+        `;
+
+    }
+
+
+    modalBody.innerHTML = `
+
+    ${visual}
+
+
+    <div
+        class="modal-content"
+    >
+
+
+        <div
+            class="modal-category"
+        >
+
+            ${category}
+
+        </div>
+
+
+        <h1
+            class="modal-title"
+        >
+
+            ${title}
+
+        </h1>
+
+
+        <div
+            class="modal-meta"
+        >
+
+            ${date}
+            •
+            المصدر:
+            ${source}
+
+        </div>
+
+
+        <div
+            class="modal-summary"
+        >
+
+            ${summary}
+
+        </div>
+
+
+        ${
+            originalTitle
+            ?
+            `
+
+            <div
+                class="modal-original-title"
+            >
+
+                <strong>
+
+                    العنوان الأصلي:
+
+                </strong>
+
+                <br>
+
+                ${originalTitle}
+
+            </div>
+
+            `
+            :
+            ""
+        }
+
+
+        ${
+            item.url
+            ?
+            `
+
+            <a
+
+                class="original-link"
+
+                href="${escapeHtml(item.url)}"
+
+                target="_blank"
+
+                rel="noopener noreferrer"
+
+            >
+
+                قراءة الخبر الأصلي من المصدر ↗
+
+            </a>
+
+            `
+            :
+            ""
+        }
+
+
+    </div>
+
+    `;
+
+
+    newsModal.classList.add(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+
+    "hidden";
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeNewsModal() {
+
+    newsModal.classList.remove(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+
+    "";
+
+}
+
+
+closeModal.addEventListener(
+
+    "click",
+
+    closeNewsModal
+
+);
+
+
+newsModal.addEventListener(
+
+    "click",
+
+    function(event) {
+
+        if (
+            event.target === newsModal
+        ) {
+
+            closeNewsModal();
+
+        }
+
+    }
+
+);
+
+
+document.addEventListener(
+
+    "keydown",
+
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeNewsModal();
+
+        }
+
+    }
+
+);
 
 
 /* =====================================================
