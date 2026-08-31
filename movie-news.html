@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="آخر أخبار الأفلام والمسلسلات والأعمال القادمة وتطورات السينما."
+>
+
+<meta
+    name="theme-color"
+    content="#07080d"
+>
+
+<title>MOVINS — أخبار الأفلام</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "Cairo",
+        Arial,
+        sans-serif;
+
+    background:
+
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255,16,24,0.12),
+            transparent 35%
+        ),
+
+        #07080d;
+
+    color: #ffffff;
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background:
+        rgba(7,8,13,.94);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
+
+}
+
+.header-inner {
+
+    width:
+        min(
+            1400px,
+            calc(100% - 40px)
+        );
+
+    min-height: 82px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.logo {
+
+    text-decoration: none;
+
+    color: white;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+}
+
+.logo .red {
+
+    color: #ff1018;
+
+}
+
+
+.back-button {
+
+    text-decoration: none;
+
+    color: white;
+
+    background: #12151e;
+
+    border:
+        1px solid #2a2e39;
+
+    padding:
+        10px 18px;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition:
+        .25s ease;
+
+}
+
+.back-button:hover {
+
+    background: #ff1018;
+
+    border-color: #ff1018;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    width:
+        min(
+            1400px,
+            calc(100% - 40px)
+        );
+
+    margin: auto;
+
+    padding:
+        70px 20px 45px;
+
+    text-align: center;
+
+}
+
+
+.hero-label {
+
+    color: #ff1018;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.hero h1 {
+
+    font-size:
+        clamp(
+            38px,
+            6vw,
+            68px
+        );
+
+    font-weight: 900;
+
+    margin-bottom: 18px;
+
+}
+
+
+.hero h1 span {
+
+    color: #ff1018;
+
+}
+
+
+.hero p {
+
+    max-width: 800px;
+
+    margin: auto;
+
+    color: #9fa4b0;
+
+    font-size: 16px;
+
+    line-height: 2;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main {
+
+    width:
+        min(
+            1400px,
+            calc(100% - 40px)
+        );
+
+    margin: auto;
+
+    padding:
+        20px 20px 100px;
+
+}
+
+
+/* =====================================================
+   SECTION HEADER
+===================================================== */
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+
+    gap: 20px;
+
+}
+
+
+.section-title {
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+}
+
+
+.news-count {
+
+    color: #777d8b;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   NEWS GRID
+===================================================== */
+
+.news-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0,1fr)
+        );
+
+    gap: 22px;
+
+}
+
+
+/* =====================================================
+   NEWS CARD
+===================================================== */
+
+.news-card {
+
+    background: #10131b;
+
+    border:
+        1px solid #20242e;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition:
+        .3s ease;
+
+}
+
+
+.news-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255,16,24,.65);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.45);
+
+}
+
+
+.news-image-wrap {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio:
+        16 / 9;
+
+    overflow: hidden;
+
+    background: #08090d;
+
+}
+
+
+.news-image {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .4s ease;
+
+}
+
+
+.news-card:hover .news-image {
+
+    transform:
+        scale(1.05);
+
+}
+
+
+.news-category {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+    background: #ff1018;
+
+    color: white;
+
+    padding:
+        6px 11px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+}
+
+
+.news-content {
+
+    padding: 20px;
+
+}
+
+
+.news-date {
+
+    color: #777d8b;
+
+    font-size: 11px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.news-title {
+
+    font-size: 19px;
+
+    line-height: 1.7;
+
+    font-weight: 900;
+
+    margin-bottom: 10px;
+
+}
+
+
+.news-description {
+
+    color: #a7abb6;
+
+    font-size: 13px;
+
+    line-height: 2;
+
+}
+
+
+.news-source {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: #ff3037;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+
+/* =====================================================
+   STATES
+===================================================== */
+
+.state {
+
+    grid-column:
+        1 / -1;
+
+    text-align: center;
+
+    padding:
+        100px 20px;
+
+    color: #818794;
+
+}
+
+
+.state-icon {
+
+    font-size: 48px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.state h3 {
+
+    color: white;
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    text-align: center;
+
+    border-top:
+        1px solid #1d2028;
+
+    padding:
+        40px 20px;
+
+    color: #656b77;
+
+    font-size: 13px;
+
+}
+
+footer strong {
+
+    color: white;
+
+    font-family: Arial;
+
+    font-size: 24px;
+
+}
+
+footer .red {
+
+    color: #ff1018;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:900px) {
+
+    .news-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+    }
+
+}
+
+
+@media (max-width:600px) {
+
+    .header-inner {
+
+        width:
+            calc(100% - 24px);
+
+    }
+
+
+    .logo {
+
+        font-size: 28px;
+
+    }
+
+
+    .back-button {
+
+        padding:
+            8px 12px;
+
+        font-size: 11px;
+
+    }
+
+
+    .hero {
+
+        width:
+            calc(100% - 24px);
+
+        padding:
+            45px 10px 30px;
+
+    }
+
+
+    .hero p {
+
+        font-size: 13px;
+
+    }
+
+
+    main {
+
+        width:
+            calc(100% - 24px);
+
+        padding:
+            15px 0 70px;
+
+    }
+
+
+    .section-header {
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+    }
+
+
+    .news-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 15px;
+
+    }
+
+
+    .news-title {
+
+        font-size: 17px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+<div class="header-inner">
+
+<a
+    href="./"
+    class="logo"
+>
+    MOV<span class="red">INS</span>
+</a>
+
+
+<a
+    href="./"
+    class="back-button"
+>
+    ← العودة إلى الأفلام
+</a>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-label">
+    MOVINS • MOVIE NEWS
+</div>
+
+
+<h1>
+
+    آخر
+
+    <span>
+        أخبار الأفلام
+    </span>
+
+</h1>
+
+
+<p>
+
+    تابع أحدث أخبار السينما،
+    الأفلام والمسلسلات القادمة،
+    تطورات الإنتاج،
+    أخبار النجوم،
+    والإعلانات الرسمية الجديدة.
+
+</p>
+
+</section>
+
+
+<!-- MAIN -->
+
+<main>
+
+
+<div class="section-header">
+
+<h2 class="section-title">
+
+    📰 أحدث الأخبار
+
+</h2>
+
+
+<div
+    id="newsCount"
+    class="news-count"
+>
+    جاري تحميل الأخبار...
+</div>
+
+</div>
+
+
+<section
+    id="newsGrid"
+    class="news-grid"
+>
+
+<div class="state">
+
+<div class="state-icon">
+    📰
+</div>
+
+<h3>
+    جاري تحميل الأخبار...
+</h3>
+
+<p>
+    لحظات فقط
+</p>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<strong>
+
+    MOV<span class="red">INS</span>
+
+</strong>
+
+
+<p style="margin-top:10px;">
+
+    أخبار الأفلام والمسلسلات في مكان واحد.
+
+</p>
+
+</footer>
+
+
+<script>
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const newsGrid =
+    document.getElementById(
+        "newsGrid"
+    );
+
+
+const newsCount =
+    document.getElementById(
+        "newsCount"
+    );
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(
+        value || ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHtml(value);
+
+}
+
+
+/* =====================================================
+   LOAD NEWS
+===================================================== */
+
+async function loadNews() {
+
+    try {
+
+        const response =
+            await fetch(
+
+                "movie-news.json?t=" +
+                Date.now(),
+
+                {
+                    cache:
+                        "no-store"
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "movie-news.json HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const items =
+            Array.isArray(
+                data.items
+            )
+            ?
+            data.items
+            :
+            [];
+
+
+        renderNews(
+            items
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "MOVINS NEWS ERROR:",
+            error
+        );
+
+
+        newsGrid.innerHTML = `
+
+        <div class="state">
+
+            <div class="state-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                لا توجد أخبار متاحة حاليًا
+            </h3>
+
+            <p>
+                سيتم تحديث الأخبار قريبًا.
+            </p>
+
+        </div>
+
+        `;
+
+
+        newsCount.textContent =
+            "تعذر تحميل الأخبار";
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER NEWS
+===================================================== */
+
+function renderNews(items) {
+
+    newsCount.textContent =
+        `${items.length} خبر متاح`;
+
+
+    if (!items.length) {
+
+        newsGrid.innerHTML = `
+
+        <div class="state">
+
+            <div class="state-icon">
+                📰
+            </div>
+
+            <h3>
+                لا توجد أخبار حاليًا
+            </h3>
+
+            <p>
+                سيتم إضافة أخبار جديدة قريبًا.
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    newsGrid.innerHTML =
+        items
+        .map(
+            createNewsCard
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   CREATE NEWS CARD
+===================================================== */
+
+function createNewsCard(item) {
+
+    const title =
+        escapeHtml(
+            item.title
+        );
+
+
+    const description =
+        escapeHtml(
+            item.description
+        );
+
+
+    const image =
+        item.image || "";
+
+
+    const category =
+        escapeHtml(
+            item.category ||
+            "أخبار الأفلام"
+        );
+
+
+    const date =
+        escapeHtml(
+            item.date ||
+            ""
+        );
+
+
+    const source =
+        item.source || "";
+
+
+    const url =
+        item.url || "";
+
+
+    return `
+
+    <article
+        class="news-card"
+    >
+
+        <div
+            class="news-image-wrap"
+        >
+
+            ${
+                image
+                ?
+                `
+                <img
+                    class="news-image"
+                    src="${escapeAttribute(image)}"
+                    alt="${escapeAttribute(title)}"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                >
+                `
+                :
+                ""
+            }
+
+
+            <div
+                class="news-category"
+            >
+                ${category}
+            </div>
+
+        </div>
+
+
+        <div
+            class="news-content"
+        >
+
+
+            <div
+                class="news-date"
+            >
+                ${date}
+            </div>
+
+
+            <h2
+                class="news-title"
+            >
+                ${title}
+            </h2>
+
+
+            <p
+                class="news-description"
+            >
+                ${description}
+            </p>
+
+
+            ${
+                url
+                ?
+                `
+                <a
+                    class="news-source"
+                    href="${escapeAttribute(url)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    اقرأ المصدر ←
+                </a>
+                `
+                :
+                ""
+            }
+
+
+        </div>
+
+    </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadNews();
+
+
+</script>
+
+
+</body>
+
+</html>
