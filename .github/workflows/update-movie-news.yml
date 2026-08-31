@@ -15,23 +15,23 @@ concurrency:
 
 jobs:
   update:
+
     runs-on: ubuntu-latest
 
     steps:
 
       # ==========================================
-      # CHECKOUT
+      # CHECKOUT REPOSITORY
       # ==========================================
 
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
 
       # ==========================================
-      # PYTHON
+      # SETUP PYTHON
       # ==========================================
 
       - name: Setup Python
@@ -51,47 +51,19 @@ jobs:
 
 
       # ==========================================
-      # CHECK GEMINI API KEY
-      # ==========================================
-
-      - name: Check Gemini API Key
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          if [ -z "$GEMINI_API_KEY" ]; then
-            echo "ERROR: GEMINI_API_KEY is missing."
-            exit 1
-          fi
-
-          echo "GEMINI_API_KEY found."
-
-
-      # ==========================================
-      # SYNC REPOSITORY
-      # ==========================================
-
-      - name: Sync with latest repository
-        run: |
-          git fetch origin main
-          git reset --hard origin/main
-
-
-      # ==========================================
       # UPDATE MOVIE NEWS
       # ==========================================
 
       - name: Update movie news
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python update_movie_news.py
 
 
       # ==========================================
-      # CHECK GENERATED NEWS
+      # VALIDATE GENERATED FILE
       # ==========================================
 
-      - name: Check generated news
+      - name: Check movie news file
         run: |
           python - <<'PYTHON'
           import json
@@ -104,12 +76,18 @@ jobs:
                   "movie-news.json was not created"
               )
 
-          with open(
-              filename,
-              "r",
-              encoding="utf-8"
-          ) as file:
-              data = json.load(file)
+          try:
+              with open(
+                  filename,
+                  "r",
+                  encoding="utf-8"
+              ) as file:
+                  data = json.load(file)
+
+          except Exception as error:
+              raise RuntimeError(
+                  f"Invalid JSON file: {error}"
+              )
 
           items = data.get("items", [])
 
@@ -119,32 +97,45 @@ jobs:
           print("=================================")
           print()
 
-          if len(items) == 0:
-              raise RuntimeError(
-                  "No movie or series news generated"
-              )
-
           for index, item in enumerate(items, 1):
 
               title = item.get("title", "")
-              image = item.get("image", "")
               summary = item.get("summary", "")
+              image = item.get("image", "")
+              link = item.get("link", "")
 
               print(f"{index}. {title}")
               print(f"   Summary length: {len(summary)}")
+              print(f"   Image: {'YES' if image else 'NO'}")
 
               if not title:
                   raise RuntimeError(
                       f"Article {index} has no title"
                   )
 
-              if not image:
+              if not summary:
                   raise RuntimeError(
-                      f"Article {index} has no image"
+                      f"Article {index} has no summary"
                   )
 
-          print()
-          print("All generated news passed validation.")
+              if not link:
+                  raise RuntimeError(
+                      f"Article {index} has no original link"
+                  )
+
+          if len(items) == 0:
+              print(
+                  "WARNING: No new articles were found."
+              )
+              print(
+                  "Workflow will continue successfully."
+              )
+          else:
+              print()
+              print(
+                  "Movie news validation completed successfully."
+              )
+
           PYTHON
 
 
@@ -154,6 +145,7 @@ jobs:
 
       - name: Commit and push news
         run: |
+
           git config user.name "MOVINS News Bot"
           git config user.email "actions@github.com"
 
@@ -165,6 +157,8 @@ jobs:
           fi
 
           git commit -m "Update MOVINS movie news"
+
+          git pull --rebase origin main
 
           git push origin main
 
