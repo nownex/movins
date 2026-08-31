@@ -82,14 +82,19 @@ jobs:
                   "r",
                   encoding="utf-8"
               ) as file:
+
                   data = json.load(file)
 
           except Exception as error:
+
               raise RuntimeError(
                   f"Invalid JSON file: {error}"
               )
 
-          items = data.get("items", [])
+          items = data.get(
+              "items",
+              []
+          )
 
           print()
           print("=================================")
@@ -97,66 +102,121 @@ jobs:
           print("=================================")
           print()
 
-          for index, item in enumerate(items, 1):
+          for index, item in enumerate(
+              items,
+              1
+          ):
 
-              title = item.get("title", "")
-              summary = item.get("summary", "")
-              image = item.get("image", "")
-              link = item.get("link", "")
+              title = item.get(
+                  "title",
+                  ""
+              )
 
-              print(f"{index}. {title}")
-              print(f"   Summary length: {len(summary)}")
-              print(f"   Image: {'YES' if image else 'NO'}")
+              summary = item.get(
+                  "summary",
+                  ""
+              )
+
+              image = item.get(
+                  "image",
+                  ""
+              )
+
+              link = item.get(
+                  "link",
+                  ""
+              )
+
+              print(
+                  f"{index}. {title}"
+              )
+
+              print(
+                  f"   Summary length: "
+                  f"{len(summary)}"
+              )
+
+              print(
+                  f"   Image: "
+                  f"{'YES' if image else 'NO'}"
+              )
 
               if not title:
+
                   raise RuntimeError(
-                      f"Article {index} has no title"
+                      f"Article {index} "
+                      f"has no title"
                   )
 
               if not summary:
+
                   raise RuntimeError(
-                      f"Article {index} has no summary"
+                      f"Article {index} "
+                      f"has no summary"
                   )
 
               if not link:
+
                   raise RuntimeError(
-                      f"Article {index} has no original link"
+                      f"Article {index} "
+                      f"has no original link"
                   )
 
+
           if len(items) == 0:
+
               print(
-                  "WARNING: No new articles were found."
+                  "WARNING: No articles were found."
               )
+
               print(
                   "Workflow will continue successfully."
               )
+
           else:
+
               print()
+
               print(
-                  "Movie news validation completed successfully."
+                  "Movie news validation "
+                  "completed successfully."
               )
 
           PYTHON
 
 
       # ==========================================
+      # PUBLISH MOVIE NEWS TO FACEBOOK
+      # ==========================================
+
+      - name: Publish movie news to Facebook
+        env:
+          FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
+        run: |
+          python publish_movie_news.py
+
+
+      # ==========================================
       # COMMIT AND PUSH
       # ==========================================
 
-      - name: Commit and push news
+      - name: Commit and push changes
         run: |
 
           git config user.name "MOVINS News Bot"
           git config user.email "actions@github.com"
 
           git add movie-news.json
+          git add posted_movie_news.json
 
           if git diff --cached --quiet; then
+
             echo "No changes to commit."
             exit 0
+
           fi
 
-          git commit -m "Update MOVINS movie news"
+          git commit -m "Update MOVINS movie news and Facebook status"
 
           git pull --rebase origin main
 
