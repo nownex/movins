@@ -7,7 +7,7 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <meta
@@ -80,28 +80,6 @@ body {
 
 
 /* =====================================================
-   SCROLLBAR
-===================================================== */
-
-::-webkit-scrollbar {
-    width: 7px;
-}
-
-::-webkit-scrollbar-track {
-    background: #08090e;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #292d37;
-    border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #ff1018;
-}
-
-
-/* =====================================================
    HEADER
 ===================================================== */
 
@@ -117,9 +95,6 @@ header {
         rgba(7,8,13,.94);
 
     backdrop-filter:
-        blur(20px);
-
-    -webkit-backdrop-filter:
         blur(20px);
 
     border-bottom:
@@ -145,8 +120,6 @@ header {
     align-items: center;
 
     justify-content: space-between;
-
-    gap: 20px;
 
 }
 
@@ -207,9 +180,6 @@ header {
 
     border-color: #ff1018;
 
-    transform:
-        translateY(-2px);
-
 }
 
 
@@ -262,8 +232,6 @@ header {
     font-weight: 900;
 
     margin-bottom: 18px;
-
-    line-height: 1.3;
 
 }
 
@@ -344,8 +312,6 @@ main {
 
     font-size: 13px;
 
-    font-weight: 700;
-
 }
 
 
@@ -384,9 +350,7 @@ main {
     overflow: hidden;
 
     transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
+        .3s ease;
 
 }
 
@@ -406,10 +370,6 @@ main {
 }
 
 
-/* =====================================================
-   IMAGE
-===================================================== */
-
 .news-image-wrap {
 
     position: relative;
@@ -424,8 +384,8 @@ main {
     background:
         linear-gradient(
             135deg,
-            #171b26,
-            #08090d
+            #11141d,
+            #07080d
         );
 
 }
@@ -476,16 +436,8 @@ main {
 
     font-weight: 900;
 
-    box-shadow:
-        0 8px 20px
-        rgba(0,0,0,.3);
-
 }
 
-
-/* =====================================================
-   CONTENT
-===================================================== */
 
 .news-content {
 
@@ -526,16 +478,6 @@ main {
 
     line-height: 2;
 
-    display:
-        -webkit-box;
-
-    -webkit-line-clamp: 3;
-
-    -webkit-box-orient:
-        vertical;
-
-    overflow: hidden;
-
 }
 
 
@@ -552,16 +494,6 @@ main {
     font-size: 12px;
 
     font-weight: 800;
-
-    transition:
-        .2s ease;
-
-}
-
-
-.news-source:hover {
-
-    color: white;
 
 }
 
@@ -599,15 +531,6 @@ main {
     color: white;
 
     margin-bottom: 8px;
-
-    font-size: 21px;
-
-}
-
-
-.state p {
-
-    font-size: 13px;
 
 }
 
@@ -650,7 +573,7 @@ footer .red {
 
 
 /* =====================================================
-   TABLET
+   MOBILE
 ===================================================== */
 
 @media (max-width:900px) {
@@ -668,18 +591,12 @@ footer .red {
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
-
 @media (max-width:600px) {
 
     .header-inner {
 
         width:
             calc(100% - 24px);
-
-        min-height: 70px;
 
     }
 
@@ -712,13 +629,6 @@ footer .red {
     }
 
 
-    .hero-label {
-
-        font-size: 10px;
-
-    }
-
-
     .hero p {
 
         font-size: 13px;
@@ -744,15 +654,6 @@ footer .red {
         align-items: center;
 
         text-align: center;
-
-        gap: 5px;
-
-    }
-
-
-    .section-title {
-
-        font-size: 25px;
 
     }
 
@@ -818,7 +719,9 @@ footer .red {
 <section class="hero">
 
 <div class="hero-label">
+
     MOVINS • MOVIE NEWS
+
 </div>
 
 
@@ -827,7 +730,9 @@ footer .red {
     آخر
 
     <span>
+
         أخبار الأفلام
+
     </span>
 
 </h1>
@@ -835,9 +740,11 @@ footer .red {
 
 <p>
 
-    تابع أحدث أخبار السينما والأفلام والمسلسلات،
-    الأعمال القادمة وتطورات الإنتاج،
-    أخبار الممثلين والإعلانات الرسمية الجديدة.
+    تابع أحدث أخبار السينما،
+    الأفلام والمسلسلات القادمة،
+    تطورات الإنتاج،
+    أخبار النجوم،
+    والإعلانات الرسمية الجديدة.
 
 </p>
 
@@ -864,7 +771,9 @@ footer .red {
     id="newsCount"
     class="news-count"
 >
+
     جاري تحميل الأخبار...
+
 </div>
 
 </div>
@@ -875,23 +784,29 @@ footer .red {
     class="news-grid"
 >
 
-
 <div class="state">
 
 <div class="state-icon">
+
     📰
+
 </div>
 
+
 <h3>
+
     جاري تحميل الأخبار...
+
 </h3>
 
+
 <p>
+
     لحظات فقط
+
 </p>
 
 </div>
-
 
 </section>
 
@@ -980,68 +895,9 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
 
-    return escapeHtml(value);
-
-}
-
-
-/* =====================================================
-   FORMAT DATE
-===================================================== */
-
-function formatDate(value) {
-
-    if (!value) {
-
-        return "";
-
-    }
-
-
-    try {
-
-        const date =
-            new Date(
-                value
-            );
-
-
-        if (
-            isNaN(
-                date.getTime()
-            )
-        ) {
-
-            return value;
-
-        }
-
-
-        return new Intl.DateTimeFormat(
-            "ar",
-            {
-
-                year:
-                    "numeric",
-
-                month:
-                    "long",
-
-                day:
-                    "numeric"
-
-            }
-        )
-        .format(
-            date
-        );
-
-
-    } catch (error) {
-
-        return value;
-
-    }
+    return escapeHtml(
+        value
+    );
 
 }
 
@@ -1054,18 +910,10 @@ async function loadNews() {
 
     try {
 
-        /*
-         * movie-news.json
-         * يتم تحديثه بواسطة GitHub Actions.
-         *
-         * Date.now يمنع المتصفح من عرض
-         * نسخة قديمة من الأخبار.
-         */
-
         const response =
             await fetch(
 
-                "./movie-news.json?t=" +
+                "movie-news.json?t=" +
                 Date.now(),
 
                 {
@@ -1080,7 +928,8 @@ async function loadNews() {
 
             throw new Error(
 
-                "movie-news.json HTTP " +
+                "تعذر العثور على ملف الأخبار. HTTP " +
+
                 response.status
 
             );
@@ -1092,43 +941,99 @@ async function loadNews() {
             await response.json();
 
 
-        let items =
+        /*
+        =================================================
+
+        دعم جميع أشكال JSON المحتملة
+
+        {
+            "items": [...]
+        }
+
+        أو
+
+        {
+            "articles": [...]
+        }
+
+        أو
+
+        {
+            "news": [...]
+        }
+
+        أو
+
+        [...]
+
+        =================================================
+        */
+
+
+        let items = [];
+
+
+        if (
+
+            Array.isArray(
+                data
+            )
+
+        ) {
+
+            items = data;
+
+        }
+
+
+        else if (
+
             Array.isArray(
                 data.items
             )
-            ?
-            data.items
-            :
-            [];
+
+        ) {
+
+            items = data.items;
+
+        }
 
 
-        /*
-         * ترتيب الأخبار:
-         * الأحدث أولاً.
-         */
+        else if (
 
-        items.sort(
-            (a,b) => {
+            Array.isArray(
+                data.articles
+            )
 
-                return (
+        ) {
 
-                    new Date(
-                        b.date ||
-                        b.published_at ||
-                        0
-                    )
+            items = data.articles;
 
-                    -
+        }
 
-                    new Date(
-                        a.date ||
-                        a.published_at ||
-                        0
-                    )
 
-                );
+        else if (
 
-            }
+            Array.isArray(
+                data.news
+            )
+
+        ) {
+
+            items = data.news;
+
+        }
+
+
+        console.log(
+            "MOVINS NEWS DATA:",
+            data
+        );
+
+
+        console.log(
+            "ARTICLES LOADED:",
+            items.length
         );
 
 
@@ -1150,17 +1055,25 @@ async function loadNews() {
         <div class="state">
 
             <div class="state-icon">
+
                 ⚠️
+
             </div>
 
+
             <h3>
-                تعذر تحميل الأخبار
+
+                لا توجد أخبار متاحة حاليًا
+
             </h3>
 
+
             <p>
-                تأكد من وجود ملف
-                movie-news.json
-                في المستودع.
+
+                ${escapeHtml(
+                    error.message
+                )}
+
             </p>
 
         </div>
@@ -1182,7 +1095,6 @@ async function loadNews() {
 
 function renderNews(items) {
 
-
     newsCount.textContent =
         `${items.length} خبر متاح`;
 
@@ -1194,15 +1106,24 @@ function renderNews(items) {
         <div class="state">
 
             <div class="state-icon">
+
                 📰
+
             </div>
 
+
             <h3>
+
                 لا توجد أخبار حاليًا
+
             </h3>
 
+
             <p>
-                سيتم إضافة أخبار جديدة قريبًا.
+
+                تم تشغيل نظام الأخبار بنجاح،
+                لكن لم يتم العثور على مقالات.
+
             </p>
 
         </div>
@@ -1232,13 +1153,28 @@ function renderNews(items) {
 function createNewsCard(item) {
 
 
+    /*
+    =================================================
+    TITLE
+    =================================================
+    */
+
+
     const title =
         escapeHtml(
 
             item.title ||
+            item.name ||
             "خبر جديد"
 
         );
+
+
+    /*
+    =================================================
+    DESCRIPTION
+    =================================================
+    */
 
 
     const description =
@@ -1246,49 +1182,84 @@ function createNewsCard(item) {
 
             item.description ||
             item.summary ||
-            "لا يوجد وصف متوفر حاليًا."
+            item.content ||
+            ""
 
         );
 
 
+    /*
+    =================================================
+    IMAGE
+    =================================================
+    */
+
+
     const image =
+
         item.image ||
         item.image_url ||
+        item.thumbnail ||
+        item.picture ||
         "";
+
+
+    /*
+    =================================================
+    CATEGORY
+    =================================================
+    */
 
 
     const category =
         escapeHtml(
 
             item.category ||
+            item.section ||
             "أخبار الأفلام"
 
         );
 
 
+    /*
+    =================================================
+    DATE
+    =================================================
+    */
+
+
     const date =
-        formatDate(
-
-            item.date ||
-            item.published_at ||
-            ""
-
-        );
-
-
-    const source =
         escapeHtml(
 
-            item.source ||
+            item.date ||
+            item.published ||
+            item.published_at ||
+            item.pubDate ||
             ""
 
         );
+
+
+    /*
+    =================================================
+    URL
+    =================================================
+    */
 
 
     const url =
+
         item.url ||
         item.link ||
+        item.source_url ||
         "";
+
+
+    /*
+    =================================================
+    CREATE CARD
+    =================================================
+    */
 
 
     return `
@@ -1307,43 +1278,44 @@ function createNewsCard(item) {
                 image
                 ?
                 `
+
                 <img
+
                     class="news-image"
-                    src="${escapeAttribute(image)}"
-                    alt="${escapeAttribute(title)}"
+
+                    src="${escapeAttribute(
+                        image
+                    )}"
+
+                    alt="${escapeAttribute(
+                        title
+                    )}"
+
                     loading="lazy"
+
                     referrerpolicy="no-referrer"
-                    onerror="
-                        this.style.display='none';
-                    "
+
+                    onerror="this.style.display='none'"
+
                 >
+
                 `
                 :
-                `
-                <div
-                    style="
-                        width:100%;
-                        height:100%;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        font-size:50px;
-                    "
-                >
-                    🎬
-                </div>
-                `
+                ""
             }
 
 
             <div
                 class="news-category"
             >
+
                 ${category}
+
             </div>
 
 
         </div>
+
 
 
         <div
@@ -1351,19 +1323,23 @@ function createNewsCard(item) {
         >
 
 
-            <div
-                class="news-date"
-            >
+            ${
+                date
+                ?
+                `
 
-                ${
-                    date
-                    ?
-                    date
-                    :
-                    "أحدث الأخبار"
-                }
+                <div
+                    class="news-date"
+                >
 
-            </div>
+                    ${date}
+
+                </div>
+
+                `
+                :
+                ""
+            }
 
 
             <h2
@@ -1375,28 +1351,19 @@ function createNewsCard(item) {
             </h2>
 
 
-            <p
-                class="news-description"
-            >
-
-                ${description}
-
-            </p>
-
-
             ${
-                source
+                description
                 ?
                 `
-                <div
-                    style="
-                        margin-top:12px;
-                        color:#777d8b;
-                        font-size:11px;
-                    "
+
+                <p
+                    class="news-description"
                 >
-                    المصدر: ${source}
-                </div>
+
+                    ${description}
+
+                </p>
+
                 `
                 :
                 ""
@@ -1407,14 +1374,25 @@ function createNewsCard(item) {
                 url
                 ?
                 `
+
                 <a
+
                     class="news-source"
-                    href="${escapeAttribute(url)}"
+
+                    href="${escapeAttribute(
+                        url
+                    )}"
+
                     target="_blank"
+
                     rel="noopener noreferrer"
+
                 >
-                    اقرأ الخبر ←
+
+                    اقرأ المصدر ←
+
                 </a>
+
                 `
                 :
                 ""
