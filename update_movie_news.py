@@ -13,13 +13,11 @@ import google.generativeai as genai
 
 
 # =========================================================
-# MOVINS — MOVIE NEWS ENGINE
-# STRICT MOVIE FILTER + GEMINI ARABIC TRANSLATION
+# MOVINS — MOVIES & SERIES NEWS ENGINE
 # =========================================================
 
-
 print("=" * 60)
-print("MOVINS MOVIE NEWS ENGINE")
+print("MOVINS MOVIES & SERIES NEWS ENGINE")
 print("=" * 60)
 
 
@@ -27,12 +25,13 @@ print("=" * 60)
 # SETTINGS
 # =========================================================
 
+OUTPUT_FILE = "movie-news.json"
 
 MAX_ARTICLES = 30
 
-OUTPUT_FILE = "movie-news.json"
+MAX_CANDIDATES = 50
 
-REQUEST_TIMEOUT = 15
+REQUEST_TIMEOUT = 20
 
 GEMINI_MODEL = "gemini-2.5-flash"
 
@@ -41,15 +40,14 @@ GEMINI_MODEL = "gemini-2.5-flash"
 # GEMINI API KEY
 # =========================================================
 
-
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-
+GEMINI_API_KEY = os.environ.get(
+    "GEMINI_API_KEY"
+)
 
 if not GEMINI_API_KEY:
 
     raise RuntimeError(
-        "GEMINI_API_KEY is missing. "
-        "Add it to GitHub Secrets."
+        "GEMINI_API_KEY is missing."
     )
 
 
@@ -64,9 +62,8 @@ model = genai.GenerativeModel(
 
 
 # =========================================================
-# HEADERS
+# HTTP HEADERS
 # =========================================================
-
 
 HEADERS = {
 
@@ -74,16 +71,16 @@ HEADERS = {
         "Mozilla/5.0 "
         "(Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 "
-        "Chrome/124.0 Safari/537.36"
+        "(KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
     )
 
 }
 
 
 # =========================================================
-# RSS SOURCES
+# NEWS SOURCES
 # =========================================================
-
 
 SOURCES = [
 
@@ -111,104 +108,37 @@ SOURCES = [
 
 
 # =========================================================
-# MOVIE KEYWORDS
+# EXCLUDE KEYWORDS
+# Only clearly unwanted content
 # =========================================================
-
-
-MOVIE_KEYWORDS = [
-
-    "movie",
-    "film",
-    "cinema",
-    "box office",
-    "theater",
-    "theatre",
-    "ticket sales",
-
-    "trailer",
-    "teaser",
-
-    "release date",
-    "release",
-
-    "upcoming film",
-    "upcoming movie",
-
-    "world premiere",
-    "premiere",
-
-    "feature film",
-
-    "filmmaker",
-    "director",
-
-    "movie star",
-
-    "academy awards",
-    "oscars",
-
-    "cannes",
-    "venice film festival",
-    "sundance",
-    "toronto film festival",
-
-    "tiff",
-
-    "animated film",
-
-    "sequel",
-
-    "reboot",
-
-    "franchise",
-
-    "casting",
-
-    "screenplay"
-
-]
-
-
-# =========================================================
-# WORDS TO EXCLUDE
-# =========================================================
-
 
 EXCLUDE_KEYWORDS = [
-
-    "tv series",
-    "television series",
-    "television show",
-
-    "season finale",
-
-    "episode",
-
-    "streaming series",
-
-    "miniseries",
 
     "podcast",
 
     "album",
 
-    "singer",
+    "new song",
 
-    "song",
+    "new single",
+
+    "music video",
 
     "concert",
+
+    "concert tour",
 
     "tour dates",
 
     "music festival",
 
-    "siriusxm",
-
     "grammy",
 
     "grammys",
 
-    "broadway"
+    "singer announces",
+
+    "spotify"
 
 ]
 
@@ -217,13 +147,14 @@ EXCLUDE_KEYWORDS = [
 # CLEAN TEXT
 # =========================================================
 
-
 def clean_text(text):
 
     if not text:
         return ""
 
-    text = html.unescape(text)
+    text = html.unescape(
+        str(text)
+    )
 
     soup = BeautifulSoup(
         text,
@@ -248,13 +179,12 @@ def clean_text(text):
 # NORMALIZE URL
 # =========================================================
 
-
 def normalize_url(url):
 
     if not url:
         return ""
 
-    url = url.strip()
+    url = str(url).strip()
 
     url = url.split("?")[0]
 
@@ -262,25 +192,21 @@ def normalize_url(url):
 
 
 # =========================================================
-# CREATE ARTICLE ID
+# CREATE ID
 # =========================================================
-
 
 def create_article_id(url):
 
-    value = hashlib.sha256(
+    return hashlib.sha256(
         url.encode("utf-8")
-    ).hexdigest()
-
-    return value[:24]
+    ).hexdigest()[:24]
 
 
 # =========================================================
-# CHECK MOVIE RELEVANCE
+# BASIC EXCLUSION
 # =========================================================
 
-
-def is_movie_related(title, description):
+def should_exclude(title, description):
 
     text = (
         title
@@ -288,24 +214,11 @@ def is_movie_related(title, description):
         + description
     ).lower()
 
+    for keyword in EXCLUDE_KEYWORDS:
 
-    # Exclude obvious non-movie content
-
-    for word in EXCLUDE_KEYWORDS:
-
-        if word in text:
-
-            return False
-
-
-    # Must contain movie-related keyword
-
-    for word in MOVIE_KEYWORDS:
-
-        if word in text:
+        if keyword in text:
 
             return True
-
 
     return False
 
@@ -314,11 +227,9 @@ def is_movie_related(title, description):
 # GET IMAGE FROM RSS
 # =========================================================
 
-
 def get_rss_image(entry):
 
-
-    # media:content
+    # MEDIA CONTENT
 
     media_content = getattr(
         entry,
@@ -326,20 +237,17 @@ def get_rss_image(entry):
         []
     )
 
-    if media_content:
+    for item in media_content:
 
-        for item in media_content:
+        if isinstance(item, dict):
 
-            url = item.get(
-                "url"
-            )
+            url = item.get("url", "")
 
             if url:
-
                 return url
 
 
-    # media:thumbnail
+    # MEDIA THUMBNAIL
 
     media_thumbnail = getattr(
         entry,
@@ -347,20 +255,17 @@ def get_rss_image(entry):
         []
     )
 
-    if media_thumbnail:
+    for item in media_thumbnail:
 
-        for item in media_thumbnail:
+        if isinstance(item, dict):
 
-            url = item.get(
-                "url"
-            )
+            url = item.get("url", "")
 
             if url:
-
                 return url
 
 
-    # enclosure
+    # ENCLOSURES
 
     enclosures = getattr(
         entry,
@@ -368,20 +273,17 @@ def get_rss_image(entry):
         []
     )
 
-    if enclosures:
+    for item in enclosures:
 
-        for item in enclosures:
+        if isinstance(item, dict):
 
-            url = item.get(
-                "href"
-            )
+            url = item.get("href", "")
 
             if url:
-
                 return url
 
 
-    # image
+    # IMAGE
 
     image = getattr(
         entry,
@@ -391,13 +293,19 @@ def get_rss_image(entry):
 
     if image:
 
-        url = image.get(
-            "href"
-        )
+        try:
 
-        if url:
+            url = image.get(
+                "href",
+                ""
+            )
 
-            return url
+            if url:
+                return url
+
+        except Exception:
+
+            pass
 
 
     return ""
@@ -407,21 +315,19 @@ def get_rss_image(entry):
 # GET IMAGE FROM ARTICLE PAGE
 # =========================================================
 
-
-def get_article_image(url):
+def get_article_image(article_url):
 
     try:
 
         response = requests.get(
 
-            url,
+            article_url,
 
             headers=HEADERS,
 
             timeout=REQUEST_TIMEOUT
 
         )
-
 
         if response.status_code != 200:
 
@@ -437,21 +343,25 @@ def get_article_image(url):
         )
 
 
-        # Open Graph image
+        # OG IMAGE
 
         meta = soup.find(
 
             "meta",
 
-            property="og:image"
+            attrs={
+
+                "property": "og:image"
+
+            }
 
         )
-
 
         if meta:
 
             image = meta.get(
-                "content"
+                "content",
+                ""
             )
 
             if image:
@@ -459,7 +369,7 @@ def get_article_image(url):
                 return image.strip()
 
 
-        # Twitter image
+        # TWITTER IMAGE
 
         meta = soup.find(
 
@@ -473,11 +383,37 @@ def get_article_image(url):
 
         )
 
+        if meta:
+
+            image = meta.get(
+                "content",
+                ""
+            )
+
+            if image:
+
+                return image.strip()
+
+
+        # SECOND TWITTER FORMAT
+
+        meta = soup.find(
+
+            "meta",
+
+            attrs={
+
+                "property": "twitter:image"
+
+            }
+
+        )
 
         if meta:
 
             image = meta.get(
-                "content"
+                "content",
+                ""
             )
 
             if image:
@@ -500,36 +436,115 @@ def get_article_image(url):
 # EXTRACT IMAGE
 # =========================================================
 
-
 def extract_image(entry, article_url):
 
     image = get_rss_image(
         entry
     )
 
-
     if image:
 
         return image
 
 
-    print(
-        "Checking article image..."
-    )
-
-
-    image = get_article_image(
+    return get_article_image(
         article_url
     )
 
 
-    return image
+# =========================================================
+# CHECK ARABIC
+# =========================================================
+
+def contains_arabic(text):
+
+    characters = re.findall(
+
+        r"[\u0600-\u06FF]",
+
+        text or ""
+
+    )
+
+    return len(characters) >= 10
 
 
 # =========================================================
-# GEMINI PROCESSING
+# EXTRACT JSON
 # =========================================================
 
+def extract_json(text):
+
+    if not text:
+        return None
+
+
+    text = text.strip()
+
+
+    text = text.replace(
+        "```json",
+        ""
+    )
+
+    text = text.replace(
+        "```JSON",
+        ""
+    )
+
+    text = text.replace(
+        "```",
+        ""
+    )
+
+    text = text.strip()
+
+
+    # Direct JSON
+
+    try:
+
+        return json.loads(
+            text
+        )
+
+    except Exception:
+
+        pass
+
+
+    # Find JSON object
+
+    match = re.search(
+
+        r"\{.*\}",
+
+        text,
+
+        re.DOTALL
+
+    )
+
+
+    if match:
+
+        try:
+
+            return json.loads(
+                match.group(0)
+            )
+
+        except Exception:
+
+            pass
+
+
+    return None
+
+
+# =========================================================
+# GEMINI TRANSLATION & CLASSIFICATION
+# =========================================================
 
 def process_with_gemini(
     title,
@@ -537,180 +552,220 @@ def process_with_gemini(
     source
 ):
 
-
     prompt = f"""
-أنت محرر محترف لموقع عربي متخصص حصرياً في أخبار السينما والأفلام.
+أنت محرر عربي محترف لموقع MOVINS.
 
-المصدر: {source}
+الموقع متخصص في:
+
+- أخبار الأفلام السينمائية
+- الأفلام المنتظرة
+- مواعيد إصدار الأفلام
+- الإعلانات والتريلرات
+- شباك التذاكر Box Office
+- العروض الأولى
+- المهرجانات السينمائية
+- أخبار المسلسلات المهمة
+- مواسم المسلسلات
+- الإعلانات والتريلرات الخاصة بالمسلسلات
+- أخبار الممثلين والمخرجين المرتبطة بالأفلام أو المسلسلات
+
+المصدر:
+{source}
 
 العنوان الأصلي:
 {title}
 
-وصف الخبر الأصلي:
+وصف الخبر:
 {description}
 
-المهمة:
+المطلوب:
 
-1. تحقق أولاً هل الخبر متعلق فعلاً بالأفلام السينمائية.
-2. يجب رفض أخبار الموسيقى والأغاني والحفلات والبودكاست.
-3. يجب رفض أخبار المسلسلات والتلفزيون والبرامج إذا لم تكن مرتبطة بشكل واضح بفيلم سينمائي.
-4. يجب التركيز على:
-   - الأفلام الجديدة
-   - الأفلام المنتظرة
-   - مواعيد الإصدار
-   - الإعلانات والتريلرات
-   - شباك التذاكر Box Office
-   - العروض الأولى
-   - المهرجانات السينمائية
-   - أخبار مهمة عن ممثلين أو مخرجين مرتبطة بالأفلام
+أولاً: قرر هل الخبر مناسب لموقع متخصص في الأفلام والمسلسلات.
 
-إذا كان الخبر غير متعلق بالأفلام السينمائية أعد فقط:
+ارفض الأخبار المتعلقة فقط بـ:
+- الموسيقى
+- الأغاني
+- الألبومات
+- الحفلات
+- الجولات الغنائية
+- البودكاست
+
+إذا كان الخبر غير مناسب أعد JSON فقط:
 
 {{
   "valid": false
 }}
 
-أما إذا كان متعلقاً بالأفلام أعد JSON فقط بهذا الشكل:
+إذا كان الخبر مناسباً أعد JSON فقط بهذا الشكل:
 
 {{
   "valid": true,
-  "title_ar": "عنوان عربي احترافي وواضح",
-  "summary_ar": "ملخص عربي مسترسل من 3 إلى 5 جمل يشرح الخبر بشكل واضح ومفيد."
+  "category": "فيلم",
+  "title_ar": "عنوان عربي احترافي",
+  "summary_ar": "ملخص عربي مسترسل وواضح من 3 إلى 5 جمل."
 }}
 
-قواعد مهمة جداً:
+بالنسبة للمسلسلات اجعل category:
 
-- ترجم إلى العربية ولا تترك العنوان باللغة الإنجليزية.
-- لا تكتب أي HTML.
-- لا تكتب Markdown.
-- لا تضف معلومات غير موجودة في النص.
-- اجعل العنوان جذاباً وطبيعياً لموقع أخبار سينمائية.
-- اجعل الملخص مفهوماً للقارئ العربي.
-- أعد JSON فقط بدون أي كلام إضافي.
+"مسلسلات"
+
+قواعد مهمة:
+
+- ترجم العنوان إلى العربية ترجمة طبيعية.
+- لا تترك العنوان باللغة الإنجليزية.
+- اكتب ملخصاً عربياً واضحاً.
+- لا تستخدم HTML.
+- لا تستخدم Markdown.
+- لا تضف معلومات غير موجودة في الخبر.
+- لا تكتب أي نص خارج JSON.
 """
 
+    for attempt in range(2):
 
-    try:
+        try:
 
-        response = model.generate_content(
-            prompt
-        )
-
-
-        text = response.text.strip()
+            response = model.generate_content(
+                prompt
+            )
 
 
-        # Remove markdown JSON markers if Gemini adds them
-
-        text = text.replace(
-            "```json",
-            ""
-        )
-
-        text = text.replace(
-            "```",
-            ""
-        )
-
-        text = text.strip()
-
-
-        data = json.loads(
-            text
-        )
-
-
-        if not data.get(
-            "valid",
-            False
-        ):
-
-            return None
-
-
-        title_ar = clean_text(
-
-            data.get(
-                "title_ar",
+            text = getattr(
+                response,
+                "text",
                 ""
             )
 
-        )
 
-
-        summary_ar = clean_text(
-
-            data.get(
-                "summary_ar",
-                ""
+            data = extract_json(
+                text
             )
 
-        )
+
+            if not data:
+
+                print(
+                    "Invalid Gemini JSON."
+                )
+
+                continue
 
 
-        # Do not save untranslated articles
+            if not data.get(
+                "valid",
+                False
+            ):
 
-        if not title_ar:
-
-            return None
-
-
-        if not summary_ar:
-
-            return None
+                return None
 
 
-        # Basic Arabic character check
+            title_ar = clean_text(
 
-        arabic_characters = len(
-
-            re.findall(
-
-                r"[\u0600-\u06FF]",
-
-
-                title_ar + summary_ar
+                data.get(
+                    "title_ar",
+                    ""
+                )
 
             )
 
-        )
+
+            summary_ar = clean_text(
+
+                data.get(
+                    "summary_ar",
+                    ""
+                )
+
+            )
 
 
-        if arabic_characters < 15:
+            category = clean_text(
+
+                data.get(
+                    "category",
+                    "أخبار السينما"
+                )
+
+            )
+
+
+            # IMPORTANT:
+            # Never save untranslated English
+
+            if not contains_arabic(
+                title_ar
+            ):
+
+                print(
+                    "Gemini title is not Arabic."
+                )
+
+                continue
+
+
+            if not contains_arabic(
+                summary_ar
+            ):
+
+                print(
+                    "Gemini summary is not Arabic."
+                )
+
+                continue
+
+
+            if len(title_ar) < 5:
+
+                continue
+
+
+            if len(summary_ar) < 30:
+
+                continue
+
+
+            if category not in [
+
+                "فيلم",
+
+                "مسلسلات"
+
+            ]:
+
+                category = "أخبار السينما"
+
+
+            return {
+
+                "title": title_ar,
+
+                "summary": summary_ar,
+
+                "category": category
+
+            }
+
+
+        except Exception as error:
 
             print(
-                "Gemini did not return Arabic."
+
+                f"GEMINI ERROR "
+                f"(attempt {attempt + 1}):",
+
+                str(error)
+
             )
 
-            return None
+
+            time.sleep(2)
 
 
-        return {
-
-            "title": title_ar,
-
-            "summary": summary_ar
-
-        }
-
-
-    except Exception as error:
-
-        print(
-            "GEMINI ERROR:",
-            str(error)
-        )
-
-        # IMPORTANT:
-        # Do NOT save English fallback
-
-        return None
+    return None
 
 
 # =========================================================
 # LOAD OLD NEWS
 # =========================================================
-
 
 def load_old_news():
 
@@ -733,9 +788,7 @@ def load_old_news():
 
         ) as file:
 
-            data = json.load(
-                file
-            )
+            data = json.load(file)
 
 
         return data.get(
@@ -750,27 +803,17 @@ def load_old_news():
 
 
 # =========================================================
-# MAIN
+# COLLECT NEWS
 # =========================================================
 
-
-all_articles = []
+candidates = []
 
 seen_urls = set()
-
-old_news = load_old_news()
-
-
-# =========================================================
-# COLLECT RSS NEWS
-# =========================================================
 
 
 for source in SOURCES:
 
-
     print()
-
     print("=" * 60)
 
     print(
@@ -815,24 +858,28 @@ for source in SOURCES:
         )
 
 
-        entries = feed.entries
-
-
         print(
+
             "ARTICLES FOUND:",
-            len(entries)
+
+            len(feed.entries)
+
         )
 
 
-        for entry in entries:
+        for entry in feed.entries:
 
 
             title = clean_text(
 
                 getattr(
+
                     entry,
+
                     "title",
+
                     ""
+
                 )
 
             )
@@ -841,9 +888,13 @@ for source in SOURCES:
             description = clean_text(
 
                 getattr(
+
                     entry,
+
                     "summary",
+
                     ""
+
                 )
 
             )
@@ -852,9 +903,13 @@ for source in SOURCES:
             article_url = normalize_url(
 
                 getattr(
+
                     entry,
+
                     "link",
+
                     ""
+
                 )
 
             )
@@ -881,11 +936,10 @@ for source in SOURCES:
 
 
             # =============================================
-            # STRICT MOVIE FILTER
+            # EXCLUDE CLEARLY UNWANTED CONTENT
             # =============================================
 
-
-            if not is_movie_related(
+            if should_exclude(
 
                 title,
 
@@ -894,8 +948,8 @@ for source in SOURCES:
             ):
 
                 print(
-                    "SKIPPED NON-MOVIE:",
-                    title[:70]
+                    "EXCLUDED:",
+                    title[:80]
                 )
 
                 continue
@@ -904,7 +958,6 @@ for source in SOURCES:
             # =============================================
             # IMAGE
             # =============================================
-
 
             image = extract_image(
 
@@ -915,24 +968,19 @@ for source in SOURCES:
             )
 
 
-            # EXCLUDE NEWS WITHOUT IMAGE
+            # NO IMAGE = NO ARTICLE
 
             if not image:
 
                 print(
-                    "SKIPPED NO IMAGE:",
-                    title[:70]
+                    "NO IMAGE:",
+                    title[:80]
                 )
 
                 continue
 
 
-            # =============================================
-            # SAVE CANDIDATE
-            # =============================================
-
-
-            all_articles.append({
+            candidates.append({
 
                 "original_title": title,
 
@@ -950,63 +998,85 @@ for source in SOURCES:
     except Exception as error:
 
         print(
+
             "SOURCE ERROR:",
+
             str(error)
+
         )
 
 
-# =========================================================
-# LIMIT BEFORE GEMINI
-# =========================================================
-
-
 print()
+print("=" * 60)
 
 print(
-    "MOVIE CANDIDATES:",
-    len(all_articles)
+    "TOTAL CANDIDATES:",
+    len(candidates)
 )
 
-
-all_articles = all_articles[:40]
+print("=" * 60)
 
 
 # =========================================================
-# PROCESS WITH GEMINI
+# LIMIT CANDIDATES
 # =========================================================
 
+candidates = candidates[
+    :MAX_CANDIDATES
+]
+
+
+# =========================================================
+# GEMINI PROCESSING
+# =========================================================
 
 final_articles = []
+
+processed_urls = set()
 
 
 for index, article in enumerate(
 
-    all_articles,
+    candidates,
 
     start=1
 
 ):
 
-
     print()
+    print("=" * 60)
 
     print(
-        f"[{index}/{len(all_articles)}]"
+
+        f"PROCESSING {index}/"
+        f"{len(candidates)}"
+
     )
 
     print(
-        "PROCESSING:",
-        article["original_title"]
+
+        article[
+            "original_title"
+        ]
+
     )
+
+    print("=" * 60)
 
 
     processed = process_with_gemini(
 
-        article["original_title"],
+        article[
+            "original_title"
+        ],
 
-        article["original_description"],
+        article[
+            "original_description"
+        ],
 
-        article["source"]
+        article[
+            "source"
+        ]
 
     )
 
@@ -1020,48 +1090,65 @@ for index, article in enumerate(
         continue
 
 
-    article_id = create_article_id(
+    article_url = article["url"]
 
-        article["url"]
+
+    if article_url in processed_urls:
+
+        continue
+
+
+    processed_urls.add(
+        article_url
     )
 
 
     final_articles.append({
 
-        "id": article_id,
+        "id": create_article_id(
+            article_url
+        ),
 
-        "title": processed["title"],
+        "title": processed[
+            "title"
+        ],
 
-        "summary": processed["summary"],
+        "summary": processed[
+            "summary"
+        ],
 
-        "image": article["image"],
+        "image": article[
+            "image"
+        ],
 
-        "source": article["source"],
+        "source": article[
+            "source"
+        ],
 
-        "url": article["url"],
+        "url": article_url,
+
+        "category": processed[
+            "category"
+        ],
 
         "date": datetime.now(
             timezone.utc
         ).strftime(
             "%Y-%m-%dT%H:%M:%SZ"
-        ),
-
-        "category": "movie"
+        )
 
     })
 
 
+    print()
+
     print(
-        "ARABIC TITLE:",
+        "ARABIC:",
         processed["title"]
     )
 
 
-    # Small pause
-
-    time.sleep(
-        1
-    )
+    time.sleep(1)
 
 
     if len(final_articles) >= MAX_ARTICLES:
@@ -1070,54 +1157,45 @@ for index, article in enumerate(
 
 
 # =========================================================
-# REMOVE DUPLICATES
+# IF NO NEWS GENERATED
+# KEEP OLD NEWS INSTEAD OF EMPTY FILE
 # =========================================================
 
-
-unique_articles = []
-
-used_urls = set()
+old_news = load_old_news()
 
 
-for article in final_articles:
+if not final_articles:
 
+    print()
+    print("=" * 60)
 
-    url = article["url"]
-
-
-    if url in used_urls:
-
-        continue
-
-
-    used_urls.add(
-        url
+    print(
+        "WARNING: No new suitable news generated."
     )
 
-
-    unique_articles.append(
-        article
+    print(
+        "Keeping previous news."
     )
 
+    print("=" * 60)
+
+
+    final_articles = old_news
+
 
 # =========================================================
-# OUTPUT
+# SAVE JSON
 # =========================================================
-
 
 output = {
 
     "updated_at": datetime.now(
-
         timezone.utc
-
     ).strftime(
-
         "%Y-%m-%dT%H:%M:%SZ"
-
     ),
 
-    "items": unique_articles
+    "items": final_articles
 
 }
 
@@ -1131,7 +1209,6 @@ with open(
     encoding="utf-8"
 
 ) as file:
-
 
     json.dump(
 
@@ -1147,19 +1224,19 @@ with open(
 
 
 # =========================================================
-# SUCCESS
+# FINAL RESULT
 # =========================================================
 
-
 print()
-
 print("=" * 60)
 
-print("SUCCESS")
+print(
+    "SUCCESS"
+)
 
 print(
-    "MOVIE NEWS SAVED:",
-    len(unique_articles)
+    "NEWS SAVED:",
+    len(final_articles)
 )
 
 print(
