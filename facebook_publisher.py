@@ -31,9 +31,32 @@ GRAPH_URL = (
 
 MOVIES_FILE = "movies.json"
 
+NEWS_FILE = "movie-news.json"
+
 POSTED_FILE = "posted_movies.json"
 
+POSTED_NEWS_FILE = "posted_news.json"
+
 ROTATION_FILE = "facebook_rotation.json"
+
+
+# =========================================================
+# POST TYPE
+#
+# movie = نشر فيلم أو مسلسل
+# news  = نشر خبر
+#
+# يتم تحديده من GitHub Actions:
+#
+# POST_TYPE=movie
+# أو
+# POST_TYPE=news
+# =========================================================
+
+POST_TYPE = os.environ.get(
+    "POST_TYPE",
+    "movie"
+).strip().lower()
 
 
 # =========================================================
@@ -49,31 +72,15 @@ SITE_URL = (
 # SETTINGS
 # =========================================================
 
-# منشور واحد فقط في كل تشغيل
 MAX_POSTS_PER_RUN = 1
 
 MAX_OVERVIEW_LENGTH = 420
 
+MAX_NEWS_SUMMARY_LENGTH = 900
+
 
 # =========================================================
 # FACEBOOK ROTATION
-#
-# الترتيب مضمون:
-#
-# 1  فيلم     رعب
-# 2  مسلسل    أكشن
-# 3  فيلم     كوميديا
-# 4  مسلسل    دراما
-# 5  فيلم     خيال علمي
-# 6  مسلسل    غموض
-# 7  فيلم     جريمة
-# 8  مسلسل    مغامرة
-# 9  فيلم     فانتازيا
-# 10 مسلسل    رومانسي
-# 11 فيلم     رسوم متحركة
-# 12 مسلسل    إثارة
-#
-# ثم تبدأ الدورة من جديد.
 # =========================================================
 
 ROTATION_SEQUENCE = [
@@ -142,6 +149,25 @@ ROTATION_SEQUENCE = [
 
 
 # =========================================================
+# CLEAN TEXT
+# =========================================================
+
+def clean_text(value):
+
+    if value is None:
+
+        return ""
+
+    text = str(value)
+
+    text = " ".join(
+        text.split()
+    )
+
+    return text.strip()
+
+
+# =========================================================
 # LOAD MOVIES
 # =========================================================
 
@@ -180,6 +206,51 @@ def load_movies():
 
         raise RuntimeError(
             "movies.json items must be a list"
+        )
+
+
+    return items
+
+
+# =========================================================
+# LOAD NEWS
+# =========================================================
+
+def load_news():
+
+    if not os.path.exists(
+        NEWS_FILE
+    ):
+
+        raise RuntimeError(
+            "movie-news.json not found"
+        )
+
+
+    with open(
+        NEWS_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        data = json.load(
+            file
+        )
+
+
+    items = data.get(
+        "items",
+        []
+    )
+
+
+    if not isinstance(
+        items,
+        list
+    ):
+
+        raise RuntimeError(
+            "movie-news.json items must be a list"
         )
 
 
@@ -252,7 +323,6 @@ def load_posted():
                         f"{item_type}:{item_id}"
                     )
 
-
             else:
 
                 value = str(
@@ -277,7 +347,6 @@ def load_posted():
             f"{POSTED_FILE}: {error}"
         )
 
-
         return set()
 
 
@@ -285,12 +354,82 @@ def load_posted():
 # SAVE POSTED
 # =========================================================
 
-def save_posted(
-    posted
-):
+def save_posted(posted):
 
     with open(
         POSTED_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            sorted(
+                list(posted)
+            ),
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+
+
+# =========================================================
+# LOAD POSTED NEWS
+# =========================================================
+
+def load_posted_news():
+
+    if not os.path.exists(
+        POSTED_NEWS_FILE
+    ):
+
+        return set()
+
+
+    try:
+
+        with open(
+            POSTED_NEWS_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            data = json.load(
+                file
+            )
+
+
+        if not isinstance(
+            data,
+            list
+        ):
+
+            return set()
+
+
+        return {
+
+            str(item).strip()
+
+            for item in data
+
+            if str(item).strip()
+
+        }
+
+
+    except Exception:
+
+        return set()
+
+
+# =========================================================
+# SAVE POSTED NEWS
+# =========================================================
+
+def save_posted_news(posted):
+
+    with open(
+        POSTED_NEWS_FILE,
         "w",
         encoding="utf-8"
     ) as file:
@@ -362,18 +501,11 @@ def load_rotation():
 
 
         return {
-            "index":
-                index
+            "index": index
         }
 
 
-    except Exception as error:
-
-        print(
-            f"WARNING: could not read "
-            f"{ROTATION_FILE}: {error}"
-        )
-
+    except Exception:
 
         return default
 
@@ -382,9 +514,7 @@ def load_rotation():
 # SAVE ROTATION
 # =========================================================
 
-def save_rotation(
-    rotation
-):
+def save_rotation(rotation):
 
     with open(
         ROTATION_FILE,
@@ -404,9 +534,7 @@ def save_rotation(
 # MEDIA TYPE
 # =========================================================
 
-def get_media_type(
-    item
-):
+def get_media_type(item):
 
     item_type = str(
         item.get(
@@ -432,9 +560,7 @@ def get_media_type(
 # ARABIC MEDIA TYPE
 # =========================================================
 
-def get_arabic_type(
-    media_type
-):
+def get_arabic_type(media_type):
 
     if media_type == "movie":
 
@@ -447,9 +573,7 @@ def get_arabic_type(
 # MOVIE ID
 # =========================================================
 
-def get_movie_id(
-    item
-):
+def get_movie_id(item):
 
     return str(
         item.get(
@@ -463,9 +587,7 @@ def get_movie_id(
 # UNIQUE MOVIE KEY
 # =========================================================
 
-def get_movie_key(
-    item
-):
+def get_movie_key(item):
 
     movie_id = get_movie_id(
         item
@@ -491,9 +613,7 @@ def get_movie_key(
 # DIRECT MOVIE URL
 # =========================================================
 
-def get_movie_url(
-    item
-):
+def get_movie_url(item):
 
     movie_id = get_movie_id(
         item
@@ -520,38 +640,10 @@ def get_movie_url(
 
 
 # =========================================================
-# CLEAN TEXT
-# =========================================================
-
-def clean_text(
-    value
-):
-
-    if value is None:
-
-        return ""
-
-
-    text = str(
-        value
-    )
-
-
-    text = " ".join(
-        text.split()
-    )
-
-
-    return text.strip()
-
-
-# =========================================================
 # SHORT OVERVIEW
 # =========================================================
 
-def build_short_overview(
-    item
-):
+def build_short_overview(item):
 
     overview = clean_text(
         item.get(
@@ -599,9 +691,7 @@ def build_short_overview(
 # GET GENRES LIST
 # =========================================================
 
-def get_genres_list(
-    item
-):
+def get_genres_list(item):
 
     genres = item.get(
         "genres",
@@ -651,9 +741,7 @@ def get_genres_list(
 # BUILD GENRES
 # =========================================================
 
-def build_genres(
-    item
-):
+def build_genres(item):
 
     genres = get_genres_list(
         item
@@ -674,9 +762,7 @@ def build_genres(
 # HASHTAGS
 # =========================================================
 
-def build_hashtags(
-    item
-):
+def build_hashtags(item):
 
     hashtags = item.get(
         "hashtags",
@@ -689,25 +775,12 @@ def build_hashtags(
         list
     ):
 
-        cleaned = []
-
-
-        for value in hashtags:
-
-            value = clean_text(
-                value
-            )
-
-
-            if value:
-
-                cleaned.append(
-                    value
-                )
-
-
         hashtags = " ".join(
-            cleaned
+            clean_text(value)
+
+            for value in hashtags
+
+            if clean_text(value)
         )
 
 
@@ -725,17 +798,7 @@ def build_hashtags(
 
         for part in parts:
 
-            part = part.strip()
-
-
-            if not part:
-
-                continue
-
-
-            if not part.startswith(
-                "#"
-            ):
+            if not part.startswith("#"):
 
                 part = "#" + part
 
@@ -759,25 +822,17 @@ def build_hashtags(
 
     if media_type == "movie":
 
-        return (
-            "#MOVINS "
-            "#أفلام"
-        )
+        return "#MOVINS #أفلام"
 
 
-    return (
-        "#MOVINS "
-        "#مسلسلات"
-    )
+    return "#MOVINS #مسلسلات"
 
 
 # =========================================================
 # RATING
 # =========================================================
 
-def get_rating(
-    item
-):
+def get_rating(item):
 
     try:
 
@@ -811,9 +866,7 @@ def get_rating(
 # POPULARITY
 # =========================================================
 
-def get_popularity(
-    item
-):
+def get_popularity(item):
 
     try:
 
@@ -823,7 +876,6 @@ def get_popularity(
             )
             or 0
         )
-
 
     except (
         TypeError,
@@ -837,9 +889,7 @@ def get_popularity(
 # VOTE COUNT
 # =========================================================
 
-def get_vote_count(
-    item
-):
+def get_vote_count(item):
 
     try:
 
@@ -849,7 +899,6 @@ def get_vote_count(
             )
             or 0
         )
-
 
     except (
         TypeError,
@@ -884,9 +933,7 @@ ENDINGS = [
 # GET ROTATING ENDING
 # =========================================================
 
-def get_ending(
-    item
-):
+def get_ending(item):
 
     movie_id = get_movie_id(
         item
@@ -969,9 +1016,7 @@ def genre_matches(
 
     if wanted_genre == "رسوم متحركة":
 
-        return (
-            "رسوم متحركة" in genres
-        )
+        return "رسوم متحركة" in genres
 
 
     if wanted_genre == "مغامرة":
@@ -994,21 +1039,17 @@ def genre_matches(
 
     if wanted_genre == "إثارة":
 
-        return (
-            "إثارة" in genres
-        )
+        return "إثارة" in genres
 
 
     return False
 
 
 # =========================================================
-# FACEBOOK CAPTION
+# FACEBOOK MOVIE CAPTION
 # =========================================================
 
-def build_caption(
-    item
-):
+def build_caption(item):
 
     title = clean_text(
         item.get(
@@ -1177,10 +1218,6 @@ def select_candidates(
             item
         )
 
-
-    # =====================================================
-    # MOST POPULAR FIRST
-    # =====================================================
 
     candidates.sort(
 
@@ -1364,12 +1401,201 @@ def select_global_fallback(
 
 
 # =========================================================
-# PUBLISH TO FACEBOOK
+# NEWS HASHTAGS
 # =========================================================
 
-def publish_to_facebook(
-    item
-):
+def build_news_hashtags(news):
+
+    title = clean_text(
+        news.get(
+            "title",
+            ""
+        )
+    ).lower()
+
+
+    hashtags = [
+        "#MOVINS",
+        "#أفلام",
+        "#مسلسلات",
+        "#سينما"
+    ]
+
+
+    if (
+        "نتفليكس" in title
+        or
+        "netflix" in title
+    ):
+
+        hashtags.append(
+            "#Netflix"
+        )
+
+
+    if (
+        "مارفل" in title
+        or
+        "marvel" in title
+    ):
+
+        hashtags.append(
+            "#Marvel"
+        )
+
+
+    if (
+        "هوليوود" in title
+        or
+        "hollywood" in title
+    ):
+
+        hashtags.append(
+            "#Hollywood"
+        )
+
+
+    if (
+        "مسلسل" in title
+    ):
+
+        hashtags.append(
+            "#مسلسلات"
+        )
+
+
+    if (
+        "فيلم" in title
+    ):
+
+        hashtags.append(
+            "#فيلم"
+        )
+
+
+    # إزالة التكرار
+
+    result = []
+
+
+    for tag in hashtags:
+
+        if tag not in result:
+
+            result.append(
+                tag
+            )
+
+
+    return " ".join(
+        result[:7]
+    )
+
+
+# =========================================================
+# SHORT NEWS SUMMARY
+# =========================================================
+
+def build_news_summary(news):
+
+    summary = clean_text(
+        news.get(
+            "summary",
+            ""
+        )
+    )
+
+
+    if not summary:
+
+        return (
+            "اكتشف التفاصيل الكاملة "
+            "على MOVINS."
+        )
+
+
+    if len(summary) <= MAX_NEWS_SUMMARY_LENGTH:
+
+        return summary
+
+
+    shortened = summary[
+        :MAX_NEWS_SUMMARY_LENGTH
+    ]
+
+
+    if " " in shortened:
+
+        shortened = shortened.rsplit(
+            " ",
+            1
+        )[0]
+
+
+    return shortened + "..."
+
+
+# =========================================================
+# BUILD NEWS CAPTION
+# =========================================================
+
+def build_news_caption(news):
+
+    title = clean_text(
+        news.get(
+            "title",
+            "خبر جديد"
+        )
+    )
+
+
+    summary = build_news_summary(
+        news
+    )
+
+
+    hashtags = build_news_hashtags(
+        news
+    )
+
+
+    lines = [
+
+        "📰 خبر جديد من عالم الأفلام والمسلسلات",
+
+        "",
+
+        f"🎬 {title}",
+
+        "",
+
+        summary,
+
+        "",
+
+        "🎥 تابع أحدث أخبار السينما والمسلسلات على MOVINS",
+
+        "",
+
+        SITE_URL,
+
+        "",
+
+        hashtags
+
+    ]
+
+
+    return "\n".join(
+        lines
+    )
+
+
+# =========================================================
+# PUBLISH MOVIE
+# =========================================================
+
+def publish_to_facebook(item):
 
     poster = clean_text(
         item.get(
@@ -1393,24 +1619,113 @@ def publish_to_facebook(
     )
 
 
-    movie_url = get_movie_url(
-        item
+    payload = {
+
+        "url": poster,
+
+        "caption": caption,
+
+        "published": "true",
+
+        "access_token": TOKEN
+
+    }
+
+
+    try:
+
+        response = requests.post(
+
+            GRAPH_URL,
+
+            data=payload,
+
+            timeout=60
+
+        )
+
+
+    except requests.RequestException as error:
+
+        print(
+            f"Facebook request error: "
+            f"{error}"
+        )
+
+        return False
+
+
+    try:
+
+        result = response.json()
+
+    except ValueError:
+
+        print(
+            response.text
+        )
+
+        return False
+
+
+    if not response.ok:
+
+        print(
+            json.dumps(
+                result,
+                ensure_ascii=False,
+                indent=2
+            )
+        )
+
+        return False
+
+
+    print(
+        "Facebook movie post successful."
+    )
+
+
+    return True
+
+
+# =========================================================
+# PUBLISH NEWS
+# =========================================================
+
+def publish_news_to_facebook(news):
+
+    image = clean_text(
+        news.get(
+            "image",
+            ""
+        )
+    )
+
+
+    if not image:
+
+        print(
+            "SKIP NEWS: no image"
+        )
+
+        return False
+
+
+    caption = build_news_caption(
+        news
     )
 
 
     payload = {
 
-        "url":
-            poster,
+        "url": image,
 
-        "caption":
-            caption,
+        "caption": caption,
 
-        "published":
-            "true",
+        "published": "true",
 
-        "access_token":
-            TOKEN
+        "access_token": TOKEN
 
     }
 
@@ -1421,75 +1736,16 @@ def publish_to_facebook(
 
 
     print(
-        "Publishing to Facebook"
+        "Publishing NEWS to Facebook"
     )
 
 
     print(
-        f"Page ID: "
-        f"1269050452957956"
-    )
-
-
-    print(
-        f"Title: "
-        f"{item.get('title', '')}"
-    )
-
-
-    print(
-        f"ID: "
-        f"{item.get('id', '')}"
-    )
-
-
-    print(
-        f"Type: "
-        f"{item.get('type', '')}"
-    )
-
-
-    print(
-        f"Popularity: "
-        f"{get_popularity(item):.2f}"
-    )
-
-
-    print(
-        f"Rating: "
-        f"{get_rating(item)}"
-    )
-
-
-    print(
-        f"Vote Count: "
-        f"{get_vote_count(item)}"
-    )
-
-
-    print(
-        f"Direct Movie URL: "
-        f"{movie_url}"
-    )
-
-
-    print(
-        "--------------------------------------"
-    )
-
-
-    print(
-        "Caption:"
-    )
-
-
-    print(
-        caption
-    )
-
-
-    print(
-        "--------------------------------------"
+        "Title:",
+        news.get(
+            "title",
+            ""
+        )
     )
 
 
@@ -1520,18 +1776,11 @@ def publish_to_facebook(
 
         result = response.json()
 
-
     except ValueError:
-
-        print(
-            "Facebook returned invalid JSON:"
-        )
-
 
         print(
             response.text
         )
-
 
         return False
 
@@ -1542,7 +1791,6 @@ def publish_to_facebook(
             "Facebook API Error:"
         )
 
-
         print(
             json.dumps(
                 result,
@@ -1551,23 +1799,11 @@ def publish_to_facebook(
             )
         )
 
-
         return False
 
 
     print(
-        "Facebook post successful."
-    )
-
-
-    print(
-        "Post ID:",
-        result.get(
-            "post_id"
-        )
-        or result.get(
-            "id"
-        )
+        "Facebook NEWS post successful."
     )
 
 
@@ -1575,25 +1811,122 @@ def publish_to_facebook(
 
 
 # =========================================================
-# MAIN
+# MAIN — NEWS
 # =========================================================
 
-def main():
+def run_news():
 
     print(
-        "======================================"
+        "MOVINS NEWS FACEBOOK PUBLISHER"
+    )
+
+
+    news_items = load_news()
+
+    posted_news = load_posted_news()
+
+
+    candidates = []
+
+
+    for news in news_items:
+
+        news_id = clean_text(
+            news.get(
+                "id",
+                ""
+            )
+        )
+
+
+        if not news_id:
+
+            continue
+
+
+        if news_id in posted_news:
+
+            continue
+
+
+        image = clean_text(
+            news.get(
+                "image",
+                ""
+            )
+        )
+
+
+        if not image:
+
+            continue
+
+
+        candidates.append(
+            news
+        )
+
+
+    if not candidates:
+
+        print(
+            "No new news available."
+        )
+
+        return
+
+
+    selected = candidates[0]
+
+
+    print(
+        "SELECTED NEWS:"
     )
 
 
     print(
-        "MOVINS FACEBOOK PUBLISHER"
+        selected.get(
+            "title",
+            ""
+        )
     )
 
 
-    print(
-        "======================================"
+    success = publish_news_to_facebook(
+        selected
     )
 
+
+    if success:
+
+        news_id = clean_text(
+            selected.get(
+                "id",
+                ""
+            )
+        )
+
+
+        posted_news.add(
+            news_id
+        )
+
+
+        save_posted_news(
+            posted_news
+        )
+
+
+        print(
+            "News marked as posted."
+        )
+
+
+# =========================================================
+# MAIN — MOVIES
+# =========================================================
+
+def run_movies():
 
     movies = load_movies()
 
@@ -1602,37 +1935,26 @@ def main():
     rotation = load_rotation()
 
 
-    print(
-        f"MOVINS items: "
-        f"{len(movies)}"
-    )
-
-
-    print(
-        f"Already posted: "
-        f"{len(posted)}"
-    )
-
-
-    # =====================================================
-    # GET CURRENT ROTATION POSITION
-    # =====================================================
-
     rotation_index = (
+
         rotation.get(
             "index",
             0
         )
+
         % len(
             ROTATION_SEQUENCE
         )
+
     )
 
 
     current_rotation = (
+
         ROTATION_SEQUENCE[
             rotation_index
         ]
+
     )
 
 
@@ -1650,44 +1972,6 @@ def main():
     )
 
 
-    print(
-        "======================================"
-    )
-
-
-    print(
-        "CURRENT ROTATION:"
-    )
-
-
-    print(
-        f"Step: "
-        f"{rotation_index + 1}/"
-        f"{len(ROTATION_SEQUENCE)}"
-    )
-
-
-    print(
-        f"Type: "
-        f"{get_arabic_type(wanted_media_type)}"
-    )
-
-
-    print(
-        f"Genre: "
-        f"{wanted_genre}"
-    )
-
-
-    print(
-        "======================================"
-    )
-
-
-    # =====================================================
-    # PRIMARY SELECTION
-    # =====================================================
-
     candidates = select_candidates(
 
         movies,
@@ -1701,31 +1985,7 @@ def main():
     )
 
 
-    print(
-        f"Exact candidates: "
-        f"{len(candidates)}"
-    )
-
-
-    # =====================================================
-    # FALLBACK 1
-    #
-    # نفس النوع، لكن أي تصنيف.
-    #
-    # التناوب يبقى محفوظًا قدر الإمكان.
-    # =====================================================
-
     if not candidates:
-
-        print(
-            "No exact genre match."
-        )
-
-
-        print(
-            "Using same-type fallback."
-        )
-
 
         candidates = select_type_fallback(
 
@@ -1738,23 +1998,7 @@ def main():
         )
 
 
-    # =====================================================
-    # FALLBACK 2
-    #
-    # إذا لم يوجد أي عمل من النوع المطلوب.
-    # =====================================================
-
     if not candidates:
-
-        print(
-            "No same-type items available."
-        )
-
-
-        print(
-            "Using global popularity fallback."
-        )
-
 
         candidates = select_global_fallback(
 
@@ -1765,117 +2009,16 @@ def main():
         )
 
 
-    # =====================================================
-    # NOTHING
-    # =====================================================
-
     if not candidates:
 
         print(
             "No new items available."
         )
 
-
         return
 
 
-    # =====================================================
-    # SHOW TOP CANDIDATES
-    # =====================================================
-
-    print(
-        "TOP FACEBOOK CANDIDATES:"
-    )
-
-
-    for index, item in enumerate(
-
-        candidates[:10],
-
-        start=1
-
-    ):
-
-        print(
-
-            f"{index}. "
-            f"{item.get('title', '')} | "
-
-            f"Type: "
-            f"{item.get('type', '')} | "
-
-            f"Genre: "
-            f"{build_genres(item)} | "
-
-            f"Popularity: "
-            f"{get_popularity(item):.2f} | "
-
-            f"Rating: "
-            f"{get_rating(item)} | "
-
-            f"Votes: "
-            f"{get_vote_count(item)}"
-
-        )
-
-
-    # =====================================================
-    # SELECT ONE
-    # =====================================================
-
     selected = candidates[0]
-
-
-    print(
-        "======================================"
-    )
-
-
-    print(
-        "SELECTED FOR FACEBOOK:"
-    )
-
-
-    print(
-        f"Title: "
-        f"{selected.get('title', '')}"
-    )
-
-
-    print(
-        f"Type: "
-        f"{selected.get('type', '')}"
-    )
-
-
-    print(
-        f"Genre: "
-        f"{build_genres(selected)}"
-    )
-
-
-    print(
-        f"Popularity: "
-        f"{get_popularity(selected):.2f}"
-    )
-
-
-    print(
-        f"Rating: "
-        f"{get_rating(selected)}"
-    )
-
-
-    print(
-        "======================================"
-    )
-
-
-    # =====================================================
-    # PUBLISH ONLY ONE
-    # =====================================================
-
-    published_count = 0
 
 
     success = publish_to_facebook(
@@ -1900,17 +2043,10 @@ def main():
         )
 
 
-        published_count += 1
-
-
-        # =================================================
-        # ADVANCE TO NEXT STEP
-        #
-        # لا يتم التقدم إلا بعد نجاح النشر.
-        # =================================================
-
         next_index = (
+
             rotation_index + 1
+
         ) % len(
             ROTATION_SEQUENCE
         )
@@ -1929,65 +2065,9 @@ def main():
         )
 
 
-        next_rotation = (
-            ROTATION_SEQUENCE[
-                next_index
-            ]
-        )
-
-
         print(
-            "Rotation advanced successfully."
+            "Movie rotation advanced."
         )
-
-
-        print(
-            f"Next type: "
-            f"{get_arabic_type(next_rotation['type'])}"
-        )
-
-
-        print(
-            f"Next genre: "
-            f"{next_rotation['genre']}"
-        )
-
-
-    else:
-
-        print(
-            "Facebook publishing failed."
-        )
-
-
-        print(
-            "Rotation was NOT advanced."
-        )
-
-
-    # =====================================================
-    # RESULT
-    # =====================================================
-
-    print(
-        "======================================"
-    )
-
-
-    print(
-        f"Published this run: "
-        f"{published_count}"
-    )
-
-
-    print(
-        "MOVINS Facebook publisher finished."
-    )
-
-
-    print(
-        "======================================"
-    )
 
 
 # =========================================================
@@ -1996,4 +2076,41 @@ def main():
 
 if __name__ == "__main__":
 
-    main()
+    print(
+        "======================================"
+    )
+
+    print(
+        "MOVINS FACEBOOK PUBLISHER"
+    )
+
+    print(
+        "POST TYPE:",
+        POST_TYPE
+    )
+
+    print(
+        "======================================"
+    )
+
+
+    if POST_TYPE == "news":
+
+        run_news()
+
+    else:
+
+        run_movies()
+
+
+    print(
+        "======================================"
+    )
+
+    print(
+        "MOVINS FACEBOOK PUBLISHER FINISHED"
+    )
+
+    print(
+        "======================================"
+            )
