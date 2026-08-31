@@ -30,8 +30,24 @@ HEADERS = {
         "(KHTML, like Gecko) "
         "Chrome/124.0 Safari/537.36"
     ),
+    "Accept": (
+        "text/html,application/xhtml+xml,"
+        "application/xml;q=0.9,image/avif,"
+        "image/webp,image/apng,*/*;q=0.8"
+    ),
     "Accept-Language": "ar,en-US;q=0.9,en;q=0.8"
 }
+
+
+# ============================================================
+# MOVINS FALLBACK IMAGE
+# ============================================================
+
+FALLBACK_IMAGE = (
+    "https://images.unsplash.com/"
+    "photo-1489599849927-2ee91cede3ba"
+    "?auto=format&fit=crop&w=1400&q=85"
+)
 
 
 # ============================================================
@@ -43,22 +59,19 @@ RSS_FEEDS = [
     {
         "name": "في الفن",
         "url": "https://www.filfan.com/rss",
-        "category": "أفلام ومسلسلات",
-        "type": "general"
+        "category": "أفلام ومسلسلات"
     },
 
     {
         "name": "الشرق الأوسط - سينما",
         "url": "https://aawsat.com/feed/cinema",
-        "category": "أفلام ومسلسلات",
-        "type": "cinema"
+        "category": "أفلام ومسلسلات"
     },
 
     {
         "name": "الشرق الأوسط - أنغام وفنون",
         "url": "https://aawsat.com/feed/arts",
-        "category": "أفلام ومسلسلات",
-        "type": "arts"
+        "category": "أفلام ومسلسلات"
     }
 
 ]
@@ -113,6 +126,7 @@ MOVIE_KEYWORDS = [
 
     "مهرجان سينمائي",
     "مهرجان الفيلم"
+
 ]
 
 
@@ -133,6 +147,7 @@ BAD_KEYWORDS = [
 
     "طقس",
     "زلزال"
+
 ]
 
 
@@ -204,7 +219,9 @@ def is_movie_news(title, description):
 def make_id(title, link):
 
     value = (
-        title.strip() + "|" + link.strip()
+        title.strip()
+        + "|"
+        + link.strip()
     ).encode("utf-8")
 
     return hashlib.md5(
@@ -218,7 +235,9 @@ def make_id(title, link):
 
 def normalize_title(title):
 
-    title = clean_text(title).lower()
+    title = clean_text(
+        title
+    ).lower()
 
     title = re.sub(
         r"[^\w\s]",
@@ -242,9 +261,15 @@ def normalize_title(title):
 def get_date(entry):
 
     published = (
+
         entry.get("published")
-        or entry.get("updated")
+
+        or
+
+        entry.get("updated")
+
         or ""
+
     )
 
     if published:
@@ -278,52 +303,138 @@ def get_date(entry):
 
 
 # ============================================================
+# CHECK IMAGE URL
+# ============================================================
+
+def is_valid_image_url(url):
+
+    if not url:
+
+        return False
+
+    url = str(url).strip()
+
+    if not url.startswith(
+        ("http://", "https://")
+    ):
+
+        return False
+
+    lower = url.lower()
+
+    bad_words = [
+
+        "logo",
+        "favicon",
+        "avatar",
+        "icon",
+        "sprite",
+        "placeholder",
+        "blank",
+        "default-image",
+        "default_image",
+        "loading.gif"
+
+    ]
+
+    if any(
+        word in lower
+        for word in bad_words
+    ):
+
+        return False
+
+    return True
+
+
+# ============================================================
+# VERIFY IMAGE EXISTS
+# ============================================================
+
+def verify_image(url):
+
+    if not is_valid_image_url(url):
+
+        return False
+
+    try:
+
+        response = requests.get(
+            url,
+            headers=HEADERS,
+            timeout=15,
+            stream=True,
+            allow_redirects=True
+        )
+
+        content_type = response.headers.get(
+            "Content-Type",
+            ""
+        ).lower()
+
+        response.close()
+
+        if response.status_code != 200:
+
+            return False
+
+        if "image" not in content_type:
+
+            return False
+
+        return True
+
+    except Exception:
+
+        return False
+
+
+# ============================================================
 # GET RSS IMAGE
 # ============================================================
 
 def get_rss_image(entry):
 
-    # media:content
+    candidates = []
+
+
+    # media_content
     try:
 
-        media_content = entry.get(
+        for item in entry.get(
             "media_content",
             []
-        )
-
-        for item in media_content:
+        ):
 
             url = item.get(
                 "url",
                 ""
             )
 
-            if url.startswith("http"):
+            if url:
 
-                return url
+                candidates.append(url)
 
     except Exception:
         pass
 
 
-    # media:thumbnail
+    # media_thumbnail
     try:
 
-        media_thumbnail = entry.get(
+        for item in entry.get(
             "media_thumbnail",
             []
-        )
-
-        for item in media_thumbnail:
+        ):
 
             url = item.get(
                 "url",
                 ""
             )
 
-            if url.startswith("http"):
+            if url:
 
-                return url
+                candidates.append(url)
 
     except Exception:
         pass
@@ -332,91 +443,71 @@ def get_rss_image(entry):
     # enclosures
     try:
 
-        enclosures = entry.get(
+        for item in entry.get(
             "enclosures",
             []
-        )
-
-        for item in enclosures:
+        ):
 
             url = (
+
                 item.get("href")
-                or item.get("url")
+
+                or
+
+                item.get("url")
+
                 or ""
+
             )
 
-            if url.startswith("http"):
+            if url:
 
-                return url
+                candidates.append(url)
 
     except Exception:
         pass
 
 
-    # image field
+    # image
     try:
 
         image = entry.get(
-            "image",
-            {}
+            "image"
         )
 
-        if isinstance(image, dict):
+        if isinstance(
+            image,
+            dict
+        ):
 
-            url = image.get(
-                "href",
-                ""
+            url = (
+
+                image.get("href")
+
+                or
+
+                image.get("url")
+
+                or ""
+
             )
 
-            if url.startswith("http"):
+            if url:
 
-                return url
+                candidates.append(url)
 
     except Exception:
         pass
 
 
+    for url in candidates:
+
+        if verify_image(url):
+
+            return url
+
+
     return ""
-
-
-# ============================================================
-# VALIDATE IMAGE
-# ============================================================
-
-def is_valid_image(url):
-
-    if not url:
-        return False
-
-    if not url.startswith("http"):
-        return False
-
-    lower = url.lower()
-
-    bad_words = [
-
-        "logo",
-        "icon",
-        "avatar",
-        "favicon",
-
-        "placeholder",
-
-        "default-image",
-
-        "blank",
-
-        "sprite"
-
-    ]
-
-    if any(
-        word in lower
-        for word in bad_words
-    ):
-        return False
-
-    return True
 
 
 # ============================================================
@@ -426,6 +517,7 @@ def is_valid_image(url):
 def get_article_page(url):
 
     if not url:
+
         return None, ""
 
     try:
@@ -437,12 +529,12 @@ def get_article_page(url):
             allow_redirects=True
         )
 
-        if response.status_code != 200:
+        print(
+            "ARTICLE HTTP:",
+            response.status_code
+        )
 
-            print(
-                "ARTICLE HTTP:",
-                response.status_code
-            )
+        if response.status_code != 200:
 
             return None, ""
 
@@ -464,32 +556,100 @@ def get_article_page(url):
 
 
 # ============================================================
+# GET SRCSET BEST IMAGE
+# ============================================================
+
+def get_best_srcset(srcset):
+
+    if not srcset:
+
+        return ""
+
+    items = []
+
+    for part in srcset.split(","):
+
+        part = part.strip()
+
+        if not part:
+
+            continue
+
+        pieces = part.split()
+
+        url = pieces[0]
+
+        width = 0
+
+        if len(pieces) > 1:
+
+            match = re.search(
+                r"(\d+)w",
+                pieces[1]
+            )
+
+            if match:
+
+                width = int(
+                    match.group(1)
+                )
+
+        items.append(
+            (width, url)
+        )
+
+    if not items:
+
+        return ""
+
+    items.sort(
+        key=lambda x: x[0],
+        reverse=True
+    )
+
+    return items[0][1]
+
+
+# ============================================================
 # EXTRACT ARTICLE IMAGE
 # ============================================================
 
 def get_article_image(soup, base_url):
 
     if not soup:
+
         return ""
 
 
-    # Open Graph
-    meta_selectors = [
+    print(
+        "SEARCHING FOR ORIGINAL ARTICLE IMAGE..."
+    )
+
+
+    # ========================================================
+    # 1. OPEN GRAPH — HIGHEST PRIORITY
+    # ========================================================
+
+    meta_rules = [
 
         ("property", "og:image"),
 
         ("property", "og:image:url"),
 
+        ("property", "og:image:secure_url"),
+
         ("name", "twitter:image"),
 
         ("property", "twitter:image"),
+
+        ("name", "twitter:image:src"),
 
         ("name", "twitter:image:src")
 
     ]
 
 
-    for attribute, value in meta_selectors:
+    for attribute, value in meta_rules:
 
         tag = soup.find(
             "meta",
@@ -498,72 +658,136 @@ def get_article_image(soup, base_url):
             }
         )
 
-        if tag:
+        if not tag:
 
-            image = tag.get(
-                "content",
-                ""
-            ).strip()
+            continue
 
-            if image:
-
-                image = urljoin(
-                    base_url,
-                    image
-                )
-
-                if is_valid_image(image):
-
-                    return image
-
-
-    # Images in article
-    for img in soup.find_all("img"):
-
-        image = (
-
-            img.get("data-src")
-
-            or img.get("data-lazy-src")
-
-            or img.get("data-original")
-
-            or img.get("src")
-
-            or ""
-
+        image = tag.get(
+            "content",
+            ""
         ).strip()
-
 
         if not image:
 
             continue
-
 
         image = urljoin(
             base_url,
             image
         )
 
+        print(
+            "META IMAGE FOUND:",
+            image[:120]
+        )
 
-        if not is_valid_image(image):
+        if verify_image(image):
 
-            continue
+            print(
+                "ORIGINAL IMAGE VERIFIED"
+            )
+
+            return image
 
 
-        width = img.get("width")
+    # ========================================================
+    # 2. IMAGE TAGS
+    # ========================================================
 
-        try:
+    images = soup.find_all(
+        "img"
+    )
 
-            if width and int(width) < 250:
+
+    for img in images:
+
+        candidates = [
+
+            img.get("data-src"),
+
+            img.get("data-lazy-src"),
+
+            img.get("data-original"),
+
+            img.get("data-image"),
+
+            img.get("data-url"),
+
+            get_best_srcset(
+                img.get("data-srcset")
+            ),
+
+            get_best_srcset(
+                img.get("srcset")
+            ),
+
+            img.get("src")
+
+        ]
+
+
+        for image in candidates:
+
+            if not image:
 
                 continue
 
-        except Exception:
-            pass
+            image = str(
+                image
+            ).strip()
+
+            if not image:
+
+                continue
+
+            image = urljoin(
+                base_url,
+                image
+            )
+
+            if not is_valid_image_url(
+                image
+            ):
+
+                continue
 
 
-        return image
+            # Ignore tiny images
+            width = img.get(
+                "width"
+            )
+
+            height = img.get(
+                "height"
+            )
+
+            try:
+
+                if width and int(width) < 250:
+
+                    continue
+
+            except Exception:
+                pass
+
+            try:
+
+                if height and int(height) < 150:
+
+                    continue
+
+            except Exception:
+                pass
+
+
+            if verify_image(image):
+
+                print(
+                    "ARTICLE IMAGE VERIFIED:",
+                    image[:120]
+                )
+
+                return image
 
 
     return ""
@@ -576,11 +800,12 @@ def get_article_image(soup, base_url):
 def get_article_text(soup):
 
     if not soup:
+
         return ""
 
 
-    # Remove unwanted elements
     for element in soup([
+
         "script",
         "style",
         "nav",
@@ -588,7 +813,9 @@ def get_article_text(soup):
         "header",
         "aside",
         "form",
-        "button"
+        "button",
+        "noscript"
+
     ]):
 
         try:
@@ -599,7 +826,6 @@ def get_article_text(soup):
             pass
 
 
-    # Priority selectors
     selectors = [
 
         "article",
@@ -618,9 +844,18 @@ def get_article_text(soup):
 
         ".news-content",
 
+        ".post-body",
+
+        ".single-content",
+
+        ".article-details",
+
         "main"
 
     ]
+
+
+    best_text = ""
 
 
     for selector in selectors:
@@ -638,36 +873,47 @@ def get_article_text(soup):
 
             paragraphs = []
 
-            for p in container.find_all(
-                ["p", "h2", "h3"]
-            ):
+
+            for element in container.find_all([
+
+                "p",
+                "h2",
+                "h3",
+                "li"
+
+            ]):
 
                 text = clean_text(
-                    p.get_text(
+                    element.get_text(
                         " ",
                         strip=True
                     )
                 )
 
-                if len(text) >= 35:
+                if len(text) >= 30:
 
                     paragraphs.append(
                         text
                     )
 
 
-            if paragraphs:
+            text = "\n\n".join(
+                paragraphs
+            )
 
-                text = "\n\n".join(
-                    paragraphs
-                )
 
-                if len(text) >= 250:
+            if len(text) > len(best_text):
 
-                    return text[:8000]
+                best_text = text
+
 
         except Exception:
             pass
+
+
+    if len(best_text) >= 200:
+
+        return best_text[:10000]
 
 
     # Fallback
@@ -682,7 +928,7 @@ def get_article_text(soup):
             )
         )
 
-        if len(text) >= 40:
+        if len(text) >= 35:
 
             paragraphs.append(
                 text
@@ -691,17 +937,19 @@ def get_article_text(soup):
 
     return "\n\n".join(
         paragraphs
-    )[:8000]
+    )[:10000]
 
 
 # ============================================================
-# CREATE LONG SUMMARY WITHOUT AI
+# CREATE SUMMARY
 # ============================================================
 
 def create_summary(
+
     title,
     rss_description,
     article_text
+
 ):
 
     rss_description = clean_text(
@@ -713,10 +961,10 @@ def create_summary(
     )
 
 
-    # Use article content first
+    # Prefer full article
     source_text = article_text
 
-    if len(source_text) < 300:
+    if len(source_text) < 250:
 
         source_text = rss_description
 
@@ -724,13 +972,14 @@ def create_summary(
     if not source_text:
 
         return (
-            f"يتناول الخبر موضوع {title}. "
-            "ويقدم أحدث المعلومات المتاحة حول هذا العمل أو الحدث الفني. "
-            "وسيتم تحديث التفاصيل عند توفر معلومات إضافية من المصدر الأصلي."
+            f"يتناول هذا الخبر {title}. "
+            "ويعرض آخر المعلومات والتطورات المتعلقة بالأفلام أو المسلسلات "
+            "أو صناعة الترفيه. ويمكن متابعة المصدر الأصلي للاطلاع على "
+            "التفاصيل الكاملة والمعلومات الجديدة عند نشرها."
         )
 
 
-    # Split sentences
+    # Split into sentences
     sentences = re.split(
         r"(?<=[.!؟])\s+",
         source_text
@@ -739,7 +988,9 @@ def create_summary(
 
     selected = []
 
-    total_length = 0
+    used = set()
+
+    total = 0
 
 
     for sentence in sentences:
@@ -748,30 +999,40 @@ def create_summary(
             sentence
         )
 
+        normalized = normalize_title(
+            sentence
+        )
+
+
         if len(sentence) < 25:
 
             continue
 
 
-        # Prevent duplicates
-        if sentence in selected:
+        if normalized in used:
 
             continue
 
+
+        used.add(
+            normalized
+        )
 
         selected.append(
             sentence
         )
 
-        total_length += len(sentence)
+        total += len(
+            sentence
+        )
 
 
-        # Long summary
-        if len(selected) >= 8:
+        if len(selected) >= 10:
 
             break
 
-        if total_length >= 1400:
+
+        if total >= 1600:
 
             break
 
@@ -781,26 +1042,25 @@ def create_summary(
     )
 
 
-    # If text does not contain enough sentence separators
-    if len(summary) < 500:
+    # If sentence extraction failed
+    if len(summary) < 450:
 
         words = source_text.split()
 
         summary = " ".join(
-            words[:260]
+            words[:300]
         )
 
 
-    # Add context only when necessary
-    if len(summary) < 350:
+    # Add only minimal context
+    if len(summary) < 250:
 
         summary = (
-            f"يتناول الخبر {title}. "
+            f"يتناول الخبر موضوع {title}. "
             f"{summary} "
-            "وتبرز أهمية هذه التفاصيل بالنسبة لمتابعي الأفلام والمسلسلات، "
-            "خصوصاً مع استمرار الإعلان عن أعمال جديدة وتطورات مرتبطة "
-            "بالإنتاج أو العرض أو نجوم العمل. "
-            "ولمعرفة التفاصيل الكاملة يمكن الرجوع إلى المصدر الأصلي للخبر."
+            "وتوضح المعلومات المنشورة أحدث التفاصيل المرتبطة بهذا الموضوع، "
+            "سواء تعلق الأمر بعمل جديد أو موعد عرض أو تطورات تخص نجوم العمل "
+            "أو الإنتاج أو صناعة السينما والتلفزيون."
         )
 
 
@@ -865,15 +1125,9 @@ def load_old_news():
 def main():
 
     print()
-    print(
-        "================================="
-    )
-    print(
-        "MOVINS ARABIC MOVIE NEWS ENGINE"
-    )
-    print(
-        "================================="
-    )
+    print("=" * 55)
+    print("MOVINS ARABIC MOVIE NEWS ENGINE")
+    print("=" * 55)
     print()
 
 
@@ -910,9 +1164,7 @@ def main():
     for source in RSS_FEEDS:
 
         print()
-        print(
-            "================================="
-        )
+        print("=" * 55)
 
         print(
             "FETCHING:",
@@ -923,15 +1175,24 @@ def main():
             source["url"]
         )
 
-        print(
-            "================================="
-        )
+        print("=" * 55)
 
 
         try:
 
+            response = requests.get(
+                source["url"],
+                headers=HEADERS,
+                timeout=REQUEST_TIMEOUT
+            )
+
+            print(
+                "RSS HTTP:",
+                response.status_code
+            )
+
             feed = feedparser.parse(
-                source["url"]
+                response.content
             )
 
 
@@ -995,10 +1256,11 @@ def main():
                     continue
 
 
-                # Movie relevance
                 if not is_movie_news(
+
                     title,
                     description
+
                 ):
 
                     continue
@@ -1012,7 +1274,7 @@ def main():
                 if normalized in seen_titles:
 
                     print(
-                        "SKIPPED DUPLICATE TITLE:",
+                        "SKIPPED DUPLICATE:",
                         title
                     )
 
@@ -1036,24 +1298,17 @@ def main():
 
 
                 print()
+                print("-" * 55)
                 print(
                     "PROCESSING:",
                     title
                 )
+                print("-" * 55)
 
 
-                # ----------------------------------------------
-                # IMAGE FROM RSS
-                # ----------------------------------------------
-
-                image = get_rss_image(
-                    entry
-                )
-
-
-                # ----------------------------------------------
-                # ARTICLE PAGE
-                # ----------------------------------------------
+                # ====================================================
+                # GET ARTICLE PAGE
+                # ====================================================
 
                 soup, final_url = get_article_page(
                     link
@@ -1062,6 +1317,9 @@ def main():
 
                 article_text = ""
 
+                article_image = ""
+
+
                 if soup:
 
                     article_text = get_article_text(
@@ -1069,48 +1327,85 @@ def main():
                     )
 
 
-                    # Prefer article image if RSS image missing
-                    if not is_valid_image(image):
+                    # IMPORTANT:
+                    # ORIGINAL ARTICLE IMAGE HAS PRIORITY
+                    article_image = get_article_image(
 
-                        article_image = get_article_image(
-                            soup,
-                            final_url or link
-                        )
+                        soup,
 
+                        final_url or link
 
-                        if is_valid_image(
-                            article_image
-                        ):
-
-                            image = article_image
+                    )
 
 
-                # ----------------------------------------------
-                # FALLBACK IMAGE
-                # ----------------------------------------------
+                # ====================================================
+                # RSS IMAGE ONLY AS FALLBACK
+                # ====================================================
 
-                if not is_valid_image(image):
+                rss_image = ""
+
+
+                if not article_image:
 
                     print(
-                        "NO IMAGE FOUND — USING MOVINS FALLBACK"
+                        "NO ARTICLE IMAGE — TRYING RSS IMAGE"
+                    )
+
+                    rss_image = get_rss_image(
+                        entry
                     )
 
 
-                    image = (
-                        "https://images.unsplash.com/"
-                        "photo-1489599849927-2ee91cede3ba"
-                        "?auto=format&fit=crop&w=1400&q=85"
-                    )
+                # ====================================================
+                # FINAL IMAGE
+                # ====================================================
+
+                image = (
+
+                    article_image
+
+                    or
+
+                    rss_image
+
+                    or
+
+                    FALLBACK_IMAGE
+
+                )
 
 
-                # ----------------------------------------------
-                # LONG SUMMARY
-                # ----------------------------------------------
+                print()
+                print(
+                    "ARTICLE TEXT LENGTH:",
+                    len(article_text)
+                )
+
+                print(
+                    "SUMMARY SOURCE:",
+                    "ARTICLE"
+                    if len(article_text) >= 250
+                    else "RSS"
+                )
+
+                print(
+                    "FINAL IMAGE:",
+                    image[:150]
+                )
+
+
+                # ====================================================
+                # SUMMARY
+                # ====================================================
 
                 summary = create_summary(
+
                     title,
+
                     description,
+
                     article_text
+
                 )
 
 
@@ -1119,19 +1414,8 @@ def main():
                     len(summary)
                 )
 
-                print(
-                    "ARTICLE TEXT LENGTH:",
-                    len(article_text)
-                )
 
-                print(
-                    "IMAGE:",
-                    image[:100]
-                )
-
-
-                # Minimum validation
-                if len(summary) < 150:
+                if len(summary) < 120:
 
                     print(
                         "SKIPPED — SUMMARY TOO SHORT"
@@ -1200,7 +1484,7 @@ def main():
 
 
     # ========================================================
-    # MERGE OLD + NEW
+    # MERGE NEW + OLD
     # ========================================================
 
     all_items = (
@@ -1214,7 +1498,10 @@ def main():
     )
 
 
-    # Remove duplicates
+    # ========================================================
+    # REMOVE DUPLICATES
+    # ========================================================
+
     unique_items = []
 
     unique_ids = set()
@@ -1241,13 +1528,15 @@ def main():
             item_id
         )
 
-
         unique_items.append(
             item
         )
 
 
-    # Keep only latest news
+    # ========================================================
+    # KEEP MAX NEWS
+    # ========================================================
+
     unique_items = unique_items[
         :MAX_NEWS
     ]
@@ -1277,17 +1566,20 @@ def main():
     ) as file:
 
         json.dump(
+
             data,
+
             file,
+
             ensure_ascii=False,
+
             indent=2
+
         )
 
 
     print()
-    print(
-        "================================="
-    )
+    print("=" * 55)
 
     print(
         "NEW MOVIE NEWS:",
@@ -1299,15 +1591,24 @@ def main():
         len(unique_items)
     )
 
-    print(
-        "================================="
-    )
+    print("=" * 55)
 
     print()
 
-    print(
-        "MOVINS UPDATE FINISHED SUCCESSFULLY"
-    )
+
+    # Important:
+    # Do not fail if there are old articles.
+    if len(unique_items) == 0:
+
+        print(
+            "WARNING: NO NEWS AVAILABLE"
+        )
+
+    else:
+
+        print(
+            "MOVINS UPDATE FINISHED SUCCESSFULLY"
+        )
 
 
 # ============================================================
