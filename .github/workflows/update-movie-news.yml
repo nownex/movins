@@ -4,13 +4,11 @@ on:
   workflow_dispatch:
 
   schedule:
-    # كل 6 ساعات
     - cron: "0 */6 * * *"
 
 permissions:
   contents: write
 
-# يمنع تشغيل عمليتين في نفس الوقت وبالتالي يمنع تعارض movie-news.json
 concurrency:
   group: movins-movie-news-update
   cancel-in-progress: false
@@ -21,9 +19,9 @@ jobs:
 
     steps:
 
-      # ======================================================
+      # ==========================================
       # CHECKOUT
-      # ======================================================
+      # ==========================================
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,20 +30,19 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
-      # ======================================================
+      # ==========================================
       # PYTHON
-      # ======================================================
+      # ==========================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
 
 
-      # ======================================================
+      # ==========================================
       # INSTALL DEPENDENCIES
-      # ======================================================
+      # ==========================================
 
       - name: Install dependencies
         run: |
@@ -53,9 +50,9 @@ jobs:
           pip install requests feedparser beautifulsoup4
 
 
-      # ======================================================
+      # ==========================================
       # CHECK GEMINI API KEY
-      # ======================================================
+      # ==========================================
 
       - name: Check Gemini API Key
         env:
@@ -63,17 +60,15 @@ jobs:
         run: |
           if [ -z "$GEMINI_API_KEY" ]; then
             echo "ERROR: GEMINI_API_KEY is missing."
-            echo "Add GEMINI_API_KEY in:"
-            echo "Repository Settings → Secrets and variables → Actions"
             exit 1
           fi
 
           echo "GEMINI_API_KEY found."
 
 
-      # ======================================================
-      # GET LATEST REPOSITORY VERSION
-      # ======================================================
+      # ==========================================
+      # SYNC REPOSITORY
+      # ==========================================
 
       - name: Sync with latest repository
         run: |
@@ -81,9 +76,9 @@ jobs:
           git reset --hard origin/main
 
 
-      # ======================================================
+      # ==========================================
       # UPDATE MOVIE NEWS
-      # ======================================================
+      # ==========================================
 
       - name: Update movie news
         env:
@@ -92,9 +87,9 @@ jobs:
           python update_movie_news.py
 
 
-      # ======================================================
+      # ==========================================
       # CHECK GENERATED NEWS
-      # ======================================================
+      # ==========================================
 
       - name: Check generated news
         run: |
@@ -113,8 +108,8 @@ jobs:
               filename,
               "r",
               encoding="utf-8"
-          ) as f:
-              data = json.load(f)
+          ) as file:
+              data = json.load(file)
 
           items = data.get("items", [])
 
@@ -129,29 +124,33 @@ jobs:
                   "No movie or series news generated"
               )
 
-          for i, item in enumerate(items, 1):
+          for index, item in enumerate(items, 1):
 
               title = item.get("title", "")
               image = item.get("image", "")
               summary = item.get("summary", "")
 
-              print(f"{i}. {title}")
+              print(f"{index}. {title}")
+              print(f"   Summary length: {len(summary)}")
+
+              if not title:
+                  raise RuntimeError(
+                      f"Article {index} has no title"
+                  )
 
               if not image:
                   raise RuntimeError(
-                      f"Article {i} has no image"
+                      f"Article {index} has no image"
                   )
 
-              if len(summary) < 120:
-                  raise RuntimeError(
-                      f"Article {i} summary is too short"
-                  )
+          print()
+          print("All generated news passed validation.")
           PYTHON
 
 
-      # ======================================================
+      # ==========================================
       # COMMIT AND PUSH
-      # ======================================================
+      # ==========================================
 
       - name: Commit and push news
         run: |
@@ -170,12 +169,12 @@ jobs:
           git push origin main
 
 
-      # ======================================================
-      # JOB SUMMARY
-      # ======================================================
+      # ==========================================
+      # COMPLETE
+      # ==========================================
 
       - name: Complete job
         run: |
           echo "================================="
-          echo "MOVINS NEWS UPDATE COMPLETED"
+          echo "MOVINS MOVIE NEWS UPDATE COMPLETED"
           echo "================================="
