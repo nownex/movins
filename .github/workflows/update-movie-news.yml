@@ -6,10 +6,10 @@ on:
   schedule:
     - cron: "0 */6 * * *"
 
-  # يسمح لك بتشغيله يدوياً من GitHub Actions
+  # تشغيل يدوي من GitHub Actions
   workflow_dispatch:
 
-  # تشغيل عند تعديل ملفات الأخبار
+  # تشغيل عند تعديل ملفات المشروع
   push:
     paths:
       - "update_movie_news.py"
@@ -40,11 +40,12 @@ jobs:
 
 
       # ================================================
-      # PYTHON
+      # SETUP PYTHON
       # ================================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
+
         with:
           python-version: "3.11"
 
@@ -62,17 +63,41 @@ jobs:
 
 
       # ================================================
+      # CHECK GEMINI KEY
+      # ================================================
+
+      - name: Check Gemini API Key
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+        run: |
+
+          if [ -z "$GEMINI_API_KEY" ]; then
+
+            echo "ERROR: GEMINI_API_KEY is missing."
+
+            exit 1
+
+          fi
+
+          echo "GEMINI_API_KEY detected successfully."
+
+
+      # ================================================
       # UPDATE MOVIE NEWS
       # ================================================
 
       - name: Update movie news
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
         run: |
 
           python update_movie_news.py
 
 
       # ================================================
-      # CHECK FILE
+      # CHECK GENERATED FILE
       # ================================================
 
       - name: Check generated news
@@ -81,6 +106,7 @@ jobs:
           python - << 'PYTHON'
 
           import json
+
 
           with open(
               "movie-news.json",
@@ -108,6 +134,11 @@ jobs:
               raise RuntimeError(
                   "No movie news generated"
               )
+
+
+          print(
+              "News generated successfully."
+          )
 
           PYTHON
 
