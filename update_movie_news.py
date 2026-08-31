@@ -87,67 +87,176 @@ MOVIE_KEYWORDS = [
     "فيلما",
     "فيلماً",
     "أفلام",
+
     "سينما",
     "سينمائي",
     "سينمائية",
+
     "شباك التذاكر",
-    "إيرادات",
+    "إيرادات فيلم",
 
     "مسلسل",
     "مسلسلات",
     "دراما",
-    "موسم",
+
     "الحلقة",
     "حلقة",
 
     "نتفليكس",
-    "Netflix",
+    "netflix",
 
     "ديزني",
-    "Disney",
+    "disney",
 
     "مارفل",
-    "Marvel",
+    "marvel",
 
     "هوليوود",
-    "Hollywood",
+    "hollywood",
 
     "ممثل",
     "ممثلة",
-    "بطولة",
+
     "مخرج",
     "إخراج",
 
-    "عرض",
-    "يعرض",
-    "الإعلان",
-    "برومو",
     "تريلر",
+    "برومو",
+
+    "إعلان الفيلم",
+    "إعلان المسلسل",
 
     "مهرجان سينمائي",
-    "مهرجان الفيلم"
+    "مهرجان الفيلم",
 
+    "صناعة السينما",
+    "التلفزيون"
 ]
 
 
+# ============================================================
+# BAD KEYWORDS — SPORTS / POLITICS / OTHER
+# ============================================================
+
 BAD_KEYWORDS = [
 
+    # ==========================================
+    # SPORTS
+    # ==========================================
+
     "كرة القدم",
+    "كرة السلة",
+    "كرة اليد",
+    "كرة الطائرة",
+
     "مباراة",
+    "مباريات",
+
     "الدوري",
+    "الدوري الإنجليزي",
+    "الدوري الإسباني",
+    "الدوري الإيطالي",
+    "الدوري الفرنسي",
+
     "منتخب",
+    "المنتخب",
+
+    "لاعب",
+    "لاعبين",
+    "لاعبة",
+
+    "مدرب",
+    "تدريب",
+
+    "هدف",
+    "أهداف",
+
+    "ركلة",
+    "ركلات",
+
+    "تنس",
+
+    "رياضة",
+    "رياضي",
+    "رياضية",
+
+    "بطولة رياضية",
+    "بطولة التنس",
+
+    "كأس العالم",
+    "كأس أفريقيا",
+
+    "فوز",
+    "خسارة",
+    "هزيمة",
+    "تعادل",
+
+
+    # ==========================================
+    # POLITICS
+    # ==========================================
 
     "سياسة",
+    "سياسي",
+    "سياسية",
+
     "انتخابات",
-    "رئيس",
+    "انتخاب",
+
+    "رئيس الجمهورية",
+    "الرئيس الأميركي",
+    "الرئيس الأمريكي",
+
     "حكومة",
 
+    "وزير",
+    "وزارة",
+
+    "برلمان",
+
+    "دبلوماسي",
+    "دبلوماسية",
+
+    "علاقات دولية",
+
+    "الحرب",
+
+    "غزة",
+    "أوكرانيا",
+
+    "إسرائيل",
+    "فلسطين",
+
+    "البيت الأبيض",
+
+
+    # ==========================================
+    # ECONOMY
+    # ==========================================
+
     "اقتصاد",
+    "اقتصادية",
+
     "بورصة",
 
-    "طقس",
-    "زلزال"
+    "أسهم",
 
+    "بنك مركزي",
+
+    "نفط",
+
+    "أسعار النفط",
+
+
+    # ==========================================
+    # OTHER
+    # ==========================================
+
+    "طقس",
+
+    "زلزال",
+
+    "فيضانات"
 ]
 
 
@@ -195,21 +304,41 @@ def clean_text(text):
 
 def is_movie_news(title, description):
 
-    text = (
-        f"{title} {description}"
-    ).lower()
+    title = clean_text(title).lower()
 
-    good = any(
+    description = clean_text(description).lower()
+
+    text = f"{title} {description}"
+
+
+    # ==========================================
+    # REJECT SPORTS / POLITICS FIRST
+    # ==========================================
+
+    if any(
+        keyword.lower() in text
+        for keyword in BAD_KEYWORDS
+    ):
+
+        return False
+
+
+    # ==========================================
+    # REQUIRE MOVIE / SERIES KEYWORD
+    # ==========================================
+
+    movie_found = any(
         keyword.lower() in text
         for keyword in MOVIE_KEYWORDS
     )
 
-    bad = any(
-        keyword.lower() in text
-        for keyword in BAD_KEYWORDS
-    )
 
-    return good and not bad
+    if not movie_found:
+
+        return False
+
+
+    return True
 
 
 # ============================================================
@@ -398,7 +527,6 @@ def get_rss_image(entry):
     candidates = []
 
 
-    # media_content
     try:
 
         for item in entry.get(
@@ -419,7 +547,6 @@ def get_rss_image(entry):
         pass
 
 
-    # media_thumbnail
     try:
 
         for item in entry.get(
@@ -440,7 +567,6 @@ def get_rss_image(entry):
         pass
 
 
-    # enclosures
     try:
 
         for item in entry.get(
@@ -468,7 +594,6 @@ def get_rss_image(entry):
         pass
 
 
-    # image
     try:
 
         image = entry.get(
@@ -626,10 +751,6 @@ def get_article_image(soup, base_url):
     )
 
 
-    # ========================================================
-    # 1. OPEN GRAPH — HIGHEST PRIORITY
-    # ========================================================
-
     meta_rules = [
 
         ("property", "og:image"),
@@ -690,10 +811,6 @@ def get_article_image(soup, base_url):
             return image
 
 
-    # ========================================================
-    # 2. IMAGE TAGS
-    # ========================================================
-
     images = soup.find_all(
         "img"
     )
@@ -752,7 +869,6 @@ def get_article_image(soup, base_url):
                 continue
 
 
-            # Ignore tiny images
             width = img.get(
                 "width"
             )
@@ -916,7 +1032,6 @@ def get_article_text(soup):
         return best_text[:10000]
 
 
-    # Fallback
     paragraphs = []
 
     for p in soup.find_all("p"):
@@ -961,7 +1076,6 @@ def create_summary(
     )
 
 
-    # Prefer full article
     source_text = article_text
 
     if len(source_text) < 250:
@@ -979,7 +1093,6 @@ def create_summary(
         )
 
 
-    # Split into sentences
     sentences = re.split(
         r"(?<=[.!؟])\s+",
         source_text
@@ -1042,7 +1155,6 @@ def create_summary(
     )
 
 
-    # If sentence extraction failed
     if len(summary) < 450:
 
         words = source_text.split()
@@ -1052,7 +1164,6 @@ def create_summary(
         )
 
 
-    # Add only minimal context
     if len(summary) < 250:
 
         summary = (
@@ -1256,12 +1367,19 @@ def main():
                     continue
 
 
-                if not is_movie_news(
+                # ================================================
+                # STRICT MOVIE / SERIES FILTER
+                # ================================================
 
+                if not is_movie_news(
                     title,
                     description
-
                 ):
+
+                    print(
+                        "SKIPPED NON-MOVIE NEWS:",
+                        title
+                    )
 
                     continue
 
@@ -1306,10 +1424,6 @@ def main():
                 print("-" * 55)
 
 
-                # ====================================================
-                # GET ARTICLE PAGE
-                # ====================================================
-
                 soup, final_url = get_article_page(
                     link
                 )
@@ -1327,8 +1441,6 @@ def main():
                     )
 
 
-                    # IMPORTANT:
-                    # ORIGINAL ARTICLE IMAGE HAS PRIORITY
                     article_image = get_article_image(
 
                         soup,
@@ -1337,10 +1449,6 @@ def main():
 
                     )
 
-
-                # ====================================================
-                # RSS IMAGE ONLY AS FALLBACK
-                # ====================================================
 
                 rss_image = ""
 
@@ -1355,10 +1463,6 @@ def main():
                         entry
                     )
 
-
-                # ====================================================
-                # FINAL IMAGE
-                # ====================================================
 
                 image = (
 
@@ -1393,10 +1497,6 @@ def main():
                     image[:150]
                 )
 
-
-                # ====================================================
-                # SUMMARY
-                # ====================================================
 
                 summary = create_summary(
 
@@ -1487,13 +1587,33 @@ def main():
     # MERGE NEW + OLD
     # ========================================================
 
+    # يتم هنا أيضاً حذف الأخبار الرياضية والسياسية القديمة
+    # الموجودة مسبقاً في movie-news.json
+
+    clean_old_items = [
+
+        item
+
+        for item in old_items
+
+        if is_movie_news(
+
+            item.get("title", ""),
+
+            item.get("summary", "")
+
+        )
+
+    ]
+
+
     all_items = (
 
         new_articles
 
         +
 
-        old_items
+        clean_old_items
 
     )
 
@@ -1596,8 +1716,6 @@ def main():
     print()
 
 
-    # Important:
-    # Do not fail if there are old articles.
     if len(unique_items) == 0:
 
         print(
