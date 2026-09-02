@@ -32,15 +32,16 @@ HEADERS = {
     ),
     "Accept": (
         "text/html,application/xhtml+xml,"
-        "application/xml;q=0.9,image/avif,"
-        "image/webp,image/apng,*/*;q=0.8"
+        "application/xml;q=0.9,"
+        "image/avif,image/webp,image/apng,"
+        "*/*;q=0.8"
     ),
     "Accept-Language": "ar,en-US;q=0.9,en;q=0.8"
 }
 
 
 # ============================================================
-# MOVINS FALLBACK IMAGE
+# FALLBACK IMAGE
 # ============================================================
 
 FALLBACK_IMAGE = (
@@ -51,7 +52,7 @@ FALLBACK_IMAGE = (
 
 
 # ============================================================
-# ARABIC SOURCES
+# SOURCES
 # ============================================================
 
 RSS_FEEDS = [
@@ -78,7 +79,7 @@ RSS_FEEDS = [
 
 
 # ============================================================
-# MOVIE / SERIES KEYWORDS
+# MOVIE KEYWORDS
 # ============================================================
 
 MOVIE_KEYWORDS = [
@@ -93,14 +94,14 @@ MOVIE_KEYWORDS = [
     "سينمائية",
 
     "شباك التذاكر",
-    "إيرادات فيلم",
+    "إيرادات",
 
     "مسلسل",
     "مسلسلات",
     "دراما",
 
-    "الحلقة",
     "حلقة",
+    "الحلقة",
 
     "نتفليكس",
     "netflix",
@@ -129,20 +130,16 @@ MOVIE_KEYWORDS = [
     "مهرجان سينمائي",
     "مهرجان الفيلم",
 
-    "صناعة السينما",
-    "التلفزيون"
+    "التلفزيون",
+    "منصة عرض"
 ]
 
 
 # ============================================================
-# BAD KEYWORDS — SPORTS / POLITICS / OTHER
+# BAD KEYWORDS
 # ============================================================
 
 BAD_KEYWORDS = [
-
-    # ==========================================
-    # SPORTS
-    # ==========================================
 
     "كرة القدم",
     "كرة السلة",
@@ -152,7 +149,6 @@ BAD_KEYWORDS = [
     "مباراة",
     "مباريات",
 
-    "الدوري",
     "الدوري الإنجليزي",
     "الدوري الإسباني",
     "الدوري الإيطالي",
@@ -166,46 +162,21 @@ BAD_KEYWORDS = [
     "لاعبة",
 
     "مدرب",
-    "تدريب",
-
-    "هدف",
-    "أهداف",
 
     "ركلة",
     "ركلات",
 
     "تنس",
 
-    "رياضة",
-    "رياضي",
-    "رياضية",
-
     "بطولة رياضية",
-    "بطولة التنس",
-
-    "كأس العالم",
-    "كأس أفريقيا",
-
-    "فوز",
-    "خسارة",
-    "هزيمة",
-    "تعادل",
-
-
-    # ==========================================
-    # POLITICS
-    # ==========================================
 
     "سياسة",
     "سياسي",
     "سياسية",
 
     "انتخابات",
-    "انتخاب",
 
     "رئيس الجمهورية",
-    "الرئيس الأميركي",
-    "الرئيس الأمريكي",
 
     "حكومة",
 
@@ -215,9 +186,6 @@ BAD_KEYWORDS = [
     "برلمان",
 
     "دبلوماسي",
-    "دبلوماسية",
-
-    "علاقات دولية",
 
     "الحرب",
 
@@ -229,30 +197,11 @@ BAD_KEYWORDS = [
 
     "البيت الأبيض",
 
-
-    # ==========================================
-    # ECONOMY
-    # ==========================================
-
-    "اقتصاد",
-    "اقتصادية",
-
     "بورصة",
-
-    "أسهم",
 
     "بنك مركزي",
 
-    "نفط",
-
     "أسعار النفط",
-
-
-    # ==========================================
-    # OTHER
-    # ==========================================
-
-    "طقس",
 
     "زلزال",
 
@@ -299,63 +248,47 @@ def clean_text(text):
 
 
 # ============================================================
-# CHECK IF ARTICLE IS MOVIE NEWS
+# NORMALIZE ARABIC TEXT
 # ============================================================
 
-def is_movie_news(title, description):
+def normalize_text(text):
 
-    title = clean_text(title).lower()
+    text = clean_text(text).lower()
 
-    description = clean_text(description).lower()
+    replacements = {
+        "أ": "ا",
+        "إ": "ا",
+        "آ": "ا",
+        "ى": "ي",
+        "ة": "ه"
+    }
 
-    text = f"{title} {description}"
+    for old, new in replacements.items():
 
+        text = text.replace(
+            old,
+            new
+        )
 
-    # ==========================================
-    # REJECT SPORTS / POLITICS FIRST
-    # ==========================================
-
-    if any(
-        keyword.lower() in text
-        for keyword in BAD_KEYWORDS
-    ):
-
-        return False
-
-
-    # ==========================================
-    # REQUIRE MOVIE / SERIES KEYWORD
-    # ==========================================
-
-    movie_found = any(
-        keyword.lower() in text
-        for keyword in MOVIE_KEYWORDS
+    text = re.sub(
+        r"[ًٌٍَُِّْـ]",
+        "",
+        text
     )
 
+    text = re.sub(
+        r"[^\w\s]",
+        " ",
+        text
+    )
 
-    if not movie_found:
+    text = re.sub(
+        r"\s+",
+        " ",
+        text
+    )
 
-        return False
-
-
-    return True
-
-
-# ============================================================
-# CREATE UNIQUE ID
-# ============================================================
-
-def make_id(title, link):
-
-    value = (
-        title.strip()
-        + "|"
-        + link.strip()
-    ).encode("utf-8")
-
-    return hashlib.md5(
-        value
-    ).hexdigest()
+    return text.strip()
 
 
 # ============================================================
@@ -364,23 +297,60 @@ def make_id(title, link):
 
 def normalize_title(title):
 
-    title = clean_text(
-        title
-    ).lower()
+    return normalize_text(title)
 
-    title = re.sub(
-        r"[^\w\s]",
-        "",
-        title
+
+# ============================================================
+# CHECK MOVIE NEWS
+# ============================================================
+
+def is_movie_news(title, description):
+
+    title = clean_text(title).lower()
+    description = clean_text(description).lower()
+
+    text = f"{title} {description}"
+
+    movie_count = sum(
+        1
+        for keyword in MOVIE_KEYWORDS
+        if keyword.lower() in text
     )
 
-    title = re.sub(
-        r"\s+",
-        " ",
-        title
+    bad_count = sum(
+        1
+        for keyword in BAD_KEYWORDS
+        if keyword.lower() in text
     )
 
-    return title.strip()
+    # إذا كان هناك محتوى سيئ واضح
+    if bad_count >= 2 and movie_count == 0:
+
+        return False
+
+    # يجب وجود كلمة واحدة على الأقل
+    if movie_count == 0:
+
+        return False
+
+    return True
+
+
+# ============================================================
+# CREATE ID
+# ============================================================
+
+def make_id(title, link):
+
+    value = (
+        normalize_title(title)
+        + "|"
+        + link.strip()
+    ).encode("utf-8")
+
+    return hashlib.md5(
+        value
+    ).hexdigest()
 
 
 # ============================================================
@@ -393,12 +363,9 @@ def get_date(entry):
 
         entry.get("published")
 
-        or
-
-        entry.get("updated")
+        or entry.get("updated")
 
         or ""
-
     )
 
     if published:
@@ -422,6 +389,7 @@ def get_date(entry):
             )
 
         except Exception:
+
             pass
 
     return datetime.now(
@@ -432,7 +400,7 @@ def get_date(entry):
 
 
 # ============================================================
-# CHECK IMAGE URL
+# IMAGE VALIDATION
 # ============================================================
 
 def is_valid_image_url(url):
@@ -463,7 +431,6 @@ def is_valid_image_url(url):
         "default-image",
         "default_image",
         "loading.gif"
-
     ]
 
     if any(
@@ -477,7 +444,7 @@ def is_valid_image_url(url):
 
 
 # ============================================================
-# VERIFY IMAGE EXISTS
+# VERIFY IMAGE
 # ============================================================
 
 def verify_image(url):
@@ -501,9 +468,11 @@ def verify_image(url):
             ""
         ).lower()
 
+        status = response.status_code
+
         response.close()
 
-        if response.status_code != 200:
+        if status != 200:
 
             return False
 
@@ -527,94 +496,49 @@ def get_rss_image(entry):
     candidates = []
 
 
-    try:
+    for key in [
 
-        for item in entry.get(
-            "media_content",
-            []
-        ):
+        "media_content",
+        "media_thumbnail",
+        "enclosures"
 
-            url = item.get(
-                "url",
-                ""
-            )
+    ]:
 
-            if url:
+        try:
 
-                candidates.append(url)
+            for item in entry.get(key, []):
 
-    except Exception:
-        pass
+                url = (
 
+                    item.get("url")
 
-    try:
+                    or item.get("href")
 
-        for item in entry.get(
-            "media_thumbnail",
-            []
-        ):
+                    or ""
+                )
 
-            url = item.get(
-                "url",
-                ""
-            )
+                if url:
 
-            if url:
+                    candidates.append(url)
 
-                candidates.append(url)
+        except Exception:
 
-    except Exception:
-        pass
+            pass
 
 
     try:
 
-        for item in entry.get(
-            "enclosures",
-            []
-        ):
+        image = entry.get("image")
 
-            url = (
-
-                item.get("href")
-
-                or
-
-                item.get("url")
-
-                or ""
-
-            )
-
-            if url:
-
-                candidates.append(url)
-
-    except Exception:
-        pass
-
-
-    try:
-
-        image = entry.get(
-            "image"
-        )
-
-        if isinstance(
-            image,
-            dict
-        ):
+        if isinstance(image, dict):
 
             url = (
 
                 image.get("href")
 
-                or
-
-                image.get("url")
+                or image.get("url")
 
                 or ""
-
             )
 
             if url:
@@ -622,6 +546,7 @@ def get_rss_image(entry):
                 candidates.append(url)
 
     except Exception:
+
         pass
 
 
@@ -681,7 +606,7 @@ def get_article_page(url):
 
 
 # ============================================================
-# GET SRCSET BEST IMAGE
+# GET BEST SRCSET IMAGE
 # ============================================================
 
 def get_best_srcset(srcset):
@@ -736,7 +661,7 @@ def get_best_srcset(srcset):
 
 
 # ============================================================
-# EXTRACT ARTICLE IMAGE
+# ARTICLE IMAGE
 # ============================================================
 
 def get_article_image(soup, base_url):
@@ -745,28 +670,17 @@ def get_article_image(soup, base_url):
 
         return ""
 
-
-    print(
-        "SEARCHING FOR ORIGINAL ARTICLE IMAGE..."
-    )
-
-
     meta_rules = [
 
         ("property", "og:image"),
 
         ("property", "og:image:url"),
 
-        ("property", "og:image:secure_url"),
-
         ("name", "twitter:image"),
 
         ("property", "twitter:image"),
 
-        ("name", "twitter:image:src"),
-
         ("name", "twitter:image:src")
-
     ]
 
 
@@ -797,130 +711,21 @@ def get_article_image(soup, base_url):
             image
         )
 
-        print(
-            "META IMAGE FOUND:",
-            image[:120]
-        )
-
         if verify_image(image):
 
-            print(
-                "ORIGINAL IMAGE VERIFIED"
-            )
-
             return image
-
-
-    images = soup.find_all(
-        "img"
-    )
-
-
-    for img in images:
-
-        candidates = [
-
-            img.get("data-src"),
-
-            img.get("data-lazy-src"),
-
-            img.get("data-original"),
-
-            img.get("data-image"),
-
-            img.get("data-url"),
-
-            get_best_srcset(
-                img.get("data-srcset")
-            ),
-
-            get_best_srcset(
-                img.get("srcset")
-            ),
-
-            img.get("src")
-
-        ]
-
-
-        for image in candidates:
-
-            if not image:
-
-                continue
-
-            image = str(
-                image
-            ).strip()
-
-            if not image:
-
-                continue
-
-            image = urljoin(
-                base_url,
-                image
-            )
-
-            if not is_valid_image_url(
-                image
-            ):
-
-                continue
-
-
-            width = img.get(
-                "width"
-            )
-
-            height = img.get(
-                "height"
-            )
-
-            try:
-
-                if width and int(width) < 250:
-
-                    continue
-
-            except Exception:
-                pass
-
-            try:
-
-                if height and int(height) < 150:
-
-                    continue
-
-            except Exception:
-                pass
-
-
-            if verify_image(image):
-
-                print(
-                    "ARTICLE IMAGE VERIFIED:",
-                    image[:120]
-                )
-
-                return image
 
 
     return ""
 
 
 # ============================================================
-# EXTRACT ARTICLE TEXT
+# REMOVE NON ARTICLE CONTENT
 # ============================================================
 
-def get_article_text(soup):
+def remove_junk(soup):
 
-    if not soup:
-
-        return ""
-
-
-    for element in soup([
+    junk_tags = [
 
         "script",
         "style",
@@ -930,21 +735,197 @@ def get_article_text(soup):
         "aside",
         "form",
         "button",
-        "noscript"
+        "noscript",
+        "iframe",
+        "svg"
+    ]
 
-    ]):
+
+    for tag in soup(junk_tags):
 
         try:
 
-            element.decompose()
+            tag.decompose()
 
         except Exception:
+
             pass
 
 
+    junk_words = [
+
+        "related",
+        "recommend",
+        "sidebar",
+        "advert",
+        "advertisement",
+        "latest",
+        "popular",
+        "more-news",
+        "most-read",
+
+        "ذات صلة",
+        "أخبار ذات صلة",
+        "الأكثر قراءة",
+        "اقرأ أيضا",
+        "إعلانات",
+        "أحدث الأخبار",
+        "مواضيع ذات صلة"
+    ]
+
+
+    for element in soup.find_all(True):
+
+        try:
+
+            classes = " ".join(
+                element.get(
+                    "class",
+                    []
+                )
+            ).lower()
+
+            element_id = (
+                element.get(
+                    "id",
+                    ""
+                )
+            ).lower()
+
+            attrs = (
+                classes
+                + " "
+                + element_id
+            )
+
+            if any(
+                word.lower() in attrs
+                for word in junk_words
+            ):
+
+                element.decompose()
+
+        except Exception:
+
+            pass
+
+
+# ============================================================
+# GET CLEAN PARAGRAPHS
+# ============================================================
+
+def extract_paragraphs(container):
+
+    paragraphs = []
+
+    seen = set()
+
+
+    for element in container.find_all(
+        ["p"]
+    ):
+
+        text = clean_text(
+            element.get_text(
+                " ",
+                strip=True
+            )
+        )
+
+        if len(text) < 40:
+
+            continue
+
+        normalized = normalize_text(
+            text
+        )
+
+        if normalized in seen:
+
+            continue
+
+        seen.add(normalized)
+
+        paragraphs.append(text)
+
+
+    return paragraphs
+
+
+# ============================================================
+# CHECK TEXT RELEVANCE TO TITLE
+# ============================================================
+
+def text_matches_title(title, text):
+
+    title_words = [
+
+        word
+
+        for word in normalize_text(title).split()
+
+        if len(word) >= 4
+    ]
+
+
+    if not title_words:
+
+        return True
+
+
+    text_normalized = normalize_text(
+        text
+    )
+
+
+    matches = sum(
+
+        1
+
+        for word in title_words
+
+        if word in text_normalized
+
+    )
+
+
+    # يكفي ظهور كلمة مهمة من العنوان
+    if len(title_words) <= 3:
+
+        return matches >= 1
+
+
+    # العناوين الطويلة يجب أن تتطابق أكثر
+    return matches >= 2
+
+
+# ============================================================
+# EXTRACT ARTICLE TEXT — STRICT VERSION
+# ============================================================
+
+def get_article_text(soup, title):
+
+    if not soup:
+
+        return ""
+
+
+    # نعمل على نسخة مستقلة
+    soup = BeautifulSoup(
+        str(soup),
+        "html.parser"
+    )
+
+
+    remove_junk(soup)
+
+
+    # لا نستخدم main مباشرة إلا كخيار أخير
     selectors = [
 
         "article",
+
+        "[itemprop='articleBody']",
 
         ".article-content",
 
@@ -966,73 +947,81 @@ def get_article_text(soup):
 
         ".article-details",
 
-        "main"
+        ".article-text",
 
+        ".story-content",
+
+        ".field-name-body",
+
+        ".field--name-body"
     ]
 
 
-    best_text = ""
+    candidates = []
 
 
     for selector in selectors:
 
         try:
 
-            container = soup.select_one(
+            containers = soup.select(
                 selector
             )
 
-            if not container:
+            for container in containers:
 
-                continue
-
-
-            paragraphs = []
-
-
-            for element in container.find_all([
-
-                "p",
-                "h2",
-                "h3",
-                "li"
-
-            ]):
-
-                text = clean_text(
-                    element.get_text(
-                        " ",
-                        strip=True
-                    )
+                paragraphs = extract_paragraphs(
+                    container
                 )
 
-                if len(text) >= 30:
+                if len(paragraphs) < 2:
 
-                    paragraphs.append(
-                        text
-                    )
+                    continue
+
+                text = "\n\n".join(
+                    paragraphs
+                )
+
+                if len(text) < 180:
+
+                    continue
+
+                score = len(text)
 
 
-            text = "\n\n".join(
-                paragraphs
-            )
+                if text_matches_title(
+                    title,
+                    text
+                ):
+
+                    score += 10000
 
 
-            if len(text) > len(best_text):
-
-                best_text = text
-
+                candidates.append(
+                    (score, text)
+                )
 
         except Exception:
+
             pass
 
 
-    if len(best_text) >= 200:
+    # اختيار أفضل عنصر فقط
+    if candidates:
 
-        return best_text[:10000]
+        candidates.sort(
+            key=lambda x: x[0],
+            reverse=True
+        )
+
+        best_text = candidates[0][1]
+
+        return best_text[:7000]
 
 
+    # FALLBACK محدود جداً
     paragraphs = []
+
 
     for p in soup.find_all("p"):
 
@@ -1043,20 +1032,37 @@ def get_article_text(soup):
             )
         )
 
-        if len(text) >= 35:
+        if len(text) < 50:
 
-            paragraphs.append(
-                text
-            )
+            continue
+
+        paragraphs.append(text)
+
+        # نأخذ عدداً محدوداً جداً
+        if len(paragraphs) >= 8:
+
+            break
 
 
-    return "\n\n".join(
+    text = "\n\n".join(
         paragraphs
-    )[:10000]
+    )
+
+
+    # إذا لم يكن له علاقة بالعنوان نرفضه
+    if text and not text_matches_title(
+        title,
+        text
+    ):
+
+        return ""
+
+
+    return text[:5000]
 
 
 # ============================================================
-# CREATE SUMMARY
+# CREATE SAFE SUMMARY
 # ============================================================
 
 def create_summary(
@@ -1076,9 +1082,29 @@ def create_summary(
     )
 
 
-    source_text = article_text
+    # ==========================================
+    # RSS DESCRIPTION HAS PRIORITY
+    # لأنه مرتبط مباشرة بالخبر
+    # ==========================================
 
-    if len(source_text) < 250:
+    if len(rss_description) >= 120:
+
+        source_text = rss_description
+
+    elif (
+
+        len(article_text) >= 200
+
+        and text_matches_title(
+            title,
+            article_text
+        )
+
+    ):
+
+        source_text = article_text
+
+    else:
 
         source_text = rss_description
 
@@ -1086,16 +1112,18 @@ def create_summary(
     if not source_text:
 
         return (
-            f"يتناول هذا الخبر {title}. "
-            "ويعرض آخر المعلومات والتطورات المتعلقة بالأفلام أو المسلسلات "
-            "أو صناعة الترفيه. ويمكن متابعة المصدر الأصلي للاطلاع على "
-            "التفاصيل الكاملة والمعلومات الجديدة عند نشرها."
+            f"يتناول الخبر {title}. "
+            "ويكشف عن أحدث المعلومات والتطورات المرتبطة بهذا العمل "
+            "في عالم الأفلام والمسلسلات والترفيه."
         )
 
 
     sentences = re.split(
+
         r"(?<=[.!؟])\s+",
+
         source_text
+
     )
 
 
@@ -1112,40 +1140,32 @@ def create_summary(
             sentence
         )
 
-        normalized = normalize_title(
-            sentence
-        )
-
-
         if len(sentence) < 25:
 
             continue
 
+        normalized = normalize_text(
+            sentence
+        )
 
         if normalized in used:
 
             continue
 
+        used.add(normalized)
 
-        used.add(
-            normalized
-        )
+        selected.append(sentence)
 
-        selected.append(
-            sentence
-        )
-
-        total += len(
-            sentence
-        )
+        total += len(sentence)
 
 
-        if len(selected) >= 10:
+        # لا نريد ملخصاً ضخماً
+        if len(selected) >= 5:
 
             break
 
 
-        if total >= 1600:
+        if total >= 900:
 
             break
 
@@ -1155,23 +1175,21 @@ def create_summary(
     )
 
 
-    if len(summary) < 450:
+    # في حالة عدم وجود علامات ترقيم جيدة
+    if len(summary) < 100:
 
         words = source_text.split()
 
         summary = " ".join(
-            words[:300]
+            words[:180]
         )
 
 
-    if len(summary) < 250:
+    if len(summary) < 80:
 
         summary = (
-            f"يتناول الخبر موضوع {title}. "
-            f"{summary} "
-            "وتوضح المعلومات المنشورة أحدث التفاصيل المرتبطة بهذا الموضوع، "
-            "سواء تعلق الأمر بعمل جديد أو موعد عرض أو تطورات تخص نجوم العمل "
-            "أو الإنتاج أو صناعة السينما والتلفزيون."
+            f"يتناول الخبر {title}. "
+            f"{summary}"
         )
 
 
@@ -1210,10 +1228,7 @@ def load_old_news():
         )
 
 
-        if isinstance(
-            items,
-            list
-        ):
+        if isinstance(items, list):
 
             return items
 
@@ -1227,6 +1242,33 @@ def load_old_news():
 
 
     return []
+
+
+# ============================================================
+# SORT DATE
+# ============================================================
+
+def date_sort_key(item):
+
+    date = item.get(
+        "date",
+        ""
+    )
+
+    try:
+
+        return datetime.fromisoformat(
+            date.replace(
+                "Z",
+                "+00:00"
+            )
+        )
+
+    except Exception:
+
+        return datetime.min.replace(
+            tzinfo=timezone.utc
+        )
 
 
 # ============================================================
@@ -1302,6 +1344,12 @@ def main():
                 response.status_code
             )
 
+
+            if response.status_code != 200:
+
+                continue
+
+
             feed = feedparser.parse(
                 response.content
             )
@@ -1368,7 +1416,7 @@ def main():
 
 
                 # ================================================
-                # STRICT MOVIE / SERIES FILTER
+                # MOVIE FILTER
                 # ================================================
 
                 if not is_movie_news(
@@ -1377,7 +1425,7 @@ def main():
                 ):
 
                     print(
-                        "SKIPPED NON-MOVIE NEWS:",
+                        "SKIPPED NON-MOVIE:",
                         title
                     )
 
@@ -1408,7 +1456,7 @@ def main():
                 if article_id in old_ids:
 
                     print(
-                        "SKIPPED OLD ARTICLE:",
+                        "SKIPPED OLD:",
                         title
                     )
 
@@ -1417,10 +1465,12 @@ def main():
 
                 print()
                 print("-" * 55)
+
                 print(
                     "PROCESSING:",
                     title
                 )
+
                 print("-" * 55)
 
 
@@ -1430,14 +1480,15 @@ def main():
 
 
                 article_text = ""
-
                 article_image = ""
 
 
                 if soup:
 
+                    # استخراج النص مع العنوان للتحقق
                     article_text = get_article_text(
-                        soup
+                        soup,
+                        title
                     )
 
 
@@ -1450,14 +1501,14 @@ def main():
                     )
 
 
+                # ================================================
+                # RSS IMAGE
+                # ================================================
+
                 rss_image = ""
 
 
                 if not article_image:
-
-                    print(
-                        "NO ARTICLE IMAGE — TRYING RSS IMAGE"
-                    )
 
                     rss_image = get_rss_image(
                         entry
@@ -1468,35 +1519,16 @@ def main():
 
                     article_image
 
-                    or
+                    or rss_image
 
-                    rss_image
-
-                    or
-
-                    FALLBACK_IMAGE
+                    or FALLBACK_IMAGE
 
                 )
 
 
-                print()
-                print(
-                    "ARTICLE TEXT LENGTH:",
-                    len(article_text)
-                )
-
-                print(
-                    "SUMMARY SOURCE:",
-                    "ARTICLE"
-                    if len(article_text) >= 250
-                    else "RSS"
-                )
-
-                print(
-                    "FINAL IMAGE:",
-                    image[:150]
-                )
-
+                # ================================================
+                # SUMMARY
+                # ================================================
 
                 summary = create_summary(
 
@@ -1510,12 +1542,22 @@ def main():
 
 
                 print(
+                    "RSS LENGTH:",
+                    len(description)
+                )
+
+                print(
+                    "ARTICLE LENGTH:",
+                    len(article_text)
+                )
+
+                print(
                     "SUMMARY LENGTH:",
                     len(summary)
                 )
 
 
-                if len(summary) < 120:
+                if len(summary) < 80:
 
                     print(
                         "SKIPPED — SUMMARY TOO SHORT"
@@ -1573,6 +1615,7 @@ def main():
 
         except Exception as error:
 
+            print()
             print(
                 "SOURCE ERROR:",
                 source["name"]
@@ -1584,11 +1627,8 @@ def main():
 
 
     # ========================================================
-    # MERGE NEW + OLD
+    # CLEAN OLD NEWS
     # ========================================================
-
-    # يتم هنا أيضاً حذف الأخبار الرياضية والسياسية القديمة
-    # الموجودة مسبقاً في movie-news.json
 
     clean_old_items = [
 
@@ -1606,6 +1646,10 @@ def main():
 
     ]
 
+
+    # ========================================================
+    # MERGE
+    # ========================================================
 
     all_items = (
 
@@ -1626,11 +1670,20 @@ def main():
 
     unique_ids = set()
 
+    unique_titles = set()
+
 
     for item in all_items:
 
         item_id = item.get(
             "id"
+        )
+
+        title = normalize_title(
+            item.get(
+                "title",
+                ""
+            )
         )
 
 
@@ -1644,13 +1697,35 @@ def main():
             continue
 
 
+        if title in unique_titles:
+
+            continue
+
+
         unique_ids.add(
             item_id
+        )
+
+        unique_titles.add(
+            title
         )
 
         unique_items.append(
             item
         )
+
+
+    # ========================================================
+    # SORT NEWEST FIRST
+    # ========================================================
+
+    unique_items.sort(
+
+        key=date_sort_key,
+
+        reverse=True
+
+    )
 
 
     # ========================================================
@@ -1712,7 +1787,6 @@ def main():
     )
 
     print("=" * 55)
-
     print()
 
 
