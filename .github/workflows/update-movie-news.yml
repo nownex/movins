@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: "0 */6 * * *"
+    # مرة واحدة يوميًا
+    # 08:00 UTC = حوالي 09:00 في الجزائر
+    - cron: "0 8 * * *"
 
 permissions:
   contents: write
@@ -142,24 +144,18 @@ jobs:
               )
 
               if not title:
-
                   raise RuntimeError(
-                      f"Article {index} "
-                      f"has no title"
+                      f"Article {index} has no title"
                   )
 
               if not summary:
-
                   raise RuntimeError(
-                      f"Article {index} "
-                      f"has no summary"
+                      f"Article {index} has no summary"
                   )
 
               if not link:
-
                   raise RuntimeError(
-                      f"Article {index} "
-                      f"has no original link"
+                      f"Article {index} has no original link"
                   )
 
 
