@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
 
   schedule:
-    # Every day at 18:00 Algeria time
-    # Algeria = UTC+1
     - cron: "0 17 * * *"
 
 permissions:
@@ -21,9 +19,9 @@ jobs:
 
     steps:
 
-      # ================================================
+      # ==========================================
       # CHECKOUT
-      # ================================================
+      # ==========================================
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,84 +29,89 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      # ================================================
+      # ==========================================
       # PYTHON
-      # ================================================
+      # ==========================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # ================================================
-      # FFMPEG + FONTS
-      # ================================================
+      # ==========================================
+      # FFMPEG
+      # ==========================================
 
-      - name: Install FFmpeg and fonts
+      - name: Install FFmpeg
         run: |
+          set -eux
+
           sudo apt-get update
 
           sudo apt-get install -y \
             ffmpeg \
             fonts-dejavu-core
 
-          echo "======================================"
-          echo "FFmpeg version"
-          echo "======================================"
-
+          echo "FFmpeg installed:"
           ffmpeg -version | head -n 1
 
-          echo ""
-          echo "======================================"
-          echo "Checking English font"
-          echo "======================================"
-
-          test -f /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
-
-          echo "✓ DejaVu Sans found"
-
-      # ================================================
-      # PYTHON DEPENDENCIES
-      # ================================================
+      # ==========================================
+      # PYTHON PACKAGES
+      # ==========================================
 
       - name: Install Python dependencies
         run: |
+          set -eux
+
           python -m pip install --upgrade pip
 
           pip install \
             requests \
             pillow
 
-      # ================================================
-      # CHECK FILES
-      # ================================================
+      # ==========================================
+      # VERIFY FILES
+      # ==========================================
 
-      - name: Check MOVINS files
+      - name: Verify MOVINS files
         run: |
+          set -eux
+
           echo "======================================"
-          echo "Checking MOVINS files"
+          echo "MOVINS FILE CHECK"
           echo "======================================"
 
-          test -f movies.json
-          test -f publish_movie_reel.py
-
-          echo "✓ movies.json"
-          echo "✓ publish_movie_reel.py"
-
-          if [ ! -f posted_movie_reels.json ]; then
-            echo "[]" > posted_movie_reels.json
-            echo "✓ created posted_movie_reels.json"
-          else
-            echo "✓ posted_movie_reels.json"
-          fi
+          pwd
 
           echo ""
-          echo "Python:"
+          echo "Files:"
+          ls -la
+
+          echo ""
+          echo "Checking movies.json..."
+
+          test -f movies.json
+
+          echo "OK: movies.json"
+
+          echo ""
+          echo "Checking publish_movie_reel.py..."
+
+          test -f publish_movie_reel.py
+
+          echo "OK: publish_movie_reel.py"
+
+          echo ""
+          echo "Python version:"
           python --version
 
-      # ================================================
-      # CREATE + PUBLISH REEL
-      # ================================================
+          echo ""
+          echo "Script size:"
+          wc -l publish_movie_reel.py
+
+      # ==========================================
+      # RUN REEL SCRIPT
+      # ==========================================
 
       - name: Create and publish MOVINS Reel
         env:
@@ -116,24 +119,62 @@ jobs:
           FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: |
+          set -euxo pipefail
+
           echo "======================================"
           echo "MOVINS REEL START"
           echo "======================================"
 
-          python publish_movie_reel.py
+          echo ""
+          echo "Python executable:"
+          which python
 
-      # ================================================
-      # SAVE HISTORY
-      # ================================================
+          echo ""
+          echo "Starting publish_movie_reel.py..."
+
+          python -u publish_movie_reel.py
+
+          echo ""
+          echo "======================================"
+          echo "MOVINS REEL SCRIPT FINISHED"
+          echo "======================================"
+
+      # ==========================================
+      # VERIFY HISTORY
+      # ==========================================
+
+      - name: Verify reel history
+        run: |
+          set -eux
+
+          echo "======================================"
+          echo "CHECKING REEL HISTORY"
+          echo "======================================"
+
+          if [ -f posted_movie_reels.json ]; then
+
+            echo "posted_movie_reels.json exists"
+
+            cat posted_movie_reels.json
+
+          else
+
+            echo "ERROR: posted_movie_reels.json was not created"
+
+            exit 1
+
+          fi
+
+      # ==========================================
+      # COMMIT
+      # ==========================================
 
       - name: Commit reel history
         run: |
+          set -eux
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          echo "======================================"
-          echo "Saving Reel history"
-          echo "======================================"
 
           git add posted_movie_reels.json
 
@@ -144,54 +185,8 @@ jobs:
 
           git commit -m "Update MOVINS reel history"
 
-          echo ""
-          echo "======================================"
-          echo "Syncing with GitHub"
-          echo "======================================"
+          git fetch origin main
 
-          for i in 1 2 3 4 5; do
+          git rebase origin/main
 
-            echo ""
-            echo "Push attempt $i / 5"
-
-            git fetch origin main
-
-            if git rebase origin/main; then
-
-              echo "Rebase successful."
-
-              if git push origin main; then
-
-                echo ""
-                echo "======================================"
-                echo "PUSH SUCCESSFUL"
-                echo "======================================"
-
-                exit 0
-
-              fi
-
-            else
-
-              echo "Rebase failed."
-
-              git rebase --abort || true
-
-            fi
-
-            if [ "$i" -lt 5 ]; then
-
-              echo "Retrying in 5 seconds..."
-
-              sleep 5
-
-            fi
-
-          done
-
-          echo ""
-          echo "======================================"
-          echo "ERROR: Git push failed"
-          echo "======================================"
-
-          exit 1
+          git push origin main
