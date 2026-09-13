@@ -35,29 +35,35 @@ DURATION = 12
 FPS = 30
 SAMPLE_RATE = 44100
 
+FACEBOOK_PAGE_TOKEN = os.environ.get(
+    "FACEBOOK_PAGE_TOKEN"
+)
 
-FACEBOOK_PAGE_TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
-TMDB_API_KEY = os.environ.get("TMDB_API_KEY")
+TMDB_API_KEY = os.environ.get(
+    "TMDB_API_KEY"
+)
 
 
 # =========================================================
-# BASIC CHECKS
+# CHECK TOKEN
 # =========================================================
 
 if not FACEBOOK_PAGE_TOKEN:
-    raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing.")
+    raise RuntimeError(
+        "FACEBOOK_PAGE_TOKEN is missing."
+    )
 
 
 # =========================================================
-# LOGGING
+# LOG
 # =========================================================
 
-def log(text):
+def log(text=""):
     print(str(text), flush=True)
 
 
 # =========================================================
-# COMMAND
+# COMMAND RUNNER
 # =========================================================
 
 def run_command(command):
@@ -75,7 +81,10 @@ def run_command(command):
     )
 
     if result.stdout:
-        print(result.stdout, flush=True)
+        print(
+            result.stdout,
+            flush=True
+        )
 
     if result.returncode != 0:
         raise RuntimeError(
@@ -85,7 +94,7 @@ def run_command(command):
 
 
 # =========================================================
-# JSON
+# JSON LOAD
 # =========================================================
 
 def load_json(path, default):
@@ -94,17 +103,37 @@ def load_json(path, default):
         return default
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
+
+        with open(
+            path,
+            "r",
+            encoding="utf-8"
+        ) as f:
+
             return json.load(f)
 
     except Exception as e:
-        log("JSON load warning: " + str(e))
+
+        log(
+            "JSON warning: "
+            + str(e)
+        )
+
         return default
 
 
+# =========================================================
+# JSON SAVE
+# =========================================================
+
 def save_json(path, data):
 
-    with open(path, "w", encoding="utf-8") as f:
+    with open(
+        path,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
         json.dump(
             data,
             f,
@@ -114,7 +143,7 @@ def save_json(path, data):
 
 
 # =========================================================
-# CLEAN WORK DIRECTORY
+# CLEAN WORK
 # =========================================================
 
 def clean_work():
@@ -152,12 +181,18 @@ def load_movies():
     )
 
     if isinstance(data, dict):
-        items = data.get("items", [])
+
+        items = data.get(
+            "items",
+            []
+        )
 
     elif isinstance(data, list):
+
         items = data
 
     else:
+
         items = []
 
     if not isinstance(items, list):
@@ -167,7 +202,7 @@ def load_movies():
 
 
 # =========================================================
-# POSTED HISTORY
+# LOAD POSTED REELS
 # =========================================================
 
 def load_posted():
@@ -181,10 +216,18 @@ def load_posted():
         return data
 
     if isinstance(data, dict):
-        return data.get("items", [])
+
+        return data.get(
+            "items",
+            []
+        )
 
     return []
 
+
+# =========================================================
+# POSTED IDS
+# =========================================================
 
 def posted_ids(posted):
 
@@ -192,7 +235,10 @@ def posted_ids(posted):
 
     for item in posted:
 
-        if isinstance(item, dict):
+        if isinstance(
+            item,
+            dict
+        ):
 
             value = (
                 item.get("id")
@@ -201,16 +247,20 @@ def posted_ids(posted):
             )
 
         else:
+
             value = item
 
         if value is not None:
-            result.add(str(value))
+
+            result.add(
+                str(value)
+            )
 
     return result
 
 
 # =========================================================
-# MOVIE HELPERS
+# MOVIE ID
 # =========================================================
 
 def movie_id(movie):
@@ -226,25 +276,37 @@ def movie_id(movie):
     return str(value)
 
 
+# =========================================================
+# MEDIA TYPE
+# =========================================================
+
 def movie_prefix(movie):
 
     value = (
         movie.get("detailed_type")
         or movie.get("type")
+        or movie.get("media_type")
         or ""
     )
 
-    text = str(value).lower()
+    text = str(
+        value
+    ).lower()
 
     if (
         "مسلسل" in text
         or "tv" in text
         or "series" in text
     ):
+
         return "tv"
 
     return "movie"
 
+
+# =========================================================
+# DISPLAY TYPE
+# =========================================================
 
 def movie_type(movie):
 
@@ -253,6 +315,10 @@ def movie_type(movie):
 
     return "MOVIE"
 
+
+# =========================================================
+# ARABIC DETECTION
+# =========================================================
 
 def contains_arabic(text):
 
@@ -266,79 +332,174 @@ def contains_arabic(text):
             or "\u0750" <= char <= "\u077f"
             or "\u08a0" <= char <= "\u08ff"
         ):
+
             return True
 
     return False
 
 
 # =========================================================
-# TMDB ENGLISH TITLE
+# TMDB REQUEST
 # =========================================================
 
-def get_english_tmdb_title(mid, media_type):
+def tmdb_get(
+    endpoint,
+    params=None
+):
 
     if not TMDB_API_KEY:
         return None
 
-    if media_type == "tv":
-        endpoint = (
-            "https://api.themoviedb.org/3/tv/"
-            + str(mid)
+    request_params = {}
+
+    if params:
+        request_params.update(
+            params
         )
-    else:
-        endpoint = (
-            "https://api.themoviedb.org/3/movie/"
-            + str(mid)
-        )
+
+    request_params["api_key"] = (
+        TMDB_API_KEY
+    )
 
     try:
 
         response = requests.get(
             endpoint,
-            params={
-                "api_key": TMDB_API_KEY,
-                "language": "en-US"
-            },
+            params=request_params,
             timeout=20
         )
 
         if not response.ok:
+
+            log(
+                "TMDB request failed: "
+                + str(response.status_code)
+            )
+
             return None
 
-        data = response.json()
-
-        title = (
-            data.get("title")
-            or data.get("name")
-            or data.get("original_title")
-            or data.get("original_name")
-        )
-
-        if not title:
-            return None
-
-        title = str(title).strip()
-
-        if contains_arabic(title):
-            return None
-
-        return title
+        return response.json()
 
     except Exception as e:
 
         log(
-            "TMDB title lookup failed: "
+            "TMDB request error: "
             + str(e)
         )
 
         return None
 
 
+# =========================================================
+# GET ENGLISH TMDB TITLE
+# =========================================================
+
+def get_english_tmdb_title(
+    mid,
+    media_type
+):
+
+    if not TMDB_API_KEY:
+        return None
+
+    if media_type == "tv":
+
+        endpoint = (
+            "https://api.themoviedb.org/3/tv/"
+            + str(mid)
+        )
+
+        title_fields = [
+            "name",
+            "original_name"
+        ]
+
+    else:
+
+        endpoint = (
+            "https://api.themoviedb.org/3/movie/"
+            + str(mid)
+        )
+
+        title_fields = [
+            "title",
+            "original_title"
+        ]
+
+    # First try English
+    data = tmdb_get(
+        endpoint,
+        {
+            "language": "en-US"
+        }
+    )
+
+    if data:
+
+        for field in title_fields:
+
+            value = data.get(
+                field
+            )
+
+            if value:
+
+                value = str(
+                    value
+                ).strip()
+
+                if (
+                    value
+                    and not contains_arabic(value)
+                ):
+
+                    return value
+
+    # Second try original title
+    data = tmdb_get(
+        endpoint,
+        {
+            "language": "en-US"
+        }
+    )
+
+    if data:
+
+        for field in title_fields:
+
+            value = data.get(
+                field
+            )
+
+            if value:
+
+                value = str(
+                    value
+                ).strip()
+
+                if (
+                    value
+                    and not contains_arabic(value)
+                ):
+
+                    return value
+
+    return None
+
+
+# =========================================================
+# MOVIE TITLE
+# =========================================================
+
 def movie_title(movie):
 
     mid = movie_id(movie)
-    media_type = movie_prefix(movie)
 
+    media_type = movie_prefix(
+        movie
+    )
+
+    # Prefer original non-Arabic title
     candidates = [
         movie.get("original_title"),
         movie.get("original_name")
@@ -348,33 +509,48 @@ def movie_title(movie):
 
         if value:
 
-            value = str(value).strip()
+            value = str(
+                value
+            ).strip()
 
-            if value and not contains_arabic(value):
+            if (
+                value
+                and not contains_arabic(value)
+            ):
+
                 return value
 
+    # Ask TMDB for English title
     if mid:
 
-        title = get_english_tmdb_title(
+        english = get_english_tmdb_title(
             mid,
             media_type
         )
 
-        if title:
-            return title
+        if english:
+            return english
 
-    local_title = (
-        movie.get("title")
-        or movie.get("name")
-        or ""
-    )
+    # Try local title
+    candidates = [
+        movie.get("title"),
+        movie.get("name")
+    ]
 
-    local_title = str(
-        local_title
-    ).strip()
+    for value in candidates:
 
-    if local_title and not contains_arabic(local_title):
-        return local_title
+        if value:
+
+            value = str(
+                value
+            ).strip()
+
+            if (
+                value
+                and not contains_arabic(value)
+            ):
+
+                return value
 
     return "MOVINS FEATURE"
 
@@ -385,7 +561,9 @@ def movie_title(movie):
 
 def movie_year(movie):
 
-    value = movie.get("year")
+    value = movie.get(
+        "year"
+    )
 
     if value:
         return str(value)
@@ -416,14 +594,18 @@ def movie_rating(movie):
         return ""
 
     try:
-        return "{:.1f}".format(float(value))
+
+        return "{:.1f}".format(
+            float(value)
+        )
 
     except Exception:
+
         return str(value)
 
 
 # =========================================================
-# POSTER URL
+# POSTER
 # =========================================================
 
 def poster_url(movie):
@@ -439,16 +621,24 @@ def poster_url(movie):
 # SELECT MOVIE
 # =========================================================
 
-def choose_movie(movies, already_posted):
+def choose_movie(
+    movies,
+    already_posted
+):
 
     candidates = []
 
     for movie in movies:
 
-        if not isinstance(movie, dict):
+        if not isinstance(
+            movie,
+            dict
+        ):
             continue
 
-        mid = movie_id(movie)
+        mid = movie_id(
+            movie
+        )
 
         if not mid:
             continue
@@ -460,30 +650,53 @@ def choose_movie(movies, already_posted):
             continue
 
         try:
+
             popularity = float(
-                movie.get("popularity", 0) or 0
+                movie.get(
+                    "popularity",
+                    0
+                )
+                or 0
             )
+
         except Exception:
+
             popularity = 0
 
         try:
+
             rating = float(
-                movie.get("rating", 0) or 0
+                movie.get(
+                    "rating",
+                    0
+                )
+                or 0
             )
+
         except Exception:
+
             rating = 0
 
         try:
+
             votes = float(
-                movie.get("vote_count", 0) or 0
+                movie.get(
+                    "vote_count",
+                    0
+                )
+                or 0
             )
+
         except Exception:
+
             votes = 0
 
         score = (
             popularity
             + rating * 2
-            + math.log10(votes + 1)
+            + math.log10(
+                votes + 1
+            )
         )
 
         candidates.append(
@@ -494,10 +707,11 @@ def choose_movie(movies, already_posted):
         )
 
     if not candidates:
+
         return None
 
     candidates.sort(
-        key=lambda x: x[0],
+        key=lambda item: item[0],
         reverse=True
     )
 
@@ -532,9 +746,12 @@ def find_font():
 
 def download_poster(movie):
 
-    url = poster_url(movie)
+    url = poster_url(
+        movie
+    )
 
     if not url:
+
         raise RuntimeError(
             "Poster URL missing."
         )
@@ -576,7 +793,9 @@ def prepare_poster():
 
     image = Image.open(
         POSTER_FILE
-    ).convert("RGB")
+    ).convert(
+        "RGB"
+    )
 
     source_ratio = (
         image.width
@@ -649,7 +868,9 @@ def centered_text(
     stroke=0
 ):
 
-    text = str(text)
+    text = str(
+        text
+    )
 
     box = draw.textbbox(
         (0, 0),
@@ -693,11 +914,14 @@ def create_design(movie):
         "RGBA"
     )
 
-    # Dark cinematic overlay
+    # -----------------------------------------
+    # DARK OVERLAY
+    # -----------------------------------------
+
     overlay = Image.new(
         "RGBA",
         image.size,
-        (0, 0, 0, 55)
+        (0, 0, 0, 70)
     )
 
     image = Image.alpha_composite(
@@ -705,25 +929,34 @@ def create_design(movie):
         overlay
     )
 
-    # Bottom panel
-    draw = ImageDraw.Draw(image)
+    draw = ImageDraw.Draw(
+        image
+    )
+
+    # -----------------------------------------
+    # BOTTOM PANEL
+    # -----------------------------------------
 
     draw.rounded_rectangle(
         (
             35,
-            1140,
+            1120,
             WIDTH - 35,
             1810
         ),
-        radius=42,
+        radius=45,
         fill=(5, 8, 14, 235),
-        outline=(255, 255, 255, 50),
+        outline=(255, 255, 255, 55),
         width=2
     )
 
+    # -----------------------------------------
+    # FONTS
+    # -----------------------------------------
+
     brand_font = ImageFont.truetype(
         font_path,
-        64
+        66
     )
 
     category_font = ImageFont.truetype(
@@ -731,7 +964,9 @@ def create_design(movie):
         38
     )
 
-    title = movie_title(movie)
+    title = movie_title(
+        movie
+    )
 
     title_size = 70
 
@@ -761,12 +996,15 @@ def create_design(movie):
         32
     )
 
-    # Brand
+    # -----------------------------------------
+    # BRAND
+    # -----------------------------------------
+
     centered_text(
         draw,
         "MOVINS",
         brand_font,
-        75,
+        70,
         (255, 255, 255),
         2
     )
@@ -780,33 +1018,50 @@ def create_design(movie):
         1
     )
 
-    # Type
+    # -----------------------------------------
+    # TYPE
+    # -----------------------------------------
+
     centered_text(
         draw,
         movie_type(movie),
         category_font,
-        1205,
+        1185,
         (205, 205, 215),
         1
     )
 
-    # Title
+    # -----------------------------------------
+    # TITLE
+    # -----------------------------------------
+
     centered_text(
         draw,
         title,
         title_font,
-        1295,
+        1280,
         (255, 255, 255),
         2
     )
 
-    year = movie_year(movie)
-    rating = movie_rating(movie)
+    # -----------------------------------------
+    # YEAR + RATING
+    # -----------------------------------------
+
+    year = movie_year(
+        movie
+    )
+
+    rating = movie_rating(
+        movie
+    )
 
     info = []
 
     if year:
-        info.append(year)
+        info.append(
+            year
+        )
 
     if rating:
         info.append(
@@ -821,16 +1076,20 @@ def create_design(movie):
             draw,
             "  •  ".join(info),
             info_font,
-            1415,
+            1410,
             (225, 225, 230),
             1
         )
+
+    # -----------------------------------------
+    # CTA
+    # -----------------------------------------
 
     centered_text(
         draw,
         "WATCH DETAILS ON MOVINS",
         cta_font,
-        1535,
+        1530,
         (245, 190, 65),
         1
     )
@@ -839,10 +1098,14 @@ def create_design(movie):
         draw,
         "nownex.github.io/movins",
         site_font,
-        1625,
+        1620,
         (220, 220, 225),
         1
     )
+
+    # -----------------------------------------
+    # LINE
+    # -----------------------------------------
 
     draw.line(
         (
@@ -854,6 +1117,10 @@ def create_design(movie):
         fill=(245, 190, 65),
         width=3
     )
+
+    # -----------------------------------------
+    # SAVE
+    # -----------------------------------------
 
     image.convert(
         "RGB"
@@ -870,7 +1137,7 @@ def create_design(movie):
 
 
 # =========================================================
-# CINEMATIC AUDIO
+# CREATE MUSIC
 # =========================================================
 
 def create_music():
@@ -881,13 +1148,13 @@ def create_music():
 
     sample_rate = SAMPLE_RATE
 
-    total = int(
+    total_samples = int(
         sample_rate
         * DURATION
     )
 
-    # Simple cinematic progression
-    progression = [
+    # Gentle cinematic chords
+    chords = [
         [261.63, 329.63, 392.00],
         [220.00, 277.18, 329.63],
         [174.61, 220.00, 261.63],
@@ -907,18 +1174,24 @@ def create_music():
 
     frames = []
 
-    for i in range(total):
+    for i in range(
+        total_samples
+    ):
 
-        t = i / sample_rate
+        t = (
+            i
+            / sample_rate
+        )
 
+        # Fade
         fade_in = min(
             1.0,
-            t / 1.0
+            t / 1.2
         )
 
         fade_out = min(
             1.0,
-            (DURATION - t) / 1.5
+            (DURATION - t) / 1.8
         )
 
         envelope = (
@@ -926,18 +1199,26 @@ def create_music():
             * fade_out
         )
 
+        # Current chord
         chord_index = int(
             t / 3
         )
 
-        if chord_index >= len(progression):
-            chord_index = len(progression) - 1
+        if chord_index >= len(
+            chords
+        ):
 
-        chord = progression[chord_index]
+            chord_index = (
+                len(chords) - 1
+            )
+
+        chord = chords[
+            chord_index
+        ]
 
         value = 0.0
 
-        # Pad
+        # Soft pad
         for frequency in chord:
 
             value += (
@@ -947,24 +1228,26 @@ def create_music():
                     * frequency
                     * t
                 )
-                * 0.055
+                * 0.045
             )
 
         # Melody
-        note_index = int(
-            t * 2
-        ) % len(melody)
+        note_index = (
+            int(t * 1.5)
+            % len(melody)
+        )
 
-        note_frequency = melody[
-            note_index
-        ]
+        note_frequency = (
+            melody[note_index]
+        )
 
-        note_time = (
-            t * 2
+        note_position = (
+            t * 1.5
         ) % 1.0
 
-        note_env = math.exp(
-            -3.5 * note_time
+        note_envelope = math.exp(
+            -3.0
+            * note_position
         )
 
         value += (
@@ -974,12 +1257,15 @@ def create_music():
                 * note_frequency
                 * t
             )
-            * 0.16
-            * note_env
+            * 0.10
+            * note_envelope
         )
 
-        # Low cinematic pulse
-        bass_frequency = chord[0] / 2
+        # Bass
+        bass_frequency = (
+            chord[0]
+            / 2
+        )
 
         value += (
             math.sin(
@@ -988,15 +1274,15 @@ def create_music():
                 * bass_frequency
                 * t
             )
-            * 0.08
+            * 0.055
         )
 
         value *= envelope
 
         value = max(
-            -0.95,
+            -0.75,
             min(
-                0.95,
+                0.75,
                 value
             )
         )
@@ -1044,7 +1330,6 @@ def create_video():
         "Creating cinematic Reel..."
     )
 
-    # Slight zoom effect
     filter_complex = (
         "[0:v]"
         "scale=1080:1920:"
@@ -1055,7 +1340,9 @@ def create_video():
         "x='iw/2-(iw/zoom/2)':"
         "y='ih/2-(ih/zoom/2)':"
         "d="
-        + str(DURATION * FPS)
+        + str(
+            DURATION * FPS
+        )
         + ":"
         "s=1080x1920:"
         "fps="
@@ -1118,9 +1405,12 @@ def create_video():
         str(VIDEO_FILE)
     ]
 
-    run_command(command)
+    run_command(
+        command
+    )
 
     if not VIDEO_FILE.exists():
+
         raise RuntimeError(
             "Video file was not created."
         )
@@ -1135,7 +1425,7 @@ def create_video():
 
 
 # =========================================================
-# FACEBOOK PAGE
+# FACEBOOK PAGE INFO
 # =========================================================
 
 def get_page_info():
@@ -1154,12 +1444,21 @@ def get_page_info():
         url,
         params={
             "fields": "id,name",
-            "access_token": FACEBOOK_PAGE_TOKEN
+            "access_token":
+                FACEBOOK_PAGE_TOKEN
         },
         timeout=30
     )
 
-    data = response.json()
+    try:
+
+        data = response.json()
+
+    except Exception:
+
+        data = {
+            "raw": response.text
+        }
 
     log(
         "Facebook /me response:"
@@ -1182,10 +1481,16 @@ def get_page_info():
             )
         )
 
-    page_id = data.get("id")
-    page_name = data.get("name")
+    page_id = data.get(
+        "id"
+    )
+
+    page_name = data.get(
+        "name"
+    )
 
     if not page_id:
+
         raise RuntimeError(
             "Facebook Page ID was not returned."
         )
@@ -1200,15 +1505,16 @@ def get_page_info():
         + str(page_id)
     )
 
-    return page_id
+    return str(page_id)
 
 
 # =========================================================
-# FACEBOOK START UPLOAD
+# FACEBOOK START
 # =========================================================
 
 def facebook_start(page_id):
 
+    log("")
     log(
         "Starting Facebook Reel upload..."
     )
@@ -1225,12 +1531,21 @@ def facebook_start(page_id):
         url,
         params={
             "upload_phase": "start",
-            "access_token": FACEBOOK_PAGE_TOKEN
+            "access_token":
+                FACEBOOK_PAGE_TOKEN
         },
         timeout=30
     )
 
-    data = response.json()
+    try:
+
+        data = response.json()
+
+    except Exception:
+
+        data = {
+            "raw": response.text
+        }
 
     log(
         "Facebook START response:"
@@ -1253,18 +1568,22 @@ def facebook_start(page_id):
             )
         )
 
-    video_id = data.get("video_id")
+    video_id = data.get(
+        "video_id"
+    )
 
     upload_url = data.get(
         "upload_url"
     )
 
     if not video_id:
+
         raise RuntimeError(
             "Facebook did not return video_id."
         )
 
     if not upload_url:
+
         upload_url = (
             "https://rupload.facebook.com/"
             "video-upload/"
@@ -1275,12 +1594,12 @@ def facebook_start(page_id):
 
     return (
         str(video_id),
-        upload_url
+        str(upload_url)
     )
 
 
 # =========================================================
-# FACEBOOK UPLOAD BINARY
+# FACEBOOK UPLOAD
 # =========================================================
 
 def facebook_upload(
@@ -1288,11 +1607,14 @@ def facebook_upload(
     upload_url
 ):
 
+    log("")
     log(
         "Uploading video binary..."
     )
 
-    file_size = VIDEO_FILE.stat().st_size
+    file_size = (
+        VIDEO_FILE.stat().st_size
+    )
 
     log(
         "Video size: "
@@ -1322,12 +1644,15 @@ def facebook_upload(
                     "application/octet-stream"
             },
             data=video_file,
-            timeout=180
+            timeout=240
         )
 
     try:
+
         data = response.json()
+
     except Exception:
+
         data = {
             "raw": response.text
         }
@@ -1353,6 +1678,14 @@ def facebook_upload(
             )
         )
 
+    if data.get(
+        "success"
+    ) is False:
+
+        raise RuntimeError(
+            "Facebook upload returned success=false."
+        )
+
     return data
 
 
@@ -1360,7 +1693,9 @@ def facebook_upload(
 # FACEBOOK STATUS
 # =========================================================
 
-def facebook_status(video_id):
+def facebook_status(
+    video_id
+):
 
     url = (
         "https://graph.facebook.com/"
@@ -1373,14 +1708,18 @@ def facebook_status(video_id):
         url,
         params={
             "fields": "status",
-            "access_token": FACEBOOK_PAGE_TOKEN
+            "access_token":
+                FACEBOOK_PAGE_TOKEN
         },
         timeout=30
     )
 
     try:
+
         data = response.json()
+
     except Exception:
+
         data = {
             "raw": response.text
         }
@@ -1415,23 +1754,153 @@ def facebook_status(video_id):
 
 
 # =========================================================
-# WAIT FOR FACEBOOK PROCESSING
+# FINISH + PUBLISH
 # =========================================================
 
-def wait_for_processing(video_id):
+def facebook_publish(
+    page_id,
+    video_id,
+    movie
+):
 
+    title = movie_title(
+        movie
+    )
+
+    mid = movie_id(
+        movie
+    )
+
+    movins_url = (
+        "https://nownex.github.io/movins/"
+        "?movie="
+        + movie_prefix(movie)
+        + "-"
+        + str(mid)
+    )
+
+    description = (
+        "🎬 "
+        + title
+        + "\n\n"
+        + "Discover this movie or series "
+        + "on MOVINS.\n\n"
+        + movins_url
+        + "\n\n"
+        + "#MOVINS #Movies #Series #Film"
+    )
+
+    log("")
+    log(
+        "======================================"
+    )
+    log(
+        "FINISHING AND PUBLISHING REEL"
+    )
+    log(
+        "======================================"
+    )
+
+    url = (
+        "https://graph.facebook.com/"
+        + GRAPH_VERSION
+        + "/"
+        + page_id
+        + "/video_reels"
+    )
+
+    response = requests.post(
+        url,
+        params={
+            "upload_phase":
+                "finish",
+
+            "video_id":
+                str(video_id),
+
+            "video_state":
+                "PUBLISHED",
+
+            "description":
+                description,
+
+            "access_token":
+                FACEBOOK_PAGE_TOKEN
+        },
+        timeout=60
+    )
+
+    try:
+
+        data = response.json()
+
+    except Exception:
+
+        data = {
+            "raw": response.text
+        }
+
+    log(
+        "Facebook FINISH response:"
+    )
+
+    log(
+        json.dumps(
+            data,
+            ensure_ascii=False
+        )
+    )
+
+    if not response.ok:
+
+        raise RuntimeError(
+            "Facebook FINISH/PUBLISH failed: "
+            + json.dumps(
+                data,
+                ensure_ascii=False
+            )
+        )
+
+    if data.get(
+        "success"
+    ) is False:
+
+        raise RuntimeError(
+            "Facebook FINISH returned success=false."
+        )
+
+    return data
+
+
+# =========================================================
+# WAIT AFTER FINISH
+# =========================================================
+
+def wait_for_publish(
+    video_id
+):
+
+    log("")
     log(
         "Waiting for Facebook processing..."
     )
 
-    for attempt in range(1, 31):
+    # Up to 5 minutes
+    max_attempts = 60
 
-        time.sleep(3)
+    for attempt in range(
+        1,
+        max_attempts + 1
+    ):
 
+        time.sleep(5)
+
+        log("")
         log(
-            "Processing check "
+            "Status check "
             + str(attempt)
-            + "/30"
+            + "/"
+            + str(max_attempts)
         )
 
         data = facebook_status(
@@ -1446,159 +1915,218 @@ def wait_for_processing(video_id):
             {}
         )
 
-        if isinstance(status, dict):
+        if not isinstance(
+            status,
+            dict
+        ):
+            continue
 
-            video_status = str(
-                status.get(
-                    "video_status",
-                    ""
-                )
-            ).lower()
+        video_status = str(
+            status.get(
+                "video_status",
+                ""
+            )
+        ).lower()
 
-            processing_phase = str(
-                status.get(
-                    "processing_phase",
-                    ""
-                )
-            ).lower()
+        processing_phase = status.get(
+            "processing_phase",
+            {}
+        )
 
-            log(
-                "video_status="
+        publishing_phase = status.get(
+            "publishing_phase",
+            {}
+        )
+
+        copyright_phase = status.get(
+            "copyright_check_status",
+            {}
+        )
+
+        log(
+            "video_status = "
+            + video_status
+        )
+
+        log(
+            "processing_phase = "
+            + str(
+                processing_phase
+            )
+        )
+
+        log(
+            "publishing_phase = "
+            + str(
+                publishing_phase
+            )
+        )
+
+        log(
+            "copyright_check = "
+            + str(
+                copyright_phase
+            )
+        )
+
+        # -----------------------------------------
+        # PROCESSING ERROR
+        # -----------------------------------------
+
+        if video_status in (
+            "error",
+            "failed"
+        ):
+
+            raise RuntimeError(
+                "Facebook reported video_status="
                 + video_status
-                + " processing_phase="
-                + processing_phase
             )
 
-            if video_status in (
-                "ready",
+        if isinstance(
+            processing_phase,
+            dict
+        ):
+
+            processing_status = str(
+                processing_phase.get(
+                    "status",
+                    ""
+                )
+            ).lower()
+
+            if processing_status in (
+                "error",
+                "failed"
+            ):
+
+                raise RuntimeError(
+                    "Facebook processing failed."
+                )
+
+        # -----------------------------------------
+        # PUBLISHING ERROR
+        # -----------------------------------------
+
+        if isinstance(
+            publishing_phase,
+            dict
+        ):
+
+            publishing_status = str(
+                publishing_phase.get(
+                    "status",
+                    ""
+                )
+            ).lower()
+
+            if publishing_status in (
+                "error",
+                "failed"
+            ):
+
+                raise RuntimeError(
+                    "Facebook publishing failed."
+                )
+
+        # -----------------------------------------
+        # SUCCESS
+        # -----------------------------------------
+
+        if isinstance(
+            publishing_phase,
+            dict
+        ):
+
+            publishing_status = str(
+                publishing_phase.get(
+                    "status",
+                    ""
+                )
+            ).lower()
+
+            if publishing_status in (
                 "published",
                 "complete",
                 "completed"
             ):
+
+                log("")
                 log(
-                    "Facebook video is ready."
-                )
-                return True
-
-            if video_status in (
-                "error",
-                "failed"
-            ):
-                raise RuntimeError(
-                    "Facebook reported video processing failure."
+                    "Facebook Reel publishing confirmed."
                 )
 
-            if processing_phase in (
-                "complete",
-                "completed"
-            ):
                 return True
 
-        # Some API responses may not expose
-        # a detailed status. Continue polling.
+        if video_status in (
+            "published",
+            "complete",
+            "completed"
+        ):
 
-    log(
-        "Facebook did not return a final ready state "
-        "within the polling window."
-    )
-
-    return False
-
-
-# =========================================================
-# FACEBOOK PUBLISH
-# =========================================================
-
-def facebook_publish(
-    page_id,
-    video_id,
-    movie
-):
-
-    title = movie_title(movie)
-
-    movins_url = (
-        "https://nownex.github.io/movins/"
-        + "?movie="
-        + movie_prefix(movie)
-        + "-"
-        + movie_id(movie)
-    )
-
-    description = (
-        "🎬 "
-        + title
-        + "\n\n"
-        + "Discover the movie or series on MOVINS.\n"
-        + movins_url
-        + "\n\n"
-        + "#MOVINS #Movies #Series #Film"
-    )
-
-    log(
-        "Publishing Reel..."
-    )
-
-    url = (
-        "https://graph.facebook.com/"
-        + GRAPH_VERSION
-        + "/"
-        + page_id
-        + "/video_reels"
-    )
-
-    response = requests.post(
-        url,
-        params={
-            "upload_phase": "finish",
-            "video_id": video_id,
-            "video_state": "PUBLISHED",
-            "title": title,
-            "description": description,
-            "access_token": FACEBOOK_PAGE_TOKEN
-        },
-        timeout=60
-    )
-
-    try:
-        data = response.json()
-    except Exception:
-        data = {
-            "raw": response.text
-        }
-
-    log(
-        "Facebook PUBLISH response:"
-    )
-
-    log(
-        json.dumps(
-            data,
-            ensure_ascii=False
-        )
-    )
-
-    if not response.ok:
-
-        raise RuntimeError(
-            "Facebook PUBLISH failed: "
-            + json.dumps(
-                data,
-                ensure_ascii=False
+            log("")
+            log(
+                "Facebook Reel publishing confirmed."
             )
-        )
 
-    if data.get("success") is False:
+            return True
 
-        raise RuntimeError(
-            "Facebook returned success=false."
-        )
+        # Some responses may show processing
+        # as complete while video_status remains
+        # upload_complete temporarily.
 
-    return data
+        if isinstance(
+            processing_phase,
+            dict
+        ):
+
+            processing_status = str(
+                processing_phase.get(
+                    "status",
+                    ""
+                )
+            ).lower()
+
+            if (
+                processing_status
+                in (
+                    "complete",
+                    "completed"
+                )
+            ):
+
+                if isinstance(
+                    publishing_phase,
+                    dict
+                ):
+
+                    publishing_status = str(
+                        publishing_phase.get(
+                            "status",
+                            ""
+                        )
+                    ).lower()
+
+                    if publishing_status not in (
+                        "error",
+                        "failed"
+                    ):
+
+                        log(
+                            "Processing complete; "
+                            "publishing phase is healthy."
+                        )
+
+        # Continue polling.
+
+    raise RuntimeError(
+        "Facebook did not confirm Reel "
+        "publishing within 5 minutes."
+    )
 
 
 # =========================================================
-# SAVE HISTORY
+# SAVE POSTED HISTORY
 # =========================================================
 
 def save_posted(
@@ -1608,43 +2136,77 @@ def save_posted(
     publish_response
 ):
 
-    mid = movie_id(movie)
+    mid = movie_id(
+        movie
+    )
 
     record = {
         "id": mid,
+
         "tmdb_id": mid,
-        "title": movie_title(movie),
-        "type": movie_type(movie),
-        "video_id": str(video_id),
-        "published_at": int(time.time()),
+
+        "title": movie_title(
+            movie
+        ),
+
+        "type": movie_type(
+            movie
+        ),
+
+        "video_id": str(
+            video_id
+        ),
+
+        "published_at": int(
+            time.time()
+        ),
+
         "movins_url": (
             "https://nownex.github.io/movins/"
-            + "?movie="
+            "?movie="
             + movie_prefix(movie)
             + "-"
-            + mid
+            + str(mid)
         )
     }
 
-    if isinstance(publish_response, dict):
+    if isinstance(
+        publish_response,
+        dict
+    ):
 
-        if publish_response.get("id"):
-            record["facebook_id"] = str(
-                publish_response.get("id")
+        if publish_response.get(
+            "id"
+        ):
+
+            record[
+                "facebook_id"
+            ] = str(
+                publish_response.get(
+                    "id"
+                )
             )
 
-        if publish_response.get("success") is not None:
-            record["facebook_success"] = (
-                publish_response.get("success")
+        if publish_response.get(
+            "success"
+        ) is not None:
+
+            record[
+                "facebook_success"
+            ] = publish_response.get(
+                "success"
             )
 
-    posted.append(record)
+    posted.append(
+        record
+    )
 
     save_json(
         POSTED_FILE,
         posted
     )
 
+    log("")
     log(
         "Reel history updated."
     )
@@ -1657,12 +2219,26 @@ def save_posted(
 def main():
 
     log("")
-    log("======================================")
-    log("MOVINS CINEMATIC REEL PUBLISHER")
-    log("======================================")
+    log(
+        "======================================"
+    )
+    log(
+        "MOVINS CINEMATIC REEL PUBLISHER"
+    )
+    log(
+        "======================================"
+    )
     log("")
 
+    # -----------------------------------------
+    # CLEAN
+    # -----------------------------------------
+
     clean_work()
+
+    # -----------------------------------------
+    # LOAD
+    # -----------------------------------------
 
     movies = load_movies()
 
@@ -1674,13 +2250,21 @@ def main():
 
     log(
         "Movies available: "
-        + str(len(movies))
+        + str(
+            len(movies)
+        )
     )
 
     log(
         "Already posted Reels: "
-        + str(len(already_posted))
+        + str(
+            len(already_posted)
+        )
     )
+
+    # -----------------------------------------
+    # SELECT
+    # -----------------------------------------
 
     movie = choose_movie(
         movies,
@@ -1689,14 +2273,20 @@ def main():
 
     if not movie:
 
+        log("")
         log(
             "No eligible movie found."
         )
 
         return
 
-    mid = movie_id(movie)
-    title = movie_title(movie)
+    mid = movie_id(
+        movie
+    )
+
+    title = movie_title(
+        movie
+    )
 
     log("")
     log(
@@ -1724,26 +2314,36 @@ def main():
         + movie_rating(movie)
     )
 
-    # ---------------------------------------------
-    # CREATE REEL
-    # ---------------------------------------------
+    # -----------------------------------------
+    # CREATE VIDEO
+    # -----------------------------------------
 
-    download_poster(movie)
+    download_poster(
+        movie
+    )
 
-    create_design(movie)
+    create_design(
+        movie
+    )
 
     create_music()
 
     create_video()
 
-    # ---------------------------------------------
-    # FACEBOOK
-    # ---------------------------------------------
+    # -----------------------------------------
+    # FACEBOOK PAGE
+    # -----------------------------------------
 
     page_id = get_page_info()
 
-    video_id, upload_url = facebook_start(
-        page_id
+    # -----------------------------------------
+    # START
+    # -----------------------------------------
+
+    video_id, upload_url = (
+        facebook_start(
+            page_id
+        )
     )
 
     log(
@@ -1751,34 +2351,27 @@ def main():
         + str(video_id)
     )
 
-    log(
-        "Facebook upload URL received."
-    )
+    # -----------------------------------------
+    # UPLOAD
+    # -----------------------------------------
 
     facebook_upload(
         video_id,
         upload_url
     )
 
-    # ---------------------------------------------
-    # WAIT
-    # ---------------------------------------------
-
-    ready = wait_for_processing(
-        video_id
+    log("")
+    log(
+        "Facebook upload completed."
     )
 
-    if not ready:
-
-        raise RuntimeError(
-            "Facebook upload was acknowledged, "
-            "but processing was not confirmed. "
-            "Reel was NOT marked as posted."
-        )
-
-    # ---------------------------------------------
-    # PUBLISH
-    # ---------------------------------------------
+    # -----------------------------------------
+    # FINISH + PUBLISH
+    #
+    # IMPORTANT:
+    # We call FINISH BEFORE polling.
+    # This starts Facebook processing.
+    # -----------------------------------------
 
     publish_response = facebook_publish(
         page_id,
@@ -1786,9 +2379,22 @@ def main():
         movie
     )
 
-    # ---------------------------------------------
-    # SAVE ONLY AFTER SUCCESS
-    # ---------------------------------------------
+    log("")
+    log(
+        "Facebook FINISH request accepted."
+    )
+
+    # -----------------------------------------
+    # NOW POLL
+    # -----------------------------------------
+
+    wait_for_publish(
+        video_id
+    )
+
+    # -----------------------------------------
+    # SAVE HISTORY ONLY AFTER SUCCESS
+    # -----------------------------------------
 
     save_posted(
         posted,
@@ -1797,19 +2403,46 @@ def main():
         publish_response
     )
 
+    # -----------------------------------------
+    # FINAL
+    # -----------------------------------------
+
     log("")
-    log("======================================")
-    log("MOVINS REEL PUBLISHED SUCCESSFULLY")
-    log("======================================")
+    log(
+        "======================================"
+    )
+    log(
+        "MOVINS REEL PUBLISHED SUCCESSFULLY"
+    )
+    log(
+        "======================================"
+    )
+
     log(
         "Movie: "
         + title
     )
+
     log(
         "Facebook video_id: "
         + str(video_id)
     )
-    log("======================================")
+
+    log(
+        "MOVINS URL:"
+    )
+
+    log(
+        "https://nownex.github.io/movins/"
+        "?movie="
+        + movie_prefix(movie)
+        + "-"
+        + str(mid)
+    )
+
+    log(
+        "======================================"
+    )
 
 
 # =========================================================
