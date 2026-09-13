@@ -21,27 +21,30 @@ jobs:
 
     steps:
 
-      # =====================================================
-      # CHECKOUT REPOSITORY
-      # =====================================================
+      # ================================================
+      # CHECKOUT
+      # ================================================
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: true
 
-      # =====================================================
-      # SETUP PYTHON
-      # =====================================================
+      # ================================================
+      # PYTHON
+      # ================================================
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # =====================================================
-      # INSTALL FFMPEG + ARABIC FONTS
-      # =====================================================
-      - name: Install FFmpeg and fonts
+      # ================================================
+      # FFMPEG + ARABIC FONTS
+      # ================================================
+
+      - name: Install FFmpeg and Arabic fonts
         run: |
           sudo apt-get update
 
@@ -51,14 +54,29 @@ jobs:
             fonts-noto-extra
 
           echo "======================================"
-          echo "FFmpeg:"
-          ffmpeg -version | head -n 1
+          echo "FFmpeg version"
           echo "======================================"
 
-      # =====================================================
-      # INSTALL PYTHON DEPENDENCIES
-      # =====================================================
-      - name: Install dependencies
+          ffmpeg -version | head -n 1
+
+          echo ""
+          echo "======================================"
+          echo "Searching for Arabic fonts"
+          echo "======================================"
+
+          find /usr/share/fonts \
+            -type f \
+            \( \
+              -iname "*NaskhArabic*.ttf" \
+              -o -iname "*Arabic*.ttf" \
+            \) \
+            | head -20
+
+      # ================================================
+      # PYTHON DEPENDENCIES
+      # ================================================
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
 
@@ -68,39 +86,37 @@ jobs:
             arabic-reshaper \
             python-bidi
 
-      # =====================================================
-      # CHECK REQUIRED FILES
-      # =====================================================
-      - name: Check MOVINS Reel files
+      # ================================================
+      # CHECK FILES
+      # ================================================
+
+      - name: Check MOVINS files
         run: |
           echo "======================================"
-          echo "Checking MOVINS Reel files..."
+          echo "Checking MOVINS files"
           echo "======================================"
 
           test -f movies.json
           test -f publish_movie_reel.py
 
-          echo "✓ movies.json found"
-          echo "✓ publish_movie_reel.py found"
+          echo "✓ movies.json"
+          echo "✓ publish_movie_reel.py"
 
-          if [ -f posted_movie_reels.json ]; then
-            echo "✓ posted_movie_reels.json found"
-          else
+          if [ ! -f posted_movie_reels.json ]; then
             echo "[]" > posted_movie_reels.json
-            echo "✓ posted_movie_reels.json created"
+            echo "✓ created posted_movie_reels.json"
+          else
+            echo "✓ posted_movie_reels.json"
           fi
 
           echo ""
           echo "Python:"
           python --version
 
-          echo ""
-          echo "FFmpeg:"
-          ffmpeg -version | head -n 1
+      # ================================================
+      # CREATE + PUBLISH
+      # ================================================
 
-      # =====================================================
-      # CREATE + PUBLISH REEL
-      # =====================================================
       - name: Create and publish MOVINS Reel
         env:
           FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
@@ -108,27 +124,28 @@ jobs:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: |
           echo "======================================"
-          echo "Starting MOVINS Reel publisher..."
+          echo "MOVINS REEL START"
           echo "======================================"
 
           python publish_movie_reel.py
 
-      # =====================================================
-      # SAVE REEL HISTORY
-      # =====================================================
+      # ================================================
+      # SAVE HISTORY
+      # ================================================
+
       - name: Commit reel history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           echo "======================================"
-          echo "Preparing reel history..."
+          echo "Saving Reel history"
           echo "======================================"
 
           git add posted_movie_reels.json
 
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No history changes."
             exit 0
           fi
 
@@ -136,15 +153,13 @@ jobs:
 
           echo ""
           echo "======================================"
-          echo "Syncing with remote main..."
+          echo "Syncing with GitHub"
           echo "======================================"
 
           for i in 1 2 3 4 5; do
 
             echo ""
-            echo "--------------------------------------"
-            echo "Push attempt $i of 5"
-            echo "--------------------------------------"
+            echo "Push attempt $i / 5"
 
             git fetch origin main
 
@@ -156,14 +171,10 @@ jobs:
 
                 echo ""
                 echo "======================================"
-                echo "✓ Push successful!"
+                echo "PUSH SUCCESSFUL"
                 echo "======================================"
 
                 exit 0
-
-              else
-
-                echo "Push failed."
 
               fi
 
@@ -177,8 +188,7 @@ jobs:
 
             if [ "$i" -lt 5 ]; then
 
-              echo "Remote changed."
-              echo "Waiting 5 seconds before retry..."
+              echo "Retrying in 5 seconds..."
 
               sleep 5
 
@@ -188,7 +198,7 @@ jobs:
 
           echo ""
           echo "======================================"
-          echo "ERROR: Could not push after 5 attempts."
+          echo "ERROR: Git push failed"
           echo "======================================"
 
           exit 1
