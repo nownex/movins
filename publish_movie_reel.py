@@ -34,14 +34,10 @@ VIDEO_DURATION = 12
 # =========================================================
 
 if not FACEBOOK_PAGE_TOKEN:
-    raise RuntimeError(
-        "FACEBOOK_PAGE_TOKEN is missing."
-    )
+    raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing.")
 
 if not TMDB_API_KEY:
-    raise RuntimeError(
-        "TMDB_API_KEY is missing."
-    )
+    raise RuntimeError("TMDB_API_KEY is missing.")
 
 
 # =========================================================
@@ -49,39 +45,22 @@ if not TMDB_API_KEY:
 # =========================================================
 
 def load_json(filename, default):
-
     path = Path(filename)
 
     if not path.exists():
         return default
 
     try:
-
-        with open(
-            filename,
-            "r",
-            encoding="utf-8"
-        ) as file:
-
+        with open(filename, "r", encoding="utf-8") as file:
             return json.load(file)
 
-    except Exception as e:
-
-        print(
-            f"WARNING: Could not read {filename}: {e}"
-        )
-
+    except Exception as error:
+        print(f"WARNING: Could not read {filename}: {error}")
         return default
 
 
 def save_json(filename, data):
-
-    with open(
-        filename,
-        "w",
-        encoding="utf-8"
-    ) as file:
-
+    with open(filename, "w", encoding="utf-8") as file:
         json.dump(
             data,
             file,
@@ -95,7 +74,6 @@ def save_json(filename, data):
 # =========================================================
 
 def get_page_info():
-
     url = f"{GRAPH_URL}/me"
 
     params = {
@@ -110,7 +88,6 @@ def get_page_info():
     )
 
     if not response.ok:
-
         raise RuntimeError(
             "Could not get Facebook Page information:\n"
             + response.text
@@ -121,7 +98,6 @@ def get_page_info():
     page_id = data.get("id")
 
     if not page_id:
-
         raise RuntimeError(
             "Facebook did not return Page ID:\n"
             + json.dumps(
@@ -132,8 +108,7 @@ def get_page_info():
         )
 
     print(
-        f"Facebook Page: "
-        f"{data.get('name', 'Unknown')}"
+        f"Facebook Page: {data.get('name', 'Unknown')}"
     )
 
     print(
@@ -144,29 +119,22 @@ def get_page_info():
 
 
 # =========================================================
-# MOVIES
+# MOVIE DATA
 # =========================================================
 
 def load_movies():
-
     data = load_json(
         MOVIES_FILE,
         {}
     )
 
     if isinstance(data, dict):
-
-        items = data.get(
-            "items",
-            []
-        )
+        items = data.get("items", [])
 
     elif isinstance(data, list):
-
         items = data
 
     else:
-
         items = []
 
     if not isinstance(items, list):
@@ -176,18 +144,13 @@ def load_movies():
 
 
 def load_posted():
-
     data = load_json(
         POSTED_FILE,
         []
     )
 
     if isinstance(data, dict):
-
-        data = data.get(
-            "items",
-            []
-        )
+        data = data.get("items", [])
 
     if not isinstance(data, list):
         return []
@@ -195,8 +158,7 @@ def load_posted():
     return data
 
 
-def movie_id(movie):
-
+def get_movie_id(movie):
     return str(
         movie.get("tmdb_id")
         or movie.get("id")
@@ -204,8 +166,7 @@ def movie_id(movie):
     ).strip()
 
 
-def movie_type(movie):
-
+def get_movie_type(movie):
     value = str(
         movie.get("media_type")
         or movie.get("type")
@@ -218,14 +179,12 @@ def movie_type(movie):
         "مسلسل",
         "series_tv"
     ):
-
         return "tv"
 
     return "movie"
 
 
-def movie_title(movie):
-
+def get_movie_title(movie):
     return str(
         movie.get("title")
         or movie.get("name")
@@ -235,13 +194,11 @@ def movie_title(movie):
     ).strip()
 
 
-def movie_year(movie):
+def get_movie_year(movie):
+    year = movie.get("year")
 
-    if movie.get("year"):
-
-        return str(
-            movie.get("year")
-        )
+    if year:
+        return str(year)
 
     date_value = (
         movie.get("release_date")
@@ -252,35 +209,23 @@ def movie_year(movie):
     return str(date_value)[:4]
 
 
-def movie_rating(movie):
-
+def get_movie_rating(movie):
     try:
-
         return float(
-            movie.get(
-                "rating",
-                0
-            ) or 0
+            movie.get("rating", 0) or 0
         )
 
     except Exception:
-
         return 0.0
 
 
-def movie_popularity(movie):
-
+def get_movie_popularity(movie):
     try:
-
         return float(
-            movie.get(
-                "popularity",
-                0
-            ) or 0
+            movie.get("popularity", 0) or 0
         )
 
     except Exception:
-
         return 0.0
 
 
@@ -289,28 +234,20 @@ def movie_popularity(movie):
 # =========================================================
 
 def get_poster_url(movie):
-
-    poster = movie.get(
-        "poster"
-    )
+    poster = movie.get("poster")
 
     if not poster:
         return None
 
-    poster = str(
-        poster
-    ).strip()
+    poster = str(poster).strip()
 
-    if poster.startswith(
-        "http://"
-    ) or poster.startswith(
-        "https://"
-    ):
+    if poster.startswith("http://"):
+        return poster
 
+    if poster.startswith("https://"):
         return poster
 
     if poster.startswith("/"):
-
         return (
             "https://image.tmdb.org/t/p/w780"
             + poster
@@ -323,56 +260,41 @@ def get_poster_url(movie):
 # SELECT MOVIE
 # =========================================================
 
-def choose_movie(
-    movies,
-    posted
-):
+def choose_movie(movies, posted):
 
-    posted_ids = {
-        str(
-            item.get("id")
-        )
-        for item in posted
-        if isinstance(
-            item,
-            dict
-        )
-    }
+    posted_ids = set()
+
+    for item in posted:
+        if isinstance(item, dict):
+            value = item.get("id")
+
+            if value is not None:
+                posted_ids.add(
+                    str(value)
+                )
 
     candidates = []
 
     for movie in movies:
 
-        if not isinstance(
-            movie,
-            dict
-        ):
+        if not isinstance(movie, dict):
             continue
 
-        mid = movie_id(
-            movie
-        )
+        movie_id = get_movie_id(movie)
 
-        if not mid:
+        if not movie_id:
             continue
 
-        if mid in posted_ids:
+        if movie_id in posted_ids:
             continue
 
-        poster = get_poster_url(
-            movie
-        )
+        poster_url = get_poster_url(movie)
 
-        if not poster:
+        if not poster_url:
             continue
 
-        popularity = movie_popularity(
-            movie
-        )
-
-        rating = movie_rating(
-            movie
-        )
+        popularity = get_movie_popularity(movie)
+        rating = get_movie_rating(movie)
 
         candidates.append(
             (
@@ -400,13 +322,9 @@ def choose_movie(
 # DOWNLOAD POSTER
 # =========================================================
 
-def download_poster(
-    poster_url
-):
+def download_poster(poster_url):
 
-    print(
-        "Downloading movie poster..."
-    )
+    print("Downloading movie poster...")
 
     response = requests.get(
         poster_url,
@@ -417,15 +335,11 @@ def download_poster(
 
     content_type = (
         response.headers
-        .get(
-            "content-type",
-            ""
-        )
+        .get("content-type", "")
         .lower()
     )
 
     if "image" not in content_type:
-
         raise RuntimeError(
             "Poster URL is not an image."
         )
@@ -442,7 +356,7 @@ def download_poster(
     temp.close()
 
     print(
-        f"Poster downloaded: "
+        "Poster downloaded: "
         f"{len(response.content) / 1024:.1f} KB"
     )
 
@@ -453,7 +367,7 @@ def download_poster(
 # TEXT FILE
 # =========================================================
 
-def write_text_file(text):
+def create_text_file(text):
 
     temp = tempfile.NamedTemporaryFile(
         delete=False,
@@ -472,155 +386,162 @@ def write_text_file(text):
 
 
 # =========================================================
-# CREATE CINEMATIC REEL
+# FIND FONT
 # =========================================================
 
-def create_reel(
-    movie,
-    poster_path
-):
+def find_font():
 
-    title = movie_title(
-        movie
+    possible_fonts = [
+
+        "/usr/share/fonts/truetype/noto/"
+        "NotoSansArabic-Regular.ttf",
+
+        "/usr/share/fonts/opentype/noto/"
+        "NotoSansArabic-Regular.ttf",
+
+        "/usr/share/fonts/truetype/dejavu/"
+        "DejaVuSans.ttf"
+    ]
+
+    for font in possible_fonts:
+
+        if os.path.exists(font):
+            print(
+                f"Using font: {font}"
+            )
+
+            return font
+
+    raise RuntimeError(
+        "No compatible font found."
     )
 
-    year = movie_year(
-        movie
-    )
 
-    rating = movie_rating(
-        movie
-    )
+# =========================================================
+# CREATE REEL
+# =========================================================
 
-    media = movie_type(
-        movie
-    )
+def create_reel(movie, poster_path):
 
-    if media == "tv":
-        media_label = "SERIES"
+    title = get_movie_title(movie)
+    year = get_movie_year(movie)
+    rating = get_movie_rating(movie)
+
+    media_type = get_movie_type(movie)
+
+    if media_type == "tv":
+        type_text = "SERIES"
     else:
-        media_label = "MOVIE"
+        type_text = "MOVIE"
 
-    output = tempfile.NamedTemporaryFile(
+    font = find_font()
+
+    title_file = create_text_file(
+        title
+    )
+
+    year_file = create_text_file(
+        year
+    )
+
+    rating_file = create_text_file(
+        f"★ {rating:.1f}/10"
+    )
+
+    type_file = create_text_file(
+        type_text
+    )
+
+    output_file = tempfile.NamedTemporaryFile(
         delete=False,
         suffix=".mp4"
     )
 
-    output.close()
+    output_path = output_file.name
 
-    title_file = write_text_file(
-        title
-    )
-
-    year_file = write_text_file(
-        year
-    )
-
-    rating_file = write_text_file(
-        f"★ {rating:.1f}/10"
-    )
-
-    type_file = write_text_file(
-        media_label
-    )
+    output_file.close()
 
     # =====================================================
-    # Noto font
-    # Supports Arabic and Latin text.
-    # =====================================================
-
-    font = (
-        "/usr/share/fonts/truetype/noto/"
-        "NotoSansArabic-Regular.ttf"
-    )
-
-    if not os.path.exists(font):
-
-        font = (
-            "/usr/share/fonts/truetype/dejavu/"
-            "DejaVuSans.ttf"
-        )
-
-    # =====================================================
-    # FILTER
+    # IMPORTANT
+    # Simple and compatible FFmpeg filter.
+    # No unsupported fontweight option.
     # =====================================================
 
     filter_complex = (
-
-        # -------------------------------------------------
-        # Background image + cinematic zoom
-        # -------------------------------------------------
-
         "[0:v]"
         "scale=1080:1920:"
         "force_original_aspect_ratio=increase,"
         "crop=1080:1920,"
         "zoompan="
-        "z='min(zoom+0.0008,1.12)':"
+        "z='min(zoom+0.0007,1.10)':"
         "x='iw/2-(iw/zoom/2)':"
         "y='ih/2-(ih/zoom/2)':"
         "d=360:"
         "s=1080x1920:"
         "fps=30,"
-        "setsar=1,"
-        "eq="
-        "brightness=-0.08:"
-        "contrast=1.08"
+        "setsar=1"
         "[bg];"
 
-        # -------------------------------------------------
-        # Cinematic dark overlay
-        # -------------------------------------------------
-
-        "color="
-        "c=black@0.25:"
-        "s=1080x1920:"
-        "d=12"
-        "[shade];"
-
-        "[bg][shade]"
-        "overlay=0:0"
-        "[v1];"
-
-        # -------------------------------------------------
-        # Bottom information panel
-        # -------------------------------------------------
-
-        "[v1]"
+        "[bg]"
         "drawbox="
         "x=0:"
-        "y=1280:"
+        "y=1260:"
         "w=1080:"
-        "h=640:"
-        "color=black@0.72:"
+        "h=660:"
+        "color=black@0.70:"
         "t=fill"
-        "[v2];"
+        "[panel];"
 
-        # -------------------------------------------------
-        # MOVIE / SERIES
-        # -------------------------------------------------
-
-        "[v2]"
+        "[panel]"
         "drawtext="
-        f"fontfile='{font}':"
-        f"textfile='{type_file}':"
+        f"fontfile={font}:"
+        f"textfile={type_file}:"
         "fontcolor=white:"
         "fontsize=42:"
         "x=(w-text_w)/2:"
-        "y=1350:"
-        "text_shaping=1:"
-        "alpha='if(lt(t,1),t,1)'"
-        "[v3];"
+        "y=1335"
+        "[t1];"
 
-        # -------------------------------------------------
-        # TITLE
-        # -------------------------------------------------
-
-        "[v3]"
+        "[t1]"
         "drawtext="
-        f"fontfile='{font}':"
-        f"textfile='{title_file}':"
+        f"fontfile={font}:"
+        f"textfile={title_file}:"
         "fontcolor=white:"
         "fontsize=68:"
         "x=(w-text_w)/2:"
-        "y=143
+        "y=1420"
+        "[t2];"
+
+        "[t2]"
+        "drawtext="
+        f"fontfile={font}:"
+        f"textfile={year_file}:"
+        "fontcolor=white:"
+        "fontsize=40:"
+        "x=(w-text_w)/2:"
+        "y=1535"
+        "[t3];"
+
+        "[t3]"
+        "drawtext="
+        f"fontfile={font}:"
+        f"textfile={rating_file}:"
+        "fontcolor=white:"
+        "fontsize=42:"
+        "x=(w-text_w)/2:"
+        "y=1610"
+        "[t4];"
+
+        "[t4]"
+        "drawtext="
+        f"fontfile={font}:"
+        "text=MOVINS:"
+        "fontcolor=white:"
+        "fontsize=38:"
+        "x=(w-text_w)/2:"
+        "y=1740"
+        "[t5];"
+
+        "[t5]"
+        "drawtext="
+        f"fontfile={font
