@@ -41,17 +41,16 @@ jobs:
           python-version: "3.11"
 
       # ================================================
-      # FFMPEG + ARABIC FONTS
+      # FFMPEG + FONTS
       # ================================================
 
-      - name: Install FFmpeg and Arabic fonts
+      - name: Install FFmpeg and fonts
         run: |
           sudo apt-get update
 
           sudo apt-get install -y \
             ffmpeg \
-            fonts-noto-core \
-            fonts-noto-extra
+            fonts-dejavu-core
 
           echo "======================================"
           echo "FFmpeg version"
@@ -61,16 +60,12 @@ jobs:
 
           echo ""
           echo "======================================"
-          echo "Searching for Arabic fonts"
+          echo "Checking English font"
           echo "======================================"
 
-          find /usr/share/fonts \
-            -type f \
-            \( \
-              -iname "*NaskhArabic*.ttf" \
-              -o -iname "*Arabic*.ttf" \
-            \) \
-            | head -20
+          test -f /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+
+          echo "✓ DejaVu Sans found"
 
       # ================================================
       # PYTHON DEPENDENCIES
@@ -82,9 +77,7 @@ jobs:
 
           pip install \
             requests \
-            pillow \
-            arabic-reshaper \
-            python-bidi
+            pillow
 
       # ================================================
       # CHECK FILES
@@ -114,7 +107,7 @@ jobs:
           python --version
 
       # ================================================
-      # CREATE + PUBLISH
+      # CREATE + PUBLISH REEL
       # ================================================
 
       - name: Create and publish MOVINS Reel
