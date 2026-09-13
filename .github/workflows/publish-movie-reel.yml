@@ -49,18 +49,25 @@ jobs:
 
 
       # ===================================================
-      # FFMPEG
+      # FFMPEG + ARABIC FONT
       # ===================================================
 
-      - name: Install FFmpeg
+      - name: Install FFmpeg and fonts
 
         run: |
 
           sudo apt-get update
 
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y \
+            ffmpeg \
+            fonts-noto-core \
+            fonts-noto-extra
 
+          echo "FFmpeg:"
           ffmpeg -version | head -n 1
+
+          echo "Checking Noto Arabic font:"
+          ls -l /usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf
 
 
       # ===================================================
@@ -90,7 +97,7 @@ jobs:
 
           test -f posted_movie_reels.json
 
-          echo "All MOVINS Reel files found."
+          echo "All required MOVINS Reel files found."
 
 
       # ===================================================
