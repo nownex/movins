@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import tempfile
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -9,7 +10,7 @@ import requests
 
 
 # =========================================================
-# MOVINS — FACEBOOK REEL PUBLISHER
+# MOVINS — AUTOMATIC MOVIE REEL MAKER
 # =========================================================
 
 MOVIES_FILE = "movies.json"
@@ -22,6 +23,10 @@ FACEBOOK_PAGE_TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
 TMDB_API_KEY = os.environ.get("TMDB_API_KEY")
 
 SITE_URL = "https://nownex.github.io/movins/"
+
+VIDEO_WIDTH = 1080
+VIDEO_HEIGHT = 1920
+VIDEO_DURATION = 12
 
 
 # =========================================================
@@ -40,14 +45,54 @@ if not TMDB_API_KEY:
 
 
 # =========================================================
-# FACEBOOK PAGE ID
+# JSON
+# =========================================================
+
+def load_json(filename, default):
+
+    path = Path(filename)
+
+    if not path.exists():
+        return default
+
+    try:
+        with open(
+            filename,
+            "r",
+            encoding="utf-8"
+        ) as f:
+            return json.load(f)
+
+    except Exception as e:
+
+        print(
+            f"WARNING: Could not read {filename}: {e}"
+        )
+
+        return default
+
+
+def save_json(filename, data):
+
+    with open(
+        filename,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            data,
+            f,
+            ensure_ascii=False,
+            indent=2
+        )
+
+
+# =========================================================
+# FACEBOOK PAGE
 # =========================================================
 
 def get_page_info():
-    """
-    Automatically gets the Page ID using the Page Access Token.
-    No FACEBOOK_PAGE_ID secret is required.
-    """
 
     url = f"{GRAPH_URL}/me"
 
@@ -63,6 +108,7 @@ def get_page_info():
     )
 
     if not response.ok:
+
         raise RuntimeError(
             "Could not get Facebook Page information:\n"
             + response.text
@@ -71,11 +117,11 @@ def get_page_info():
     data = response.json()
 
     page_id = data.get("id")
-    page_name = data.get("name")
 
     if not page_id:
+
         raise RuntimeError(
-            "Facebook did not return a Page ID:\n"
+            "Facebook did not return Page ID:\n"
             + json.dumps(
                 data,
                 ensure_ascii=False,
@@ -83,50 +129,16 @@ def get_page_info():
             )
         )
 
-    print(f"Facebook Page: {page_name or 'Unknown'}")
-    print(f"Facebook Page ID: {page_id}")
+    print(
+        f"Facebook Page: "
+        f"{data.get('name', 'Unknown')}"
+    )
+
+    print(
+        f"Facebook Page ID: {page_id}"
+    )
 
     return page_id
-
-
-# =========================================================
-# JSON HELPERS
-# =========================================================
-
-def load_json(filename, default):
-    path = Path(filename)
-
-    if not path.exists():
-        return default
-
-    try:
-        with path.open(
-            "r",
-            encoding="utf-8"
-        ) as file:
-            return json.load(file)
-
-    except Exception as e:
-        print(
-            f"WARNING: Could not read {filename}: {e}"
-        )
-
-        return default
-
-
-def save_json(filename, data):
-    with open(
-        filename,
-        "w",
-        encoding="utf-8"
-    ) as file:
-
-        json.dump(
-            data,
-            file,
-            ensure_ascii=False,
-            indent=2
-        )
 
 
 # =========================================================
@@ -141,21 +153,15 @@ def load_movies():
     )
 
     if isinstance(data, dict):
-        items = data.get(
+        return data.get(
             "items",
             []
         )
 
-    elif isinstance(data, list):
-        items = data
+    if isinstance(data, list):
+        return data
 
-    else:
-        items = []
-
-    if not isinstance(items, list):
-        return []
-
-    return items
+    return []
 
 
 def load_posted():
@@ -166,38 +172,27 @@ def load_posted():
     )
 
     if isinstance(data, dict):
-        data = data.get(
+        return data.get(
             "items",
             []
         )
 
-    if not isinstance(data, list):
-        return []
+    if isinstance(data, list):
+        return data
 
-    return data
-
-
-def normalize_id(value):
-
-    if value is None:
-        return ""
-
-    return str(value).strip()
+    return []
 
 
-# =========================================================
-# MOVIE DATA
-# =========================================================
+def movie_id(movie):
 
-def get_movie_id(movie):
-
-    return normalize_id(
+    return str(
         movie.get("tmdb_id")
         or movie.get("id")
-    )
+        or ""
+    ).strip()
 
 
-def get_movie_type(movie):
+def movie_type(movie):
 
     value = str(
         movie.get("media_type")
@@ -208,15 +203,14 @@ def get_movie_type(movie):
     if value in (
         "tv",
         "series",
-        "مسلسل",
-        "series_tv"
+        "مسلسل"
     ):
         return "tv"
 
     return "movie"
 
 
-def get_title(movie):
+def movie_title(movie):
 
     return str(
         movie.get("title")
@@ -227,12 +221,12 @@ def get_title(movie):
     ).strip()
 
 
-def get_year(movie):
+def movie_year(movie):
 
-    year = movie.get("year")
-
-    if year:
-        return str(year)
+    if movie.get("year"):
+        return str(
+            movie.get("year")
+        )
 
     date_value = (
         movie.get("release_date")
@@ -240,228 +234,73 @@ def get_year(movie):
         or ""
     )
 
-    if len(str(date_value)) >= 4:
-        return str(date_value)[:4]
-
-    return ""
+    return str(date_value)[:4]
 
 
-def get_overview(movie):
-
-    return str(
-        movie.get("overview")
-        or ""
-    ).strip()
-
-
-# =========================================================
-# TMDB
-# =========================================================
-
-def tmdb_headers():
-
-    return {
-        "Authorization": (
-            f"Bearer {TMDB_API_KEY}"
-        ),
-        "Accept": "application/json"
-    }
-
-
-def get_tmdb_videos(
-    movie_id,
-    media_type
-):
-
-    endpoint_type = (
-        "tv"
-        if media_type == "tv"
-        else "movie"
-    )
-
-    url = (
-        "https://api.themoviedb.org/3/"
-        f"{endpoint_type}/{movie_id}/videos"
-    )
+def movie_rating(movie):
 
     try:
 
-        response = requests.get(
-            url,
-            headers=tmdb_headers(),
-            timeout=30
+        return float(
+            movie.get(
+                "rating",
+                0
+            ) or 0
         )
 
-        response.raise_for_status()
+    except Exception:
 
-        data = response.json()
+        return 0
 
-        return data.get(
-            "results",
-            []
+
+def movie_popularity(movie):
+
+    try:
+
+        return float(
+            movie.get(
+                "popularity",
+                0
+            ) or 0
         )
 
-    except Exception as e:
+    except Exception:
 
-        print(
-            f"TMDB video lookup failed "
-            f"for {media_type}/{movie_id}: {e}"
-        )
-
-        return []
+        return 0
 
 
-def find_official_trailer(
-    movie_id,
-    media_type
-):
+# =========================================================
+# POSTER
+# =========================================================
 
-    videos = get_tmdb_videos(
-        movie_id,
-        media_type
+def get_poster_url(movie):
+
+    poster = movie.get(
+        "poster"
     )
 
-    if not videos:
+    if not poster:
         return None
 
-    official = [
-        video
-        for video in videos
-        if video.get("site") == "YouTube"
-        and str(
-            video.get("type", "")
-        ).lower() == "trailer"
-        and video.get("key")
-        and video.get("official") is True
-    ]
+    poster = str(
+        poster
+    ).strip()
 
-    if official:
-        return official[0]
+    if poster.startswith(
+        "http://"
+    ) or poster.startswith(
+        "https://"
+    ):
 
-    trailers = [
-        video
-        for video in videos
-        if video.get("site") == "YouTube"
-        and str(
-            video.get("type", "")
-        ).lower() == "trailer"
-        and video.get("key")
-    ]
+        return poster
 
-    if trailers:
-        return trailers[0]
+    if poster.startswith("/"):
+        return (
+            "https://image.tmdb.org/t/p/w780"
+            + poster
+        )
 
     return None
-
-
-# =========================================================
-# AUTHORIZED VIDEO URL
-# =========================================================
-
-def get_authorized_video_url(movie):
-
-    fields = [
-        "reel_video_url",
-        "licensed_video_url",
-        "authorized_video_url",
-        "facebook_reel_video_url"
-    ]
-
-    for field in fields:
-
-        value = movie.get(field)
-
-        if not value:
-            continue
-
-        value = str(value).strip()
-
-        if value.startswith(
-            "https://"
-        ) or value.startswith(
-            "http://"
-        ):
-
-            return value
-
-    return None
-
-
-# =========================================================
-# CAPTION
-# =========================================================
-
-def build_caption(
-    movie,
-    trailer
-):
-
-    title = get_title(movie)
-    year = get_year(movie)
-    overview = get_overview(movie)
-
-    movie_id = get_movie_id(movie)
-    media_type = get_movie_type(movie)
-
-    type_label = (
-        "مسلسل"
-        if media_type == "tv"
-        else "فيلم"
-    )
-
-    if year:
-        headline = (
-            f"🎬 {title} ({year})"
-        )
-    else:
-        headline = (
-            f"🎬 {title}"
-        )
-
-    lines = [
-        headline,
-        "",
-        f"📺 النوع: {type_label}"
-    ]
-
-    if overview:
-
-        clean_overview = (
-            overview
-            .replace("\n", " ")
-            .strip()
-        )
-
-        if len(clean_overview) > 500:
-            clean_overview = (
-                clean_overview[:497]
-                + "..."
-            )
-
-        lines.extend([
-            "",
-            "📝 القصة:",
-            clean_overview
-        ])
-
-    prefix = (
-        "tv"
-        if media_type == "tv"
-        else "movie"
-    )
-
-    lines.extend([
-        "",
-        "🍿 شاهد التفاصيل على MOVINS:",
-        (
-            f"{SITE_URL}"
-            f"?movie={prefix}-{movie_id}"
-        ),
-        "",
-        "#MOVINS #Movies #Series #Trailer"
-    ])
-
-    return "\n".join(lines)
 
 
 # =========================================================
@@ -474,7 +313,7 @@ def choose_movie(
 ):
 
     posted_ids = {
-        normalize_id(
+        str(
             item.get("id")
         )
         for item in posted
@@ -494,58 +333,36 @@ def choose_movie(
         ):
             continue
 
-        movie_id = get_movie_id(
+        mid = movie_id(
             movie
         )
 
-        if not movie_id:
+        if not mid:
             continue
 
-        if movie_id in posted_ids:
+        if mid in posted_ids:
             continue
 
-        video_url = (
-            get_authorized_video_url(
-                movie
-            )
-        )
-
-        if not video_url:
-            continue
-
-        media_type = get_movie_type(
+        poster = get_poster_url(
             movie
         )
 
-        trailer = find_official_trailer(
-            movie_id,
-            media_type
-        )
-
-        if not trailer:
+        if not poster:
             continue
 
-        popularity = float(
-            movie.get(
-                "popularity",
-                0
-            ) or 0
+        popularity = movie_popularity(
+            movie
         )
 
-        vote_count = int(
-            movie.get(
-                "vote_count",
-                0
-            ) or 0
+        rating = movie_rating(
+            movie
         )
 
         candidates.append(
             (
                 popularity,
-                vote_count,
-                movie,
-                video_url,
-                trailer
+                rating,
+                movie
             )
         )
 
@@ -553,33 +370,31 @@ def choose_movie(
         return None
 
     candidates.sort(
-        key=lambda item: (
-            item[0],
-            item[1]
+        key=lambda x: (
+            x[0],
+            x[1]
         ),
         reverse=True
     )
 
-    return candidates[0]
+    return candidates[0][2]
 
 
 # =========================================================
-# DOWNLOAD AUTHORIZED VIDEO
+# DOWNLOAD POSTER
 # =========================================================
 
-def download_video(
-    video_url
+def download_poster(
+    poster_url
 ):
 
     print(
-        "Downloading authorized video..."
+        "Downloading movie poster..."
     )
 
     response = requests.get(
-        video_url,
-        stream=True,
-        timeout=60,
-        allow_redirects=True
+        poster_url,
+        timeout=60
     )
 
     response.raise_for_status()
@@ -593,92 +408,311 @@ def download_video(
         .lower()
     )
 
-    if (
-        "video/" not in content_type
-        and
-        "application/octet-stream"
-        not in content_type
-    ):
+    if "image" not in content_type:
 
         raise RuntimeError(
-            "The supplied URL does not "
-            "appear to be a direct video file.\n"
-            f"Content-Type: {content_type}"
+            "Poster URL is not an image."
         )
-
-    suffix = ".mp4"
-
-    filename = (
-        response.url
-        .split("?")[0]
-        .split("/")[-1]
-    )
-
-    if "." in filename:
-
-        possible = (
-            "."
-            + filename.split(".")[-1]
-        )
-
-        if len(possible) <= 6:
-            suffix = possible
 
     temp = tempfile.NamedTemporaryFile(
         delete=False,
-        suffix=suffix
+        suffix=".jpg"
     )
 
-    total_size = 0
+    temp.write(
+        response.content
+    )
 
-    try:
+    temp.close()
 
-        for chunk in response.iter_content(
-            chunk_size=1024 * 1024
-        ):
+    print(
+        f"Poster downloaded: "
+        f"{len(response.content) / 1024:.1f} KB"
+    )
 
-            if not chunk:
-                continue
+    return temp.name
 
-            temp.write(chunk)
 
-            total_size += len(chunk)
+# =========================================================
+# TEXT FILES
+# =========================================================
 
-        temp.close()
+def write_text_file(
+    text
+):
+
+    temp = tempfile.NamedTemporaryFile(
+        delete=False,
+        suffix=".txt",
+        mode="w",
+        encoding="utf-8"
+    )
+
+    temp.write(
+        text
+    )
+
+    temp.close()
+
+    return temp.name
+
+
+# =========================================================
+# CREATE REEL
+# =========================================================
+
+def create_reel(
+    movie,
+    poster_path
+):
+
+    title = movie_title(
+        movie
+    )
+
+    year = movie_year(
+        movie
+    )
+
+    rating = movie_rating(
+        movie
+    )
+
+    media = movie_type(
+        movie
+    )
+
+    if media == "tv":
+        media_label = "SERIES"
+    else:
+        media_label = "MOVIE"
+
+    output = tempfile.NamedTemporaryFile(
+        delete=False,
+        suffix=".mp4"
+    )
+
+    output.close()
+
+    title_file = write_text_file(
+        title
+    )
+
+    year_file = write_text_file(
+        str(year)
+    )
+
+    rating_file = write_text_file(
+        f"{rating:.1f}/10"
+    )
+
+    type_file = write_text_file(
+        media_label
+    )
+
+    # -----------------------------------------------------
+    # 12-second cinematic vertical Reel
+    # -----------------------------------------------------
+
+    filter_complex = (
+        "[0:v]"
+        "scale=1080:1920:"
+        "force_original_aspect_ratio=increase,"
+        "crop=1080:1920,"
+        "zoompan="
+        "z='min(zoom+0.0008,1.12)':"
+        "x='iw/2-(iw/zoom/2)':"
+        "y='ih/2-(ih/zoom/2)':"
+        "d=360:"
+        "s=1080x1920:"
+        "fps=30,"
+        "setsar=1,"
+        "eq=brightness=-0.08:"
+        "contrast=1.08,"
+        "boxblur=1:1"
+        "[bg];"
+
+        # Dark cinematic overlay
+        "color=c=black@0.25:"
+        "s=1080x1920:"
+        "d=12"
+        "[shade];"
+
+        "[bg][shade]"
+        "overlay=0:0"
+        "[v1];"
+
+        # Bottom gradient-like dark box
+        "[v1]"
+        "drawbox="
+        "x=0:"
+        "y=1320:"
+        "w=1080:"
+        "h=600:"
+        "color=black@0.68:"
+        "t=fill"
+        "[v2];"
+
+        # MOVINS
+        "[v2]"
+        "drawtext="
+        f"textfile='{type_file}':"
+        "fontcolor=white:"
+        "fontsize=42:"
+        "x=(w-text_w)/2:"
+        "y=1380:"
+        "alpha='if(lt(t,1),t,1)':"
+        "enable='between(t,0,12)'"
+        "[v3];"
+
+        # Title
+        "[v3]"
+        "drawtext="
+        f"textfile='{title_file}':"
+        "fontcolor=white:"
+        "fontsize=70:"
+        "fontweight=bold:"
+        "x=(w-text_w)/2:"
+        "y=1450:"
+        "alpha='if(lt(t,1),t,1)'"
+        "[v4];"
+
+        # Year
+        "[v4]"
+        "drawtext="
+        f"textfile='{year_file}':"
+        "fontcolor=white:"
+        "fontsize=40:"
+        "x=(w-text_w)/2:"
+        "y=1545:"
+        "alpha='if(lt(t,1.5),(t/1.5),1)'"
+        "[v5];"
+
+        # Rating
+        "[v5]"
+        "drawtext="
+        f"textfile='{rating_file}':"
+        "fontcolor=white:"
+        "fontsize=42:"
+        "x=(w-text_w)/2:"
+        "y=1620:"
+        "alpha='if(lt(t,2),(t/2),1)'"
+        "[v6];"
+
+        # MOVINS branding
+        "[v6]"
+        "drawtext="
+        "text='MOVINS':"
+        "fontcolor=white:"
+        "fontsize=36:"
+        "x=(w-text_w)/2:"
+        "y=1760:"
+        "alpha='if(lt(t,2),(t/2),1)'"
+        "[v7];"
+
+        # Call to action
+        "[v7]"
+        "drawtext="
+        "text='Watch more on MOVINS':"
+        "fontcolor=white:"
+        "fontsize=32:"
+        "x=(w-text_w)/2:"
+        "y=1815:"
+        "alpha='if(gt(t,3),1,0)'"
+        "[vout]"
+    )
+
+    command = [
+        "ffmpeg",
+        "-y",
+
+        "-loop",
+        "1",
+
+        "-i",
+        poster_path,
+
+        "-filter_complex",
+        filter_complex,
+
+        "-map",
+        "[vout]",
+
+        "-t",
+        str(VIDEO_DURATION),
+
+        "-r",
+        "30",
+
+        "-c:v",
+        "libx264",
+
+        "-preset",
+        "veryfast",
+
+        "-crf",
+        "23",
+
+        "-pix_fmt",
+        "yuv420p",
+
+        "-movflags",
+        "+faststart",
+
+        output.name
+    ]
+
+    print(
+        "Creating cinematic Reel..."
+    )
+
+    result = subprocess.run(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True
+    )
+
+    if result.returncode != 0:
 
         print(
-            "Video size: "
-            f"{total_size / 1024 / 1024:.2f} MB"
+            result.stdout[-5000:]
         )
 
-        if total_size < 10000:
+        raise RuntimeError(
+            "FFmpeg failed to create Reel."
+        )
 
-            os.unlink(
-                temp.name
-            )
-
-            raise RuntimeError(
-                "Downloaded video is too small."
-            )
-
-        return temp.name
-
-    except Exception:
+    # Cleanup text files
+    for path in (
+        title_file,
+        year_file,
+        rating_file,
+        type_file
+    ):
 
         try:
-            temp.close()
-            os.unlink(temp.name)
+            os.remove(path)
         except Exception:
             pass
 
-        raise
+    size = os.path.getsize(
+        output.name
+    )
+
+    print(
+        f"Reel created: "
+        f"{size / 1024 / 1024:.2f} MB"
+    )
+
+    return output.name
 
 
 # =========================================================
-# FACEBOOK — START
+# FACEBOOK START
 # =========================================================
 
-def facebook_start_upload(
+def facebook_start(
     page_id
 ):
 
@@ -714,22 +748,14 @@ def facebook_start_upload(
         "Facebook Reel upload started."
     )
 
-    print(
-        json.dumps(
-            data,
-            ensure_ascii=False,
-            indent=2
-        )
-    )
-
     return data
 
 
 # =========================================================
-# FACEBOOK — TRANSFER
+# FACEBOOK TRANSFER
 # =========================================================
 
-def facebook_transfer_video(
+def facebook_transfer(
     upload_url,
     video_path
 ):
@@ -742,27 +768,28 @@ def facebook_transfer_video(
         "Authorization":
             f"OAuth {FACEBOOK_PAGE_TOKEN}",
 
-        "offset": "0",
+        "offset":
+            "0",
 
         "file_size":
             str(file_size)
     }
 
     print(
-        "Uploading video to Facebook..."
+        "Uploading Reel video..."
     )
 
     with open(
         video_path,
         "rb"
-    ) as video_file:
+    ) as video:
 
         response = requests.post(
             upload_url,
             headers=headers,
             files={
                 "video_file":
-                    video_file
+                    video
             },
             timeout=600
         )
@@ -770,24 +797,18 @@ def facebook_transfer_video(
     if not response.ok:
 
         raise RuntimeError(
-            "Facebook Reel video upload failed:\n"
+            "Facebook video upload failed:\n"
             + response.text
         )
 
-    data = response.json()
-
-    print(
-        "Facebook video transfer completed."
-    )
-
-    return data
+    return response.json()
 
 
 # =========================================================
-# FACEBOOK — FINISH
+# FACEBOOK FINISH
 # =========================================================
 
-def facebook_finish_upload(
+def facebook_finish(
     page_id,
     video_id,
     caption
@@ -828,17 +849,11 @@ def facebook_finish_upload(
             + response.text
         )
 
-    data = response.json()
-
-    print(
-        "Facebook Reel published."
-    )
-
-    return data
+    return response.json()
 
 
 # =========================================================
-# PUBLISH
+# PUBLISH FACEBOOK REEL
 # =========================================================
 
 def publish_reel(
@@ -847,35 +862,25 @@ def publish_reel(
     caption
 ):
 
-    start_data = (
-        facebook_start_upload(
-            page_id
-        )
+    start = facebook_start(
+        page_id
     )
 
     video_id = (
-        start_data.get(
-            "video_id"
-        )
-        or
-        start_data.get(
-            "id"
-        )
+        start.get("video_id")
+        or start.get("id")
     )
 
-    upload_url = (
-        start_data.get(
-            "upload_url"
-        )
+    upload_url = start.get(
+        "upload_url"
     )
 
     if not video_id:
 
         raise RuntimeError(
-            "Facebook did not return "
-            "video_id:\n"
+            "Facebook did not return video_id:\n"
             + json.dumps(
-                start_data,
+                start,
                 ensure_ascii=False,
                 indent=2
             )
@@ -884,33 +889,80 @@ def publish_reel(
     if not upload_url:
 
         raise RuntimeError(
-            "Facebook did not return "
-            "upload_url:\n"
+            "Facebook did not return upload_url:\n"
             + json.dumps(
-                start_data,
+                start,
                 ensure_ascii=False,
                 indent=2
             )
         )
 
-    facebook_transfer_video(
+    facebook_transfer(
         upload_url,
         video_path
     )
 
-    finish_data = (
-        facebook_finish_upload(
-            page_id,
-            video_id,
-            caption
-        )
+    finish = facebook_finish(
+        page_id,
+        video_id,
+        caption
     )
 
     return {
         "video_id": video_id,
-        "finish_response":
-            finish_data
+        "response": finish
     }
+
+
+# =========================================================
+# CAPTION
+# =========================================================
+
+def build_caption(
+    movie
+):
+
+    title = movie_title(
+        movie
+    )
+
+    year = movie_year(
+        movie
+    )
+
+    rating = movie_rating(
+        movie
+    )
+
+    mid = movie_id(
+        movie
+    )
+
+    media = movie_type(
+        movie
+    )
+
+    prefix = (
+        "tv"
+        if media == "tv"
+        else "movie"
+    )
+
+    link = (
+        f"{SITE_URL}"
+        f"?movie={prefix}-{mid}"
+    )
+
+    caption = (
+        f"🎬 {title}\n"
+        f"📅 {year}\n"
+        f"⭐ {rating:.1f}/10\n\n"
+        f"🍿 اكتشف الفيلم على MOVINS:\n"
+        f"{link}\n\n"
+        f"#MOVINS #Movies #Series #Film"
+    )
+
+    return caption
 
 
 # =========================================================
@@ -921,18 +973,18 @@ def main():
 
     print("=" * 60)
     print(
-        "MOVINS — FACEBOOK REEL PUBLISHER"
+        "MOVINS — AUTOMATIC REEL MAKER"
     )
     print("=" * 60)
 
     # -----------------------------------------------------
-    # Automatically get Page ID
+    # Facebook
     # -----------------------------------------------------
 
     page_id = get_page_info()
 
     # -----------------------------------------------------
-    # Load data
+    # Movies
     # -----------------------------------------------------
 
     movies = load_movies()
@@ -950,64 +1002,33 @@ def main():
     if not movies:
 
         print(
-            "No movies found."
+            "No movies available."
         )
 
         return 0
 
     # -----------------------------------------------------
-    # Select
+    # Choose
     # -----------------------------------------------------
 
-    selected = choose_movie(
+    movie = choose_movie(
         movies,
         posted
     )
 
-    if not selected:
+    if not movie:
 
-        print("")
         print(
-            "No eligible Reel found."
+            "No new movie available for Reel."
         )
-        print("")
-        print(
-            "The movie must contain an "
-            "authorized direct video URL:"
-        )
-        print(
-            "reel_video_url"
-        )
-        print(
-            "licensed_video_url"
-        )
-        print(
-            "authorized_video_url"
-        )
-        print(
-            "facebook_reel_video_url"
-        )
-        print("")
 
         return 0
 
-    (
-        popularity,
-        vote_count,
-        movie,
-        video_url,
-        trailer
-    ) = selected
-
-    movie_id = get_movie_id(
+    title = movie_title(
         movie
     )
 
-    media_type = get_movie_type(
-        movie
-    )
-
-    title = get_title(
+    mid = movie_id(
         movie
     )
 
@@ -1017,56 +1038,51 @@ def main():
     )
 
     print(
-        f"TMDB ID: {movie_id}"
-    )
-
-    print(
-        f"Type: {media_type}"
-    )
-
-    print(
-        f"Popularity: {popularity}"
-    )
-
-    print(
-        f"Vote count: {vote_count}"
-    )
-
-    print(
-        "TMDB trailer key: "
-        f"{trailer.get('key')}"
+        f"TMDB ID: {mid}"
     )
 
     # -----------------------------------------------------
-    # Caption
+    # Poster
     # -----------------------------------------------------
 
-    caption = build_caption(
-        movie,
-        trailer
+    poster_url = get_poster_url(
+        movie
     )
 
-    print("")
-    print(
-        "Caption:"
-    )
-
-    print(caption)
-
-    # -----------------------------------------------------
-    # Download
-    # -----------------------------------------------------
-
+    poster_path = None
     video_path = None
 
     try:
 
-        video_path = download_video(
-            video_url
+        poster_path = download_poster(
+            poster_url
         )
 
         # -------------------------------------------------
-        # Publish
+        # Create video
+        # -------------------------------------------------
+
+        video_path = create_reel(
+            movie,
+            poster_path
+        )
+
+        # -------------------------------------------------
+        # Caption
+        # -------------------------------------------------
+
+        caption = build_caption(
+            movie
+        )
+
+        print("")
+        print(
+            "Caption:"
+        )
+        print(caption)
+
+        # -------------------------------------------------
+        # Facebook
         # -------------------------------------------------
 
         result = publish_reel(
@@ -1076,16 +1092,18 @@ def main():
         )
 
         # -------------------------------------------------
-        # Save history ONLY after successful publish
+        # Save history
         # -------------------------------------------------
 
         posted.append(
             {
                 "id":
-                    movie_id,
+                    mid,
 
                 "type":
-                    media_type,
+                    movie_type(
+                        movie
+                    ),
 
                 "title":
                     title,
@@ -1094,11 +1112,6 @@ def main():
                     result[
                         "video_id"
                     ],
-
-                "trailer_key":
-                    trailer.get(
-                        "key"
-                    ),
 
                 "posted_at":
                     datetime.now(
@@ -1126,30 +1139,29 @@ def main():
         print("")
         print("=" * 60)
         print(
-            "MOVINS REEL PUBLISH FAILED"
+            "MOVINS REEL FAILED"
         )
         print("=" * 60)
 
-        print(str(e))
+        print(
+            str(e)
+        )
 
         return 1
 
     finally:
 
-        if video_path:
+        for path in (
+            poster_path,
+            video_path
+        ):
 
-            try:
+            if path:
 
-                os.remove(
-                    video_path
-                )
-
-                print(
-                    "Temporary video deleted."
-                )
-
-            except Exception:
-                pass
+                try:
+                    os.remove(path)
+                except Exception:
+                    pass
 
 
 # =========================================================
