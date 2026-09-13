@@ -1,539 +1,734 @@
-import json
 import os
-import sys
-import tempfile
+import json
+import time
+import math
+import wave
+import struct
+import shutil
 import subprocess
-from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+try:
+    import arabic_reshaper
+    from bidi.algorithm import get_display
+except ImportError:
+    arabic_reshaper = None
+    get_display = None
 
 
 # =========================================================
-# MOVINS — AUTOMATIC REEL MAKER
+# MOVINS — CINEMATIC REEL PUBLISHER
 # =========================================================
+
+GRAPH_VERSION = "v26.0"
 
 MOVIES_FILE = "movies.json"
 POSTED_FILE = "posted_movie_reels.json"
 
-GRAPH_VERSION = "v26.0"
-GRAPH_URL = "https://graph.facebook.com/" + GRAPH_VERSION
+WORK_DIR = Path("reel_work")
+WORK_DIR.mkdir(exist_ok=True)
+
+VIDEO_FILE = WORK_DIR / "movins_reel.mp4"
+AUDIO_FILE = WORK_DIR / "movins_music.wav"
+POSTER_FILE = WORK_DIR / "poster.jpg"
+TEXT_FILE = WORK_DIR / "reel_text.png"
+
+VIDEO_WIDTH = 1080
+VIDEO_HEIGHT = 1920
+
+REEL_DURATION = 12
 
 FACEBOOK_PAGE_TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
-TMDB_API_KEY = os.environ.get("TMDB_API_KEY")
-
-SITE_URL = "https://nownex.github.io/movins/"
-
-VIDEO_DURATION = 12
-
-
-# =========================================================
-# CHECK SECRETS
-# =========================================================
 
 if not FACEBOOK_PAGE_TOKEN:
     raise RuntimeError(
         "FACEBOOK_PAGE_TOKEN is missing."
     )
 
-if not TMDB_API_KEY:
-    raise RuntimeError(
-        "TMDB_API_KEY is missing."
+
+# =========================================================
+# BASIC HELPERS
+# =========================================================
+
+def log(message):
+    print(message, flush=True)
+
+
+def run_command(command):
+    log("")
+    log("RUNNING:")
+    log(" ".join(str(x) for x in command))
+
+    result = subprocess.run(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True
     )
 
+    print(result.stdout, flush=True)
 
-# =========================================================
-# JSON
-# =========================================================
+    if result.returncode != 0:
+        raise RuntimeError(
+            "Command failed with exit code "
+            + str(result.returncode)
+        )
 
-def load_json(filename, default):
+    return result
 
-    if not os.path.exists(filename):
+
+def load_json(path, default):
+    if not os.path.exists(path):
         return default
 
     try:
-
         with open(
-            filename,
+            path,
             "r",
             encoding="utf-8"
-        ) as file:
-
-            return json.load(file)
-
-    except Exception as error:
-
-        print(
-            "WARNING: Could not read "
-            + filename
-            + ": "
-            + str(error)
-        )
-
+        ) as f:
+            return json.load(f)
+    except Exception:
         return default
 
 
-def save_json(filename, data):
-
+def save_json(path, data):
     with open(
-        filename,
+        path,
         "w",
         encoding="utf-8"
-    ) as file:
-
+    ) as f:
         json.dump(
             data,
-            file,
+            f,
             ensure_ascii=False,
             indent=2
         )
 
 
 # =========================================================
-# FACEBOOK PAGE
+# CLEAN OLD FILES
 # =========================================================
 
-def get_page_info():
+def clean_work_directory():
+    for item in WORK_DIR.iterdir():
 
-    url = GRAPH_URL + "/me"
+        try:
+            if item.is_file():
+                item.unlink()
 
-    params = {
-        "fields": "id,name",
-        "access_token": FACEBOOK_PAGE_TOKEN
-    }
+            elif item.is_dir():
+                shutil.rmtree(item)
 
-    response = requests.get(
-        url,
-        params=params,
-        timeout=30
-    )
-
-    if not response.ok:
-
-        raise RuntimeError(
-            "Could not get Facebook Page information:\n"
-            + response.text
-        )
-
-    data = response.json()
-
-    page_id = data.get("id")
-
-    if not page_id:
-
-        raise RuntimeError(
-            "Facebook did not return Page ID:\n"
-            + json.dumps(
-                data,
-                ensure_ascii=False,
-                indent=2
+        except Exception as e:
+            log(
+                "Could not remove "
+                + str(item)
+                + ": "
+                + str(e)
             )
-        )
-
-    print(
-        "Facebook Page: "
-        + str(data.get("name", "Unknown"))
-    )
-
-    print(
-        "Facebook Page ID: "
-        + str(page_id)
-    )
-
-    return str(page_id)
 
 
 # =========================================================
-# MOVIES
+# LOAD MOVIES
 # =========================================================
 
 def load_movies():
-
     data = load_json(
         MOVIES_FILE,
-        {}
+        {"items": []}
     )
 
-    if isinstance(data, dict):
+    if isinstance(data, list):
+        movies = data
 
-        items = data.get(
+    elif isinstance(data, dict):
+        movies = data.get(
             "items",
             []
         )
 
-    elif isinstance(data, list):
-
-        items = data
-
     else:
+        movies = []
 
-        items = []
+    if not isinstance(movies, list):
+        movies = []
 
-    if not isinstance(items, list):
+    return movies
 
-        return []
 
-    return items
-
+# =========================================================
+# POSTED HISTORY
+# =========================================================
 
 def load_posted():
-
     data = load_json(
         POSTED_FILE,
         []
     )
 
-    if isinstance(data, dict):
+    if isinstance(data, list):
+        return data
 
-        data = data.get(
+    if isinstance(data, dict):
+        return data.get(
             "items",
             []
         )
 
-    if not isinstance(data, list):
+    return []
 
-        return []
 
-    return data
+def get_posted_ids(posted):
+    result = set()
 
+    for item in posted:
+
+        if isinstance(item, dict):
+
+            value = (
+                item.get("id")
+                or item.get("movie_id")
+                or item.get("tmdb_id")
+            )
+
+            if value is not None:
+                result.add(
+                    str(value)
+                )
+
+        else:
+            result.add(
+                str(item)
+            )
+
+    return result
+
+
+# =========================================================
+# MOVIE DATA
+# =========================================================
 
 def get_movie_id(movie):
+    value = (
+        movie.get("id")
+        or movie.get("tmdb_id")
+    )
 
-    return str(
-        movie.get("tmdb_id")
-        or movie.get("id")
-        or ""
-    ).strip()
+    if value is None:
+        return None
 
-
-def get_movie_type(movie):
-
-    value = str(
-        movie.get("media_type")
-        or movie.get("type")
-        or ""
-    ).lower()
-
-    if value in (
-        "tv",
-        "series",
-        "مسلسل"
-    ):
-
-        return "tv"
-
-    return "movie"
+    return str(value)
 
 
 def get_movie_title(movie):
 
-    return str(
+    title = (
         movie.get("title")
         or movie.get("name")
         or movie.get("original_title")
         or movie.get("original_name")
-        or "MOVINS"
-    ).strip()
+    )
+
+    if not title:
+        title = "MOVINS"
+
+    return str(title).strip()
 
 
 def get_movie_year(movie):
 
-    value = movie.get("year")
+    year = movie.get("year")
 
-    if value:
+    if year:
+        return str(year)
 
-        return str(value)
-
-    date_value = (
+    release_date = (
         movie.get("release_date")
         or movie.get("first_air_date")
-        or ""
     )
 
-    return str(date_value)[:4]
+    if release_date:
+        return str(
+            release_date
+        )[:4]
+
+    return ""
 
 
 def get_movie_rating(movie):
 
-    try:
+    rating = (
+        movie.get("rating")
+        or movie.get("vote_average")
+    )
 
-        return float(
-            movie.get(
-                "rating",
-                0
-            ) or 0
-        )
-
-    except Exception:
-
-        return 0.0
-
-
-def get_movie_popularity(movie):
+    if rating is None:
+        return ""
 
     try:
-
-        return float(
-            movie.get(
-                "popularity",
-                0
-            ) or 0
+        return "{:.1f}".format(
+            float(rating)
         )
-
     except Exception:
+        return str(rating)
 
-        return 0.0
 
+def get_movie_type(movie):
 
-# =========================================================
-# POSTER
-# =========================================================
+    value = (
+        movie.get("detailed_type")
+        or movie.get("type")
+        or ""
+    )
 
-def get_poster_url(movie):
+    text = str(value).lower()
 
-    poster = movie.get("poster")
+    if (
+        "مسلسل" in text
+        or "tv" in text
+        or "series" in text
+    ):
+        return "مسلسل"
 
-    if not poster:
-
-        return None
-
-    poster = str(
-        poster
-    ).strip()
-
-    if poster.startswith("http://"):
-
-        return poster
-
-    if poster.startswith("https://"):
-
-        return poster
-
-    if poster.startswith("/"):
-
-        return (
-            "https://image.tmdb.org/t/p/w780"
-            + poster
-        )
-
-    return None
+    return "فيلم"
 
 
 # =========================================================
-# CHOOSE MOVIE
+# SELECT MOVIE
 # =========================================================
 
-def choose_movie(
-    movies,
-    posted
-):
-
-    posted_ids = set()
-
-    for item in posted:
-
-        if not isinstance(
-            item,
-            dict
-        ):
-
-            continue
-
-        item_id = item.get("id")
-
-        if item_id is not None:
-
-            posted_ids.add(
-                str(item_id)
-            )
+def choose_movie(movies, posted_ids):
 
     candidates = []
 
     for movie in movies:
 
-        if not isinstance(
-            movie,
-            dict
-        ):
-
+        if not isinstance(movie, dict):
             continue
 
-        movie_id = get_movie_id(
-            movie
-        )
+        movie_id = get_movie_id(movie)
 
         if not movie_id:
-
             continue
 
         if movie_id in posted_ids:
-
             continue
 
-        poster = get_poster_url(
-            movie
+        poster = (
+            movie.get("poster")
+            or movie.get("poster_url")
+            or movie.get("image")
         )
 
         if not poster:
-
             continue
 
-        popularity = get_movie_popularity(
-            movie
+        popularity = movie.get(
+            "popularity",
+            0
         )
 
-        rating = get_movie_rating(
-            movie
+        rating = movie.get(
+            "rating",
+            0
+        )
+
+        vote_count = movie.get(
+            "vote_count",
+            0
+        )
+
+        try:
+            popularity = float(
+                popularity or 0
+            )
+        except Exception:
+            popularity = 0
+
+        try:
+            rating = float(
+                rating or 0
+            )
+        except Exception:
+            rating = 0
+
+        try:
+            vote_count = float(
+                vote_count or 0
+            )
+        except Exception:
+            vote_count = 0
+
+        score = (
+            popularity * 1.0
+            + rating * 3.0
+            + math.log10(
+                vote_count + 1
+            ) * 2.0
         )
 
         candidates.append(
             (
-                popularity,
-                rating,
+                score,
                 movie
             )
         )
 
     if not candidates:
-
         return None
 
     candidates.sort(
-        key=lambda item: (
-            item[0],
-            item[1]
-        ),
+        key=lambda x: x[0],
         reverse=True
     )
 
-    return candidates[0][2]
+    return candidates[0][1]
+
+
+# =========================================================
+# FONT SEARCH
+# =========================================================
+
+def find_font():
+
+    possible = [
+
+        "/usr/share/fonts/truetype/noto/"
+        "NotoNaskhArabic-Regular.ttf",
+
+        "/usr/share/fonts/truetype/noto/"
+        "NotoNaskhArabicUI-Regular.ttf",
+
+        "/usr/share/fonts/truetype/noto/"
+        "NotoSansArabic-Regular.ttf",
+
+        "/usr/share/fonts/truetype/noto/"
+        "NotoSansArabicUI-Regular.ttf",
+
+        "/usr/share/fonts/truetype/dejavu/"
+        "DejaVuSans.ttf",
+
+    ]
+
+    for path in possible:
+
+        if os.path.exists(path):
+            log(
+                "Font found: "
+                + path
+            )
+            return path
+
+    for root, dirs, files in os.walk(
+        "/usr/share/fonts"
+    ):
+
+        for filename in files:
+
+            lower = filename.lower()
+
+            if (
+                lower.endswith(".ttf")
+                and (
+                    "arabic" in lower
+                    or "naskh" in lower
+                )
+            ):
+
+                path = os.path.join(
+                    root,
+                    filename
+                )
+
+                log(
+                    "Arabic font found: "
+                    + path
+                )
+
+                return path
+
+    log(
+        "Arabic font not found. "
+        "Using DejaVu Sans."
+    )
+
+    return (
+        "/usr/share/fonts/truetype/"
+        "dejavu/DejaVuSans.ttf"
+    )
+
+
+# =========================================================
+# ARABIC TEXT SHAPING
+# =========================================================
+
+def shape_text(text):
+
+    text = str(text)
+
+    if (
+        arabic_reshaper is not None
+        and get_display is not None
+    ):
+
+        try:
+
+            reshaped = (
+                arabic_reshaper.reshape(
+                    text
+                )
+            )
+
+            return get_display(
+                reshaped
+            )
+
+        except Exception:
+            pass
+
+    return text
+
+
+# =========================================================
+# CENTER TEXT
+# =========================================================
+
+def draw_centered(
+    draw,
+    text,
+    font,
+    y,
+    fill,
+    canvas_width
+):
+
+    shaped = shape_text(text)
+
+    bbox = draw.textbbox(
+        (0, 0),
+        shaped,
+        font=font
+    )
+
+    width = (
+        bbox[2]
+        - bbox[0]
+    )
+
+    x = (
+        canvas_width
+        - width
+    ) / 2
+
+    draw.text(
+        (x, y),
+        shaped,
+        font=font,
+        fill=fill,
+        stroke_width=2,
+        stroke_fill=(0, 0, 0, 180)
+    )
 
 
 # =========================================================
 # DOWNLOAD POSTER
 # =========================================================
 
-def download_poster(
-    poster_url
-):
+def download_poster(movie):
 
-    print(
+    poster_url = (
+        movie.get("poster")
+        or movie.get("poster_url")
+        or movie.get("image")
+    )
+
+    if not poster_url:
+        raise RuntimeError(
+            "Movie has no poster."
+        )
+
+    log(
         "Downloading movie poster..."
     )
 
     response = requests.get(
         poster_url,
-        timeout=60
+        timeout=30
     )
 
     response.raise_for_status()
 
-    content_type = (
-        response.headers
-        .get(
-            "content-type",
-            ""
-        )
-        .lower()
-    )
-
-    if "image" not in content_type:
-
-        raise RuntimeError(
-            "Poster URL is not an image."
+    with open(
+        POSTER_FILE,
+        "wb"
+    ) as f:
+        f.write(
+            response.content
         )
 
-    temp = tempfile.NamedTemporaryFile(
-        delete=False,
-        suffix=".jpg"
+    size = os.path.getsize(
+        POSTER_FILE
     )
 
-    temp.write(
-        response.content
-    )
-
-    temp.close()
-
-    print(
+    log(
         "Poster downloaded: "
-        + str(
-            round(
-                len(response.content) / 1024,
-                1
+        + str(size)
+        + " bytes"
+    )
+
+
+# =========================================================
+# CREATE CINEMATIC BACKGROUND
+# =========================================================
+
+def create_background():
+
+    image = Image.open(
+        POSTER_FILE
+    ).convert("RGB")
+
+    # Cover 1080x1920
+    source_ratio = (
+        image.width
+        / image.height
+    )
+
+    target_ratio = (
+        VIDEO_WIDTH
+        / VIDEO_HEIGHT
+    )
+
+    if source_ratio > target_ratio:
+
+        new_height = VIDEO_HEIGHT
+
+        new_width = int(
+            new_height
+            * source_ratio
+        )
+
+    else:
+
+        new_width = VIDEO_WIDTH
+
+        new_height = int(
+            new_width
+            / source_ratio
+        )
+
+    image = image.resize(
+        (
+            new_width,
+            new_height
+        ),
+        Image.Resampling.LANCZOS
+    )
+
+    left = (
+        image.width
+        - VIDEO_WIDTH
+    ) // 2
+
+    top = (
+        image.height
+        - VIDEO_HEIGHT
+    ) // 2
+
+    image = image.crop(
+        (
+            left,
+            top,
+            left + VIDEO_WIDTH,
+            top + VIDEO_HEIGHT
+        )
+    )
+
+    # Dark cinematic treatment
+    image = image.filter(
+        ImageFilter.GaussianBlur(
+            radius=0.6
+        )
+    )
+
+    overlay = Image.new(
+        "RGBA",
+        image.size,
+        (0, 0, 0, 80)
+    )
+
+    image = Image.alpha_composite(
+        image.convert("RGBA"),
+        overlay
+    )
+
+    # Gradient-like dark lower section
+    gradient = Image.new(
+        "RGBA",
+        image.size,
+        (0, 0, 0, 0)
+    )
+
+    gd = ImageDraw.Draw(
+        gradient
+    )
+
+    for y in range(
+        VIDEO_HEIGHT // 2,
+        VIDEO_HEIGHT
+    ):
+
+        progress = (
+            y
+            - VIDEO_HEIGHT // 2
+        ) / (
+            VIDEO_HEIGHT // 2
+        )
+
+        alpha = int(
+            20
+            + progress * 170
+        )
+
+        gd.line(
+            (
+                0,
+                y,
+                VIDEO_WIDTH,
+                y
+            ),
+            fill=(
+                0,
+                0,
+                0,
+                alpha
             )
         )
-        + " KB"
+
+    image = Image.alpha_composite(
+        image,
+        gradient
     )
 
-    return temp.name
+    return image
 
 
 # =========================================================
-# TEXT FILE
+# CREATE TEXT CARD
 # =========================================================
 
-def create_text_file(
-    text
-):
+def create_text_card(movie):
 
-    temp = tempfile.NamedTemporaryFile(
-        delete=False,
-        suffix=".txt",
-        mode="w",
-        encoding="utf-8"
+    font_path = find_font()
+
+    image = create_background()
+
+    draw = ImageDraw.Draw(
+        image
     )
-
-    temp.write(
-        str(text)
-    )
-
-    temp.close()
-
-    return temp.name
-
-
-# =========================================================
-# FIND FONT
-# =========================================================
-
-def find_font():
-
-    fonts = [
-
-        "/usr/share/fonts/truetype/noto/"
-        "NotoSansArabic-Regular.ttf",
-
-        "/usr/share/fonts/truetype/noto/"
-        "NotoSans-Regular.ttf",
-
-        "/usr/share/fonts/truetype/dejavu/"
-        "DejaVuSans.ttf"
-    ]
-
-    for font in fonts:
-
-        if os.path.exists(font):
-
-            print(
-                "Using font: "
-                + font
-            )
-
-            return font
-
-    raise RuntimeError(
-        "No compatible font found."
-    )
-
-
-# =========================================================
-# CREATE CINEMATIC REEL
-# =========================================================
-
-def create_reel(
-    movie,
-    poster_path
-):
 
     title = get_movie_title(
         movie
@@ -547,133 +742,450 @@ def create_reel(
         movie
     )
 
-    media_type = get_movie_type(
+    movie_type = get_movie_type(
         movie
     )
 
-    if media_type == "tv":
+    # Fonts
+    logo_font = ImageFont.truetype(
+        font_path,
+        58
+    )
 
-        type_text = "SERIES"
+    small_font = ImageFont.truetype(
+        font_path,
+        46
+    )
 
-    else:
+    title_font = ImageFont.truetype(
+        font_path,
+        72
+    )
 
-        type_text = "MOVIE"
+    info_font = ImageFont.truetype(
+        font_path,
+        45
+    )
 
-    font = find_font()
+    movins_font = ImageFont.truetype(
+        font_path,
+        42
+    )
 
-    title_file = create_text_file(
+    # -----------------------------------------------------
+    # TOP BRAND
+    # -----------------------------------------------------
+
+    draw_centered(
+        draw,
+        "MOVINS",
+        logo_font,
+        90,
+        (255, 255, 255, 255),
+        VIDEO_WIDTH
+    )
+
+    draw_centered(
+        draw,
+        "أفلام ومسلسلات",
+        small_font,
+        165,
+        (225, 225, 225, 255),
+        VIDEO_WIDTH
+    )
+
+    # -----------------------------------------------------
+    # DARK CARD
+    # -----------------------------------------------------
+
+    card_top = 1180
+    card_bottom = 1790
+
+    card = Image.new(
+        "RGBA",
+        (
+            VIDEO_WIDTH,
+            card_bottom - card_top
+        ),
+        (0, 0, 0, 0)
+    )
+
+    card_draw = ImageDraw.Draw(
+        card
+    )
+
+    card_draw.rounded_rectangle(
+        (
+            45,
+            20,
+            VIDEO_WIDTH - 45,
+            card.height - 20
+        ),
+        radius=38,
+        fill=(8, 10, 16, 225),
+        outline=(255, 255, 255, 35),
+        width=2
+    )
+
+    image.alpha_composite(
+        card,
+        (
+            0,
+            card_top
+        )
+    )
+
+    draw = ImageDraw.Draw(
+        image
+    )
+
+    # -----------------------------------------------------
+    # TYPE
+    # -----------------------------------------------------
+
+    draw_centered(
+        draw,
+        movie_type,
+        small_font,
+        1240,
+        (220, 220, 220, 255),
+        VIDEO_WIDTH
+    )
+
+    # -----------------------------------------------------
+    # TITLE
+    # -----------------------------------------------------
+
+    # If title is long, reduce font size
+    title_font_size = 72
+
+    if len(title) > 24:
+        title_font_size = 60
+
+    if len(title) > 35:
+        title_font_size = 50
+
+    title_font = ImageFont.truetype(
+        font_path,
+        title_font_size
+    )
+
+    shaped_title = shape_text(
         title
     )
 
-    year_file = create_text_file(
-        year
+    bbox = draw.textbbox(
+        (0, 0),
+        shaped_title,
+        font=title_font
     )
 
-    rating_file = create_text_file(
-        "★ " + str(round(rating, 1)) + "/10"
+    title_width = (
+        bbox[2]
+        - bbox[0]
     )
 
-    type_file = create_text_file(
-        type_text
+    title_x = (
+        VIDEO_WIDTH
+        - title_width
+    ) / 2
+
+    draw.text(
+        (
+            title_x,
+            1320
+        ),
+        shaped_title,
+        font=title_font,
+        fill=(255, 255, 255, 255),
+        stroke_width=3,
+        stroke_fill=(0, 0, 0, 255)
     )
 
-    output_file = tempfile.NamedTemporaryFile(
-        delete=False,
-        suffix=".mp4"
+    # -----------------------------------------------------
+    # YEAR + RATING
+    # -----------------------------------------------------
+
+    info_parts = []
+
+    if year:
+        info_parts.append(
+            year
+        )
+
+    if rating:
+        info_parts.append(
+            "⭐ " + rating + " / 10"
+        )
+
+    info_text = "   •   ".join(
+        info_parts
     )
 
-    output_path = output_file.name
+    if info_text:
 
-    output_file.close()
+        draw_centered(
+            draw,
+            info_text,
+            info_font,
+            1450,
+            (235, 235, 235, 255),
+            VIDEO_WIDTH
+        )
 
-    # =====================================================
-    # FFmpeg filter
-    # =====================================================
+    # -----------------------------------------------------
+    # CALL TO ACTION
+    # -----------------------------------------------------
+
+    draw_centered(
+        draw,
+        "شاهد التفاصيل على MOVINS",
+        info_font,
+        1580,
+        (245, 195, 70, 255),
+        VIDEO_WIDTH
+    )
+
+    # -----------------------------------------------------
+    # WEBSITE
+    # -----------------------------------------------------
+
+    draw_centered(
+        draw,
+        "nownex.github.io/movins",
+        movins_font,
+        1680,
+        (220, 220, 220, 255),
+        VIDEO_WIDTH
+    )
+
+    image.convert(
+        "RGB"
+    ).save(
+        TEXT_FILE,
+        "PNG",
+        optimize=True
+    )
+
+    log(
+        "Arabic text image created."
+    )
+
+
+# =========================================================
+# CREATE ORIGINAL MUSIC
+# =========================================================
+
+def create_original_music():
+
+    log(
+        "Creating original cinematic music..."
+    )
+
+    sample_rate = 44100
+
+    total_samples = int(
+        sample_rate
+        * REEL_DURATION
+    )
+
+    # Cinematic chord progression
+    chords = [
+        [220.00, 277.18, 329.63],
+        [196.00, 246.94, 293.66],
+        [174.61, 220.00, 261.63],
+        [196.00, 246.94, 329.63],
+    ]
+
+    frames = []
+
+    for i in range(
+        total_samples
+    ):
+
+        t = (
+            i
+            / sample_rate
+        )
+
+        chord_index = int(
+            t / 3.0
+        ) % len(chords)
+
+        chord = chords[
+            chord_index
+        ]
+
+        # Soft fade in/out
+        fade_in = min(
+            1.0,
+            t / 1.2
+        )
+
+        fade_out = min(
+            1.0,
+            (
+                REEL_DURATION - t
+            ) / 1.5
+        )
+
+        envelope = min(
+            fade_in,
+            fade_out
+        )
+
+        # Main chord
+        value = 0.0
+
+        for frequency in chord:
+
+            value += (
+                math.sin(
+                    2
+                    * math.pi
+                    * frequency
+                    * t
+                )
+                * 0.10
+            )
+
+            # soft harmonic
+            value += (
+                math.sin(
+                    2
+                    * math.pi
+                    * frequency
+                    * 2
+                    * t
+                )
+                * 0.025
+            )
+
+        # Slow atmospheric pad
+        value += (
+            math.sin(
+                2
+                * math.pi
+                * 110
+                * t
+            )
+            * 0.035
+        )
+
+        # Gentle pulse
+        pulse = (
+            math.sin(
+                2
+                * math.pi
+                * 1.5
+                * t
+            )
+            + 1
+        ) / 2
+
+        value += (
+            pulse
+            * math.sin(
+                2
+                * math.pi
+                * 55
+                * t
+            )
+            * 0.025
+        )
+
+        value *= envelope
+
+        # Stereo width
+        left = value
+        right = value * 0.96
+
+        left_int = int(
+            max(
+                -1.0,
+                min(
+                    1.0,
+                    left
+                )
+            )
+            * 32767
+        )
+
+        right_int = int(
+            max(
+                -1.0,
+                min(
+                    1.0,
+                    right
+                )
+            )
+            * 32767
+        )
+
+        frames.append(
+            struct.pack(
+                "<hh",
+                left_int,
+                right_int
+            )
+        )
+
+    with wave.open(
+        str(AUDIO_FILE),
+        "wb"
+    ) as wav:
+
+        wav.setnchannels(2)
+
+        wav.setsampwidth(2)
+
+        wav.setframerate(
+            sample_rate
+        )
+
+        wav.writeframes(
+            b"".join(frames)
+        )
+
+    log(
+        "Original music created."
+    )
+
+
+# =========================================================
+# CREATE VIDEO WITH FFMPEG
+# =========================================================
+
+def create_video():
+
+    log(
+        "Creating cinematic MOVINS Reel..."
+    )
+
+    # 12 seconds, 1080x1920
+    #
+    # The image itself contains Arabic text.
+    # This avoids FFmpeg drawtext Arabic problems.
 
     filter_complex = (
         "[0:v]"
-        "scale=1080:1920:"
-        "force_original_aspect_ratio=increase,"
-        "crop=1080:1920,"
+        "scale="
+        + str(VIDEO_WIDTH)
+        + ":"
+        + str(VIDEO_HEIGHT)
+        + ","
         "zoompan="
-        "z='min(zoom+0.0007,1.10)':"
+        "z='min(zoom+0.0008,1.10)':"
         "x='iw/2-(iw/zoom/2)':"
         "y='ih/2-(ih/zoom/2)':"
-        "d=360:"
-        "s=1080x1920:"
-        "fps=30,"
-        "setsar=1"
-        "[bg];"
-
-        "[bg]"
-        "drawbox="
-        "x=0:"
-        "y=1260:"
-        "w=1080:"
-        "h=660:"
-        "color=black@0.70:"
-        "t=fill"
-        "[panel];"
-
-        "[panel]"
-        "drawtext="
-        "fontfile=" + font + ":"
-        "textfile=" + type_file + ":"
-        "fontcolor=white:"
-        "fontsize=42:"
-        "x=(w-text_w)/2:"
-        "y=1335"
-        "[t1];"
-
-        "[t1]"
-        "drawtext="
-        "fontfile=" + font + ":"
-        "textfile=" + title_file + ":"
-        "fontcolor=white:"
-        "fontsize=68:"
-        "x=(w-text_w)/2:"
-        "y=1420"
-        "[t2];"
-
-        "[t2]"
-        "drawtext="
-        "fontfile=" + font + ":"
-        "textfile=" + year_file + ":"
-        "fontcolor=white:"
-        "fontsize=40:"
-        "x=(w-text_w)/2:"
-        "y=1535"
-        "[t3];"
-
-        "[t3]"
-        "drawtext="
-        "fontfile=" + font + ":"
-        "textfile=" + rating_file + ":"
-        "fontcolor=white:"
-        "fontsize=42:"
-        "x=(w-text_w)/2:"
-        "y=1610"
-        "[t4];"
-
-        "[t4]"
-        "drawtext="
-        "fontfile=" + font + ":"
-        "text=MOVINS:"
-        "fontcolor=white:"
-        "fontsize=38:"
-        "x=(w-text_w)/2:"
-        "y=1740"
-        "[t5];"
-
-        "[t5]"
-        "drawtext="
-        "fontfile=" + font + ":"
-        "text=Discover more on MOVINS:"
-        "fontcolor=white:"
-        "fontsize=30:"
-        "x=(w-text_w)/2:"
-        "y=1810"
-        "[vout]"
+        "d=1:"
+        "s="
+        + str(VIDEO_WIDTH)
+        + "x"
+        + str(VIDEO_HEIGHT)
+        + ":"
+        "fps=30"
+        "[v]"
     )
 
     command = [
@@ -684,16 +1196,22 @@ def create_reel(
         "1",
 
         "-i",
-        poster_path,
+        str(TEXT_FILE),
+
+        "-i",
+        str(AUDIO_FILE),
 
         "-filter_complex",
         filter_complex,
 
         "-map",
-        "[vout]",
+        "[v]",
+
+        "-map",
+        "1:a",
 
         "-t",
-        str(VIDEO_DURATION),
+        str(REEL_DURATION),
 
         "-r",
         "30",
@@ -705,304 +1223,265 @@ def create_reel(
         "veryfast",
 
         "-crf",
-        "23",
+        "21",
 
         "-pix_fmt",
         "yuv420p",
 
+        "-c:a",
+        "aac",
+
+        "-b:a",
+        "192k",
+
+        "-ar",
+        "44100",
+
         "-movflags",
         "+faststart",
 
-        output_path
+        str(VIDEO_FILE)
     ]
 
-    print(
-        "Creating cinematic Reel..."
+    run_command(
+        command
     )
 
-    result = subprocess.run(
-        command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True
-    )
-
-    if result.returncode != 0:
-
-        print(
-            result.stdout[-12000:]
-        )
+    if not VIDEO_FILE.exists():
 
         raise RuntimeError(
-            "FFmpeg failed to create Reel."
+            "Video file was not created."
         )
 
-    # =====================================================
-    # Remove temporary text files
-    # =====================================================
+    size = VIDEO_FILE.stat().st_size
 
-    for path in (
-        title_file,
-        year_file,
-        rating_file,
-        type_file
-    ):
-
-        try:
-
-            os.remove(path)
-
-        except Exception:
-
-            pass
-
-    size = os.path.getsize(
-        output_path
-    )
-
-    print(
+    log(
         "Reel created successfully: "
-        + str(
-            round(
-                size / 1024 / 1024,
-                2
-            )
-        )
-        + " MB"
+        + str(size)
+        + " bytes"
     )
 
-    return output_path
-
 
 # =========================================================
-# FACEBOOK START
+# FACEBOOK PAGE
 # =========================================================
 
-def facebook_start(
-    page_id
-):
+def get_page_info():
 
     url = (
-        GRAPH_URL
-        + "/"
-        + page_id
-        + "/video_reels"
+        "https://graph.facebook.com/"
+        + GRAPH_VERSION
+        + "/me"
     )
 
-    params = {
-        "access_token":
-            FACEBOOK_PAGE_TOKEN,
-
-        "upload_phase":
-            "start"
-    }
-
-    response = requests.post(
+    response = requests.get(
         url,
-        params=params,
-        timeout=60
+        params={
+            "fields": "id,name",
+            "access_token":
+                FACEBOOK_PAGE_TOKEN
+        },
+        timeout=30
     )
 
     if not response.ok:
 
         raise RuntimeError(
-            "Facebook Reel start failed:\n"
+            "Facebook /me failed: "
             + response.text
         )
 
     data = response.json()
 
-    print(
-        "Facebook Reel upload started."
-    )
+    page_id = data.get("id")
+    page_name = data.get("name")
 
-    return data
-
-
-# =========================================================
-# FACEBOOK UPLOAD
-# =========================================================
-
-def facebook_upload(
-    upload_url,
-    video_path
-):
-
-    file_size = os.path.getsize(
-        video_path
-    )
-
-    headers = {
-        "Authorization":
-            "OAuth " + FACEBOOK_PAGE_TOKEN,
-
-        "offset":
-            "0",
-
-        "file_size":
-            str(file_size),
-
-        "Content-Type":
-            "application/octet-stream"
-    }
-
-    print(
-        "Uploading Reel video to Facebook..."
-    )
-
-    with open(
-        video_path,
-        "rb"
-    ) as video_file:
-
-        response = requests.post(
-            upload_url,
-            headers=headers,
-            data=video_file,
-            timeout=600
-        )
-
-    if not response.ok:
+    if not page_id:
 
         raise RuntimeError(
-            "Facebook Reel upload failed:\n"
-            + response.text
+            "Facebook Page ID was not found."
         )
 
-    try:
-
-        return response.json()
-
-    except Exception:
-
-        return {
-            "response":
-                response.text
-        }
-
-
-# =========================================================
-# FACEBOOK FINISH
-# =========================================================
-
-def facebook_finish(
-    page_id,
-    video_id,
-    caption
-):
-
-    url = (
-        GRAPH_URL
-        + "/"
-        + page_id
-        + "/video_reels"
+    log(
+        "Facebook Page: "
+        + str(page_name)
     )
 
-    params = {
-        "access_token":
-            FACEBOOK_PAGE_TOKEN,
-
-        "upload_phase":
-            "finish",
-
-        "video_id":
-            video_id,
-
-        "video_state":
-            "PUBLISHED",
-
-        "description":
-            caption
-    }
-
-    response = requests.post(
-        url,
-        params=params,
-        timeout=120
+    log(
+        "Facebook Page ID: "
+        + str(page_id)
     )
 
-    if not response.ok:
-
-        raise RuntimeError(
-            "Facebook Reel publish failed:\n"
-            + response.text
-        )
-
-    return response.json()
+    return page_id, page_name
 
 
 # =========================================================
-# PUBLISH REEL
+# FACEBOOK REEL UPLOAD
 # =========================================================
 
 def publish_reel(
     page_id,
-    video_path,
+    movie,
     caption
 ):
 
-    start_data = facebook_start(
-        page_id
+    video_size = (
+        VIDEO_FILE.stat().st_size
+    )
+
+    log(
+        "Uploading Reel to Facebook..."
+    )
+
+    # -----------------------------------------------------
+    # START
+    # -----------------------------------------------------
+
+    start_url = (
+        "https://graph.facebook.com/"
+        + GRAPH_VERSION
+        + "/"
+        + str(page_id)
+        + "/video_reels"
+    )
+
+    start_response = requests.post(
+        start_url,
+        data={
+            "upload_phase": "start",
+            "access_token":
+                FACEBOOK_PAGE_TOKEN
+        },
+        timeout=60
+    )
+
+    if not start_response.ok:
+
+        raise RuntimeError(
+            "Facebook Reel start failed:\n"
+            + start_response.text
+        )
+
+    start_data = (
+        start_response.json()
+    )
+
+    upload_url = (
+        start_data.get(
+            "upload_url"
+        )
     )
 
     video_id = (
-        start_data.get("video_id")
-        or start_data.get("id")
-    )
-
-    upload_url = start_data.get(
-        "upload_url"
-    )
-
-    if not video_id:
-
-        raise RuntimeError(
-            "Facebook did not return video_id:\n"
-            + json.dumps(
-                start_data,
-                ensure_ascii=False,
-                indent=2
-            )
+        start_data.get(
+            "video_id"
         )
+        or start_data.get(
+            "id"
+        )
+    )
 
     if not upload_url:
 
         raise RuntimeError(
-            "Facebook did not return upload_url:\n"
-            + json.dumps(
-                start_data,
-                ensure_ascii=False,
-                indent=2
-            )
+            "Facebook did not return upload_url."
         )
 
-    facebook_upload(
-        upload_url,
-        video_path
+    log(
+        "Facebook upload session started."
     )
 
-    finish_data = facebook_finish(
-        page_id,
-        video_id,
-        caption
+    # -----------------------------------------------------
+    # UPLOAD
+    # -----------------------------------------------------
+
+    with open(
+        VIDEO_FILE,
+        "rb"
+    ) as video:
+
+        upload_response = requests.post(
+            upload_url,
+            headers={
+                "Authorization":
+                    "OAuth "
+                    + FACEBOOK_PAGE_TOKEN,
+
+                "offset": "0",
+
+                "file_size":
+                    str(video_size)
+            },
+            data=video,
+            timeout=300
+        )
+
+    if not upload_response.ok:
+
+        raise RuntimeError(
+            "Facebook Reel upload failed:\n"
+            + upload_response.text
+        )
+
+    log(
+        "Video uploaded successfully."
     )
 
-    return {
-        "video_id":
-            video_id,
+    # -----------------------------------------------------
+    # FINISH / PUBLISH
+    # -----------------------------------------------------
 
-        "response":
-            finish_data
+    finish_data = {
+        "upload_phase": "finish",
+        "video_state": "PUBLISHED",
+        "access_token":
+            FACEBOOK_PAGE_TOKEN,
+        "description":
+            caption
     }
+
+    if video_id:
+        finish_data[
+            "video_id"
+        ] = video_id
+
+    finish_response = requests.post(
+        start_url,
+        data=finish_data,
+        timeout=120
+    )
+
+    if not finish_response.ok:
+
+        raise RuntimeError(
+            "Facebook Reel publish failed:\n"
+            + finish_response.text
+        )
+
+    result = (
+        finish_response.json()
+    )
+
+    log(
+        "Facebook Reel published."
+    )
+
+    log(
+        "Facebook response: "
+        + json.dumps(
+            result,
+            ensure_ascii=False
+        )
+    )
+
+    return result
 
 
 # =========================================================
 # CAPTION
 # =========================================================
 
-def build_caption(
-    movie
-):
+def build_caption(movie):
 
     title = get_movie_title(
         movie
@@ -1016,49 +1495,126 @@ def build_caption(
         movie
     )
 
+    movie_type = get_movie_type(
+        movie
+    )
+
     movie_id = get_movie_id(
         movie
     )
 
-    media_type = get_movie_type(
+    site_url = (
+        "https://nownex.github.io/movins/"
+        "?movie="
+        + movie_type_prefix(movie)
+        + "-"
+        + str(movie_id)
+    )
+
+    lines = []
+
+    lines.append(
+        "🎬 " + title
+    )
+
+    if year:
+        lines.append(
+            "📅 " + year
+        )
+
+    if rating:
+        lines.append(
+            "⭐ " + rating + " / 10"
+        )
+
+    lines.append("")
+
+    lines.append(
+        "🍿 اكتشف تفاصيل الفيلم على MOVINS"
+    )
+
+    lines.append(
+        site_url
+    )
+
+    lines.append("")
+
+    lines.append(
+        "#MOVINS #Movies #Film #Series"
+    )
+
+    return "\n".join(
+        lines
+    )
+
+
+def movie_type_prefix(movie):
+
+    value = (
+        movie.get("type")
+        or movie.get("detailed_type")
+        or ""
+    )
+
+    text = str(value).lower()
+
+    if (
+        "مسلسل" in text
+        or "tv" in text
+        or "series" in text
+    ):
+        return "tv"
+
+    return "movie"
+
+
+# =========================================================
+# SAVE POSTED MOVIE
+# =========================================================
+
+def save_posted_movie(
+    posted,
+    movie,
+    facebook_result
+):
+
+    movie_id = get_movie_id(
         movie
     )
 
-    if media_type == "tv":
+    entry = {
+        "id": movie_id,
+        "tmdb_id": movie_id,
+        "title": get_movie_title(
+            movie
+        ),
+        "year": get_movie_year(
+            movie
+        ),
+        "type": get_movie_type(
+            movie
+        ),
+        "rating": get_movie_rating(
+            movie
+        ),
+        "facebook_result":
+            facebook_result,
+        "posted_at":
+            int(time.time())
+    }
 
-        prefix = "tv"
-
-    else:
-
-        prefix = "movie"
-
-    link = (
-        SITE_URL
-        + "?movie="
-        + prefix
-        + "-"
-        + movie_id
+    posted.append(
+        entry
     )
 
-    caption = (
-        "🎬 "
-        + title
-        + "\n"
-        + "📅 "
-        + year
-        + "\n"
-        + "⭐ "
-        + str(round(rating, 1))
-        + "/10"
-        + "\n\n"
-        + "🍿 اكتشف المزيد على MOVINS:"
-        + "\n"
-        + link
-        + "\n\n"
-        + "#MOVINS #Movies #Series #Film"
+    save_json(
+        POSTED_FILE,
+        posted
     )
 
-    return caption
+    log(
+        "Reel history saved."
+    )
 
 
 # =========================================================
@@ -1067,238 +1623,132 @@ def build_caption(
 
 def main():
 
-    print("=" * 60)
+    log("")
+    log("======================================")
+    log("MOVINS — CINEMATIC REEL PUBLISHER")
+    log("======================================")
 
-    print(
-        "MOVINS — AUTOMATIC REEL MAKER"
-    )
-
-    print("=" * 60)
-
-    # -----------------------------------------------------
-    # Facebook
-    # -----------------------------------------------------
-
-    page_id = get_page_info()
-
-    # -----------------------------------------------------
-    # Movies
-    # -----------------------------------------------------
+    clean_work_directory()
 
     movies = load_movies()
 
     posted = load_posted()
 
-    print(
+    posted_ids = get_posted_ids(
+        posted
+    )
+
+    log(
         "Movies available: "
         + str(len(movies))
     )
 
-    print(
+    log(
         "Already posted Reels: "
-        + str(len(posted))
+        + str(len(posted_ids))
     )
-
-    if not movies:
-
-        print(
-            "No movies available."
-        )
-
-        return 0
-
-    # -----------------------------------------------------
-    # Choose
-    # -----------------------------------------------------
 
     movie = choose_movie(
         movies,
-        posted
+        posted_ids
     )
 
     if not movie:
 
-        print(
-            "No new movie available for Reel."
+        log(
+            "No eligible movie found."
         )
 
-        return 0
-
-    title = get_movie_title(
-        movie
-    )
+        return
 
     movie_id = get_movie_id(
         movie
     )
 
-    print("")
+    title = get_movie_title(
+        movie
+    )
 
-    print(
+    log("")
+    log(
         "Selected movie: "
         + title
     )
 
-    print(
+    log(
         "TMDB ID: "
-        + movie_id
+        + str(movie_id)
     )
 
     # -----------------------------------------------------
-    # Poster
+    # POSTER
     # -----------------------------------------------------
 
-    poster_url = get_poster_url(
+    download_poster(
         movie
     )
 
-    if not poster_url:
+    # -----------------------------------------------------
+    # ARABIC TEXT
+    # -----------------------------------------------------
 
-        raise RuntimeError(
-            "Selected movie has no poster."
-        )
+    create_text_card(
+        movie
+    )
 
-    poster_path = None
-    video_path = None
+    # -----------------------------------------------------
+    # ORIGINAL MUSIC
+    # -----------------------------------------------------
 
-    try:
+    create_original_music()
 
-        # -------------------------------------------------
-        # Download poster
-        # -------------------------------------------------
+    # -----------------------------------------------------
+    # VIDEO
+    # -----------------------------------------------------
 
-        poster_path = download_poster(
-            poster_url
-        )
+    create_video()
 
-        # -------------------------------------------------
-        # Create Reel
-        # -------------------------------------------------
+    # -----------------------------------------------------
+    # FACEBOOK
+    # -----------------------------------------------------
 
-        video_path = create_reel(
-            movie,
-            poster_path
-        )
+    page_id, page_name = (
+        get_page_info()
+    )
 
-        # -------------------------------------------------
-        # Caption
-        # -------------------------------------------------
+    caption = build_caption(
+        movie
+    )
 
-        caption = build_caption(
-            movie
-        )
+    log("")
+    log(
+        "Caption:"
+    )
+    log(
+        caption
+    )
 
-        print("")
+    facebook_result = publish_reel(
+        page_id,
+        movie,
+        caption
+    )
 
-        print(
-            "Facebook caption:"
-        )
+    # -----------------------------------------------------
+    # SAVE ONLY AFTER SUCCESS
+    # -----------------------------------------------------
 
-        print(caption)
+    save_posted_movie(
+        posted,
+        movie,
+        facebook_result
+    )
 
-        # -------------------------------------------------
-        # Publish
-        # -------------------------------------------------
+    log("")
+    log("======================================")
+    log("MOVINS REEL SUCCESS")
+    log("======================================")
 
-        result = publish_reel(
-            page_id,
-            video_path,
-            caption
-        )
-
-        # -------------------------------------------------
-        # Save history ONLY after success
-        # -------------------------------------------------
-
-        posted.append(
-            {
-                "id":
-                    movie_id,
-
-                "type":
-                    get_movie_type(
-                        movie
-                    ),
-
-                "title":
-                    title,
-
-                "video_id":
-                    result[
-                        "video_id"
-                    ],
-
-                "posted_at":
-                    datetime.now(
-                        timezone.utc
-                    ).isoformat()
-            }
-        )
-
-        save_json(
-            POSTED_FILE,
-            posted
-        )
-
-        print("")
-
-        print("=" * 60)
-
-        print(
-            "MOVINS REEL PUBLISHED SUCCESSFULLY"
-        )
-
-        print("=" * 60)
-
-        return 0
-
-    except Exception as error:
-
-        print("")
-
-        print("=" * 60)
-
-        print(
-            "MOVINS REEL FAILED"
-        )
-
-        print("=" * 60)
-
-        print(
-            "Error: "
-            + str(error)
-        )
-
-        return 1
-
-    finally:
-
-        # -------------------------------------------------
-        # Cleanup
-        # -------------------------------------------------
-
-        for path in (
-            poster_path,
-            video_path
-        ):
-
-            if path:
-
-                try:
-
-                    os.remove(path)
-
-                except Exception:
-
-                    pass
-
-
-# =========================================================
-# RUN
-# =========================================================
 
 if __name__ == "__main__":
-
-    sys.exit(
-        main()
-    )
+    main()
