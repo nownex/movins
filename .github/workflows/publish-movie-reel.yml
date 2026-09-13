@@ -1,12 +1,11 @@
 name: Publish MOVINS Reel
 
 on:
-
   workflow_dispatch:
 
   schedule:
     # Every day at 18:00 Algeria time
-    # GitHub Actions uses UTC.
+    # Algeria = UTC+1
     - cron: "0 17 * * *"
 
 permissions:
@@ -17,45 +16,33 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-
   publish-reel:
-
     runs-on: ubuntu-latest
 
     steps:
 
-      # ===================================================
+      # =====================================================
       # CHECKOUT
-      # ===================================================
-
+      # =====================================================
       - name: Checkout repository
-
         uses: actions/checkout@v4
-
         with:
           fetch-depth: 0
+          persist-credentials: true
 
-
-      # ===================================================
+      # =====================================================
       # PYTHON
-      # ===================================================
-
+      # =====================================================
       - name: Setup Python
-
         uses: actions/setup-python@v5
-
         with:
           python-version: "3.11"
 
-
-      # ===================================================
-      # FFMPEG + ARABIC FONT
-      # ===================================================
-
+      # =====================================================
+      # FFMPEG + FONTS
+      # =====================================================
       - name: Install FFmpeg and fonts
-
         run: |
-
           sudo apt-get update
 
           sudo apt-get install -y \
@@ -63,84 +50,130 @@ jobs:
             fonts-noto-core \
             fonts-noto-extra
 
-          echo "FFmpeg:"
+          echo "FFmpeg version:"
           ffmpeg -version | head -n 1
 
-          echo "Checking Noto Arabic font:"
-          ls -l /usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf
-
-
-      # ===================================================
+      # =====================================================
       # PYTHON DEPENDENCIES
-      # ===================================================
-
+      # =====================================================
       - name: Install dependencies
-
         run: |
-
           python -m pip install --upgrade pip
-
           pip install requests
 
-
-      # ===================================================
+      # =====================================================
       # CHECK FILES
-      # ===================================================
-
+      # =====================================================
       - name: Check MOVINS Reel files
-
         run: |
+          echo "======================================"
+          echo "Checking MOVINS Reel files..."
+          echo "======================================"
 
           test -f movies.json
-
           test -f publish_movie_reel.py
 
-          test -f posted_movie_reels.json
+          echo "movies.json found."
+          echo "publish_movie_reel.py found."
 
-          echo "All required MOVINS Reel files found."
+          if [ -f posted_movie_reels.json ]; then
+            echo "posted_movie_reels.json found."
+          else
+            echo "[] " > posted_movie_reels.json
+            echo "posted_movie_reels.json created."
+          fi
 
+          echo ""
+          echo "Python version:"
+          python --version
 
-      # ===================================================
-      # CREATE AND PUBLISH REEL
-      # ===================================================
+          echo ""
+          echo "FFmpeg version:"
+          ffmpeg -version | head -n 1
 
+      # =====================================================
+      # CREATE + PUBLISH REEL
+      # =====================================================
       - name: Create and publish MOVINS Reel
-
         env:
-
           FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
-
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
-
         run: |
+          echo "======================================"
+          echo "Starting MOVINS Reel publisher..."
+          echo "======================================"
 
           python publish_movie_reel.py
 
-
-      # ===================================================
-      # SAVE HISTORY
-      # ===================================================
-
+      # =====================================================
+      # SAVE REEL HISTORY
+      # =====================================================
       - name: Commit reel history
-
         run: |
-
           git config user.name "github-actions[bot]"
-
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          echo "======================================"
+          echo "Preparing reel history..."
+          echo "======================================"
 
           git add posted_movie_reels.json
 
           if git diff --cached --quiet; then
-
             echo "No changes to commit."
-
             exit 0
-
           fi
 
           git commit -m "Update MOVINS reel history"
 
-          git pull --rebase origin main
+          echo ""
+          echo "======================================"
+          echo "Syncing with remote main..."
+          echo "======================================"
 
-          git push origin main
+          for i in 1 2 3 4 5; do
+
+            echo ""
+            echo "--------------------------------------"
+            echo "Push attempt $i of 5"
+            echo "--------------------------------------"
+
+            git fetch origin main
+
+            if git rebase origin/main; then
+
+              echo "Rebase successful."
+
+              if git push origin main; then
+                echo ""
+                echo "======================================"
+                echo "Push successful!"
+                echo "======================================"
+                exit 0
+              else
+                echo "Push failed."
+              fi
+
+            else
+
+              echo "Rebase failed."
+
+              git rebase --abort || true
+
+            fi
+
+            if [ "$i" -lt 5 ]; then
+              echo "Remote changed."
+              echo "Waiting 5 seconds before retry..."
+              sleep 5
+            fi
+
+          done
+
+          echo ""
+          echo "======================================"
+          echo "ERROR: Could not push after 5 attempts."
+          echo "======================================"
+
+          exit 1
