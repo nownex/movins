@@ -11,9 +11,6 @@ from pathlib import Path
 import requests
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-import arabic_reshaper
-from bidi.algorithm import get_display
-
 
 # =========================================================
 # MOVINS — CINEMATIC REEL PUBLISHER
@@ -41,6 +38,10 @@ FACEBOOK_PAGE_TOKEN = os.environ.get(
     "FACEBOOK_PAGE_TOKEN"
 )
 
+TMDB_API_KEY = os.environ.get(
+    "TMDB_API_KEY"
+)
+
 if not FACEBOOK_PAGE_TOKEN:
     raise RuntimeError(
         "FACEBOOK_PAGE_TOKEN is missing."
@@ -56,13 +57,13 @@ def log(text):
 
 
 # =========================================================
-# COMMAND
+# RUN COMMAND
 # =========================================================
 
 def run_command(command):
 
     log("")
-    log("Running:")
+    log("RUNNING:")
     log(" ".join(str(x) for x in command))
 
     result = subprocess.run(
@@ -91,14 +92,17 @@ def load_json(path, default):
         return default
 
     try:
+
         with open(
             path,
             "r",
             encoding="utf-8"
         ) as f:
+
             return json.load(f)
 
     except Exception:
+
         return default
 
 
@@ -119,7 +123,7 @@ def save_json(path, data):
 
 
 # =========================================================
-# CLEAN
+# CLEAN WORK DIRECTORY
 # =========================================================
 
 def clean_work():
@@ -145,7 +149,7 @@ def clean_work():
 
 
 # =========================================================
-# MOVIES
+# LOAD MOVIES
 # =========================================================
 
 def load_movies():
@@ -156,22 +160,28 @@ def load_movies():
     )
 
     if isinstance(data, dict):
+
         items = data.get(
             "items",
             []
         )
 
     elif isinstance(data, list):
+
         items = data
 
     else:
+
+        items = []
+
+    if not isinstance(items, list):
         items = []
 
     return items
 
 
 # =========================================================
-# POSTED
+# POSTED HISTORY
 # =========================================================
 
 def load_posted():
@@ -185,6 +195,7 @@ def load_posted():
         return data
 
     if isinstance(data, dict):
+
         return data.get(
             "items",
             []
@@ -208,9 +219,11 @@ def posted_ids(posted):
             )
 
         else:
+
             value = item
 
         if value is not None:
+
             result.add(
                 str(value)
             )
@@ -235,17 +248,153 @@ def movie_id(movie):
     return str(value)
 
 
+def contains_arabic(text):
+
+    if not text:
+        return False
+
+    for char in str(text):
+
+        if (
+            "\u0600" <= char <= "\u06ff"
+            or "\u0750" <= char <= "\u077f"
+            or "\u08a0" <= char <= "\u08ff"
+        ):
+
+            return True
+
+    return False
+
+
+# =========================================================
+# GET ENGLISH TITLE FROM TMDB
+# =========================================================
+
+def get_english_tmdb_title(mid, media_type):
+
+    if not TMDB_API_KEY:
+        return None
+
+    try:
+
+        if media_type == "tv":
+
+            endpoint = (
+                "https://api.themoviedb.org/3/tv/"
+                + str(mid)
+            )
+
+        else:
+
+            endpoint = (
+                "https://api.themoviedb.org/3/movie/"
+                + str(mid)
+            )
+
+        response = requests.get(
+            endpoint,
+            params={
+                "api_key": TMDB_API_KEY,
+                "language": "en-US"
+            },
+            timeout=20
+        )
+
+        if not response.ok:
+            return None
+
+        data = response.json()
+
+        title = (
+            data.get("title")
+            or data.get("name")
+            or data.get("original_title")
+            or data.get("original_name")
+        )
+
+        if not title:
+            return None
+
+        title = str(title).strip()
+
+        if contains_arabic(title):
+            return None
+
+        return title
+
+    except Exception as e:
+
+        log(
+            "TMDB English title lookup failed: "
+            + str(e)
+        )
+
+        return None
+
+
 def movie_title(movie):
 
-    value = (
-        movie.get("title")
-        or movie.get("name")
-        or movie.get("original_title")
-        or movie.get("original_name")
-        or "MOVINS"
+    mid = movie_id(movie)
+
+    media_type = movie_prefix(
+        movie
     )
 
-    return str(value).strip()
+    # First preference:
+    # English original title
+    candidates = [
+        movie.get("original_title"),
+        movie.get("original_name")
+    ]
+
+    for value in candidates:
+
+        if value:
+
+            value = str(value).strip()
+
+            if (
+                not contains_arabic(value)
+                and value
+            ):
+
+                return value
+
+    # Second preference:
+    # Ask TMDB for English title
+    if mid:
+
+        tmdb_title = (
+            get_english_tmdb_title(
+                mid,
+                media_type
+            )
+        )
+
+        if tmdb_title:
+            return tmdb_title
+
+    # Third preference:
+    # Local title only if it is not Arabic
+    local_title = (
+        movie.get("title")
+        or movie.get("name")
+        or ""
+    )
+
+    local_title = str(
+        local_title
+    ).strip()
+
+    if (
+        local_title
+        and not contains_arabic(local_title)
+    ):
+
+        return local_title
+
+    # Final safe fallback
+    return "MOVINS FEATURE"
 
 
 def movie_year(movie):
@@ -277,11 +426,13 @@ def movie_rating(movie):
         return ""
 
     try:
+
         return "{:.1f}".format(
             float(value)
         )
 
     except Exception:
+
         return str(value)
 
 
@@ -300,14 +451,28 @@ def movie_type(movie):
         or "tv" in text
         or "series" in text
     ):
-        return "مسلسل"
 
-    return "فيلم"
+        return "TV SERIES"
+
+    return "MOVIE"
 
 
 def movie_prefix(movie):
 
-    if movie_type(movie) == "مسلسل":
+    value = (
+        movie.get("detailed_type")
+        or movie.get("type")
+        or ""
+    )
+
+    text = str(value).lower()
+
+    if (
+        "مسلسل" in text
+        or "tv" in text
+        or "series" in text
+    ):
+
         return "tv"
 
     return "movie"
@@ -347,33 +512,42 @@ def choose_movie(
             continue
 
         try:
+
             popularity = float(
                 movie.get(
                     "popularity",
                     0
                 ) or 0
             )
+
         except Exception:
+
             popularity = 0
 
         try:
+
             rating = float(
                 movie.get(
                     "rating",
                     0
                 ) or 0
             )
+
         except Exception:
+
             rating = 0
 
         try:
+
             votes = float(
                 movie.get(
                     "vote_count",
                     0
                 ) or 0
             )
+
         except Exception:
+
             votes = 0
 
         score = (
@@ -403,96 +577,37 @@ def choose_movie(
 
 
 # =========================================================
-# FIND ARABIC FONT
+# ENGLISH FONT
 # =========================================================
 
-def find_arabic_font():
+def find_english_font():
 
-    preferred_names = [
-        "NotoNaskhArabic-Regular.ttf",
-        "NotoNaskhArabicUI-Regular.ttf",
-        "NotoSansArabic-Regular.ttf",
-        "NotoSansArabicUI-Regular.ttf",
+    fonts = [
+
+        "/usr/share/fonts/truetype/"
+        "dejavu/DejaVuSans.ttf",
+
+        "/usr/share/fonts/truetype/"
+        "dejavu/DejaVuSans-Bold.ttf",
+
+        "/usr/share/fonts/truetype/"
+        "liberation2/LiberationSans-Regular.ttf",
+
     ]
 
-    search_roots = [
-        "/usr/share/fonts",
-        "/usr/local/share/fonts",
-    ]
+    for path in fonts:
 
-    for root in search_roots:
+        if os.path.exists(path):
 
-        if not os.path.exists(root):
-            continue
+            log(
+                "English font: "
+                + path
+            )
 
-        for current, dirs, files in os.walk(root):
-
-            for filename in files:
-
-                if filename in preferred_names:
-
-                    path = os.path.join(
-                        current,
-                        filename
-                    )
-
-                    log(
-                        "Arabic font: "
-                        + path
-                    )
-
-                    return path
-
-    # Second search
-    for root in search_roots:
-
-        if not os.path.exists(root):
-            continue
-
-        for current, dirs, files in os.walk(root):
-
-            for filename in files:
-
-                lower = filename.lower()
-
-                if (
-                    lower.endswith(".ttf")
-                    and (
-                        "naskh" in lower
-                        or "arabic" in lower
-                    )
-                ):
-
-                    path = os.path.join(
-                        current,
-                        filename
-                    )
-
-                    log(
-                        "Arabic font found: "
-                        + path
-                    )
-
-                    return path
+            return path
 
     raise RuntimeError(
-        "Arabic font not found. "
-        "Noto Arabic fonts must be installed."
-    )
-
-
-# =========================================================
-# ARABIC SHAPING
-# =========================================================
-
-def arabic_text(text):
-
-    reshaped = arabic_reshaper.reshape(
-        str(text)
-    )
-
-    return get_display(
-        reshaped
+        "English font not found."
     )
 
 
@@ -509,6 +624,7 @@ def download_poster(movie):
     )
 
     if not url:
+
         raise RuntimeError(
             "Poster URL missing."
         )
@@ -543,7 +659,7 @@ def download_poster(movie):
 
 
 # =========================================================
-# COVER POSTER
+# PREPARE POSTER
 # =========================================================
 
 def prepare_poster():
@@ -611,7 +727,7 @@ def prepare_poster():
 
 
 # =========================================================
-# DRAW CENTERED TEXT
+# CENTER ENGLISH TEXT
 # =========================================================
 
 def centered_text(
@@ -620,18 +736,16 @@ def centered_text(
     font,
     y,
     fill,
-    stroke_width=0
+    stroke=0
 ):
 
-    shaped = arabic_text(
-        text
-    )
+    text = str(text)
 
     box = draw.textbbox(
         (0, 0),
-        shaped,
+        text,
         font=font,
-        stroke_width=stroke_width
+        stroke_width=stroke
     )
 
     text_width = (
@@ -649,10 +763,10 @@ def centered_text(
             x,
             y
         ),
-        shaped,
+        text,
         font=font,
         fill=fill,
-        stroke_width=stroke_width,
+        stroke_width=stroke,
         stroke_fill=(0, 0, 0, 230)
     )
 
@@ -663,17 +777,20 @@ def centered_text(
 
 def create_design(movie):
 
-    font_path = find_arabic_font()
+    font_path = find_english_font()
 
     image = prepare_poster().convert(
         "RGBA"
     )
 
-    # Slight cinematic darkening
+    # -----------------------------------------------------
+    # CINEMATIC DARK OVERLAY
+    # -----------------------------------------------------
+
     dark = Image.new(
         "RGBA",
         image.size,
-        (0, 0, 0, 55)
+        (0, 0, 0, 45)
     )
 
     image = Image.alpha_composite(
@@ -681,12 +798,15 @@ def create_design(movie):
         dark
     )
 
-    # Bottom dark panel
+    # -----------------------------------------------------
+    # BOTTOM PANEL
+    # -----------------------------------------------------
+
     panel = Image.new(
         "RGBA",
         (
             WIDTH,
-            760
+            700
         ),
         (0, 0, 0, 0)
     )
@@ -700,10 +820,10 @@ def create_design(movie):
             35,
             35,
             WIDTH - 35,
-            725
+            665
         ),
-        radius=45,
-        fill=(8, 10, 17, 232),
+        radius=42,
+        fill=(8, 10, 17, 230),
         outline=(255, 255, 255, 35),
         width=2
     )
@@ -712,7 +832,7 @@ def create_design(movie):
         panel,
         (
             0,
-            1110
+            1140
         )
     )
 
@@ -720,7 +840,10 @@ def create_design(movie):
         image
     )
 
-    # Fonts
+    # -----------------------------------------------------
+    # FONTS
+    # -----------------------------------------------------
+
     brand_font = ImageFont.truetype(
         font_path,
         62
@@ -731,11 +854,11 @@ def create_design(movie):
         40
     )
 
-    title_size = 70
-
     title = movie_title(
         movie
     )
+
+    title_size = 70
 
     if len(title) > 28:
         title_size = 58
@@ -755,45 +878,45 @@ def create_design(movie):
 
     cta_font = ImageFont.truetype(
         font_path,
-        43
+        42
     )
 
     site_font = ImageFont.truetype(
         font_path,
-        35
+        34
     )
 
     # -----------------------------------------------------
-    # BRAND
+    # TOP BRAND
     # -----------------------------------------------------
 
     centered_text(
         draw,
         "MOVINS",
         brand_font,
-        80,
+        75,
         (255, 255, 255, 255),
         2
     )
 
     centered_text(
         draw,
-        "أفلام ومسلسلات",
+        "MOVIES & SERIES",
         category_font,
-        160,
+        155,
         (235, 235, 235, 255),
         1
     )
 
     # -----------------------------------------------------
-    # CATEGORY
+    # TYPE
     # -----------------------------------------------------
 
     centered_text(
         draw,
         movie_type(movie),
         category_font,
-        1190,
+        1205,
         (210, 210, 215, 255),
         1
     )
@@ -806,13 +929,13 @@ def create_design(movie):
         draw,
         title,
         title_font,
-        1280,
+        1295,
         (255, 255, 255, 255),
         2
     )
 
     # -----------------------------------------------------
-    # INFO
+    # YEAR + RATING
     # -----------------------------------------------------
 
     year = movie_year(
@@ -826,22 +949,22 @@ def create_design(movie):
     info = []
 
     if year:
-        info.append(
-            year
-        )
+        info.append(year)
 
     if rating:
         info.append(
-            "⭐ " + rating + " / 10"
+            "RATING "
+            + rating
+            + " / 10"
         )
 
     if info:
 
         centered_text(
             draw,
-            "   •   ".join(info),
+            "  •  ".join(info),
             info_font,
-            1420,
+            1415,
             (225, 225, 230, 255),
             1
         )
@@ -852,7 +975,7 @@ def create_design(movie):
 
     centered_text(
         draw,
-        "شاهد التفاصيل على MOVINS",
+        "WATCH DETAILS ON MOVINS",
         cta_font,
         1535,
         (245, 190, 65, 255),
@@ -867,21 +990,21 @@ def create_design(movie):
         draw,
         "nownex.github.io/movins",
         site_font,
-        1640,
+        1625,
         (220, 220, 225, 255),
         1
     )
 
     # -----------------------------------------------------
-    # SMALL DECORATION
+    # GOLD LINE
     # -----------------------------------------------------
 
     draw.line(
         (
-            260,
-            1735,
-            820,
-            1735
+            270,
+            1710,
+            810,
+            1710
         ),
         fill=(245, 190, 65, 180),
         width=3
@@ -896,12 +1019,12 @@ def create_design(movie):
     )
 
     log(
-        "Professional Arabic design created."
+        "English cinematic design created."
     )
 
 
 # =========================================================
-# SYNTHESIZED CINEMATIC MUSIC
+# CINEMATIC MUSIC
 # =========================================================
 
 def piano_note(
@@ -930,7 +1053,6 @@ def piano_note(
         * release
     )
 
-    # Piano-like harmonics
     value = 0.0
 
     value += (
@@ -976,7 +1098,6 @@ def piano_note(
         * 0.035
     )
 
-    # Natural decay
     decay = math.exp(
         -2.7 * t
     )
@@ -991,7 +1112,7 @@ def piano_note(
 def create_music():
 
     log(
-        "Creating cinematic original music..."
+        "Creating cinematic music..."
     )
 
     sample_rate = 44100
@@ -1001,15 +1122,20 @@ def create_music():
         * DURATION
     )
 
-    # Cinematic progression
     progression = [
+
         [261.63, 329.63, 392.00],
+
         [220.00, 277.18, 329.63],
+
         [174.61, 220.00, 261.63],
-        [196.00, 246.94, 293.66],
+
+        [196.00, 246.94, 293.66]
+
     ]
 
     melody = [
+
         523.25,
         493.88,
         440.00,
@@ -1017,7 +1143,8 @@ def create_music():
         440.00,
         493.88,
         523.25,
-        587.33,
+        587.33
+
     ]
 
     frames = []
@@ -1051,726 +1178,5 @@ def create_music():
         )
 
         # -------------------------------------------------
-        # CHORD PAD
-        # -------------------------------------------------
-
-        chord_index = int(
-            t / 3.0
-        ) % len(progression)
-
-        chord = progression[
-            chord_index
-        ]
-
-        pad = 0.0
-
-        for freq in chord:
-
-            pad += (
-                math.sin(
-                    2
-                    * math.pi
-                    * freq
-                    * t
-                )
-                * 0.055
-            )
-
-            pad += (
-                math.sin(
-                    2
-                    * math.pi
-                    * freq
-                    * 0.5
-                    * t
-                )
-                * 0.025
-            )
-
-        # -------------------------------------------------
-        # PIANO MELODY
-        # -------------------------------------------------
-
-        beat = 0.75
-
-        note_index = int(
-            t / beat
-        )
-
-        note_start = (
-            note_index
-            * beat
-        )
-
-        local_t = (
-            t
-            - note_start
-        )
-
-        note = melody[
-            note_index
-            % len(melody)
-        ]
-
-        piano = piano_note(
-            note,
-            local_t,
-            0.68
-        )
-
-        piano *= 0.22
-
-        # -------------------------------------------------
-        # BASS
-        # -------------------------------------------------
-
-        bass_freq = (
-            chord[0]
-            / 2
-        )
-
-        bass = (
-            math.sin(
-                2
-                * math.pi
-                * bass_freq
-                * t
-            )
-            * 0.045
-        )
-
-        bass *= (
-            0.7
-            + 0.3
-            * math.sin(
-                2
-                * math.pi
-                * 0.5
-                * t
-            )
-        )
-
-        # -------------------------------------------------
-        # SOFT PERCUSSION
-        # -------------------------------------------------
-
-        beat_position = (
-            t % 1.5
-        )
-
-        kick_distance = min(
-            beat_position,
-            1.5 - beat_position
-        )
-
-        kick = 0.0
-
-        if kick_distance < 0.08:
-
-            kt = kick_distance
-
-            kick = (
-                math.sin(
-                    2
-                    * math.pi
-                    * (
-                        70
-                        - 35 * kt
-                    )
-                    * kt
-                )
-                * math.exp(
-                    -35 * kt
-                )
-                * 0.10
-            )
-
-        # -------------------------------------------------
-        # AIR / ATMOSPHERE
-        # -------------------------------------------------
-
-        air = (
-            math.sin(
-                2
-                * math.pi
-                * 880
-                * t
-            )
-            * 0.006
-        )
-
-        value = (
-            pad
-            + piano
-            + bass
-            + kick
-            + air
-        )
-
-        value *= master
-
-        # Gentle stereo
-        left = value
-
-        right = (
-            value
-            * (
-                0.94
-                + 0.06
-                * math.sin(
-                    2
-                    * math.pi
-                    * 0.18
-                    * t
-                )
-            )
-        )
-
-        left_i = int(
-            max(
-                -1,
-                min(
-                    1,
-                    left
-                )
-            )
-            * 32767
-        )
-
-        right_i = int(
-            max(
-                -1,
-                min(
-                    1,
-                    right
-                )
-            )
-            * 32767
-        )
-
-        frames.append(
-            struct.pack(
-                "<hh",
-                left_i,
-                right_i
-            )
-        )
-
-    with wave.open(
-        str(AUDIO_FILE),
-        "wb"
-    ) as wav:
-
-        wav.setnchannels(2)
-        wav.setsampwidth(2)
-        wav.setframerate(
-            sample_rate
-        )
-
-        wav.writeframes(
-            b"".join(frames)
-        )
-
-    log(
-        "Cinematic music created."
-    )
-
-
-# =========================================================
-# CREATE VIDEO
-# =========================================================
-
-def create_video():
-
-    log(
-        "Creating MOVINS Reel..."
-    )
-
-    filter_complex = (
-        "[0:v]"
-        "scale="
-        + str(WIDTH)
-        + ":"
-        + str(HEIGHT)
-        + ","
-        "zoompan="
-        "z='min(zoom+0.0007,1.08)':"
-        "x='iw/2-(iw/zoom/2)':"
-        "y='ih/2-(ih/zoom/2)':"
-        "d=1:"
-        "s="
-        + str(WIDTH)
-        + "x"
-        + str(HEIGHT)
-        + ":"
-        "fps="
-        + str(FPS)
-        + ","
-        "format=yuv420p"
-        "[v]"
-    )
-
-    command = [
-        "ffmpeg",
-        "-y",
-
-        "-loop",
-        "1",
-
-        "-i",
-        str(DESIGN_FILE),
-
-        "-i",
-        str(AUDIO_FILE),
-
-        "-filter_complex",
-        filter_complex,
-
-        "-map",
-        "[v]",
-
-        "-map",
-        "1:a",
-
-        "-t",
-        str(DURATION),
-
-        "-r",
-        str(FPS),
-
-        "-c:v",
-        "libx264",
-
-        "-preset",
-        "veryfast",
-
-        "-crf",
-        "21",
-
-        "-pix_fmt",
-        "yuv420p",
-
-        "-c:a",
-        "aac",
-
-        "-b:a",
-        "192k",
-
-        "-ar",
-        "44100",
-
-        "-shortest",
-
-        "-movflags",
-        "+faststart",
-
-        str(VIDEO_FILE)
-    ]
-
-    run_command(
-        command
-    )
-
-    if not VIDEO_FILE.exists():
-        raise RuntimeError(
-            "Reel video was not created."
-        )
-
-    log(
-        "Video created: "
-        + str(
-            VIDEO_FILE.stat().st_size
-        )
-        + " bytes"
-    )
-
-
-# =========================================================
-# FACEBOOK
-# =========================================================
-
-def get_page():
-
-    url = (
-        "https://graph.facebook.com/"
-        + GRAPH_VERSION
-        + "/me"
-    )
-
-    response = requests.get(
-        url,
-        params={
-            "fields": "id,name",
-            "access_token":
-                FACEBOOK_PAGE_TOKEN
-        },
-        timeout=30
-    )
-
-    if not response.ok:
-
-        raise RuntimeError(
-            "Facebook page lookup failed:\n"
-            + response.text
-        )
-
-    data = response.json()
-
-    page_id = data.get("id")
-    page_name = data.get("name")
-
-    if not page_id:
-
-        raise RuntimeError(
-            "Facebook Page ID not found."
-        )
-
-    log(
-        "Facebook Page: "
-        + str(page_name)
-    )
-
-    log(
-        "Facebook Page ID: "
-        + str(page_id)
-    )
-
-    return page_id
-
-
-# =========================================================
-# CAPTION
-# =========================================================
-
-def create_caption(movie):
-
-    title = movie_title(
-        movie
-    )
-
-    year = movie_year(
-        movie
-    )
-
-    rating = movie_rating(
-        movie
-    )
-
-    prefix = movie_prefix(
-        movie
-    )
-
-    mid = movie_id(
-        movie
-    )
-
-    url = (
-        "https://nownex.github.io/movins/"
-        "?movie="
-        + prefix
-        + "-"
-        + str(mid)
-    )
-
-    lines = [
-        "🎬 " + title
-    ]
-
-    if year:
-        lines.append(
-            "📅 " + year
-        )
-
-    if rating:
-        lines.append(
-            "⭐ " + rating + " / 10"
-        )
-
-    lines.extend(
-        [
-            "",
-            "🍿 شاهد التفاصيل على MOVINS",
-            url,
-            "",
-            "#MOVINS #Movies #Film #Series"
-        ]
-    )
-
-    return "\n".join(
-        lines
-    )
-
-
-# =========================================================
-# FACEBOOK REEL
-# =========================================================
-
-def publish_reel(
-    page_id,
-    caption
-):
-
-    size = VIDEO_FILE.stat().st_size
-
-    endpoint = (
-        "https://graph.facebook.com/"
-        + GRAPH_VERSION
-        + "/"
-        + str(page_id)
-        + "/video_reels"
-    )
-
-    # -----------------------------------------------------
-    # START
-    # -----------------------------------------------------
-
-    log(
-        "Starting Facebook Reel upload..."
-    )
-
-    start = requests.post(
-        endpoint,
-        data={
-            "upload_phase": "start",
-            "access_token":
-                FACEBOOK_PAGE_TOKEN
-        },
-        timeout=60
-    )
-
-    if not start.ok:
-
-        raise RuntimeError(
-            "Facebook upload start failed:\n"
-            + start.text
-        )
-
-    start_data = start.json()
-
-    upload_url = start_data.get(
-        "upload_url"
-    )
-
-    video_id = (
-        start_data.get("video_id")
-        or start_data.get("id")
-    )
-
-    if not upload_url:
-
-        raise RuntimeError(
-            "Facebook did not return upload_url."
-        )
-
-    # -----------------------------------------------------
-    # UPLOAD FILE
-    # -----------------------------------------------------
-
-    log(
-        "Uploading video file..."
-    )
-
-    with open(
-        VIDEO_FILE,
-        "rb"
-    ) as video:
-
-        upload = requests.post(
-            upload_url,
-            headers={
-                "Authorization":
-                    "OAuth "
-                    + FACEBOOK_PAGE_TOKEN,
-
-                "offset": "0",
-
-                "file_size":
-                    str(size)
-            },
-            data=video,
-            timeout=300
-        )
-
-    if not upload.ok:
-
-        raise RuntimeError(
-            "Facebook video upload failed:\n"
-            + upload.text
-        )
-
-    log(
-        "Video uploaded."
-    )
-
-    # -----------------------------------------------------
-    # FINISH
-    # -----------------------------------------------------
-
-    finish_data = {
-        "upload_phase": "finish",
-        "video_state": "PUBLISHED",
-        "description": caption,
-        "access_token":
-            FACEBOOK_PAGE_TOKEN
-    }
-
-    if video_id:
-        finish_data[
-            "video_id"
-        ] = video_id
-
-    finish = requests.post(
-        endpoint,
-        data=finish_data,
-        timeout=120
-    )
-
-    if not finish.ok:
-
-        raise RuntimeError(
-            "Facebook Reel publish failed:\n"
-            + finish.text
-        )
-
-    result = finish.json()
-
-    log(
-        "Facebook Reel published successfully."
-    )
-
-    return result
-
-
-# =========================================================
-# HISTORY
-# =========================================================
-
-def save_history(
-    posted,
-    movie,
-    facebook_result
-):
-
-    entry = {
-        "id": movie_id(movie),
-        "tmdb_id": movie_id(movie),
-        "title": movie_title(movie),
-        "year": movie_year(movie),
-        "type": movie_type(movie),
-        "rating": movie_rating(movie),
-        "posted_at": int(time.time()),
-        "facebook_result": facebook_result
-    }
-
-    posted.append(
-        entry
-    )
-
-    save_json(
-        POSTED_FILE,
-        posted
-    )
-
-    log(
-        "Reel history saved."
-    )
-
-
-# =========================================================
-# MAIN
-# =========================================================
-
-def main():
-
-    log("")
-    log("======================================")
-    log("MOVINS CINEMATIC REEL")
-    log("======================================")
-
-    clean_work()
-
-    movies = load_movies()
-
-    posted = load_posted()
-
-    already_posted = posted_ids(
-        posted
-    )
-
-    log(
-        "Movies available: "
-        + str(len(movies))
-    )
-
-    log(
-        "Already posted: "
-        + str(len(already_posted))
-    )
-
-    movie = choose_movie(
-        movies,
-        already_posted
-    )
-
-    if not movie:
-
-        log(
-            "No new movie available."
-        )
-
-        return
-
-    log("")
-    log(
-        "Selected movie: "
-        + movie_title(movie)
-    )
-
-    log(
-        "TMDB ID: "
-        + str(movie_id(movie))
-    )
-
-    # Poster
-    download_poster(
-        movie
-    )
-
-    # Arabic design
-    create_design(
-        movie
-    )
-
-    # Original music
-    create_music()
-
-    # Video
-    create_video()
-
-    # Facebook
-    page_id = get_page()
-
-    caption = create_caption(
-        movie
-    )
-
-    result = publish_reel(
-        page_id,
-        caption
-    )
-
-    # Save only after successful publishing
-    save_history(
-        posted,
-        movie,
-        result
-    )
-
-    log("")
-    log("======================================")
-    log("MOVINS REEL SUCCESS")
-    log("======================================")
-
-
-if __name__ == "__main__":
-    main()
+        # PAD
+       
