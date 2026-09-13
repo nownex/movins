@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
@@ -18,28 +19,78 @@ GRAPH_VERSION = "v26.0"
 GRAPH_URL = f"https://graph.facebook.com/{GRAPH_VERSION}"
 
 FACEBOOK_PAGE_TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN")
-FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
 TMDB_API_KEY = os.environ.get("TMDB_API_KEY")
 
 SITE_URL = "https://nownex.github.io/movins/"
 
 
 # =========================================================
-# VALIDATE SECRETS
+# CHECK SECRETS
 # =========================================================
 
 if not FACEBOOK_PAGE_TOKEN:
-    raise RuntimeError("FACEBOOK_PAGE_TOKEN is missing.")
-
-if not FACEBOOK_PAGE_ID:
-    raise RuntimeError("FACEBOOK_PAGE_ID is missing.")
+    raise RuntimeError(
+        "FACEBOOK_PAGE_TOKEN is missing."
+    )
 
 if not TMDB_API_KEY:
-    raise RuntimeError("TMDB_API_KEY is missing.")
+    raise RuntimeError(
+        "TMDB_API_KEY is missing."
+    )
 
 
 # =========================================================
-# FILE HELPERS
+# FACEBOOK PAGE ID
+# =========================================================
+
+def get_page_info():
+    """
+    Automatically gets the Page ID using the Page Access Token.
+    No FACEBOOK_PAGE_ID secret is required.
+    """
+
+    url = f"{GRAPH_URL}/me"
+
+    params = {
+        "fields": "id,name",
+        "access_token": FACEBOOK_PAGE_TOKEN
+    }
+
+    response = requests.get(
+        url,
+        params=params,
+        timeout=30
+    )
+
+    if not response.ok:
+        raise RuntimeError(
+            "Could not get Facebook Page information:\n"
+            + response.text
+        )
+
+    data = response.json()
+
+    page_id = data.get("id")
+    page_name = data.get("name")
+
+    if not page_id:
+        raise RuntimeError(
+            "Facebook did not return a Page ID:\n"
+            + json.dumps(
+                data,
+                ensure_ascii=False,
+                indent=2
+            )
+        )
+
+    print(f"Facebook Page: {page_name or 'Unknown'}")
+    print(f"Facebook Page ID: {page_id}")
+
+    return page_id
+
+
+# =========================================================
+# JSON HELPERS
 # =========================================================
 
 def load_json(filename, default):
@@ -49,34 +100,55 @@ def load_json(filename, default):
         return default
 
     try:
-        with path.open("r", encoding="utf-8") as f:
-            return json.load(f)
+        with path.open(
+            "r",
+            encoding="utf-8"
+        ) as file:
+            return json.load(file)
+
     except Exception as e:
-        print(f"WARNING: Could not read {filename}: {e}")
+        print(
+            f"WARNING: Could not read {filename}: {e}"
+        )
+
         return default
 
 
 def save_json(filename, data):
-    with open(filename, "w", encoding="utf-8") as f:
+    with open(
+        filename,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
         json.dump(
             data,
-            f,
+            file,
             ensure_ascii=False,
             indent=2
         )
 
 
 # =========================================================
-# MOVIE DATA
+# MOVIES
 # =========================================================
 
 def load_movies():
-    data = load_json(MOVIES_FILE, {})
+
+    data = load_json(
+        MOVIES_FILE,
+        {}
+    )
 
     if isinstance(data, dict):
-        items = data.get("items", [])
+        items = data.get(
+            "items",
+            []
+        )
+
     elif isinstance(data, list):
         items = data
+
     else:
         items = []
 
@@ -87,10 +159,17 @@ def load_movies():
 
 
 def load_posted():
-    data = load_json(POSTED_FILE, [])
+
+    data = load_json(
+        POSTED_FILE,
+        []
+    )
 
     if isinstance(data, dict):
-        data = data.get("items", [])
+        data = data.get(
+            "items",
+            []
+        )
 
     if not isinstance(data, list):
         return []
@@ -99,6 +178,7 @@ def load_posted():
 
 
 def normalize_id(value):
+
     if value is None:
         return ""
 
@@ -106,10 +186,11 @@ def normalize_id(value):
 
 
 # =========================================================
-# MOVIE INFORMATION
+# MOVIE DATA
 # =========================================================
 
 def get_movie_id(movie):
+
     return normalize_id(
         movie.get("tmdb_id")
         or movie.get("id")
@@ -117,31 +198,37 @@ def get_movie_id(movie):
 
 
 def get_movie_type(movie):
+
     value = str(
         movie.get("media_type")
         or movie.get("type")
         or ""
     ).lower()
 
-    if value in ("tv", "series", "مسلسل", "series_tv"):
+    if value in (
+        "tv",
+        "series",
+        "مسلسل",
+        "series_tv"
+    ):
         return "tv"
 
     return "movie"
 
 
 def get_title(movie):
-    title = (
+
+    return str(
         movie.get("title")
         or movie.get("name")
         or movie.get("original_title")
         or movie.get("original_name")
         or "MOVINS"
-    )
-
-    return str(title).strip()
+    ).strip()
 
 
 def get_year(movie):
+
     year = movie.get("year")
 
     if year:
@@ -160,9 +247,11 @@ def get_year(movie):
 
 
 def get_overview(movie):
-    overview = movie.get("overview") or ""
 
-    return str(overview).strip()
+    return str(
+        movie.get("overview")
+        or ""
+    ).strip()
 
 
 # =========================================================
@@ -170,21 +259,33 @@ def get_overview(movie):
 # =========================================================
 
 def tmdb_headers():
+
     return {
-        "Authorization": f"Bearer {TMDB_API_KEY}",
+        "Authorization": (
+            f"Bearer {TMDB_API_KEY}"
+        ),
         "Accept": "application/json"
     }
 
 
-def get_tmdb_videos(movie_id, media_type):
-    endpoint_type = "tv" if media_type == "tv" else "movie"
+def get_tmdb_videos(
+    movie_id,
+    media_type
+):
+
+    endpoint_type = (
+        "tv"
+        if media_type == "tv"
+        else "movie"
+    )
 
     url = (
-        f"https://api.themoviedb.org/3/"
+        "https://api.themoviedb.org/3/"
         f"{endpoint_type}/{movie_id}/videos"
     )
 
     try:
+
         response = requests.get(
             url,
             headers=tmdb_headers(),
@@ -195,9 +296,13 @@ def get_tmdb_videos(movie_id, media_type):
 
         data = response.json()
 
-        return data.get("results", [])
+        return data.get(
+            "results",
+            []
+        )
 
     except Exception as e:
+
         print(
             f"TMDB video lookup failed "
             f"for {media_type}/{movie_id}: {e}"
@@ -206,7 +311,11 @@ def get_tmdb_videos(movie_id, media_type):
         return []
 
 
-def find_official_trailer(movie_id, media_type):
+def find_official_trailer(
+    movie_id,
+    media_type
+):
+
     videos = get_tmdb_videos(
         movie_id,
         media_type
@@ -215,49 +324,41 @@ def find_official_trailer(movie_id, media_type):
     if not videos:
         return None
 
-    # Prefer official trailers
-    official_trailers = [
+    official = [
         video
         for video in videos
         if video.get("site") == "YouTube"
-        and str(video.get("type", "")).lower() == "trailer"
+        and str(
+            video.get("type", "")
+        ).lower() == "trailer"
         and video.get("key")
         and video.get("official") is True
     ]
 
-    if official_trailers:
-        return official_trailers[0]
+    if official:
+        return official[0]
 
-    # Then any YouTube trailer
-    youtube_trailers = [
+    trailers = [
         video
         for video in videos
         if video.get("site") == "YouTube"
-        and str(video.get("type", "")).lower() == "trailer"
+        and str(
+            video.get("type", "")
+        ).lower() == "trailer"
         and video.get("key")
     ]
 
-    if youtube_trailers:
-        return youtube_trailers[0]
+    if trailers:
+        return trailers[0]
 
     return None
 
 
 # =========================================================
-# AUTHORIZED DIRECT VIDEO
+# AUTHORIZED VIDEO URL
 # =========================================================
 
 def get_authorized_video_url(movie):
-    """
-    MOVINS will only upload a direct video URL that the owner
-    has permission to publish.
-
-    Supported fields:
-      reel_video_url
-      licensed_video_url
-      authorized_video_url
-      facebook_reel_video_url
-    """
 
     fields = [
         "reel_video_url",
@@ -267,13 +368,21 @@ def get_authorized_video_url(movie):
     ]
 
     for field in fields:
+
         value = movie.get(field)
 
-        if value:
-            value = str(value).strip()
+        if not value:
+            continue
 
-            if value.startswith("http://") or value.startswith("https://"):
-                return value
+        value = str(value).strip()
+
+        if value.startswith(
+            "https://"
+        ) or value.startswith(
+            "http://"
+        ):
+
+            return value
 
     return None
 
@@ -282,7 +391,11 @@ def get_authorized_video_url(movie):
 # CAPTION
 # =========================================================
 
-def build_caption(movie, trailer):
+def build_caption(
+    movie,
+    trailer
+):
+
     title = get_title(movie)
     year = get_year(movie)
     overview = get_overview(movie)
@@ -290,12 +403,20 @@ def build_caption(movie, trailer):
     movie_id = get_movie_id(movie)
     media_type = get_movie_type(movie)
 
-    type_label = "مسلسل" if media_type == "tv" else "فيلم"
+    type_label = (
+        "مسلسل"
+        if media_type == "tv"
+        else "فيلم"
+    )
 
     if year:
-        headline = f"🎬 {title} ({year})"
+        headline = (
+            f"🎬 {title} ({year})"
+        )
     else:
-        headline = f"🎬 {title}"
+        headline = (
+            f"🎬 {title}"
+        )
 
     lines = [
         headline,
@@ -304,10 +425,18 @@ def build_caption(movie, trailer):
     ]
 
     if overview:
-        clean_overview = overview.replace("\n", " ").strip()
+
+        clean_overview = (
+            overview
+            .replace("\n", " ")
+            .strip()
+        )
 
         if len(clean_overview) > 500:
-            clean_overview = clean_overview[:497] + "..."
+            clean_overview = (
+                clean_overview[:497]
+                + "..."
+            )
 
         lines.extend([
             "",
@@ -315,10 +444,19 @@ def build_caption(movie, trailer):
             clean_overview
         ])
 
+    prefix = (
+        "tv"
+        if media_type == "tv"
+        else "movie"
+    )
+
     lines.extend([
         "",
         "🍿 شاهد التفاصيل على MOVINS:",
-        f"{SITE_URL}?movie={'tv' if media_type == 'tv' else 'movie'}-{movie_id}",
+        (
+            f"{SITE_URL}"
+            f"?movie={prefix}-{movie_id}"
+        ),
         "",
         "#MOVINS #Movies #Series #Trailer"
     ])
@@ -327,23 +465,38 @@ def build_caption(movie, trailer):
 
 
 # =========================================================
-# CHOOSE MOVIE
+# SELECT MOVIE
 # =========================================================
 
-def choose_movie(movies, posted):
+def choose_movie(
+    movies,
+    posted
+):
+
     posted_ids = {
-        normalize_id(item.get("id"))
+        normalize_id(
+            item.get("id")
+        )
         for item in posted
-        if isinstance(item, dict)
+        if isinstance(
+            item,
+            dict
+        )
     }
 
     candidates = []
 
     for movie in movies:
-        if not isinstance(movie, dict):
+
+        if not isinstance(
+            movie,
+            dict
+        ):
             continue
 
-        movie_id = get_movie_id(movie)
+        movie_id = get_movie_id(
+            movie
+        )
 
         if not movie_id:
             continue
@@ -351,34 +504,39 @@ def choose_movie(movies, posted):
         if movie_id in posted_ids:
             continue
 
-        # We need an authorized direct video file.
-        video_url = get_authorized_video_url(movie)
+        video_url = (
+            get_authorized_video_url(
+                movie
+            )
+        )
 
         if not video_url:
             continue
 
-        media_type = get_movie_type(movie)
+        media_type = get_movie_type(
+            movie
+        )
 
         trailer = find_official_trailer(
             movie_id,
             media_type
         )
 
-        # Trailer metadata is useful for validation/caption,
-        # but the uploaded video itself must be authorized.
         if not trailer:
-            print(
-                f"Skipping {get_title(movie)}: "
-                "no TMDB trailer metadata found."
-            )
             continue
 
         popularity = float(
-            movie.get("popularity") or 0
+            movie.get(
+                "popularity",
+                0
+            ) or 0
         )
 
         vote_count = int(
-            movie.get("vote_count") or 0
+            movie.get(
+                "vote_count",
+                0
+            ) or 0
         )
 
         candidates.append(
@@ -409,8 +567,13 @@ def choose_movie(movies, posted):
 # DOWNLOAD AUTHORIZED VIDEO
 # =========================================================
 
-def download_video(video_url):
-    print("Downloading authorized video...")
+def download_video(
+    video_url
+):
+
+    print(
+        "Downloading authorized video..."
+    )
 
     response = requests.get(
         video_url,
@@ -422,30 +585,44 @@ def download_video(video_url):
     response.raise_for_status()
 
     content_type = (
-        response.headers.get(
+        response.headers
+        .get(
             "content-type",
             ""
-        ).lower()
+        )
+        .lower()
     )
 
     if (
         "video/" not in content_type
-        and "application/octet-stream" not in content_type
+        and
+        "application/octet-stream"
+        not in content_type
     ):
+
         raise RuntimeError(
-            f"URL does not appear to be a video file. "
+            "The supplied URL does not "
+            "appear to be a direct video file.\n"
             f"Content-Type: {content_type}"
         )
 
     suffix = ".mp4"
 
-    filename = response.url.split("?")[0].split("/")[-1]
+    filename = (
+        response.url
+        .split("?")[0]
+        .split("/")[-1]
+    )
 
     if "." in filename:
-        possible_suffix = "." + filename.split(".")[-1]
 
-        if len(possible_suffix) <= 6:
-            suffix = possible_suffix
+        possible = (
+            "."
+            + filename.split(".")[-1]
+        )
+
+        if len(possible) <= 6:
+            suffix = possible
 
     temp = tempfile.NamedTemporaryFile(
         delete=False,
@@ -455,24 +632,30 @@ def download_video(video_url):
     total_size = 0
 
     try:
+
         for chunk in response.iter_content(
             chunk_size=1024 * 1024
         ):
+
             if not chunk:
                 continue
 
             temp.write(chunk)
+
             total_size += len(chunk)
 
         temp.close()
 
         print(
-            f"Video downloaded: "
+            "Video size: "
             f"{total_size / 1024 / 1024:.2f} MB"
         )
 
         if total_size < 10000:
-            os.unlink(temp.name)
+
+            os.unlink(
+                temp.name
+            )
 
             raise RuntimeError(
                 "Downloaded video is too small."
@@ -481,6 +664,7 @@ def download_video(video_url):
         return temp.name
 
     except Exception:
+
         try:
             temp.close()
             os.unlink(temp.name)
@@ -491,18 +675,24 @@ def download_video(video_url):
 
 
 # =========================================================
-# FACEBOOK START
+# FACEBOOK — START
 # =========================================================
 
-def facebook_start_upload():
+def facebook_start_upload(
+    page_id
+):
+
     url = (
         f"{GRAPH_URL}/"
-        f"{FACEBOOK_PAGE_ID}/video_reels"
+        f"{page_id}/video_reels"
     )
 
     params = {
-        "access_token": FACEBOOK_PAGE_TOKEN,
-        "upload_phase": "start"
+        "access_token":
+            FACEBOOK_PAGE_TOKEN,
+
+        "upload_phase":
+            "start"
     }
 
     response = requests.post(
@@ -512,91 +702,117 @@ def facebook_start_upload():
     )
 
     if not response.ok:
+
         raise RuntimeError(
-            "Facebook start upload failed:\n"
+            "Facebook Reel start failed:\n"
             + response.text
         )
 
     data = response.json()
 
-    print("Facebook upload started.")
+    print(
+        "Facebook Reel upload started."
+    )
+
+    print(
+        json.dumps(
+            data,
+            ensure_ascii=False,
+            indent=2
+        )
+    )
 
     return data
 
 
 # =========================================================
-# FACEBOOK TRANSFER
+# FACEBOOK — TRANSFER
 # =========================================================
 
 def facebook_transfer_video(
-    upload_session_id,
-    video_path,
-    start_offset=0
+    upload_url,
+    video_path
 ):
-    url = (
-        f"{GRAPH_URL}/"
-        f"{FACEBOOK_PAGE_ID}/video_reels"
+
+    file_size = os.path.getsize(
+        video_path
     )
 
-    file_size = os.path.getsize(video_path)
-
     headers = {
-        "Authorization": (
-            f"OAuth {FACEBOOK_PAGE_TOKEN}"
-        ),
-        "offset": str(start_offset),
-        "file_size": str(file_size)
+        "Authorization":
+            f"OAuth {FACEBOOK_PAGE_TOKEN}",
+
+        "offset": "0",
+
+        "file_size":
+            str(file_size)
     }
 
-    params = {
-        "upload_phase": "transfer",
-        "upload_session_id": upload_session_id,
-        "start_offset": str(start_offset)
-    }
+    print(
+        "Uploading video to Facebook..."
+    )
 
-    with open(video_path, "rb") as video_file:
-
-        if start_offset:
-            video_file.seek(start_offset)
+    with open(
+        video_path,
+        "rb"
+    ) as video_file:
 
         response = requests.post(
-            url,
-            params=params,
+            upload_url,
             headers=headers,
             files={
-                "video_file": video_file
+                "video_file":
+                    video_file
             },
-            timeout=300
+            timeout=600
         )
 
     if not response.ok:
+
         raise RuntimeError(
-            "Facebook video transfer failed:\n"
+            "Facebook Reel video upload failed:\n"
             + response.text
         )
 
-    return response.json()
+    data = response.json()
+
+    print(
+        "Facebook video transfer completed."
+    )
+
+    return data
 
 
 # =========================================================
-# FACEBOOK FINISH
+# FACEBOOK — FINISH
 # =========================================================
 
 def facebook_finish_upload(
+    page_id,
     video_id,
     caption
 ):
+
     url = (
         f"{GRAPH_URL}/"
-        f"{FACEBOOK_PAGE_ID}/video_reels"
+        f"{page_id}/video_reels"
     )
 
     params = {
-        "access_token": FACEBOOK_PAGE_TOKEN,
-        "upload_phase": "finish",
-        "video_id": video_id,
-        "video_state": "PUBLISHED",
-        "description": caption
+        "access_token":
+            FACEBOOK_PAGE_TOKEN,
+
+        "upload_phase":
+            "finish",
+
+        "video_id":
+            video_id,
+
+        "video_state":
+            "PUBLISHED",
+
+        "description":
+            caption
     }
 
     response = requests.post(
@@ -606,36 +822,58 @@ def facebook_finish_upload(
     )
 
     if not response.ok:
+
         raise RuntimeError(
-            "Facebook finish upload failed:\n"
+            "Facebook Reel publish failed:\n"
             + response.text
         )
 
-    return response.json()
+    data = response.json()
 
-
-# =========================================================
-# PUBLISH REEL
-# =========================================================
-
-def publish_reel(video_path, caption):
-    print("Starting Facebook Reel upload...")
-
-    start_data = facebook_start_upload()
-
-    video_id = (
-        start_data.get("video_id")
-        or start_data.get("id")
+    print(
+        "Facebook Reel published."
     )
 
-    upload_session_id = (
-        start_data.get("upload_session_id")
-        or start_data.get("upload_session")
+    return data
+
+
+# =========================================================
+# PUBLISH
+# =========================================================
+
+def publish_reel(
+    page_id,
+    video_path,
+    caption
+):
+
+    start_data = (
+        facebook_start_upload(
+            page_id
+        )
+    )
+
+    video_id = (
+        start_data.get(
+            "video_id"
+        )
+        or
+        start_data.get(
+            "id"
+        )
+    )
+
+    upload_url = (
+        start_data.get(
+            "upload_url"
+        )
     )
 
     if not video_id:
+
         raise RuntimeError(
-            "Facebook did not return video_id:\n"
+            "Facebook did not return "
+            "video_id:\n"
             + json.dumps(
                 start_data,
                 ensure_ascii=False,
@@ -643,9 +881,11 @@ def publish_reel(video_path, caption):
             )
         )
 
-    if not upload_session_id:
+    if not upload_url:
+
         raise RuntimeError(
-            "Facebook did not return upload_session_id:\n"
+            "Facebook did not return "
+            "upload_url:\n"
             + json.dumps(
                 start_data,
                 ensure_ascii=False,
@@ -653,47 +893,23 @@ def publish_reel(video_path, caption):
             )
         )
 
-    print(f"Facebook video_id: {video_id}")
-    print(
-        f"Facebook upload_session_id: "
-        f"{upload_session_id}"
+    facebook_transfer_video(
+        upload_url,
+        video_path
     )
 
-    file_size = os.path.getsize(video_path)
-
-    # Start with offset 0.
-    transfer_data = facebook_transfer_video(
-        upload_session_id,
-        video_path,
-        start_offset=0
-    )
-
-    print(
-        "Facebook transfer response:",
-        json.dumps(
-            transfer_data,
-            ensure_ascii=False
-        )
-    )
-
-    # Finish/publish
-    finish_data = facebook_finish_upload(
-        video_id,
-        caption
-    )
-
-    print(
-        "Facebook finish response:",
-        json.dumps(
-            finish_data,
-            ensure_ascii=False
+    finish_data = (
+        facebook_finish_upload(
+            page_id,
+            video_id,
+            caption
         )
     )
 
     return {
         "video_id": video_id,
-        "upload_session_id": upload_session_id,
-        "finish_response": finish_data
+        "finish_response":
+            finish_data
     }
 
 
@@ -704,18 +920,44 @@ def publish_reel(video_path, caption):
 def main():
 
     print("=" * 60)
-    print("MOVINS — FACEBOOK REEL PUBLISHER")
+    print(
+        "MOVINS — FACEBOOK REEL PUBLISHER"
+    )
     print("=" * 60)
 
+    # -----------------------------------------------------
+    # Automatically get Page ID
+    # -----------------------------------------------------
+
+    page_id = get_page_info()
+
+    # -----------------------------------------------------
+    # Load data
+    # -----------------------------------------------------
+
     movies = load_movies()
+
     posted = load_posted()
 
-    print(f"Movies available: {len(movies)}")
-    print(f"Already posted Reels: {len(posted)}")
+    print(
+        f"Movies available: {len(movies)}"
+    )
+
+    print(
+        f"Already posted Reels: {len(posted)}"
+    )
 
     if not movies:
-        print("No movies found.")
+
+        print(
+            "No movies found."
+        )
+
         return 0
+
+    # -----------------------------------------------------
+    # Select
+    # -----------------------------------------------------
 
     selected = choose_movie(
         movies,
@@ -723,21 +965,30 @@ def main():
     )
 
     if not selected:
+
         print("")
         print(
             "No eligible Reel found."
         )
+        print("")
         print(
-            "MOVINS requires an authorized "
-            "direct video URL in one of:"
+            "The movie must contain an "
+            "authorized direct video URL:"
         )
         print(
-            "reel_video_url / "
-            "licensed_video_url / "
-            "authorized_video_url / "
+            "reel_video_url"
+        )
+        print(
+            "licensed_video_url"
+        )
+        print(
+            "authorized_video_url"
+        )
+        print(
             "facebook_reel_video_url"
         )
         print("")
+
         return 0
 
     (
@@ -748,25 +999,47 @@ def main():
         trailer
     ) = selected
 
-    movie_id = get_movie_id(movie)
-    media_type = get_movie_type(movie)
-    title = get_title(movie)
+    movie_id = get_movie_id(
+        movie
+    )
 
-    print("")
-    print(f"Selected: {title}")
-    print(f"TMDB ID: {movie_id}")
-    print(f"Type: {media_type}")
-    print(f"Popularity: {popularity}")
-    print(f"Vote count: {vote_count}")
-    print(
-        f"TMDB trailer: "
-        f"https://www.youtube.com/watch?v={trailer.get('key')}"
+    media_type = get_movie_type(
+        movie
+    )
+
+    title = get_title(
+        movie
     )
 
     print("")
     print(
-        "Authorized video URL found."
+        f"Selected movie: {title}"
     )
+
+    print(
+        f"TMDB ID: {movie_id}"
+    )
+
+    print(
+        f"Type: {media_type}"
+    )
+
+    print(
+        f"Popularity: {popularity}"
+    )
+
+    print(
+        f"Vote count: {vote_count}"
+    )
+
+    print(
+        "TMDB trailer key: "
+        f"{trailer.get('key')}"
+    )
+
+    # -----------------------------------------------------
+    # Caption
+    # -----------------------------------------------------
 
     caption = build_caption(
         movie,
@@ -774,9 +1047,15 @@ def main():
     )
 
     print("")
-    print("Caption:")
+    print(
+        "Caption:"
+    )
+
     print(caption)
-    print("")
+
+    # -----------------------------------------------------
+    # Download
+    # -----------------------------------------------------
 
     video_path = None
 
@@ -786,27 +1065,45 @@ def main():
             video_url
         )
 
+        # -------------------------------------------------
+        # Publish
+        # -------------------------------------------------
+
         result = publish_reel(
+            page_id,
             video_path,
             caption
         )
 
-        # IMPORTANT:
-        # Save history only AFTER Facebook confirms publishing.
+        # -------------------------------------------------
+        # Save history ONLY after successful publish
+        # -------------------------------------------------
+
         posted.append(
             {
-                "id": movie_id,
-                "type": media_type,
-                "title": title,
-                "video_id": result["video_id"],
-                "trailer_key": trailer.get("key"),
-                "posted_at": __import__(
-                    "datetime"
-                ).datetime.now(
-                    __import__(
-                        "datetime"
-                    ).timezone.utc
-                ).isoformat()
+                "id":
+                    movie_id,
+
+                "type":
+                    media_type,
+
+                "title":
+                    title,
+
+                "video_id":
+                    result[
+                        "video_id"
+                    ],
+
+                "trailer_key":
+                    trailer.get(
+                        "key"
+                    ),
+
+                "posted_at":
+                    datetime.now(
+                        timezone.utc
+                    ).isoformat()
             }
         )
 
@@ -817,7 +1114,9 @@ def main():
 
         print("")
         print("=" * 60)
-        print("REEL PUBLISHED SUCCESSFULLY")
+        print(
+            "MOVINS REEL PUBLISHED SUCCESSFULLY"
+        )
         print("=" * 60)
 
         return 0
@@ -826,8 +1125,11 @@ def main():
 
         print("")
         print("=" * 60)
-        print("REEL PUBLISH FAILED")
+        print(
+            "MOVINS REEL PUBLISH FAILED"
+        )
         print("=" * 60)
+
         print(str(e))
 
         return 1
@@ -837,7 +1139,10 @@ def main():
         if video_path:
 
             try:
-                os.remove(video_path)
+
+                os.remove(
+                    video_path
+                )
 
                 print(
                     "Temporary video deleted."
@@ -847,5 +1152,11 @@ def main():
                 pass
 
 
+# =========================================================
+# RUN
+# =========================================================
+
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(
+        main()
+    )
