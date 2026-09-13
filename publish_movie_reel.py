@@ -45,7 +45,7 @@ TMDB_API_KEY = os.environ.get(
 
 
 # =========================================================
-# CHECK TOKEN
+# CHECK
 # =========================================================
 
 if not FACEBOOK_PAGE_TOKEN:
@@ -63,14 +63,19 @@ def log(text=""):
 
 
 # =========================================================
-# COMMAND RUNNER
+# RUN COMMAND
 # =========================================================
 
 def run_command(command):
 
     log("")
     log("RUNNING:")
-    log(" ".join(str(x) for x in command))
+    log(
+        " ".join(
+            str(x)
+            for x in command
+        )
+    )
     log("")
 
     result = subprocess.run(
@@ -94,10 +99,13 @@ def run_command(command):
 
 
 # =========================================================
-# JSON LOAD
+# LOAD JSON
 # =========================================================
 
-def load_json(path, default):
+def load_json(
+    path,
+    default
+):
 
     if not os.path.exists(path):
         return default
@@ -123,10 +131,13 @@ def load_json(path, default):
 
 
 # =========================================================
-# JSON SAVE
+# SAVE JSON
 # =========================================================
 
-def save_json(path, data):
+def save_json(
+    path,
+    data
+):
 
     with open(
         path,
@@ -143,7 +154,7 @@ def save_json(path, data):
 
 
 # =========================================================
-# CLEAN WORK
+# CLEAN WORK DIRECTORY
 # =========================================================
 
 def clean_work():
@@ -180,14 +191,20 @@ def load_movies():
         {"items": []}
     )
 
-    if isinstance(data, dict):
+    if isinstance(
+        data,
+        dict
+    ):
 
         items = data.get(
             "items",
             []
         )
 
-    elif isinstance(data, list):
+    elif isinstance(
+        data,
+        list
+    ):
 
         items = data
 
@@ -195,14 +212,18 @@ def load_movies():
 
         items = []
 
-    if not isinstance(items, list):
+    if not isinstance(
+        items,
+        list
+    ):
+
         items = []
 
     return items
 
 
 # =========================================================
-# LOAD POSTED REELS
+# LOAD POSTED
 # =========================================================
 
 def load_posted():
@@ -212,10 +233,17 @@ def load_posted():
         []
     )
 
-    if isinstance(data, list):
+    if isinstance(
+        data,
+        list
+    ):
+
         return data
 
-    if isinstance(data, dict):
+    if isinstance(
+        data,
+        dict
+    ):
 
         return data.get(
             "items",
@@ -229,7 +257,9 @@ def load_posted():
 # POSTED IDS
 # =========================================================
 
-def posted_ids(posted):
+def posted_ids(
+    posted
+):
 
     result = set()
 
@@ -263,7 +293,9 @@ def posted_ids(posted):
 # MOVIE ID
 # =========================================================
 
-def movie_id(movie):
+def movie_id(
+    movie
+):
 
     value = (
         movie.get("id")
@@ -280,7 +312,9 @@ def movie_id(movie):
 # MEDIA TYPE
 # =========================================================
 
-def movie_prefix(movie):
+def movie_prefix(
+    movie
+):
 
     value = (
         movie.get("detailed_type")
@@ -297,6 +331,7 @@ def movie_prefix(movie):
         "مسلسل" in text
         or "tv" in text
         or "series" in text
+        or "show" in text
     ):
 
         return "tv"
@@ -308,7 +343,9 @@ def movie_prefix(movie):
 # DISPLAY TYPE
 # =========================================================
 
-def movie_type(movie):
+def movie_type(
+    movie
+):
 
     if movie_prefix(movie) == "tv":
         return "TV SERIES"
@@ -320,7 +357,9 @@ def movie_type(movie):
 # ARABIC DETECTION
 # =========================================================
 
-def contains_arabic(text):
+def contains_arabic(
+    text
+):
 
     if not text:
         return False
@@ -353,13 +392,14 @@ def tmdb_get(
     request_params = {}
 
     if params:
+
         request_params.update(
             params
         )
 
-    request_params["api_key"] = (
-        TMDB_API_KEY
-    )
+    request_params[
+        "api_key"
+    ] = TMDB_API_KEY
 
     try:
 
@@ -373,7 +413,13 @@ def tmdb_get(
 
             log(
                 "TMDB request failed: "
-                + str(response.status_code)
+                + str(
+                    response.status_code
+                )
+            )
+
+            log(
+                response.text[:500]
             )
 
             return None
@@ -391,15 +437,15 @@ def tmdb_get(
 
 
 # =========================================================
-# GET ENGLISH TMDB TITLE
+# GET TMDB DETAILS
 # =========================================================
 
-def get_english_tmdb_title(
+def get_tmdb_details(
     mid,
     media_type
 ):
 
-    if not TMDB_API_KEY:
+    if not mid:
         return None
 
     if media_type == "tv":
@@ -409,11 +455,6 @@ def get_english_tmdb_title(
             + str(mid)
         )
 
-        title_fields = [
-            "name",
-            "original_name"
-        ]
-
     else:
 
         endpoint = (
@@ -421,136 +462,165 @@ def get_english_tmdb_title(
             + str(mid)
         )
 
-        title_fields = [
+    # English
+    data = tmdb_get(
+        endpoint,
+        {
+            "language": "en-US"
+        }
+    )
+
+    if data:
+        return data
+
+    # Fallback
+    data = tmdb_get(
+        endpoint
+    )
+
+    return data
+
+
+# =========================================================
+# GET ENGLISH TITLE FROM TMDB
+# =========================================================
+
+def get_english_tmdb_title(
+    mid,
+    media_type
+):
+
+    if not mid:
+        return None
+
+    data = get_tmdb_details(
+        mid,
+        media_type
+    )
+
+    if not data:
+        return None
+
+    if media_type == "tv":
+
+        fields = [
+            "name",
+            "original_name"
+        ]
+
+    else:
+
+        fields = [
             "title",
             "original_title"
         ]
 
-    # First try English
-    data = tmdb_get(
-        endpoint,
-        {
-            "language": "en-US"
-        }
-    )
+    # First prefer the normal localized English title
+    for field in fields:
 
-    if data:
+        value = data.get(
+            field
+        )
 
-        for field in title_fields:
+        if not value:
+            continue
 
-            value = data.get(
-                field
-            )
+        value = str(
+            value
+        ).strip()
 
-            if value:
+        if (
+            value
+            and not contains_arabic(value)
+        ):
 
-                value = str(
-                    value
-                ).strip()
-
-                if (
-                    value
-                    and not contains_arabic(value)
-                ):
-
-                    return value
-
-    # Second try original title
-    data = tmdb_get(
-        endpoint,
-        {
-            "language": "en-US"
-        }
-    )
-
-    if data:
-
-        for field in title_fields:
-
-            value = data.get(
-                field
-            )
-
-            if value:
-
-                value = str(
-                    value
-                ).strip()
-
-                if (
-                    value
-                    and not contains_arabic(value)
-                ):
-
-                    return value
+            return value
 
     return None
 
 
 # =========================================================
 # MOVIE TITLE
+#
+# IMPORTANT:
+# TMDB IS CHECKED FIRST.
 # =========================================================
 
-def movie_title(movie):
+def movie_title(
+    movie
+):
 
-    mid = movie_id(movie)
+    mid = movie_id(
+        movie
+    )
 
     media_type = movie_prefix(
         movie
     )
 
-    # Prefer original non-Arabic title
+    log(
+        "Finding English title..."
+    )
+
+    # =====================================================
+    # 1. TMDB FIRST
+    # =====================================================
+
+    if mid and TMDB_API_KEY:
+
+        tmdb_title = get_english_tmdb_title(
+            mid,
+            media_type
+        )
+
+        if tmdb_title:
+
+            log(
+                "TMDB English title: "
+                + tmdb_title
+            )
+
+            return tmdb_title
+
+    # =====================================================
+    # 2. LOCAL NON-ARABIC TITLE
+    # =====================================================
+
     candidates = [
+        movie.get("title"),
+        movie.get("name"),
         movie.get("original_title"),
         movie.get("original_name")
     ]
 
     for value in candidates:
 
-        if value:
+        if not value:
+            continue
 
-            value = str(
-                value
-            ).strip()
+        value = str(
+            value
+        ).strip()
 
-            if (
-                value
-                and not contains_arabic(value)
-            ):
+        if (
+            value
+            and not contains_arabic(value)
+        ):
 
-                return value
+            log(
+                "Local English title: "
+                + value
+            )
 
-    # Ask TMDB for English title
-    if mid:
+            return value
 
-        english = get_english_tmdb_title(
-            mid,
-            media_type
-        )
+    # =====================================================
+    # 3. FINAL FALLBACK
+    # =====================================================
 
-        if english:
-            return english
-
-    # Try local title
-    candidates = [
-        movie.get("title"),
-        movie.get("name")
-    ]
-
-    for value in candidates:
-
-        if value:
-
-            value = str(
-                value
-            ).strip()
-
-            if (
-                value
-                and not contains_arabic(value)
-            ):
-
-                return value
+    log(
+        "No English title found."
+    )
 
     return "MOVINS FEATURE"
 
@@ -559,7 +629,9 @@ def movie_title(movie):
 # YEAR
 # =========================================================
 
-def movie_year(movie):
+def movie_year(
+    movie
+):
 
     value = movie.get(
         "year"
@@ -583,7 +655,9 @@ def movie_year(movie):
 # RATING
 # =========================================================
 
-def movie_rating(movie):
+def movie_rating(
+    movie
+):
 
     value = (
         movie.get("rating")
@@ -605,10 +679,12 @@ def movie_rating(movie):
 
 
 # =========================================================
-# POSTER
+# POSTER URL
 # =========================================================
 
-def poster_url(movie):
+def poster_url(
+    movie
+):
 
     return (
         movie.get("poster")
@@ -744,7 +820,9 @@ def find_font():
 # DOWNLOAD POSTER
 # =========================================================
 
-def download_poster(movie):
+def download_poster(
+    movie
+):
 
     url = poster_url(
         movie
@@ -906,7 +984,9 @@ def centered_text(
 # CREATE DESIGN
 # =========================================================
 
-def create_design(movie):
+def create_design(
+    movie
+):
 
     font_path = find_font()
 
@@ -914,14 +994,14 @@ def create_design(movie):
         "RGBA"
     )
 
-    # -----------------------------------------
+    # =====================================================
     # DARK OVERLAY
-    # -----------------------------------------
+    # =====================================================
 
     overlay = Image.new(
         "RGBA",
         image.size,
-        (0, 0, 0, 70)
+        (0, 0, 0, 65)
     )
 
     image = Image.alpha_composite(
@@ -933,26 +1013,26 @@ def create_design(movie):
         image
     )
 
-    # -----------------------------------------
-    # BOTTOM PANEL
-    # -----------------------------------------
+    # =====================================================
+    # BOTTOM INFORMATION CARD
+    # =====================================================
 
     draw.rounded_rectangle(
         (
             35,
-            1120,
+            1110,
             WIDTH - 35,
-            1810
+            1815
         ),
         radius=45,
-        fill=(5, 8, 14, 235),
+        fill=(5, 8, 14, 238),
         outline=(255, 255, 255, 55),
         width=2
     )
 
-    # -----------------------------------------
+    # =====================================================
     # FONTS
-    # -----------------------------------------
+    # =====================================================
 
     brand_font = ImageFont.truetype(
         font_path,
@@ -976,6 +1056,9 @@ def create_design(movie):
     if len(title) > 40:
         title_size = 48
 
+    if len(title) > 55:
+        title_size = 42
+
     title_font = ImageFont.truetype(
         font_path,
         title_size
@@ -996,9 +1079,9 @@ def create_design(movie):
         32
     )
 
-    # -----------------------------------------
-    # BRAND
-    # -----------------------------------------
+    # =====================================================
+    # MOVINS
+    # =====================================================
 
     centered_text(
         draw,
@@ -1009,6 +1092,10 @@ def create_design(movie):
         2
     )
 
+    # =====================================================
+    # MOVIES & SERIES
+    # =====================================================
+
     centered_text(
         draw,
         "MOVIES & SERIES",
@@ -1018,35 +1105,35 @@ def create_design(movie):
         1
     )
 
-    # -----------------------------------------
+    # =====================================================
     # TYPE
-    # -----------------------------------------
+    # =====================================================
 
     centered_text(
         draw,
         movie_type(movie),
         category_font,
-        1185,
+        1175,
         (205, 205, 215),
         1
     )
 
-    # -----------------------------------------
-    # TITLE
-    # -----------------------------------------
+    # =====================================================
+    # REAL TITLE
+    # =====================================================
 
     centered_text(
         draw,
         title,
         title_font,
-        1280,
+        1270,
         (255, 255, 255),
         2
     )
 
-    # -----------------------------------------
+    # =====================================================
     # YEAR + RATING
-    # -----------------------------------------
+    # =====================================================
 
     year = movie_year(
         movie
@@ -1076,36 +1163,40 @@ def create_design(movie):
             draw,
             "  •  ".join(info),
             info_font,
-            1410,
+            1400,
             (225, 225, 230),
             1
         )
 
-    # -----------------------------------------
+    # =====================================================
     # CTA
-    # -----------------------------------------
+    # =====================================================
 
     centered_text(
         draw,
         "WATCH DETAILS ON MOVINS",
         cta_font,
-        1530,
+        1525,
         (245, 190, 65),
         1
     )
+
+    # =====================================================
+    # WEBSITE
+    # =====================================================
 
     centered_text(
         draw,
         "nownex.github.io/movins",
         site_font,
-        1620,
+        1615,
         (220, 220, 225),
         1
     )
 
-    # -----------------------------------------
-    # LINE
-    # -----------------------------------------
+    # =====================================================
+    # GOLD LINE
+    # =====================================================
 
     draw.line(
         (
@@ -1118,9 +1209,9 @@ def create_design(movie):
         width=3
     )
 
-    # -----------------------------------------
+    # =====================================================
     # SAVE
-    # -----------------------------------------
+    # =====================================================
 
     image.convert(
         "RGB"
@@ -1137,7 +1228,7 @@ def create_design(movie):
 
 
 # =========================================================
-# CREATE MUSIC
+# CREATE CINEMATIC MUSIC
 # =========================================================
 
 def create_music():
@@ -1153,7 +1244,6 @@ def create_music():
         * DURATION
     )
 
-    # Gentle cinematic chords
     chords = [
         [261.63, 329.63, 392.00],
         [220.00, 277.18, 329.63],
@@ -1183,12 +1273,13 @@ def create_music():
             / sample_rate
         )
 
-        # Fade
+        # Fade in
         fade_in = min(
             1.0,
             t / 1.2
         )
 
+        # Fade out
         fade_out = min(
             1.0,
             (DURATION - t) / 1.8
@@ -1218,7 +1309,7 @@ def create_music():
 
         value = 0.0
 
-        # Soft pad
+        # Pad
         for frequency in chord:
 
             value += (
@@ -1233,12 +1324,16 @@ def create_music():
 
         # Melody
         note_index = (
-            int(t * 1.5)
+            int(
+                t * 1.5
+            )
             % len(melody)
         )
 
         note_frequency = (
-            melody[note_index]
+            melody[
+                note_index
+            ]
         )
 
         note_position = (
@@ -1304,8 +1399,14 @@ def create_music():
         "wb"
     ) as wav:
 
-        wav.setnchannels(1)
-        wav.setsampwidth(2)
+        wav.setnchannels(
+            1
+        )
+
+        wav.setsampwidth(
+            2
+        )
+
         wav.setframerate(
             sample_rate
         )
@@ -1415,7 +1516,9 @@ def create_video():
             "Video file was not created."
         )
 
-    size = VIDEO_FILE.stat().st_size
+    size = (
+        VIDEO_FILE.stat().st_size
+    )
 
     log(
         "Reel video created: "
@@ -1425,7 +1528,7 @@ def create_video():
 
 
 # =========================================================
-# FACEBOOK PAGE INFO
+# FACEBOOK PAGE
 # =========================================================
 
 def get_page_info():
@@ -1505,14 +1608,18 @@ def get_page_info():
         + str(page_id)
     )
 
-    return str(page_id)
+    return str(
+        page_id
+    )
 
 
 # =========================================================
 # FACEBOOK START
 # =========================================================
 
-def facebook_start(page_id):
+def facebook_start(
+    page_id
+):
 
     log("")
     log(
@@ -1530,7 +1637,9 @@ def facebook_start(page_id):
     response = requests.post(
         url,
         params={
-            "upload_phase": "start",
+            "upload_phase":
+                "start",
+
             "access_token":
                 FACEBOOK_PAGE_TOKEN
         },
@@ -1707,7 +1816,9 @@ def facebook_status(
     response = requests.get(
         url,
         params={
-            "fields": "status",
+            "fields":
+                "status",
+
             "access_token":
                 FACEBOOK_PAGE_TOKEN
         },
@@ -1969,9 +2080,9 @@ def wait_for_publish(
             )
         )
 
-        # -----------------------------------------
-        # PROCESSING ERROR
-        # -----------------------------------------
+        # =================================================
+        # VIDEO ERROR
+        # =================================================
 
         if video_status in (
             "error",
@@ -1982,6 +2093,10 @@ def wait_for_publish(
                 "Facebook reported video_status="
                 + video_status
             )
+
+        # =================================================
+        # PROCESSING ERROR
+        # =================================================
 
         if isinstance(
             processing_phase,
@@ -2004,9 +2119,9 @@ def wait_for_publish(
                     "Facebook processing failed."
                 )
 
-        # -----------------------------------------
+        # =================================================
         # PUBLISHING ERROR
-        # -----------------------------------------
+        # =================================================
 
         if isinstance(
             publishing_phase,
@@ -2029,9 +2144,9 @@ def wait_for_publish(
                     "Facebook publishing failed."
                 )
 
-        # -----------------------------------------
-        # SUCCESS
-        # -----------------------------------------
+        # =================================================
+        # PUBLISHED
+        # =================================================
 
         if isinstance(
             publishing_phase,
@@ -2058,6 +2173,10 @@ def wait_for_publish(
 
                 return True
 
+        # =================================================
+        # VIDEO STATUS SUCCESS
+        # =================================================
+
         if video_status in (
             "published",
             "complete",
@@ -2070,54 +2189,6 @@ def wait_for_publish(
             )
 
             return True
-
-        # Some responses may show processing
-        # as complete while video_status remains
-        # upload_complete temporarily.
-
-        if isinstance(
-            processing_phase,
-            dict
-        ):
-
-            processing_status = str(
-                processing_phase.get(
-                    "status",
-                    ""
-                )
-            ).lower()
-
-            if (
-                processing_status
-                in (
-                    "complete",
-                    "completed"
-                )
-            ):
-
-                if isinstance(
-                    publishing_phase,
-                    dict
-                ):
-
-                    publishing_status = str(
-                        publishing_phase.get(
-                            "status",
-                            ""
-                        )
-                    ).lower()
-
-                    if publishing_status not in (
-                        "error",
-                        "failed"
-                    ):
-
-                        log(
-                            "Processing complete; "
-                            "publishing phase is healthy."
-                        )
-
-        # Continue polling.
 
     raise RuntimeError(
         "Facebook did not confirm Reel "
@@ -2141,33 +2212,36 @@ def save_posted(
     )
 
     record = {
-        "id": mid,
+        "id":
+            mid,
 
-        "tmdb_id": mid,
+        "tmdb_id":
+            mid,
 
-        "title": movie_title(
-            movie
-        ),
+        "title":
+            movie_title(
+                movie
+            ),
 
-        "type": movie_type(
-            movie
-        ),
+        "type":
+            movie_type(
+                movie
+            ),
 
-        "video_id": str(
-            video_id
-        ),
+        "video_id":
+            str(video_id),
 
-        "published_at": int(
-            time.time()
-        ),
+        "published_at":
+            int(time.time()),
 
-        "movins_url": (
-            "https://nownex.github.io/movins/"
-            "?movie="
-            + movie_prefix(movie)
-            + "-"
-            + str(mid)
-        )
+        "movins_url":
+            (
+                "https://nownex.github.io/movins/"
+                "?movie="
+                + movie_prefix(movie)
+                + "-"
+                + str(mid)
+            )
     }
 
     if isinstance(
@@ -2230,15 +2304,15 @@ def main():
     )
     log("")
 
-    # -----------------------------------------
+    # =====================================================
     # CLEAN
-    # -----------------------------------------
+    # =====================================================
 
     clean_work()
 
-    # -----------------------------------------
-    # LOAD
-    # -----------------------------------------
+    # =====================================================
+    # LOAD DATA
+    # =====================================================
 
     movies = load_movies()
 
@@ -2262,9 +2336,9 @@ def main():
         )
     )
 
-    # -----------------------------------------
-    # SELECT
-    # -----------------------------------------
+    # =====================================================
+    # SELECT MOVIE
+    # =====================================================
 
     movie = choose_movie(
         movies,
@@ -2284,11 +2358,16 @@ def main():
         movie
     )
 
+    # Get title now so it is visible in logs
     title = movie_title(
         movie
     )
 
     log("")
+    log(
+        "======================================"
+    )
+
     log(
         "Selected movie: "
         + title
@@ -2314,31 +2393,47 @@ def main():
         + movie_rating(movie)
     )
 
-    # -----------------------------------------
-    # CREATE VIDEO
-    # -----------------------------------------
+    log(
+        "======================================"
+    )
+
+    # =====================================================
+    # CREATE POSTER
+    # =====================================================
 
     download_poster(
         movie
     )
 
+    # =====================================================
+    # CREATE DESIGN
+    # =====================================================
+
     create_design(
         movie
     )
 
+    # =====================================================
+    # CREATE MUSIC
+    # =====================================================
+
     create_music()
+
+    # =====================================================
+    # CREATE VIDEO
+    # =====================================================
 
     create_video()
 
-    # -----------------------------------------
+    # =====================================================
     # FACEBOOK PAGE
-    # -----------------------------------------
+    # =====================================================
 
     page_id = get_page_info()
 
-    # -----------------------------------------
+    # =====================================================
     # START
-    # -----------------------------------------
+    # =====================================================
 
     video_id, upload_url = (
         facebook_start(
@@ -2351,9 +2446,13 @@ def main():
         + str(video_id)
     )
 
-    # -----------------------------------------
+    log(
+        "Facebook upload URL received."
+    )
+
+    # =====================================================
     # UPLOAD
-    # -----------------------------------------
+    # =====================================================
 
     facebook_upload(
         video_id,
@@ -2365,18 +2464,19 @@ def main():
         "Facebook upload completed."
     )
 
-    # -----------------------------------------
+    # =====================================================
     # FINISH + PUBLISH
     #
     # IMPORTANT:
-    # We call FINISH BEFORE polling.
-    # This starts Facebook processing.
-    # -----------------------------------------
+    # FINISH MUST HAPPEN BEFORE POLLING
+    # =====================================================
 
-    publish_response = facebook_publish(
-        page_id,
-        video_id,
-        movie
+    publish_response = (
+        facebook_publish(
+            page_id,
+            video_id,
+            movie
+        )
     )
 
     log("")
@@ -2384,17 +2484,17 @@ def main():
         "Facebook FINISH request accepted."
     )
 
-    # -----------------------------------------
-    # NOW POLL
-    # -----------------------------------------
+    # =====================================================
+    # WAIT FOR PROCESSING/PUBLISHING
+    # =====================================================
 
     wait_for_publish(
         video_id
     )
 
-    # -----------------------------------------
-    # SAVE HISTORY ONLY AFTER SUCCESS
-    # -----------------------------------------
+    # =====================================================
+    # SAVE HISTORY
+    # =====================================================
 
     save_posted(
         posted,
@@ -2403,17 +2503,19 @@ def main():
         publish_response
     )
 
-    # -----------------------------------------
+    # =====================================================
     # FINAL
-    # -----------------------------------------
+    # =====================================================
 
     log("")
     log(
         "======================================"
     )
+
     log(
         "MOVINS REEL PUBLISHED SUCCESSFULLY"
     )
+
     log(
         "======================================"
     )
