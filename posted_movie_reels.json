@@ -93,5 +93,15 @@
     "published_at": 1789405614,
     "movins_url": "https://nownex.github.io/movins/?movie=tv-502",
     "facebook_success": true
+  },
+  {
+    "id": "113962",
+    "tmdb_id": "113962",
+    "title": "Lioness",
+    "type": "TV SERIES",
+    "video_id": "1483112116961245",
+    "published_at": 1789492085,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-113962",
+    "facebook_success": true
   }
 ]
