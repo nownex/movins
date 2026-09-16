@@ -103,5 +103,15 @@
     "published_at": 1789492085,
     "movins_url": "https://nownex.github.io/movins/?movie=tv-113962",
     "facebook_success": true
+  },
+  {
+    "id": "5920",
+    "tmdb_id": "5920",
+    "title": "The Mentalist",
+    "type": "TV SERIES",
+    "video_id": "1437001478303659",
+    "published_at": 1789578474,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-5920",
+    "facebook_success": true
   }
 ]
