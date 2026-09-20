@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-20T13:06:25.812258+00:00",
+  "updated_at": "2026-09-20T22:29:21.332158+00:00",
   "items": [
     {
       "id": 275102,
@@ -10,9 +10,9 @@
       "original_language": "ko",
       "year": "2026",
       "overview": "إبان حقبة \"جوسون\"، يُشعل عرض سرّي رغبات خفية لدى نبيلة موهوبة وعاشق ذائع الصيت وسيدة غافلة تتورط وسط لعبتهما الخطرة.",
-      "rating": 6.6,
+      "rating": 6.5,
       "popularity": 4764.8935,
-      "vote_count": 7,
+      "vote_count": 8,
       "genres": [
         "دراما"
       ],
@@ -20,7 +20,7 @@
       "trailer_key": "FeISX5E1uJc",
       "trailer_url": "https://www.youtube.com/watch?v=FeISX5E1uJc",
       "hashtags": "#MOVINS #مسلسلات #دراما #الفضيحة",
-      "updated_at": "2026-09-20T13:04:55.186607+00:00"
+      "updated_at": "2026-09-20T22:27:52.405406+00:00"
     },
     {
       "id": 2261,
@@ -41,7 +41,50 @@
       "trailer_key": "zyl4Vvjc7pI",
       "trailer_url": "https://www.youtube.com/watch?v=zyl4Vvjc7pI",
       "hashtags": "#MOVINS #مسلسلات #The_Tonight_Show_Starring_Johnny_Carson",
-      "updated_at": "2026-09-20T13:05:01.499173+00:00"
+      "updated_at": "2026-09-20T22:27:55.623472+00:00"
+    },
+    {
+      "id": 63770,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل كوميديا",
+      "title": "The Late Show with Stephen Colbert",
+      "original_title": "The Late Show with Stephen Colbert",
+      "original_language": "en",
+      "year": "2015",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 6.1,
+      "popularity": 1376.1553,
+      "vote_count": 364,
+      "genres": [
+        "كوميديا",
+        "حواري"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/9jkThAGYj2yp8jsS6Nriy5mzKFT.jpg",
+      "trailer_key": "",
+      "trailer_url": "",
+      "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Late_Show_with_Stephen_Colbert",
+      "updated_at": "2026-09-20T22:27:55.846775+00:00"
+    },
+    {
+      "id": 62223,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل حواري",
+      "title": "The Late Late Show with James Corden",
+      "original_title": "The Late Late Show with James Corden",
+      "original_language": "en",
+      "year": "2015",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 5.1,
+      "popularity": 1051.8414,
+      "vote_count": 148,
+      "genres": [
+        "حواري"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/qPmVoG8G9tc1nN8ZwGV2zYcknit.jpg",
+      "trailer_key": "oBBWO4_wLoY",
+      "trailer_url": "https://www.youtube.com/watch?v=oBBWO4_wLoY",
+      "hashtags": "#MOVINS #مسلسلات #The_Late_Late_Show_with_James_Corden",
+      "updated_at": "2026-09-20T22:27:56.073907+00:00"
     },
     {
       "id": 108978,
@@ -54,7 +97,7 @@
       "overview": "يصل جاك ريتشر، الضابط السابق في الشرطة العسكرية، إلى بلدة مارغريف الصغيرة، لكنه يجد نفسه متورطًا في قضية قتل غامضة بعد وقت قصير من وصوله. يكتشف ريتشر أن الجريمة ليست حادثًا عابرًا، بل جزء من مؤامرة كبيرة تضم رجال أعمال ومسؤولين وشخصيات نافذة في البلدة. يتعاون مع الضابطة روسكو كونكلين والمحقق أوسكار فينلي لكشف الحقيقة، مستفيدًا من خبرته العسكرية وقدرته على التحقيق ومواجهة خصومه. ومع اتساع دائرة الخطر، يجد ريتشر نفسه في مواجهة شبكة إجرامية مستعدة لفعل أي شيء لإخفاء أسرارها.",
       "rating": 8.1,
       "popularity": 924.8967,
-      "vote_count": 3363,
+      "vote_count": 3370,
       "genres": [
         "أكشن ومغامرة",
         "جريمة"
@@ -63,7 +106,7 @@
       "trailer_key": "GSycMV-_Csw",
       "trailer_url": "https://www.youtube.com/watch?v=GSycMV-_Csw",
       "hashtags": "#MOVINS #مسلسلات #أكشن #جريمة #ريتشر",
-      "updated_at": "2026-09-20T13:04:54.450490+00:00"
+      "updated_at": "2026-09-20T22:27:51.199419+00:00"
     },
     {
       "id": 549,
@@ -76,7 +119,7 @@
       "overview": "في حالات مستمدة من الأحداث الراهنة، يقوم رجال الشرطة بالتحقيق في جرائم خطيرة وغالبًا ما تكون قاتلة، حيث يقومون بتحليل الأدلة واستجواب المشتبه بهم حتى يتم اعتقال شخص ما. ثم يقوم مكتب الادعاء ببناء قضية لإدانة الجاني من خلال إثبات إدانته بما يفوق الشك العادل. يعمل هذان الفريقان المتخصصان معًا على التنقل في جميع جوانب النظام القضائي الجنائي المعقد لجعل نيويورك مكانًا أكثر أمانًا.",
       "rating": 7.3,
       "popularity": 692.9698,
-      "vote_count": 722,
+      "vote_count": 723,
       "genres": [
         "جريمة",
         "دراما"
@@ -85,7 +128,7 @@
       "trailer_key": "RzN8cPlcMTU",
       "trailer_url": "https://www.youtube.com/watch?v=RzN8cPlcMTU",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #القانون_والنظام",
-      "updated_at": "2026-09-20T13:04:59.504289+00:00"
+      "updated_at": "2026-09-20T22:27:56.430397+00:00"
     },
     {
       "id": 969681,
@@ -98,7 +141,7 @@
       "overview": "بينما يواصل \"بيتر باركر\" حماية المدينة بصفته \"الرجل العنكبوت\" في عالمٍ لم يعد يتذكره أحد، يجد نفسه وحيدًا وهو يشاهد أصدقاءه القدامى يمضون في حياتهم من دونه. ومع تصاعد الضغوط، يبدأ بالتغير بطريقة قد تعجز قواه عن كبحها. لكن هذا التحول قد يكون أمله الوحيد لمواجهة تهديدٍ غامض وخطير يلوح في الأفق، عدو يمتلك قوة مرعبة لا يستطيع أحد حتى رؤيته، ويهدد المدينة وكل من يهتم \"بيتر\" لأمرهم.",
       "rating": 7.9,
       "popularity": 684.7189,
-      "vote_count": 2782,
+      "vote_count": 2792,
       "genres": [
         "خيال علمي",
         "أكشن",
@@ -108,7 +151,7 @@
       "trailer_key": "P3uI5sLosKU",
       "trailer_url": "https://www.youtube.com/watch?v=P3uI5sLosKU",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #أكشن #مغامرة #سبايدر_مان:_يوم_جديد",
-      "updated_at": "2026-09-20T13:03:13.484970+00:00"
+      "updated_at": "2026-09-20T22:26:14.602283+00:00"
     },
     {
       "id": 22980,
@@ -130,7 +173,29 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Watch_What_Happens_Live_with_Andy_Cohen",
-      "updated_at": "2026-09-20T13:04:58.462635+00:00"
+      "updated_at": "2026-09-20T22:27:56.661861+00:00"
+    },
+    {
+      "id": 14981,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل كوميديا",
+      "title": "The Late Late Show with Craig Ferguson",
+      "original_title": "The Late Late Show with Craig Ferguson",
+      "original_language": "en",
+      "year": "2005",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 6.8,
+      "popularity": 610.6244,
+      "vote_count": 121,
+      "genres": [
+        "كوميديا",
+        "حواري"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/gGC7zSDgG0FY0MbM1pjfhTCWQBI.jpg",
+      "trailer_key": "",
+      "trailer_url": "",
+      "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Late_Late_Show_with_Craig_Ferguson",
+      "updated_at": "2026-09-20T22:27:56.892160+00:00"
     },
     {
       "id": 1433,
@@ -152,7 +217,28 @@
       "trailer_key": "apr31MFjg08",
       "trailer_url": "https://www.youtube.com/watch?v=apr31MFjg08",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #American_Dad!",
-      "updated_at": "2026-09-20T13:05:01.989758+00:00"
+      "updated_at": "2026-09-20T22:27:57.145176+00:00"
+    },
+    {
+      "id": 94722,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل أخبار",
+      "title": "Tagesschau",
+      "original_title": "Tagesschau",
+      "original_language": "de",
+      "year": "1952",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 6.8,
+      "popularity": 581.2473,
+      "vote_count": 256,
+      "genres": [
+        "أخبار"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg",
+      "trailer_key": "",
+      "trailer_url": "",
+      "hashtags": "#MOVINS #مسلسلات #Tagesschau",
+      "updated_at": "2026-09-20T22:27:57.376353+00:00"
     },
     {
       "id": 1423191,
@@ -165,7 +251,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.3,
       "popularity": 556.6877,
-      "vote_count": 174,
+      "vote_count": 207,
       "genres": [
         "رعب",
         "خيال علمي",
@@ -175,7 +261,7 @@
       "trailer_key": "mNd1gb19A-c",
       "trailer_url": "https://www.youtube.com/watch?v=mNd1gb19A-c",
       "hashtags": "#MOVINS #أفلام #رعب #خيال_علمي #مغامرة #الشر_المقيم",
-      "updated_at": "2026-09-20T13:03:13.254908+00:00"
+      "updated_at": "2026-09-20T22:26:14.368005+00:00"
     },
     {
       "id": 59941,
@@ -197,7 +283,7 @@
       "trailer_key": "q-0YafsWK_M",
       "trailer_url": "https://www.youtube.com/watch?v=q-0YafsWK_M",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Tonight_Show_Starring_Jimmy_Fallon",
-      "updated_at": "2026-09-20T13:04:58.692667+00:00"
+      "updated_at": "2026-09-20T22:27:57.604019+00:00"
     },
     {
       "id": 1101383,
@@ -210,7 +296,7 @@
       "overview": "بعد حدث كوني غامض يقتلع شارع أوك من ضواحي المدينة وينقل الحي بأكمله إلى مكان مجهول، تكتشف عائلة \"بلات\" أن بقاءها على قيد الحياة يعتمد على تماسك أفرادها معًا، بينما يحاولون التأقلم مع محيطهم الذي أصبح غريبًا تمامًا عن ذي قبل.",
       "rating": 7.0,
       "popularity": 514.5001,
-      "vote_count": 1248,
+      "vote_count": 1291,
       "genres": [
         "خيال علمي",
         "غموض",
@@ -220,7 +306,7 @@
       "trailer_key": "u4tgctWuHc0",
       "trailer_url": "https://www.youtube.com/watch?v=u4tgctWuHc0",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #غموض #إثارة #نهاية_شارع_أوك",
-      "updated_at": "2026-09-20T13:03:13.022162+00:00"
+      "updated_at": "2026-09-20T22:26:14.140563+00:00"
     },
     {
       "id": 1204680,
@@ -233,7 +319,7 @@
       "overview": "بعد أن خذلته منتجات شركة \"أكمي\" مرات عديدة في سعيه الحثيث وراء \"رود رنر\"، قرر وايل إي. كايوتي توكيل محامٍ متخصص في الإعلانات لرفع دعوى قضائية ضد شركة \"أكمي\".",
       "rating": 7.6,
       "popularity": 485.616,
-      "vote_count": 458,
+      "vote_count": 462,
       "genres": [
         "كوميديا",
         "مغامرة",
@@ -243,7 +329,7 @@
       "trailer_key": "kMsiD1Nky5I",
       "trailer_url": "https://www.youtube.com/watch?v=kMsiD1Nky5I",
       "hashtags": "#MOVINS #أفلام #كوميديا #مغامرة #عائلي #كايوتي_ضد_أكمي",
-      "updated_at": "2026-09-20T13:03:15.639911+00:00"
+      "updated_at": "2026-09-20T22:26:15.753737+00:00"
     },
     {
       "id": 456,
@@ -265,7 +351,51 @@
       "trailer_key": "_jgYEYERYFQ",
       "trailer_url": "https://www.youtube.com/watch?v=_jgYEYERYFQ",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #آل_سيمبسون",
-      "updated_at": "2026-09-20T13:05:01.019835+00:00"
+      "updated_at": "2026-09-20T22:27:57.839798+00:00"
+    },
+    {
+      "id": 61818,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل كوميديا",
+      "title": "Late Night with Seth Meyers",
+      "original_title": "Late Night with Seth Meyers",
+      "original_language": "en",
+      "year": "2014",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 5.1,
+      "popularity": 456.5261,
+      "vote_count": 134,
+      "genres": [
+        "حواري",
+        "كوميديا"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/u8VruEGv7mtyJihVn2CSA1u90pk.jpg",
+      "trailer_key": "rLwbzGyC6t4",
+      "trailer_url": "https://www.youtube.com/watch?v=rLwbzGyC6t4",
+      "hashtags": "#MOVINS #مسلسلات #كوميديا #Late_Night_with_Seth_Meyers",
+      "updated_at": "2026-09-20T22:27:58.129407+00:00"
+    },
+    {
+      "id": 26663,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل كوميديا",
+      "title": "What's My Line?",
+      "original_title": "What's My Line?",
+      "original_language": "en",
+      "year": "1950",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 7.0,
+      "popularity": 451.7452,
+      "vote_count": 29,
+      "genres": [
+        "عائلي",
+        "كوميديا"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/A9T7xSQFnlxFgZkqC4lmHYPXhq4.jpg",
+      "trailer_key": "",
+      "trailer_url": "",
+      "hashtags": "#MOVINS #مسلسلات #عائلي #كوميديا #What's_My_Line?",
+      "updated_at": "2026-09-20T22:27:58.348508+00:00"
     },
     {
       "id": 5920,
@@ -288,7 +418,51 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #الوسيط_الروحي",
-      "updated_at": "2026-09-20T13:04:58.959619+00:00"
+      "updated_at": "2026-09-20T22:27:58.581658+00:00"
+    },
+    {
+      "id": 82873,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل حواري",
+      "title": "The Kelly Clarkson Show",
+      "original_title": "The Kelly Clarkson Show",
+      "original_language": "en",
+      "year": "2019",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 6.3,
+      "popularity": 416.179,
+      "vote_count": 72,
+      "genres": [
+        "حواري"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/sBix25bie9UQFzbarN51DpFO5ky.jpg",
+      "trailer_key": "BhrdON83gqk",
+      "trailer_url": "https://www.youtube.com/watch?v=BhrdON83gqk",
+      "hashtags": "#MOVINS #مسلسلات #The_Kelly_Clarkson_Show",
+      "updated_at": "2026-09-20T22:27:58.808967+00:00"
+    },
+    {
+      "id": 4057,
+      "type": "مسلسل",
+      "detailed_type": "مسلسل دراما",
+      "title": "عقول اجرامية",
+      "original_title": "عقول اجرامية",
+      "original_language": "en",
+      "year": "2005",
+      "overview": "يقوم نخبة من مكتب التحقيقات الفيدرالي (FBI) بتحليل العقول الإجرامية الأكثر التواءا في البلاد، بتوقع تحركاتهم التالية قبل أن يضربون مرة أخرى.",
+      "rating": 8.3,
+      "popularity": 409.7042,
+      "vote_count": 4173,
+      "genres": [
+        "جريمة",
+        "دراما",
+        "غموض"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/hWSb4UnIjlTvnvrP98NbFSO60HA.jpg",
+      "trailer_key": "NTYxiJBbEZk",
+      "trailer_url": "https://www.youtube.com/watch?v=NTYxiJBbEZk",
+      "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #عقول_اجرامية",
+      "updated_at": "2026-09-20T22:27:59.049728+00:00"
     },
     {
       "id": 2734,
@@ -311,7 +485,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #القانون_والنظام:_وحدة_الضحايا_الخاصة",
-      "updated_at": "2026-09-20T13:05:00.217884+00:00"
+      "updated_at": "2026-09-20T22:27:59.291402+00:00"
     },
     {
       "id": 1434,
@@ -333,7 +507,7 @@
       "trailer_key": "x-jJ41Qhqb0",
       "trailer_url": "https://www.youtube.com/watch?v=x-jJ41Qhqb0",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #رجل_العائلة",
-      "updated_at": "2026-09-20T13:05:00.491895+00:00"
+      "updated_at": "2026-09-20T22:27:59.526152+00:00"
     },
     {
       "id": 1905,
@@ -354,7 +528,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #The_Situation_Room_with_Wolf_Blitzer",
-      "updated_at": "2026-09-20T13:05:02.595822+00:00"
+      "updated_at": "2026-09-20T22:27:59.755653+00:00"
     },
     {
       "id": 113962,
@@ -367,7 +541,7 @@
       "overview": "بينما تسعى (جو) للحفاظ على استقرار حياتها الشخصية والعملية في آن واحد، تواجه العديد من العقبات في حرب المخابرات المركزية ضد الإرهاب، وتستعين بـ(كروز) من قوات المارينز للعمل عميلة سرية لحسابها في إحدى المهمات.",
       "rating": 8.2,
       "popularity": 385.7829,
-      "vote_count": 1571,
+      "vote_count": 1575,
       "genres": [
         "دراما",
         "حربي وسياسة"
@@ -376,7 +550,7 @@
       "trailer_key": "uEjcXhW7CXo",
       "trailer_url": "https://www.youtube.com/watch?v=uEjcXhW7CXo",
       "hashtags": "#MOVINS #مسلسلات #دراما #ليونيس",
-      "updated_at": "2026-09-20T13:04:54.181652+00:00"
+      "updated_at": "2026-09-20T22:27:51.689168+00:00"
     },
     {
       "id": 1368337,
@@ -389,7 +563,7 @@
       "overview": "يتتبع الفيلم رحلة أوديسيوس، الملك الأسطوري لـ \"إيثاكا\"، في عودته الطويلة والخطرة إلى وطنه بعد انتهاء حرب طروادة. تستغرق رحلته عشر سنوات، وخلالها يواجه أوديسيوس العديد من التحديات والمخاطر والمخلوقات الأسطورية",
       "rating": 8.0,
       "popularity": 377.4824,
-      "vote_count": 3805,
+      "vote_count": 3821,
       "genres": [
         "مغامرة",
         "أكشن",
@@ -399,7 +573,7 @@
       "trailer_key": "AyIZ9tiiN8I",
       "trailer_url": "https://www.youtube.com/watch?v=AyIZ9tiiN8I",
       "hashtags": "#MOVINS #أفلام #مغامرة #أكشن #فانتازيا #الأوديسة",
-      "updated_at": "2026-09-20T13:03:13.955190+00:00"
+      "updated_at": "2026-09-20T22:26:15.062748+00:00"
     },
     {
       "id": 1416,
@@ -420,7 +594,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #تشريح_غراي",
-      "updated_at": "2026-09-20T13:05:02.902115+00:00"
+      "updated_at": "2026-09-20T22:28:00.058845+00:00"
     },
     {
       "id": 1375646,
@@ -433,7 +607,7 @@
       "overview": "بالبروفيسور \"سي-جونغ\" فجأةً في جحيمٍ دامٍ، حين يتفشّى فيروسٌ سريع التحوّر خلال مؤتمرٍ للتقنية الحيوية، فتُبادر السلطات إلى إغلاق المنشأة وعزلها بالكامل. وإذ يجد نفسه محاصرًا بلا أي منفذٍ للنجاة، يخوض \"سي-جونغ\" مع حفنةٍ من الناجين معركة بقاءٍ محمومة، بينما يتحوّل المصابون أمام أعينهم إلى وحوشٍ لا تُبقي ولا تذر.",
       "rating": 8.1,
       "popularity": 351.7051,
-      "vote_count": 827,
+      "vote_count": 830,
       "genres": [
         "أكشن",
         "رعب",
@@ -443,7 +617,7 @@
       "trailer_key": "LW6dpj1uCK8",
       "trailer_url": "https://www.youtube.com/watch?v=LW6dpj1uCK8",
       "hashtags": "#MOVINS #أفلام #أكشن #رعب #خيال_علمي #مستعمرة",
-      "updated_at": "2026-09-20T13:03:18.518197+00:00"
+      "updated_at": "2026-09-20T22:26:19.125110+00:00"
     },
     {
       "id": 1622,
@@ -456,7 +630,7 @@
       "overview": "منذ الصغر، خسر سام ودين وينشستر أمهما لقوة خارقة غامضة وشيطانية. وفي وقت لاحق، رباهم والدهم ليكونوا جنودا. علمهم عن الشر الخارق الذي يعيش في الزوايا المظلمة وعلى الطرق الخلفية في أمريكا ... وعلمهم كيف يقتلونها. الآن ، يخترق الأخوة وينتشيستر البلاد في  تشيفي إمبالا موديل 67، ويقاتلون كل نوع من التهديدات الخارقة التي يواجهونها على طول الطريق.",
       "rating": 8.3,
       "popularity": 349.8344,
-      "vote_count": 8689,
+      "vote_count": 8692,
       "genres": [
         "دراما",
         "غموض",
@@ -466,7 +640,7 @@
       "trailer_key": "yy96yJjkvjo",
       "trailer_url": "https://www.youtube.com/watch?v=yy96yJjkvjo",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #خيال_علمي #خارق_للطبيعة",
-      "updated_at": "2026-09-20T13:05:02.236326+00:00"
+      "updated_at": "2026-09-20T22:28:00.340487+00:00"
     },
     {
       "id": 498,
@@ -488,7 +662,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Late_Show_with_David_Letterman",
-      "updated_at": "2026-09-20T13:05:03.229376+00:00"
+      "updated_at": "2026-09-20T22:28:00.570869+00:00"
     },
     {
       "id": 112470,
@@ -510,7 +684,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Ici_tout_commence",
-      "updated_at": "2026-09-20T13:05:03.473880+00:00"
+      "updated_at": "2026-09-20T22:28:00.801254+00:00"
     },
     {
       "id": 2221,
@@ -531,7 +705,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #The_View",
-      "updated_at": "2026-09-20T13:05:03.739849+00:00"
+      "updated_at": "2026-09-20T22:28:01.025484+00:00"
     },
     {
       "id": 502,
@@ -553,7 +727,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #شارع_سمسم",
-      "updated_at": "2026-09-20T13:04:59.189791+00:00"
+      "updated_at": "2026-09-20T22:28:01.261167+00:00"
     },
     {
       "id": 70672,
@@ -575,7 +749,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #رجال_في_مهمة",
-      "updated_at": "2026-09-20T13:04:59.741726+00:00"
+      "updated_at": "2026-09-20T22:28:01.487467+00:00"
     },
     {
       "id": 2661,
@@ -598,7 +772,7 @@
       "trailer_key": "FY4TBfTLPEM",
       "trailer_url": "https://www.youtube.com/watch?v=FY4TBfTLPEM",
       "hashtags": "#MOVINS #مسلسلات #أكشن #خيال_علمي #دراما #الدراج_المقنع",
-      "updated_at": "2026-09-20T13:04:59.972534+00:00"
+      "updated_at": "2026-09-20T22:28:01.716010+00:00"
     },
     {
       "id": 65733,
@@ -624,7 +798,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #كوميديا #خيال_علمي #دورايمون",
-      "updated_at": "2026-09-20T13:05:04.315429+00:00"
+      "updated_at": "2026-09-20T22:28:02.026310+00:00"
     },
     {
       "id": 2912,
@@ -646,7 +820,7 @@
       "trailer_key": "UNiCrolP7hA",
       "trailer_url": "https://www.youtube.com/watch?v=UNiCrolP7hA",
       "hashtags": "#MOVINS #مسلسلات #عائلي #Jeopardy!",
-      "updated_at": "2026-09-20T13:05:04.541617+00:00"
+      "updated_at": "2026-09-20T22:28:02.302577+00:00"
     },
     {
       "id": 45789,
@@ -668,7 +842,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Sturm_der_Liebe",
-      "updated_at": "2026-09-20T13:05:01.263616+00:00"
+      "updated_at": "2026-09-20T22:28:02.610541+00:00"
     },
     {
       "id": 27213,
@@ -689,7 +863,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #The_Late_Late_Show_with_Craig_Kilborn",
-      "updated_at": "2026-09-20T13:05:04.868607+00:00"
+      "updated_at": "2026-09-20T22:28:02.872609+00:00"
     },
     {
       "id": 4614,
@@ -712,7 +886,7 @@
       "trailer_key": "BhtDgn31XZo",
       "trailer_url": "https://www.youtube.com/watch?v=BhtDgn31XZo",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #أكشن #إن_سي_آي_أس",
-      "updated_at": "2026-09-20T13:05:00.733349+00:00"
+      "updated_at": "2026-09-20T22:28:03.142894+00:00"
     },
     {
       "id": 2224,
@@ -734,7 +908,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Daily_Show",
-      "updated_at": "2026-09-20T13:05:05.184901+00:00"
+      "updated_at": "2026-09-20T22:28:03.381444+00:00"
     },
     {
       "id": 33238,
@@ -756,7 +930,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #الرجل_الجاري",
-      "updated_at": "2026-09-20T13:05:05.428494+00:00"
+      "updated_at": "2026-09-20T22:28:03.616832+00:00"
     },
     {
       "id": 206559,
@@ -777,7 +951,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Binnelanders",
-      "updated_at": "2026-09-20T13:05:05.708294+00:00"
+      "updated_at": "2026-09-20T22:28:03.849066+00:00"
     },
     {
       "id": 1911,
@@ -799,7 +973,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #عظام",
-      "updated_at": "2026-09-20T13:05:05.963006+00:00"
+      "updated_at": "2026-09-20T22:28:04.112946+00:00"
     },
     {
       "id": 1431,
@@ -822,7 +996,7 @@
       "trailer_key": "ApT1EYvrwuk",
       "trailer_url": "https://www.youtube.com/watch?v=ApT1EYvrwuk",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #سي_اس_آي:_التحقيق_في_مسرح_الجريمة",
-      "updated_at": "2026-09-20T13:05:06.213769+00:00"
+      "updated_at": "2026-09-20T22:28:04.347439+00:00"
     },
     {
       "id": 4656,
@@ -843,7 +1017,7 @@
       "trailer_key": "FVO6mUQMon8",
       "trailer_url": "https://www.youtube.com/watch?v=FVO6mUQMon8",
       "hashtags": "#MOVINS #مسلسلات #Raw",
-      "updated_at": "2026-09-20T13:05:06.470135+00:00"
+      "updated_at": "2026-09-20T22:28:04.571511+00:00"
     },
     {
       "id": 50821,
@@ -865,7 +1039,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #عائلي #Barátok_közt",
-      "updated_at": "2026-09-20T13:05:06.725983+00:00"
+      "updated_at": "2026-09-20T22:28:04.845440+00:00"
     },
     {
       "id": 72879,
@@ -888,7 +1062,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #Demain_nous_appartient",
-      "updated_at": "2026-09-20T13:05:06.965124+00:00"
+      "updated_at": "2026-09-20T22:28:05.064371+00:00"
     },
     {
       "id": 11890,
@@ -909,7 +1083,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Goede_Tijden,_Slechte_Tijden",
-      "updated_at": "2026-09-20T13:05:07.226801+00:00"
+      "updated_at": "2026-09-20T22:28:05.288410+00:00"
     },
     {
       "id": 79744,
@@ -932,7 +1106,7 @@
       "trailer_key": "8BPlx6eK1vc",
       "trailer_url": "https://www.youtube.com/watch?v=8BPlx6eK1vc",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #كوميديا #المبتدئ",
-      "updated_at": "2026-09-20T13:05:07.479197+00:00"
+      "updated_at": "2026-09-20T22:28:05.518960+00:00"
     },
     {
       "id": 18165,
@@ -945,7 +1119,7 @@
       "overview": "تدور أحداث مسلسل **يوميات مصاص الدماء** حول إيلينا جيلبرت، الفتاة التي تحاول استعادة حياتها الطبيعية بعد وفاة والديها، قبل أن تتغير حياتها بعودة الأخوين مصاصي الدماء ستيفان وديمون سالفاتور إلى بلدة ميستيك فولز. تنجذب إيلينا إلى ستيفان، بينما يكشف ديمون عن جانب أكثر غموضًا وخطورة، وسرعان ما يجد الثلاثة أنفسهم وسط صراعات قديمة بين مصاصي الدماء والسحرة والمستذئبين، إلى جانب أسرار مظلمة تهدد البلدة وكل من يعيش فيها.",
       "rating": 8.3,
       "popularity": 267.2246,
-      "vote_count": 9767,
+      "vote_count": 9768,
       "genres": [
         "دراما",
         "خيال علمي وفانتازيا"
@@ -954,7 +1128,7 @@
       "trailer_key": "RO3Qp_XdR0w",
       "trailer_url": "https://www.youtube.com/watch?v=RO3Qp_XdR0w",
       "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #يوميات_مصاص_الدماء",
-      "updated_at": "2026-09-20T13:05:07.762455+00:00"
+      "updated_at": "2026-09-20T22:28:05.768313+00:00"
     },
     {
       "id": 291,
@@ -975,7 +1149,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Coronation_Street",
-      "updated_at": "2026-09-20T13:05:07.991603+00:00"
+      "updated_at": "2026-09-20T22:28:05.997705+00:00"
     },
     {
       "id": 1419,
@@ -997,7 +1171,7 @@
       "trailer_key": "xjrObBtzGYg",
       "trailer_url": "https://www.youtube.com/watch?v=xjrObBtzGYg",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #كاسل",
-      "updated_at": "2026-09-20T13:05:08.245029+00:00"
+      "updated_at": "2026-09-20T22:28:06.271364+00:00"
     },
     {
       "id": 13945,
@@ -1019,7 +1193,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Gute_Zeiten,_schlechte_Zeiten",
-      "updated_at": "2026-09-20T13:05:08.494758+00:00"
+      "updated_at": "2026-09-20T22:28:06.499015+00:00"
     },
     {
       "id": 1288445,
@@ -1032,7 +1206,7 @@
       "overview": "تبدأ القصة عندما يتم توريط كول، عميل سابق في القوات الخاصة وضابط شرطة سابق في مدينة نيويورك، في جريمة قتل رجل أعمال ملياردير، ويُتهم كول بقتل صديقه ورئيسه، تيبو، الذي وظف كول كخبير أمني خاص له ، فيضطر للهرب لإثبات براءته والكشف عن مؤامرة دولية.",
       "rating": 6.4,
       "popularity": 254.1106,
-      "vote_count": 418,
+      "vote_count": 422,
       "genres": [
         "أكشن",
         "إثارة"
@@ -1041,7 +1215,7 @@
       "trailer_key": "2Iqvbe98Gb4",
       "trailer_url": "https://www.youtube.com/watch?v=2Iqvbe98Gb4",
       "hashtags": "#MOVINS #أفلام #أكشن #إثارة #تمرد",
-      "updated_at": "2026-09-20T13:03:18.748747+00:00"
+      "updated_at": "2026-09-20T22:26:17.165449+00:00"
     },
     {
       "id": 97546,
@@ -1054,7 +1228,7 @@
       "overview": "\"جيسون سوديكس\" يؤدي دور \"تيد لاسو\"، مدرب كرة القدم الأمريكية الذي عُيّن مديراً فنياً لفريق كرة قدم إنكليزي رغم افتقاره إلى الخبرة. لكنه يعوّض المعرفة التي تنقصه بتفاؤله وعزيمته القوية… والبسكويت.",
       "rating": 8.4,
       "popularity": 253.806,
-      "vote_count": 2672,
+      "vote_count": 2673,
       "genres": [
         "دراما",
         "كوميديا"
@@ -1063,7 +1237,7 @@
       "trailer_key": "BwPcMIDFVKw",
       "trailer_url": "https://www.youtube.com/watch?v=BwPcMIDFVKw",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #Ted_Lasso",
-      "updated_at": "2026-09-20T13:04:57.110376+00:00"
+      "updated_at": "2026-09-20T22:27:54.979695+00:00"
     },
     {
       "id": 1396,
@@ -1076,7 +1250,7 @@
       "overview": "والتر وايت مدرس كيمياء موهوب يعيش حياة هادئة ومتواضعة مع عائلته، إلى أن يكتشف إصابته بالسرطان ويقرر تأمين مستقبل أسرته قبل فوات الأوان. يستعين بطالبه السابق جيسي بينكمان لدخول عالم تصنيع وبيع الميثامفيتامين، مستغلًا خبرته في الكيمياء لإنتاج مخدر عالي الجودة. ومع نجاحهما، ينغمس والتر تدريجيًا في عالم الجريمة وتجارة المخدرات، ويبدأ في بناء نفوذ متزايد يضعه في مواجهة تجار مخدرات خطرين وأجهزة إنفاذ القانون، بينما تتغير شخصيته وطموحاته مع ازدياد قوته واتساع إمبراطوريته الإجرامية.",
       "rating": 9.0,
       "popularity": 249.9091,
-      "vote_count": 18657,
+      "vote_count": 18662,
       "genres": [
         "دراما",
         "جريمة"
@@ -1085,7 +1259,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #Breaking_Bad",
-      "updated_at": "2026-09-20T13:05:01.746559+00:00"
+      "updated_at": "2026-09-20T22:28:06.831293+00:00"
     },
     {
       "id": 2527,
@@ -1107,7 +1281,7 @@
       "trailer_key": "ZhZXAOBJFxM",
       "trailer_url": "https://www.youtube.com/watch?v=ZhZXAOBJFxM",
       "hashtags": "#MOVINS #مسلسلات #دراما #Emmerdale",
-      "updated_at": "2026-09-20T13:05:08.941427+00:00"
+      "updated_at": "2026-09-20T22:28:07.060562+00:00"
     },
     {
       "id": 14424,
@@ -1130,7 +1304,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #Malhação",
-      "updated_at": "2026-09-20T13:05:09.179447+00:00"
+      "updated_at": "2026-09-20T22:28:07.284205+00:00"
     },
     {
       "id": 35007,
@@ -1151,7 +1325,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #De_Fabeltjeskrant",
-      "updated_at": "2026-09-20T13:05:09.449300+00:00"
+      "updated_at": "2026-09-20T22:28:07.515523+00:00"
     },
     {
       "id": 4385,
@@ -1173,7 +1347,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Colbert_Report",
-      "updated_at": "2026-09-20T13:05:09.678608+00:00"
+      "updated_at": "2026-09-20T22:28:07.738745+00:00"
     },
     {
       "id": 1421,
@@ -1194,7 +1368,7 @@
       "trailer_key": "rbpTUPisA78",
       "trailer_url": "https://www.youtube.com/watch?v=rbpTUPisA78",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #عائلة_عصرية",
-      "updated_at": "2026-09-20T13:05:09.920444+00:00"
+      "updated_at": "2026-09-20T22:28:07.974259+00:00"
     },
     {
       "id": 1408,
@@ -1207,7 +1381,7 @@
       "overview": "يعمل الدكتور غريغوري هاوس طبيبًا عبقريًا ومتخصصًا في تشخيص الحالات الطبية المعقدة، لكنه يتميز بشخصية ساخرة وصعبة المراس ولا يثق بسهولة بالآخرين. يقود فريقًا من الأطباء في مستشفى برينستون-بلاينزبورو، حيث يتعاملون مع مرضى يعانون من أعراض غامضة وحالات نادرة، ويعتمد هاوس على ملاحظته الدقيقة وقدرته على ربط التفاصيل للوصول إلى التشخيص الصحيح. وبينما يخوض مع فريقه سباقًا مع الوقت لإنقاذ المرضى، يواجه هاوس مشكلاته الشخصية وعلاقاته المتوترة مع زملائه، فيكشف المسلسل جانبًا إنسانيًا معقدًا خلف عبقريته الطبية.",
       "rating": 8.6,
       "popularity": 227.6638,
-      "vote_count": 7890,
+      "vote_count": 7891,
       "genres": [
         "دراما"
       ],
@@ -1215,7 +1389,7 @@
       "trailer_key": "MczMB8nU1sY",
       "trailer_url": "https://www.youtube.com/watch?v=MczMB8nU1sY",
       "hashtags": "#MOVINS #مسلسلات #دراما #هاوس",
-      "updated_at": "2026-09-20T13:05:10.167591+00:00"
+      "updated_at": "2026-09-20T22:28:08.228281+00:00"
     },
     {
       "id": 1667,
@@ -1237,7 +1411,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Saturday_Night_Live",
-      "updated_at": "2026-09-20T13:05:10.408909+00:00"
+      "updated_at": "2026-09-20T22:28:08.461493+00:00"
     },
     {
       "id": 247718,
@@ -1259,7 +1433,7 @@
       "trailer_key": "qKGgw7Ob5f4",
       "trailer_url": "https://www.youtube.com/watch?v=qKGgw7Ob5f4",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #أرض_العصابات",
-      "updated_at": "2026-09-20T13:04:54.713792+00:00"
+      "updated_at": "2026-09-20T22:27:51.425134+00:00"
     },
     {
       "id": 95350,
@@ -1272,7 +1446,7 @@
       "overview": "يتبع العمل قصة المجند الجديد (جون ستيوارت) وأسطورة اللانترنز (هال جوردان)، وهما شرطيان يجدان نفسيهما منخرطين في لغز مظلم على كوكب الأرض، أثناء تحقيقهما في جريمة قتل وقعت في قلب الولايات المتحدة.",
       "rating": 8.3,
       "popularity": 223.2856,
-      "vote_count": 363,
+      "vote_count": 368,
       "genres": [
         "دراما",
         "غموض",
@@ -1282,7 +1456,7 @@
       "trailer_key": "7UIBOsuUwc4",
       "trailer_url": "https://www.youtube.com/watch?v=7UIBOsuUwc4",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #خيال_علمي #الفوانيس",
-      "updated_at": "2026-09-20T13:04:55.426312+00:00"
+      "updated_at": "2026-09-20T22:27:51.916505+00:00"
     },
     {
       "id": 125988,
@@ -1295,7 +1469,7 @@
       "overview": "في مستقبل خرب وسامّ، يعيش آلاف الناس في صومعة ضخمة تحت الأرض. بعد أن يخرق مأمورهم قانونها الأساسي ويموت المواطنون بطرق غامضة، تبدأ المهندسة \"جولييت\" بكشف أسرار صادمة لتعرف الحقيقة عن الصومعة.",
       "rating": 8.2,
       "popularity": 220.1763,
-      "vote_count": 2700,
+      "vote_count": 2702,
       "genres": [
         "خيال علمي وفانتازيا",
         "دراما"
@@ -1304,7 +1478,7 @@
       "trailer_key": "8ZYhuvIv1pA",
       "trailer_url": "https://www.youtube.com/watch?v=8ZYhuvIv1pA",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #Silo",
-      "updated_at": "2026-09-20T13:04:57.844196+00:00"
+      "updated_at": "2026-09-20T22:27:53.828262+00:00"
     },
     {
       "id": 1399,
@@ -1317,7 +1491,7 @@
       "overview": "تتنافس سبع عائلات نبيلة للسيطرة على العرش الحديدي وحكم ممالك ويستروس، وسط مؤامرات سياسية وتحالفات متغيرة وحروب دامية تهدد بتغيير موازين القوى. وبينما ينخرط آل ستارك ولانستر وتارغاريان وغيرهم في صراع شرس على السلطة، يظهر تهديد قديم في أقصى الشمال مع اقتراب جيش الموتى من الجدار. وفي الوقت نفسه، تسعى دنيرس تارغاريان إلى استعادة العرش الذي تعتبره حقًا لعائلتها، فتبدأ رحلة طويلة لبناء قوتها وجيشها. ومع تصاعد الصراعات، يجد الجميع أنفسهم أمام معركة أكبر من مجرد صراع على الحكم.",
       "rating": 8.5,
       "popularity": 219.0387,
-      "vote_count": 27778,
+      "vote_count": 27781,
       "genres": [
         "خيال علمي وفانتازيا",
         "دراما",
@@ -1327,7 +1501,7 @@
       "trailer_key": "KPLWWIOCOOQ",
       "trailer_url": "https://www.youtube.com/watch?v=KPLWWIOCOOQ",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #أكشن #صراع_العروش",
-      "updated_at": "2026-09-20T13:05:10.928516+00:00"
+      "updated_at": "2026-09-20T22:28:08.912237+00:00"
     },
     {
       "id": 32415,
@@ -1350,7 +1524,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Conan",
-      "updated_at": "2026-09-20T13:05:11.162084+00:00"
+      "updated_at": "2026-09-20T22:28:09.143220+00:00"
     },
     {
       "id": 1108427,
@@ -1363,7 +1537,7 @@
       "overview": "تستجيب موانا المراهقة لنداء المحيط، ولأول مرة، تبحر إلى ما وراء الشعاب المرجانية لجزيرتها موتوني مع نصف الإله سيئ السمعة ماوي في رحلة لا تُنسى لاستعادة الازدهار لشعبها",
       "rating": 7.4,
       "popularity": 216.803,
-      "vote_count": 705,
+      "vote_count": 712,
       "genres": [
         "عائلي",
         "فانتازيا",
@@ -1374,7 +1548,7 @@
       "trailer_key": "EEz5xbzYPKI",
       "trailer_url": "https://www.youtube.com/watch?v=EEz5xbzYPKI",
       "hashtags": "#MOVINS #أفلام #عائلي #فانتازيا #كوميديا #مغامرة #فلم_موانا",
-      "updated_at": "2026-09-20T13:03:14.176311+00:00"
+      "updated_at": "2026-09-20T22:26:15.523468+00:00"
     },
     {
       "id": 10536,
@@ -1396,7 +1570,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Mike_Douglas_Show",
-      "updated_at": "2026-09-20T13:05:11.416078+00:00"
+      "updated_at": "2026-09-20T22:28:09.368355+00:00"
     },
     {
       "id": 51817,
@@ -1421,7 +1595,7 @@
       "trailer_key": "neexNjauRZA",
       "trailer_url": "https://www.youtube.com/watch?v=neexNjauRZA",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #سلاحف_النينجا",
-      "updated_at": "2026-09-20T13:05:11.668525+00:00"
+      "updated_at": "2026-09-20T22:28:09.642852+00:00"
     },
     {
       "id": 30984,
@@ -1444,7 +1618,7 @@
       "trailer_key": "0c4IoCA5fY0",
       "trailer_url": "https://www.youtube.com/watch?v=0c4IoCA5fY0",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #خيال_علمي #المطهر",
-      "updated_at": "2026-09-20T13:04:55.919199+00:00"
+      "updated_at": "2026-09-20T22:27:54.050528+00:00"
     },
     {
       "id": 15226,
@@ -1468,7 +1642,7 @@
       "trailer_key": "7FzohPmliGs",
       "trailer_url": "https://www.youtube.com/watch?v=7FzohPmliGs",
       "hashtags": "#MOVINS #مسلسلات #أكشن #جريمة #دراما #غموض #سي_آي_دي",
-      "updated_at": "2026-09-20T13:05:11.975296+00:00"
+      "updated_at": "2026-09-20T22:28:09.980402+00:00"
     },
     {
       "id": 8590,
@@ -1491,7 +1665,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #جريمة #Plus_belle_la_vie",
-      "updated_at": "2026-09-20T13:05:12.212961+00:00"
+      "updated_at": "2026-09-20T22:28:10.208259+00:00"
     },
     {
       "id": 94664,
@@ -1504,7 +1678,7 @@
       "overview": "عندما تدهس شاحنة شابًا يبلغ من العمر 34 سنة، لا تنتهي قصته هناك. بل يعاد بعثه في عالم جديد كرضيع، ينتهز \"رودي\" كلّ فرصة ليعيش الحياة التي لطالما أرادها. مدعومًا بأصدقاء جُدد، وبعض القدرات السحرية المكتسبة حديثًا، والشجاعة لفعل الأشياء التي كان يحلم بها دائمًا، ينطلق في مغامرة ملحمية، مع تذكره لكل تجربته السابقة.",
       "rating": 8.4,
       "popularity": 206.9604,
-      "vote_count": 1720,
+      "vote_count": 1722,
       "genres": [
         "أكشن ومغامرة",
         "رسوم متحركة",
@@ -1514,7 +1688,7 @@
       "trailer_key": "k5VxfJpzy1Q",
       "trailer_url": "https://www.youtube.com/watch?v=k5VxfJpzy1Q",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #خيال_علمي #موشوكو_تينسي",
-      "updated_at": "2026-09-20T13:05:12.461043+00:00"
+      "updated_at": "2026-09-20T22:27:53.602023+00:00"
     },
     {
       "id": 32798,
@@ -1537,7 +1711,7 @@
       "trailer_key": "xy30TGdaEAE",
       "trailer_url": "https://www.youtube.com/watch?v=xy30TGdaEAE",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #أكشن #Hawaii_Five_0",
-      "updated_at": "2026-09-20T13:05:12.708109+00:00"
+      "updated_at": "2026-09-20T22:28:10.509558+00:00"
     },
     {
       "id": 12415,
@@ -1558,7 +1732,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Egoli:_Place_of_Gold",
-      "updated_at": "2026-09-20T13:05:12.957058+00:00"
+      "updated_at": "2026-09-20T22:28:10.737823+00:00"
     },
     {
       "id": 4601,
@@ -1579,7 +1753,7 @@
       "trailer_key": "75IXY062Iqw",
       "trailer_url": "https://www.youtube.com/watch?v=75IXY062Iqw",
       "hashtags": "#MOVINS #مسلسلات #دراما #Law_&_Order:_Criminal_Intent",
-      "updated_at": "2026-09-20T13:05:13.204051+00:00"
+      "updated_at": "2026-09-20T22:28:10.965379+00:00"
     },
     {
       "id": 269,
@@ -1592,7 +1766,7 @@
       "overview": "في تري هيل، كارولينا الشمالية، يشترك شقيقان غير شقيقين في اسم عائلة ولا شيء آخر. لوكاس هو لاعب كرة سلة موهوب على جانب الشارع، ولكن مهاراته لا يقدرها سوى أصدقائه في ملعب النهر. يتشفق ناثان الشهير والثري في عبادة البطل في المدينة، كنجم لفريق مدرسته الثانوية. وكلا الصبيين هما ابن لاعب الكرة الجامعي السابق دان سكوت الذي سيطارده منذ فترة طويلة اختياره للتخلي عن لوكاس وأمه كارين، لفترة طويلة في حياته مع زوجته ديب وابنهما ناثان.",
       "rating": 7.8,
       "popularity": 200.2715,
-      "vote_count": 628,
+      "vote_count": 629,
       "genres": [
         "دراما"
       ],
@@ -1600,7 +1774,7 @@
       "trailer_key": "GIFbz7uTOKI",
       "trailer_url": "https://www.youtube.com/watch?v=GIFbz7uTOKI",
       "hashtags": "#MOVINS #مسلسلات #دراما #One_Tree_Hill",
-      "updated_at": "2026-09-20T13:05:13.455906+00:00"
+      "updated_at": "2026-09-20T22:28:11.194703+00:00"
     },
     {
       "id": 1482547,
@@ -1622,7 +1796,7 @@
       "trailer_key": "M9tHmu0wNHM",
       "trailer_url": "https://www.youtube.com/watch?v=M9tHmu0wNHM",
       "hashtags": "#MOVINS #أفلام #أكشن #إثارة #Zip_Wire",
-      "updated_at": "2026-09-20T13:03:19.081503+00:00"
+      "updated_at": "2026-09-20T22:26:19.438393+00:00"
     },
     {
       "id": 4376,
@@ -1645,7 +1819,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #أكشن #جريمة #JAG",
-      "updated_at": "2026-09-20T13:05:13.685720+00:00"
+      "updated_at": "2026-09-20T22:28:11.419675+00:00"
     },
     {
       "id": 2316,
@@ -1658,7 +1832,7 @@
       "overview": "يتناول المسلسل في إطار كوميدي يوميات العمل المستمر في إحدى الشركات المتخصصة في الورق، والعلاقات التي تجمع بين موظفي الشركة أجمعين، وعلاقتهم بالمدير غريب الأطوار مايكل سكوت.",
       "rating": 8.6,
       "popularity": 196.0607,
-      "vote_count": 5486,
+      "vote_count": 5487,
       "genres": [
         "كوميديا"
       ],
@@ -1666,7 +1840,7 @@
       "trailer_key": "-C2z-nshFts",
       "trailer_url": "https://www.youtube.com/watch?v=-C2z-nshFts",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #المكتب",
-      "updated_at": "2026-09-20T13:05:13.968241+00:00"
+      "updated_at": "2026-09-20T22:28:11.654208+00:00"
     },
     {
       "id": 6489,
@@ -1687,7 +1861,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Klan",
-      "updated_at": "2026-09-20T13:05:14.204927+00:00"
+      "updated_at": "2026-09-20T22:28:11.881527+00:00"
     },
     {
       "id": 4573,
@@ -1709,7 +1883,7 @@
       "trailer_key": "MJ-lQHynJqg",
       "trailer_url": "https://www.youtube.com/watch?v=MJ-lQHynJqg",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Late_Night_with_Conan_O'Brien",
-      "updated_at": "2026-09-20T13:05:14.444427+00:00"
+      "updated_at": "2026-09-20T22:28:12.104354+00:00"
     },
     {
       "id": 1620,
@@ -1732,7 +1906,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #جريمة #CSI:_Miami",
-      "updated_at": "2026-09-20T13:05:14.682907+00:00"
+      "updated_at": "2026-09-20T22:28:12.351776+00:00"
     },
     {
       "id": 221468,
@@ -1751,7 +1925,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Hollywood_Squares",
-      "updated_at": "2026-09-20T13:05:14.916043+00:00"
+      "updated_at": "2026-09-20T22:28:12.580558+00:00"
     },
     {
       "id": 39272,
@@ -1764,7 +1938,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.4,
       "popularity": 186.1866,
-      "vote_count": 2546,
+      "vote_count": 2547,
       "genres": [
         "دراما",
         "خيال علمي وفانتازيا"
@@ -1773,7 +1947,7 @@
       "trailer_key": "Rga4rp4j5TY",
       "trailer_url": "https://www.youtube.com/watch?v=Rga4rp4j5TY",
       "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #Once_Upon_a_Time",
-      "updated_at": "2026-09-20T13:05:15.167585+00:00"
+      "updated_at": "2026-09-20T22:28:12.812521+00:00"
     },
     {
       "id": 46952,
@@ -1796,7 +1970,7 @@
       "trailer_key": "JGBIimq1I3A",
       "trailer_url": "https://www.youtube.com/watch?v=JGBIimq1I3A",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #غموض #القائمة_السوداء",
-      "updated_at": "2026-09-20T13:05:15.411336+00:00"
+      "updated_at": "2026-09-20T22:28:13.044319+00:00"
     },
     {
       "id": 1489,
@@ -1818,7 +1992,7 @@
       "trailer_key": "2kqZi3RoA5I",
       "trailer_url": "https://www.youtube.com/watch?v=2kqZi3RoA5I",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Jimmy_Kimmel_Live!",
-      "updated_at": "2026-09-20T13:05:15.647255+00:00"
+      "updated_at": "2026-09-20T22:28:13.314957+00:00"
     },
     {
       "id": 873,
@@ -1841,7 +2015,7 @@
       "trailer_key": "8ZOHmz3bfAI",
       "trailer_url": "https://www.youtube.com/watch?v=8ZOHmz3bfAI",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #Columbo",
-      "updated_at": "2026-09-20T13:05:15.929172+00:00"
+      "updated_at": "2026-09-20T22:28:13.547594+00:00"
     },
     {
       "id": 45115,
@@ -1863,7 +2037,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Válgame_Dios",
-      "updated_at": "2026-09-20T13:05:16.170788+00:00"
+      "updated_at": "2026-09-20T22:28:13.774674+00:00"
     },
     {
       "id": 60735,
@@ -1876,7 +2050,7 @@
       "overview": "بعد أن شاهد والدته تقتل على يد شيء خارق للطبيعة وإدانة والده بالجريمة  التي لم يرتكبها، يذهب باري ألين للعيش مع المحقق جو ويست وعائلته. يكبر ألين ويصبح محقق جرائم ذكي لكن غريب الاطوار في دائرة شرطة سنترال سيتي. في  يوم من الأيام تضرب عاصفة غامضة باري ألين وتعطيه سرعة خارقه. يستغل باري  قدرته الجديدة في محاربة الجريمة وآخرين يمتلكون قدرات خارقة بمساعدة  أصدقائه في مختبرات ستار وفي نفس الوقت يحاول معرفة من قتل والدته عندما  كان صغيراً.",
       "rating": 7.7,
       "popularity": 181.2394,
-      "vote_count": 11774,
+      "vote_count": 11775,
       "genres": [
         "دراما",
         "خيال علمي وفانتازيا"
@@ -1885,7 +2059,7 @@
       "trailer_key": "IgVyroQjZbE",
       "trailer_url": "https://www.youtube.com/watch?v=IgVyroQjZbE",
       "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #فلاش",
-      "updated_at": "2026-09-20T13:05:16.394719+00:00"
+      "updated_at": "2026-09-20T22:28:14.018702+00:00"
     },
     {
       "id": 1900,
@@ -1906,7 +2080,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #LIVE_with_Kelly_and_Mark",
-      "updated_at": "2026-09-20T13:05:16.633749+00:00"
+      "updated_at": "2026-09-20T22:28:14.291328+00:00"
     },
     {
       "id": 31132,
@@ -1919,7 +2093,7 @@
       "overview": "يحاول الجميع مساعدة ريجبي على تجاوز مخاوفه، بينما تضرب المشاكل الأصدقاء بسبب ظن كل منهم أن الآخر لا يقدره بشكل كاف.",
       "rating": 8.6,
       "popularity": 179.5647,
-      "vote_count": 2315,
+      "vote_count": 2316,
       "genres": [
         "رسوم متحركة",
         "كوميديا",
@@ -1930,7 +2104,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #أكشن #خيال_علمي #العرض_العاديّ",
-      "updated_at": "2026-09-20T13:05:16.879271+00:00"
+      "updated_at": "2026-09-20T22:28:14.551944+00:00"
     },
     {
       "id": 66465,
@@ -1952,7 +2126,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Kapil_Sharma_Show",
-      "updated_at": "2026-09-20T13:05:17.120851+00:00"
+      "updated_at": "2026-09-20T22:28:14.781065+00:00"
     },
     {
       "id": 764,
@@ -1975,7 +2149,7 @@
       "trailer_key": "ym8b4UJDqcw",
       "trailer_url": "https://www.youtube.com/watch?v=ym8b4UJDqcw",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #Midsomer_Murders",
-      "updated_at": "2026-09-20T13:05:17.352834+00:00"
+      "updated_at": "2026-09-20T22:28:15.004376+00:00"
     },
     {
       "id": 1668,
@@ -1988,7 +2162,7 @@
       "overview": "مغامرات مجموعة من الأصدقاء وهم يبحرون في مطبات العمل والحياة والحب في مانهاتن.",
       "rating": 8.4,
       "popularity": 175.6248,
-      "vote_count": 9409,
+      "vote_count": 9412,
       "genres": [
         "كوميديا"
       ],
@@ -1996,7 +2170,7 @@
       "trailer_key": "H29XSxoKp80",
       "trailer_url": "https://www.youtube.com/watch?v=H29XSxoKp80",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #أصدقاء",
-      "updated_at": "2026-09-20T13:05:17.589114+00:00"
+      "updated_at": "2026-09-20T22:28:15.230066+00:00"
     },
     {
       "id": 34307,
@@ -2018,7 +2192,7 @@
       "trailer_key": "9tvkYS5cA58",
       "trailer_url": "https://www.youtube.com/watch?v=9tvkYS5cA58",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #وقح",
-      "updated_at": "2026-09-20T13:05:17.837789+00:00"
+      "updated_at": "2026-09-20T22:28:15.476087+00:00"
     },
     {
       "id": 60625,
@@ -2031,7 +2205,7 @@
       "overview": "تتمحور قصة المسلسل حول مغامرات عائلة سميث المكونة من ريك سانشيز، عالم عبقري مجنون ومدمن كحول، مورتي سميث حفيد ريك المراهق ذو الأربعة عشر عام، سمر سميث؛ شقيقة مورتي ذو السابعة عشر، بيث سميث؛ ابنة ريك والدة مورتي وسمر، طبيبة حيوانات جراحية؛ جيري سميث، زوج بيث، رجل بسيط مهزوز الثقة غالباً ما يختلف مع ريك.",
       "rating": 8.7,
       "popularity": 174.4139,
-      "vote_count": 11404,
+      "vote_count": 11407,
       "genres": [
         "رسوم متحركة",
         "كوميديا",
@@ -2042,7 +2216,7 @@
       "trailer_key": "WNhH00OIPP0",
       "trailer_url": "https://www.youtube.com/watch?v=WNhH00OIPP0",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #خيال_علمي #أكشن #ريك_ومورتي",
-      "updated_at": "2026-09-20T13:05:18.128264+00:00"
+      "updated_at": "2026-09-20T22:28:15.749366+00:00"
     },
     {
       "id": 204746,
@@ -2063,7 +2237,7 @@
       "trailer_key": "ZMPpLofgSTM",
       "trailer_url": "https://www.youtube.com/watch?v=ZMPpLofgSTM",
       "hashtags": "#MOVINS #مسلسلات #The_Jennifer_Hudson_Show",
-      "updated_at": "2026-09-20T13:05:18.378517+00:00"
+      "updated_at": "2026-09-20T22:28:15.976654+00:00"
     },
     {
       "id": 1440098,
@@ -2074,9 +2248,9 @@
       "original_language": "es",
       "year": "2026",
       "overview": "مارفيل، ابنة رجل أعمال إسباني ثري، تجد حياتها في نيويورك قد انقلبت رأسًا على عقب بعد تعرضها للاختطاف وإطلاق سراحها دون تفسير. يوظف والدها سيباستيان مور كحارسها الشخصي، ويجبرهما القدر على قضاء كل لحظة معًا، لتندلع بينهما جاذبية لا مفر منها في عالم لا يبدو فيه شيء كما هو عليه في الظاهر.",
-      "rating": 6.6,
+      "rating": 6.7,
       "popularity": 167.0017,
-      "vote_count": 99,
+      "vote_count": 102,
       "genres": [
         "رومانسي",
         "إثارة"
@@ -2085,7 +2259,7 @@
       "trailer_key": "WlGzP8FvsfY",
       "trailer_url": "https://www.youtube.com/watch?v=WlGzP8FvsfY",
       "hashtags": "#MOVINS #أفلام #رومانسي #إثارة #حين_اقتربنا",
-      "updated_at": "2026-09-20T13:03:16.533229+00:00"
+      "updated_at": "2026-09-20T22:26:19.668579+00:00"
     },
     {
       "id": 47640,
@@ -2098,7 +2272,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.5,
       "popularity": 165.4068,
-      "vote_count": 2058,
+      "vote_count": 2060,
       "genres": [
         "خيال علمي وفانتازيا",
         "دراما",
@@ -2108,7 +2282,7 @@
       "trailer_key": "GGdlKM8tFaw",
       "trailer_url": "https://www.youtube.com/watch?v=GGdlKM8tFaw",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #غموض #The_Strain",
-      "updated_at": "2026-09-20T13:05:18.610404+00:00"
+      "updated_at": "2026-09-20T22:28:16.210168+00:00"
     },
     {
       "id": 58841,
@@ -2130,7 +2304,7 @@
       "trailer_key": "NZcr9IFS9R0",
       "trailer_url": "https://www.youtube.com/watch?v=NZcr9IFS9R0",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #شيكاغو_بي.دي.",
-      "updated_at": "2026-09-20T13:05:18.887231+00:00"
+      "updated_at": "2026-09-20T22:28:16.481556+00:00"
     },
     {
       "id": 44006,
@@ -2151,7 +2325,7 @@
       "trailer_key": "IIeSDILTE5M",
       "trailer_url": "https://www.youtube.com/watch?v=IIeSDILTE5M",
       "hashtags": "#MOVINS #مسلسلات #دراما #شيكاغو_فاير",
-      "updated_at": "2026-09-20T13:05:19.123360+00:00"
+      "updated_at": "2026-09-20T22:28:16.713287+00:00"
     },
     {
       "id": 65701,
@@ -2172,7 +2346,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Good_Mythical_Morning",
-      "updated_at": "2026-09-20T13:05:19.372534+00:00"
+      "updated_at": "2026-09-20T22:28:16.946521+00:00"
     },
     {
       "id": 4586,
@@ -2185,7 +2359,7 @@
       "overview": "تربي الأم العازبة المستقلة \"لوريلاي\" ابنتها الموهوبة \"روري\" وسط سيل لا يتوقف من مناقشات ذات أجوبة دالة على سرعة البديهة والذكاء.",
       "rating": 7.9,
       "popularity": 162.0598,
-      "vote_count": 1300,
+      "vote_count": 1301,
       "genres": [
         "كوميديا",
         "دراما"
@@ -2194,7 +2368,7 @@
       "trailer_key": "Ac47mma8XRA",
       "trailer_url": "https://www.youtube.com/watch?v=Ac47mma8XRA",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #Gilmore_Girls",
-      "updated_at": "2026-09-20T13:05:19.612352+00:00"
+      "updated_at": "2026-09-20T22:28:17.178489+00:00"
     },
     {
       "id": 4604,
@@ -2207,7 +2381,7 @@
       "overview": "يرصد المسلسل القدرات العبقرية والعديدة لدي كلارك كينت (طوم ويلنج) حيث يقوم بعمليات إنقاذ واسعة تثير الشكوك حوله في بلدة سمولفيل. كلارك كينت سريع للغاية ويقال أنه يعرف طريقه للمشاكل جيدًا. كلارك كينت وُجد من قبل مارثا كينت (أنيت أوتول) وجوناثان كينت (جون شنايدر) في يوم لا يُنسى وتم تبنيه من قبل مارثا وجوناثان. ولكن هناك من ينبش وراء أصل كلارك كينت ويسعى بكل ما أوتي من قوة من أجل كشف سره.",
       "rating": 8.2,
       "popularity": 161.6514,
-      "vote_count": 4606,
+      "vote_count": 4607,
       "genres": [
         "خيال علمي وفانتازيا",
         "أكشن ومغامرة",
@@ -2217,7 +2391,7 @@
       "trailer_key": "70Y32si4yb8",
       "trailer_url": "https://www.youtube.com/watch?v=70Y32si4yb8",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #أكشن #دراما #سمولفيل",
-      "updated_at": "2026-09-20T13:05:19.847587+00:00"
+      "updated_at": "2026-09-20T22:28:17.409479+00:00"
     },
     {
       "id": 62992,
@@ -2239,7 +2413,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #DAS!",
-      "updated_at": "2026-09-20T13:05:20.107552+00:00"
+      "updated_at": "2026-09-20T22:28:17.640146+00:00"
     },
     {
       "id": 1871,
@@ -2262,7 +2436,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #EastEnders",
-      "updated_at": "2026-09-20T13:05:20.343104+00:00"
+      "updated_at": "2026-09-20T22:28:17.868452+00:00"
     },
     {
       "id": 71790,
@@ -2285,7 +2459,7 @@
       "trailer_key": "Zopy34r5lTY",
       "trailer_url": "https://www.youtube.com/watch?v=Zopy34r5lTY",
       "hashtags": "#MOVINS #مسلسلات #جريمة #أكشن #دراما #S.W.A.T.",
-      "updated_at": "2026-09-20T13:05:20.621544+00:00"
+      "updated_at": "2026-09-20T22:28:18.095287+00:00"
     },
     {
       "id": 273207,
@@ -2298,17 +2472,17 @@
       "overview": "من عالم مسلسل ريتشر، يبدأ فصل جديد. فرانسيس نيلي محققة خاصة في شيكاغو وزميلة عسكرية سابقة لجاك ريتشر في وحدة التحقيقات الخاصة رقم 110 التابعة للجيش. وعندما تعلم بمقتل صديقة عزيزة من ماضيها في حادث غامض، تُصمم على تحقيق العدالة.",
       "rating": 7.9,
       "popularity": 155.9482,
-      "vote_count": 75,
+      "vote_count": 85,
       "genres": [
         "دراما",
         "غموض",
         "جريمة"
       ],
-      "poster": "https://image.tmdb.org/t/p/w500/lKOPmO0ah17ogQ9hWg7lSd40kIr.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/tEPDFIa21VK0Q2YLuzhTt2xrw5W.jpg",
       "trailer_key": "BOzNaa_o9_g",
       "trailer_url": "https://www.youtube.com/watch?v=BOzNaa_o9_g",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #جريمة #نيلي",
-      "updated_at": "2026-09-20T13:04:53.934632+00:00"
+      "updated_at": "2026-09-20T22:27:50.970759+00:00"
     },
     {
       "id": 2243,
@@ -2331,7 +2505,7 @@
       "trailer_key": "PT16p3hR9YA",
       "trailer_url": "https://www.youtube.com/watch?v=PT16p3hR9YA",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #عائلي #Touched_by_an_Angel",
-      "updated_at": "2026-09-20T13:05:20.953407+00:00"
+      "updated_at": "2026-09-20T22:28:18.408081+00:00"
     },
     {
       "id": 95480,
@@ -2344,7 +2518,7 @@
       "overview": "يتتبع مسلسل الدراما الجاسوسي الذكي فريقاً مختلاً من عملاء المخابرات ومديرهم البغيض، \"جاكسون لامب\" سيئ السمعة، وهم يخوضون خدع وألاعيب عالم الجاسوسية للدفاع عن \"إنكلترا\" من قوى الشر.",
       "rating": 8.0,
       "popularity": 154.7621,
-      "vote_count": 988,
+      "vote_count": 991,
       "genres": [
         "جريمة",
         "دراما",
@@ -2354,7 +2528,7 @@
       "trailer_key": "O9ZJChzPn0U",
       "trailer_url": "https://www.youtube.com/watch?v=O9ZJChzPn0U",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #Slow_Horses",
-      "updated_at": "2026-09-20T13:04:55.689943+00:00"
+      "updated_at": "2026-09-20T22:27:52.141950+00:00"
     },
     {
       "id": 3452,
@@ -2367,7 +2541,7 @@
       "overview": "في إطار كوميدي، يعود الدكتور فريزر كرين إلى موطنه الأصلي في سياتل، حيث يعيش رفقة والده، ويشغل وقته بالعمل كمعالج نفسي عبر المذياع، ليتقابل مع العديد من الشخصيات المختلفة في حياته اليومية.",
       "rating": 7.7,
       "popularity": 153.7658,
-      "vote_count": 935,
+      "vote_count": 936,
       "genres": [
         "كوميديا",
         "عائلي"
@@ -2376,7 +2550,7 @@
       "trailer_key": "d6rIzxICCio",
       "trailer_url": "https://www.youtube.com/watch?v=d6rIzxICCio",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #عائلي #فريزر",
-      "updated_at": "2026-09-20T13:05:21.303481+00:00"
+      "updated_at": "2026-09-20T22:28:18.706440+00:00"
     },
     {
       "id": 1220,
@@ -2398,7 +2572,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #ذي_غراهام_نورتون_شو",
-      "updated_at": "2026-09-20T13:05:21.546304+00:00"
+      "updated_at": "2026-09-20T22:28:18.938307+00:00"
     },
     {
       "id": 36361,
@@ -2422,7 +2596,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #عائلي #Ulice",
-      "updated_at": "2026-09-20T13:05:21.773625+00:00"
+      "updated_at": "2026-09-20T22:28:19.222743+00:00"
     },
     {
       "id": 1084244,
@@ -2435,7 +2609,7 @@
       "overview": "عندما تحصل \"بوني\" على جهاز \"ليلي باد\" اللوحي كهدية وتنجذب إليه بشكلٍ كبير، يجد \"وودي\" و\"باز\" و\"جيسي\" وبقية الألعاب أنفسهم أمام تحدٍ غير مسبوق، إذ تصبح مهمتهم في لفت انتباهها أصعب من أي وقت مضى، بينما يواجهون تهديدًا جديدًا يهدد عالم اللعب الذي اعتادوا عليه.",
       "rating": 8.4,
       "popularity": 152.0103,
-      "vote_count": 2206,
+      "vote_count": 2218,
       "genres": [
         "رسوم متحركة",
         "عائلي",
@@ -2446,7 +2620,7 @@
       "trailer_key": "QftAW9TTmuQ",
       "trailer_url": "https://www.youtube.com/watch?v=QftAW9TTmuQ",
       "hashtags": "#MOVINS #أفلام #رسوم_متحركة #عائلي #كوميديا #مغامرة #حكاية_لعبة_٥",
-      "updated_at": "2026-09-20T13:03:16.999083+00:00"
+      "updated_at": "2026-09-20T22:26:18.417971+00:00"
     },
     {
       "id": 12513,
@@ -2467,7 +2641,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Operación_triunfo",
-      "updated_at": "2026-09-20T13:05:22.006825+00:00"
+      "updated_at": "2026-09-20T22:28:19.457688+00:00"
     },
     {
       "id": 80748,
@@ -2490,7 +2664,7 @@
       "trailer_key": "O7oPFgb6VNE",
       "trailer_url": "https://www.youtube.com/watch?v=O7oPFgb6VNE",
       "hashtags": "#MOVINS #مسلسلات #جريمة #أكشن #دراما #FBI",
-      "updated_at": "2026-09-20T13:05:22.237983+00:00"
+      "updated_at": "2026-09-20T22:28:19.687343+00:00"
     },
     {
       "id": 57243,
@@ -2513,7 +2687,7 @@
       "trailer_key": "2V_xYubUJFo",
       "trailer_url": "https://www.youtube.com/watch?v=2V_xYubUJFo",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #خيال_علمي #دكتور_هو",
-      "updated_at": "2026-09-20T13:05:22.489600+00:00"
+      "updated_at": "2026-09-20T22:28:19.969361+00:00"
     },
     {
       "id": 60572,
@@ -2536,7 +2710,7 @@
       "trailer_key": "kfgfQPA6oPI",
       "trailer_url": "https://www.youtube.com/watch?v=kfgfQPA6oPI",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #بوكيمون",
-      "updated_at": "2026-09-20T13:05:22.730434+00:00"
+      "updated_at": "2026-09-20T22:28:20.196568+00:00"
     },
     {
       "id": 236235,
@@ -2549,7 +2723,7 @@
       "overview": "عندما يرث \"إيدي\" الأرستقراطي عقار العائلة، يكتشف أنه يحتضن إمبراطورية عملاقة لتجارة الحشيش... والتي لن يتحرك أصحابها من مكانهم.",
       "rating": 7.9,
       "popularity": 149.35,
-      "vote_count": 936,
+      "vote_count": 938,
       "genres": [
         "كوميديا",
         "دراما",
@@ -2559,7 +2733,7 @@
       "trailer_key": "wyEOwHrpZH4",
       "trailer_url": "https://www.youtube.com/watch?v=wyEOwHrpZH4",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #جريمة #السادة_الأفاضل",
-      "updated_at": "2026-09-20T13:05:22.958599+00:00"
+      "updated_at": "2026-09-20T22:28:20.427150+00:00"
     },
     {
       "id": 1386315,
@@ -2572,7 +2746,7 @@
       "overview": "في هذا العمل المثير نفسياً \"العداءة\"، تشهد المحامية اللندنية العبقرية مايا مارتن حياتها تنهار برنة هاتف واحدة في أثناء جريها في الصباح كما معتاد: ابنها قد جرى اختطافه. لاستعادته، يجب عليها أن تستمر في الركض، وتطيع كل أمر قاس، ويجب ألّا تثق بأحد. فكل ثانية هي اختبار لمدى تضحية الأم من أجل إنقاذ طفلها.",
       "rating": 6.8,
       "popularity": 148.4007,
-      "vote_count": 526,
+      "vote_count": 531,
       "genres": [
         "إثارة",
         "أكشن"
@@ -2581,7 +2755,7 @@
       "trailer_key": "zz4rsZLcauY",
       "trailer_url": "https://www.youtube.com/watch?v=zz4rsZLcauY",
       "hashtags": "#MOVINS #أفلام #إثارة #أكشن #العداءة",
-      "updated_at": "2026-09-20T13:03:19.316698+00:00"
+      "updated_at": "2026-09-20T22:26:19.940409+00:00"
     },
     {
       "id": 4467,
@@ -2603,7 +2777,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Late_Night_with_David_Letterman",
-      "updated_at": "2026-09-20T13:05:23.196999+00:00"
+      "updated_at": "2026-09-20T22:28:20.694717+00:00"
     },
     {
       "id": 32692,
@@ -2625,7 +2799,7 @@
       "trailer_key": "mi6USkjUWv4",
       "trailer_url": "https://www.youtube.com/watch?v=mi6USkjUWv4",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #الدماء_الزرقاء",
-      "updated_at": "2026-09-20T13:05:23.444887+00:00"
+      "updated_at": "2026-09-20T22:28:20.963672+00:00"
     },
     {
       "id": 9,
@@ -2644,7 +2818,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Match_Game",
-      "updated_at": "2026-09-20T13:05:23.667088+00:00"
+      "updated_at": "2026-09-20T22:28:21.185753+00:00"
     },
     {
       "id": 1405,
@@ -2657,7 +2831,7 @@
       "overview": "يعيش دكستر مورغان حياة مزدوجة في مدينة ميامي، حيث يعمل خبيرًا في تحليل أنماط الدم لدى الشرطة، بينما يخفي عن الجميع جانبًا مظلمًا من شخصيته. يستغل دكستر مهاراته وخبرته في التحقيق لتعقب القتلة والمجرمين الذين تمكنوا من الإفلات من العدالة، ثم يأخذ القانون بيده وفق قواعد صارمة وضعها له والده بالتبني. ومع استمراره في إخفاء جرائمه عن زملائه وأسرته، يجد دكستر نفسه أمام قتلة متسلسلين وأعداء يقتربون من كشف حقيقته، مما يهدد حياته السرية ويضعه في مواجهات خطيرة تختبر قدرته على السيطرة على جانبه المظلم.",
       "rating": 8.2,
       "popularity": 144.7014,
-      "vote_count": 5856,
+      "vote_count": 5857,
       "genres": [
         "جريمة",
         "دراما",
@@ -2667,7 +2841,7 @@
       "trailer_key": "YQeUmSD1c3g",
       "trailer_url": "https://www.youtube.com/watch?v=YQeUmSD1c3g",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #دكستر",
-      "updated_at": "2026-09-20T13:05:23.952323+00:00"
+      "updated_at": "2026-09-20T22:28:21.423225+00:00"
     },
     {
       "id": 124364,
@@ -2690,7 +2864,7 @@
       "trailer_key": "pDHqAj4eJcM",
       "trailer_url": "https://www.youtube.com/watch?v=pDHqAj4eJcM",
       "hashtags": "#MOVINS #مسلسلات #غموض #دراما #خيال_علمي #من",
-      "updated_at": "2026-09-20T13:05:24.179767+00:00"
+      "updated_at": "2026-09-20T22:28:21.689852+00:00"
     },
     {
       "id": 693,
@@ -2703,7 +2877,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.9,
       "popularity": 143.8636,
-      "vote_count": 2134,
+      "vote_count": 2137,
       "genres": [
         "غموض",
         "دراما",
@@ -2713,7 +2887,7 @@
       "trailer_key": "TRQ-Oor0pOE",
       "trailer_url": "https://www.youtube.com/watch?v=TRQ-Oor0pOE",
       "hashtags": "#MOVINS #مسلسلات #غموض #دراما #كوميديا #Desperate_Housewives",
-      "updated_at": "2026-09-20T13:05:24.425630+00:00"
+      "updated_at": "2026-09-20T22:28:21.919494+00:00"
     },
     {
       "id": 40605,
@@ -2734,7 +2908,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Die_Harald_Schmidt_Show",
-      "updated_at": "2026-09-20T13:05:24.667167+00:00"
+      "updated_at": "2026-09-20T22:28:22.144830+00:00"
     },
     {
       "id": 1339713,
@@ -2747,7 +2921,7 @@
       "overview": "بعد أن كسر غصنًا من ’صفصافة الأمنية الواحدة‘ الغامضة ليفوز بقلب الفتاة التي يعشقها، يجد رومانسي يائس نفسه يحصل على ما طلب تمامًا، لكنه سرعان ما يكتشف أن بعض الرغبات تأتي بثمن باهظ ومظلم",
       "rating": 8.2,
       "popularity": 142.7581,
-      "vote_count": 5623,
+      "vote_count": 5627,
       "genres": [
         "رعب",
         "إثارة"
@@ -2756,7 +2930,7 @@
       "trailer_key": "gMC8kkwbIQQ",
       "trailer_url": "https://www.youtube.com/watch?v=gMC8kkwbIQQ",
       "hashtags": "#MOVINS #أفلام #رعب #إثارة #هوس",
-      "updated_at": "2026-09-20T13:03:14.417496+00:00"
+      "updated_at": "2026-09-20T22:26:15.291129+00:00"
     },
     {
       "id": 44337,
@@ -2778,7 +2952,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Have_I_Got_a_Bit_More_News_for_You",
-      "updated_at": "2026-09-20T13:05:24.903910+00:00"
+      "updated_at": "2026-09-20T22:28:22.379438+00:00"
     },
     {
       "id": 2171,
@@ -2801,7 +2975,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #Cold_Case",
-      "updated_at": "2026-09-20T13:05:25.148622+00:00"
+      "updated_at": "2026-09-20T22:28:22.610498+00:00"
     },
     {
       "id": 2593,
@@ -2825,7 +2999,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #غموض #أكشن #دراما #Without_a_Trace",
-      "updated_at": "2026-09-20T13:05:25.374085+00:00"
+      "updated_at": "2026-09-20T22:28:22.848638+00:00"
     },
     {
       "id": 1412,
@@ -2838,7 +3012,7 @@
       "overview": "يختفي \"أوليفر كوين\"، الملياردير الشاب المستهتر، ويُعتقد أنه لقي حتفه بعد غرق يخته في البحر. لكن بعد خمس سنوات يعود رجلًا مختلفًا تمامًا، عازمًا على تطهير مدينته من الفساد والجريمة، متخذًا هوية مقاتل مقنّع يحمل قوسًا ويعمل خارج إطار القانون.",
       "rating": 6.8,
       "popularity": 142.2455,
-      "vote_count": 6481,
+      "vote_count": 6483,
       "genres": [
         "جريمة",
         "دراما",
@@ -2848,7 +3022,7 @@
       "trailer_key": "QLVHmovfMQI",
       "trailer_url": "https://www.youtube.com/watch?v=QLVHmovfMQI",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #أكشن #السهم",
-      "updated_at": "2026-09-20T13:05:25.650393+00:00"
+      "updated_at": "2026-09-20T22:28:23.138286+00:00"
     },
     {
       "id": 1398,
@@ -2861,7 +3035,7 @@
       "overview": "توني سوبرانو زعيم مافيا يعيش في نيوجيرسي ويحاول الموازنة بين حياته الإجرامية المعقدة ومسؤولياته تجاه عائلته وزوجته وأبنائه. ورغم نفوذه وقوته في عالم الجريمة، يعاني توني من ضغوط نفسية تدفعه إلى طلب المساعدة من طبيبة نفسية، فيبدأ بالكشف عن جوانب خفية من شخصيته وحياته. وبين صراعاته مع أفراد عصابته والمنافسين والسلطات، ومحاولاته الحفاظ على عائلته وتماسك إمبراطوريته، يجد نفسه عالقًا بين عالم الجريمة الذي لا يستطيع التخلي عنه وحياة طبيعية يتوق إليها.",
       "rating": 8.7,
       "popularity": 142.1113,
-      "vote_count": 3680,
+      "vote_count": 3681,
       "genres": [
         "جريمة",
         "دراما"
@@ -2870,7 +3044,7 @@
       "trailer_key": "Q8cBFvpqmH0",
       "trailer_url": "https://www.youtube.com/watch?v=Q8cBFvpqmH0",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #آل_سوبرانو",
-      "updated_at": "2026-09-20T13:05:25.912367+00:00"
+      "updated_at": "2026-09-20T22:28:23.379318+00:00"
     },
     {
       "id": 65334,
@@ -2893,7 +3067,7 @@
       "trailer_key": "XgNrydM9UBI",
       "trailer_url": "https://www.youtube.com/watch?v=XgNrydM9UBI",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #ميراكيولوس:_الدعسوقة_و_القط_الأسود",
-      "updated_at": "2026-09-20T13:05:26.159012+00:00"
+      "updated_at": "2026-09-20T22:28:23.651863+00:00"
     },
     {
       "id": 2190,
@@ -2906,7 +3080,7 @@
       "overview": "يتبع مغامرات أربعة طلاب أشقياء في بلدة ساوث بارك الهادئة المختلة وظيفيا، في ولاية كولورادو الأمريكية.",
       "rating": 8.3,
       "popularity": 139.3968,
-      "vote_count": 5150,
+      "vote_count": 5151,
       "genres": [
         "رسوم متحركة",
         "كوميديا"
@@ -2915,7 +3089,7 @@
       "trailer_key": "oUIK01ek-Ko",
       "trailer_url": "https://www.youtube.com/watch?v=oUIK01ek-Ko",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #ساوث_بارك",
-      "updated_at": "2026-09-20T13:04:56.405616+00:00"
+      "updated_at": "2026-09-20T22:27:53.133411+00:00"
     },
     {
       "id": 17610,
@@ -2939,7 +3113,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #جريمة #غموض #NCIS:_Los_Angeles",
-      "updated_at": "2026-09-20T13:05:26.456760+00:00"
+      "updated_at": "2026-09-20T22:28:23.952128+00:00"
     },
     {
       "id": 4026,
@@ -2960,7 +3134,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #CBS_News_Sunday_Morning",
-      "updated_at": "2026-09-20T13:05:26.696832+00:00"
+      "updated_at": "2026-09-20T22:28:24.197273+00:00"
     },
     {
       "id": 1823,
@@ -2982,7 +3156,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #The_Love_Boat",
-      "updated_at": "2026-09-20T13:05:26.939204+00:00"
+      "updated_at": "2026-09-20T22:28:24.467287+00:00"
     },
     {
       "id": 1695,
@@ -2995,7 +3169,7 @@
       "overview": "بعد مقتل زوجته، تتفاقم معاناة المحقق أدريان مونك مع الوسواس والمخاوف، فيترك الشرطة ويعمل مستشارًا لها، مستعينًا بذاكرته وقدرته الاستثنائية على ملاحظة أدق التفاصيل لحل القضايا.",
       "rating": 7.9,
       "popularity": 137.3194,
-      "vote_count": 1313,
+      "vote_count": 1314,
       "genres": [
         "دراما",
         "كوميديا",
@@ -3006,7 +3180,7 @@
       "trailer_key": "HQFrNB4LcrE",
       "trailer_url": "https://www.youtube.com/watch?v=HQFrNB4LcrE",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #جريمة #غموض #مونك",
-      "updated_at": "2026-09-20T13:05:27.177435+00:00"
+      "updated_at": "2026-09-20T22:28:24.694582+00:00"
     },
     {
       "id": 127635,
@@ -3030,7 +3204,7 @@
       "trailer_key": "mzuAyY8WzWA",
       "trailer_url": "https://www.youtube.com/watch?v=mzuAyY8WzWA",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #خيال_علمي #أكشن #Spidey_and_His_Amazing_Friends",
-      "updated_at": "2026-09-20T13:05:27.430604+00:00"
+      "updated_at": "2026-09-20T22:28:24.922818+00:00"
     },
     {
       "id": 299939,
@@ -3041,9 +3215,9 @@
       "original_language": "en",
       "year": "2026",
       "overview": "تحت وطأة حياة أسرية قاسية في العصر الفيكتوري، تتخلص \"ليزي بوردن\" من والديها في جريمة قتل دموية بالفأس تهزّ البلاد.",
-      "rating": 6.9,
+      "rating": 7.1,
       "popularity": 136.9655,
-      "vote_count": 39,
+      "vote_count": 46,
       "genres": [
         "دراما",
         "جريمة"
@@ -3052,7 +3226,7 @@
       "trailer_key": "gYTzF1vna40",
       "trailer_url": "https://www.youtube.com/watch?v=gYTzF1vna40",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #الوحش:_قصة_ليزي_بوردن",
-      "updated_at": "2026-09-20T13:04:53.665453+00:00"
+      "updated_at": "2026-09-20T22:27:50.734763+00:00"
     },
     {
       "id": 30983,
@@ -3076,7 +3250,7 @@
       "trailer_key": "1xl1fQJbl1Y",
       "trailer_url": "https://www.youtube.com/watch?v=1xl1fQJbl1Y",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #جريمة #غموض #كوميديا #المحقق_كونان",
-      "updated_at": "2026-09-20T13:05:27.811576+00:00"
+      "updated_at": "2026-09-20T22:28:25.253601+00:00"
     },
     {
       "id": 45140,
@@ -3101,7 +3275,7 @@
       "trailer_key": "2Cwksub4wdE",
       "trailer_url": "https://www.youtube.com/watch?v=2Cwksub4wdE",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #كوميديا #عائلي #تين_تايتنز_غو!",
-      "updated_at": "2026-09-20T13:05:28.046302+00:00"
+      "updated_at": "2026-09-20T22:28:25.527462+00:00"
     },
     {
       "id": 2691,
@@ -3112,9 +3286,9 @@
       "original_language": "en",
       "year": "2003",
       "overview": "تدور أحداث المسلسل الكوميدى حول قصة الكاتب تشارلي الذي يحب اللهو، إلا أن حياته تتعقد بعد أن يقوم أخوه المقرب لقلبه آلان بالانفصال عن زوجته، وينتقل للعيش مع تشارلي هو وابنه جاك في منزله المطل على الشاطئ، لتتوالى الأحداث وتقع العديد من المشاكل الطريفة بين أفراد الأسرة.",
-      "rating": 7.5,
+      "rating": 7.4,
       "popularity": 136.7349,
-      "vote_count": 3782,
+      "vote_count": 3783,
       "genres": [
         "كوميديا"
       ],
@@ -3122,7 +3296,7 @@
       "trailer_key": "E7ap_eCWxYI",
       "trailer_url": "https://www.youtube.com/watch?v=E7ap_eCWxYI",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #رجلان_ونصف",
-      "updated_at": "2026-09-20T13:05:28.285180+00:00"
+      "updated_at": "2026-09-20T22:28:25.761234+00:00"
     },
     {
       "id": 66732,
@@ -3135,7 +3309,7 @@
       "overview": "يختفي ويل بايرز فجأة في بلدة هوكينز، فتبدأ والدته وأصدقاؤه المقربون البحث عنه، لكن محاولاتهم تقودهم إلى أسرار غامضة تتجاوز ما يمكن تفسيره. يظهر في الوقت نفسه فتاة غامضة تُدعى إليفن، تمتلك قدرات خارقة وتعرف شيئًا عن اختفاء ويل، لتكشف لهم وجود عالم مظلم وخطير يُعرف باسم العالم المقلوب. ومع ازدياد التهديد، يتعاون الأطفال مع عائلاتهم والشرطة لمواجهة مخلوقات غريبة وقوى خارقة تهدد حياتهم وبلدتهم، بينما يحاولون كشف الحقيقة وراء التجارب السرية التي فتحت الطريق إلى ذلك العالم.",
       "rating": 8.6,
       "popularity": 136.6785,
-      "vote_count": 21845,
+      "vote_count": 21848,
       "genres": [
         "أكشن ومغامرة",
         "غموض",
@@ -3145,7 +3319,7 @@
       "trailer_key": "b9EkMc79ZSU",
       "trailer_url": "https://www.youtube.com/watch?v=b9EkMc79ZSU",
       "hashtags": "#MOVINS #مسلسلات #أكشن #غموض #خيال_علمي #Stranger_Things",
-      "updated_at": "2026-09-20T13:05:28.541036+00:00"
+      "updated_at": "2026-09-20T22:28:26.034401+00:00"
     },
     {
       "id": 1402,
@@ -3158,7 +3332,7 @@
       "overview": "يستيقظ ضابط الشرطة (ريك) من الغيبوبة التي كان بها لعدة أشهر نتيجة ﻹصابته بطلق ناري أثناء عمله، ليجد أن العالم قد أجتيج من قبل الموتى الأحياء وهو الناجي الوحيد، يعود ريك الى منزله فيجد أن زوجته وابنه مفقودان، فيتوجه للبحث عنه، ليجد نفسه امام جيش من الموتى الأحياء، وتتصاعد الأحداث.",
       "rating": 8.1,
       "popularity": 136.6684,
-      "vote_count": 18195,
+      "vote_count": 18196,
       "genres": [
         "أكشن ومغامرة",
         "دراما",
@@ -3168,7 +3342,7 @@
       "trailer_key": "cu2ApTImBKc",
       "trailer_url": "https://www.youtube.com/watch?v=cu2ApTImBKc",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #خيال_علمي #الموتى_السائرون",
-      "updated_at": "2026-09-20T13:05:28.842164+00:00"
+      "updated_at": "2026-09-20T22:28:26.272377+00:00"
     },
     {
       "id": 2288,
@@ -3181,7 +3355,7 @@
       "overview": "يدخل مايكل سكوفيلد السجن عمدًا بعد أن يُحكم على شقيقه لينكولن بوروز بالإعدام بتهمة قتل لم يرتكبها، بعدما يقتنع مايكل بأن شقيقه وقع ضحية مؤامرة مدبرة. وبفضل ذكائه الهندسي وتخطيطه الدقيق، يضع مايكل خطة معقدة للهروب من سجن فوكس ريفر، ويستعين بعدد من السجناء لتحقيق هدفه. ومع اقتراب موعد تنفيذ حكم الإعدام، يبدأ مايكل في تنفيذ خطته وسط مراقبة الحراس والمخاطر المتزايدة، بينما يحاول في الوقت نفسه كشف المؤامرة التي أدت إلى سجن شقيقه وإنقاذه قبل فوات الأوان.",
       "rating": 8.1,
       "popularity": 135.3938,
-      "vote_count": 6158,
+      "vote_count": 6159,
       "genres": [
         "أكشن ومغامرة",
         "جريمة",
@@ -3191,7 +3365,7 @@
       "trailer_key": "AL9zLctDJaU",
       "trailer_url": "https://www.youtube.com/watch?v=AL9zLctDJaU",
       "hashtags": "#MOVINS #مسلسلات #أكشن #جريمة #دراما #الهروب_من_السجن",
-      "updated_at": "2026-09-20T13:05:29.077974+00:00"
+      "updated_at": "2026-09-20T22:28:26.517131+00:00"
     },
     {
       "id": 108178,
@@ -3212,7 +3386,7 @@
       "trailer_key": "aV5x8wHi0RQ",
       "trailer_url": "https://www.youtube.com/watch?v=aV5x8wHi0RQ",
       "hashtags": "#MOVINS #مسلسلات #The_Drew_Barrymore_Show",
-      "updated_at": "2026-09-20T13:05:29.314535+00:00"
+      "updated_at": "2026-09-20T22:28:26.759009+00:00"
     },
     {
       "id": 65682,
@@ -3236,7 +3410,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #عائلي #إيه_جابك_عند_جارك",
-      "updated_at": "2026-09-20T13:05:29.614930+00:00"
+      "updated_at": "2026-09-20T22:28:26.997754+00:00"
     },
     {
       "id": 10160,
@@ -3249,7 +3423,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 4.8,
       "popularity": 134.8169,
-      "vote_count": 272,
+      "vote_count": 273,
       "genres": [
         "واقعي"
       ],
@@ -3257,7 +3431,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Big_Brother",
-      "updated_at": "2026-09-20T13:05:29.850240+00:00"
+      "updated_at": "2026-09-20T22:28:27.219593+00:00"
     },
     {
       "id": 71712,
@@ -3278,7 +3452,7 @@
       "trailer_key": "lnY9FWUTY84",
       "trailer_url": "https://www.youtube.com/watch?v=lnY9FWUTY84",
       "hashtags": "#MOVINS #مسلسلات #دراما #الطبيب_الطيّب",
-      "updated_at": "2026-09-20T13:05:30.130563+00:00"
+      "updated_at": "2026-09-20T22:28:27.452633+00:00"
     },
     {
       "id": 14610,
@@ -3300,7 +3474,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Salatut_elämät",
-      "updated_at": "2026-09-20T13:05:30.422115+00:00"
+      "updated_at": "2026-09-20T22:28:27.716951+00:00"
     },
     {
       "id": 94997,
@@ -3313,7 +3487,7 @@
       "overview": "تدور الأحداث قبل 200 عام من أحداث مسلسل صراع العروش. حيث سيركز على تفاصيل عائلة \"آل تارغيريان\" ولمحات هامة في تاريخ العائلة التي حكمت ويستروس منذ زمن بعيد، وصولًا إلى رقصة التنانين والصراعات الداخلية في العائلة التي دمرت كل شيء وهددت بانقراض التنانين للأبد.",
       "rating": 8.4,
       "popularity": 133.3387,
-      "vote_count": 7133,
+      "vote_count": 7136,
       "genres": [
         "خيال علمي وفانتازيا",
         "دراما",
@@ -3323,7 +3497,7 @@
       "trailer_key": "DotnJ7tTA34",
       "trailer_url": "https://www.youtube.com/watch?v=DotnJ7tTA34",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #أكشن #آل_التنين",
-      "updated_at": "2026-09-20T13:05:30.675368+00:00"
+      "updated_at": "2026-09-20T22:28:27.997965+00:00"
     },
     {
       "id": 37680,
@@ -3336,7 +3510,7 @@
       "overview": "بينما كان يهرب من صفقة بيع المخدرات، مايك روس، وهو طالب جامعي مفصول، يجد نفسة في مقابلة عمل مع أحد أفضل القانونيين في مدينة نيويورك، هارفي سبيكتر. بعد أن سئم هارفي من خريجي كليات الحقوق، غامر بتعيين مايك على الفور بعد ادراك موهبته وذاكرته الفوتوغرافية.",
       "rating": 8.2,
       "popularity": 133.1331,
-      "vote_count": 5914,
+      "vote_count": 5916,
       "genres": [
         "دراما"
       ],
@@ -3344,7 +3518,7 @@
       "trailer_key": "cUnkjEIW2-o",
       "trailer_url": "https://www.youtube.com/watch?v=cUnkjEIW2-o",
       "hashtags": "#MOVINS #مسلسلات #دراما #سوتس",
-      "updated_at": "2026-09-20T13:05:30.924391+00:00"
+      "updated_at": "2026-09-20T22:28:28.276194+00:00"
     },
     {
       "id": 75415,
@@ -3365,7 +3539,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #وثائقي #Galileo",
-      "updated_at": "2026-09-20T13:05:31.194655+00:00"
+      "updated_at": "2026-09-20T22:28:28.507316+00:00"
     },
     {
       "id": 44217,
@@ -3378,7 +3552,7 @@
       "overview": "راغنار لوثبروك محارب وفلاح من الفايكنغ يحلم باكتشاف أراضٍ جديدة خلف البحار، فيتحدى تقاليد قومه ويقود رحلات جريئة نحو الغرب بحثًا عن الثروات والمجد. وبفضل طموحه وشجاعته، يصعد راغنار من محارب مغمور إلى قائد قوي وملك يفرض نفوذه بين الفايكنغ، بينما يخوض حروبًا دامية ضد ممالك إنجلترا وفرنسا. ومع اتساع نفوذه، تتعقد علاقاته بعائلته وحلفائه وخصومه، وتصبح رحلة أبنائه من بعده جزءًا من صراع طويل على السلطة والانتقام والمجد.",
       "rating": 8.1,
       "popularity": 132.7932,
-      "vote_count": 7889,
+      "vote_count": 7890,
       "genres": [
         "أكشن ومغامرة",
         "دراما",
@@ -3388,7 +3562,7 @@
       "trailer_key": "7rcozIVtujw",
       "trailer_url": "https://www.youtube.com/watch?v=7rcozIVtujw",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #الفايكنج",
-      "updated_at": "2026-09-20T13:05:31.464040+00:00"
+      "updated_at": "2026-09-20T22:28:28.739452+00:00"
     },
     {
       "id": 1400,
@@ -3409,7 +3583,7 @@
       "trailer_key": "hQXKyIG_NS4",
       "trailer_url": "https://www.youtube.com/watch?v=hQXKyIG_NS4",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #سينفيلد",
-      "updated_at": "2026-09-20T13:05:31.697109+00:00"
+      "updated_at": "2026-09-20T22:28:28.991254+00:00"
     },
     {
       "id": 95897,
@@ -3422,7 +3596,7 @@
       "overview": "\"كازوشي سودو\" طالب جامعي يزورونه صديقات طفولته، الأختين \"أياني\" و \"كوتوني شيراكاوا\". ولما تكتشف \"أياني\" إن كازوشي مو بس نسى يشتري لها الحلى (البودينغ)، لكنه بعد قاعد يستخدم اللوشن الخاص فيها وهو يتروش، تقرر تنتقم وتطب عليه في الحمام هي وأختها \"كوتوني\". والسؤال هنا: هل بيقدر كازوشي يمسك نفسه وما يتأثر بوجودهم؟",
       "rating": 7.4,
       "popularity": 131.4184,
-      "vote_count": 93,
+      "vote_count": 94,
       "genres": [
         "رسوم متحركة"
       ],
@@ -3430,7 +3604,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #الفيضان",
-      "updated_at": "2026-09-20T13:05:31.932219+00:00"
+      "updated_at": "2026-09-20T22:28:29.221388+00:00"
     },
     {
       "id": 3034,
@@ -3452,7 +3626,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #Tatort",
-      "updated_at": "2026-09-20T13:05:32.163792+00:00"
+      "updated_at": "2026-09-20T22:28:29.450465+00:00"
     },
     {
       "id": 1232569,
@@ -3465,7 +3639,7 @@
       "overview": "بتأثير من صرصور شرير، وبصنع من جيبتو، يشن بينوكيو حملة عنيفة ليحول نفسه إلى صبي حقيقي مثل أخيه جيمس، قطعة قطعة.",
       "rating": 6.6,
       "popularity": 130.9433,
-      "vote_count": 104,
+      "vote_count": 105,
       "genres": [
         "رعب",
         "فانتازيا",
@@ -3475,7 +3649,7 @@
       "trailer_key": "Y4lZewE6JMI",
       "trailer_url": "https://www.youtube.com/watch?v=Y4lZewE6JMI",
       "hashtags": "#MOVINS #أفلام #رعب #فانتازيا #غموض #بينوكيو:_بلا_خيط",
-      "updated_at": "2026-09-20T13:03:20.480317+00:00"
+      "updated_at": "2026-09-20T22:26:20.257912+00:00"
     },
     {
       "id": 1636,
@@ -3496,7 +3670,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Top_of_the_Pops",
-      "updated_at": "2026-09-20T13:05:32.446742+00:00"
+      "updated_at": "2026-09-20T22:28:29.679055+00:00"
     },
     {
       "id": 224,
@@ -3518,7 +3692,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Match_of_the_Day",
-      "updated_at": "2026-09-20T13:05:32.685760+00:00"
+      "updated_at": "2026-09-20T22:28:29.911984+00:00"
     },
     {
       "id": 37971,
@@ -3540,7 +3714,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #Der_Alte",
-      "updated_at": "2026-09-20T13:05:32.924807+00:00"
+      "updated_at": "2026-09-20T22:28:30.141894+00:00"
     },
     {
       "id": 2122,
@@ -3553,7 +3727,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.4,
       "popularity": 128.9661,
-      "vote_count": 698,
+      "vote_count": 699,
       "genres": [
         "رسوم متحركة",
         "كوميديا",
@@ -3563,7 +3737,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #عائلي #King_of_the_Hill",
-      "updated_at": "2026-09-20T13:05:33.149671+00:00"
+      "updated_at": "2026-09-20T22:28:30.364804+00:00"
     },
     {
       "id": 1418,
@@ -3576,7 +3750,7 @@
       "overview": "زميلين في العمل يسكنا معاً. الأول هو الدكتور (شيلدن كوبر) والآخر هو الدكتور الفيزيائي (ليونارد هوفستاتر). إضافة لزميلين آخرين في العمل يزورانهما باستمرار. تقيم مقابل شقتهم جارتهم (بيني) العاملة في مطعم تشيز كيك فاكتوري.",
       "rating": 7.9,
       "popularity": 128.84,
-      "vote_count": 12793,
+      "vote_count": 12794,
       "genres": [
         "كوميديا"
       ],
@@ -3584,7 +3758,7 @@
       "trailer_key": "rCj-Fb1OmXg",
       "trailer_url": "https://www.youtube.com/watch?v=rCj-Fb1OmXg",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #نظرية_الانفجار_العظيم",
-      "updated_at": "2026-09-20T13:05:33.383654+00:00"
+      "updated_at": "2026-09-20T22:28:30.593775+00:00"
     },
     {
       "id": 23915,
@@ -3605,7 +3779,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Markus_Lanz",
-      "updated_at": "2026-09-20T13:05:33.699978+00:00"
+      "updated_at": "2026-09-20T22:28:30.823906+00:00"
     },
     {
       "id": 1315772,
@@ -3616,9 +3790,9 @@
       "original_language": "en",
       "year": "2026",
       "overview": "هذه هي القصة الصاخبة والمضحكة والحقيقية تمامًا عن كيفية غزو المينيونز لهوليوود، وكيف أصبحوا نجومًا سينمائيين، وخسروا كل شيء، وأطلقوا العنان للوحوش على العالم، ثم تكاتفوا معًا لمحاولة إنقاذ الكوكب من الفوضى التي أحدثوها للتو",
-      "rating": 7.5,
+      "rating": 7.6,
       "popularity": 128.2356,
-      "vote_count": 1141,
+      "vote_count": 1145,
       "genres": [
         "مغامرة",
         "رسوم متحركة",
@@ -3630,7 +3804,7 @@
       "trailer_key": "V-O-uBaHk3c",
       "trailer_url": "https://www.youtube.com/watch?v=V-O-uBaHk3c",
       "hashtags": "#MOVINS #أفلام #مغامرة #رسوم_متحركة #كوميديا #عائلي #المينيون_والوحوش",
-      "updated_at": "2026-09-20T13:03:20.758365+00:00"
+      "updated_at": "2026-09-20T22:26:20.503241+00:00"
     },
     {
       "id": 71728,
@@ -3643,7 +3817,7 @@
       "overview": "يتابع المسلسل طفولة شيلدون كوبر، العبقري الصغير الذي نشأ في بلدة متواضعة بولاية تكساس خلال أواخر الثمانينيات وبداية التسعينيات. رغم امتلاكه ذكاءً استثنائيًا في الرياضيات والفيزياء، يواجه شيلدون صعوبة في فهم المشاعر والتعامل مع الآخرين بسبب اختلافه عن أقرانه، بينما تحاول عائلته دعمه والتأقلم مع شخصيته الفريدة. يستعرض المسلسل علاقته بوالديه وشقيقيه وجدته، إلى جانب مغامراته في المدرسة والجامعة، مقدمًا قصة كوميدية دافئة عن العائلة والعبقرية والشعور بالاختلاف.",
       "rating": 8.0,
       "popularity": 128.2224,
-      "vote_count": 3096,
+      "vote_count": 3097,
       "genres": [
         "كوميديا",
         "عائلي",
@@ -3653,7 +3827,7 @@
       "trailer_key": "FStMMcj-RiA",
       "trailer_url": "https://www.youtube.com/watch?v=FStMMcj-RiA",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #عائلي #دراما #شيلدون_الصغير",
-      "updated_at": "2026-09-20T13:05:33.950558+00:00"
+      "updated_at": "2026-09-20T22:28:31.052363+00:00"
     },
     {
       "id": 1803,
@@ -3675,7 +3849,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #The_Facts_of_Life",
-      "updated_at": "2026-09-20T13:05:34.218424+00:00"
+      "updated_at": "2026-09-20T22:28:31.301954+00:00"
     },
     {
       "id": 57532,
@@ -3697,7 +3871,29 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #PAW_Patrol",
-      "updated_at": "2026-09-20T13:05:34.457577+00:00"
+      "updated_at": "2026-09-20T22:28:31.533690+00:00"
+    },
+    {
+      "id": 44980,
+      "type": "فيلم",
+      "detailed_type": "فيلم أكشن",
+      "title": "Zero WOMAN ＩＩ　警視庁０課の女",
+      "original_title": "Zero WOMAN ＩＩ　警視庁０課の女",
+      "original_language": "ja",
+      "year": "1995",
+      "overview": "لا يوجد ملخص متوفر حاليًا.",
+      "rating": 5.0,
+      "popularity": 126.826,
+      "vote_count": 8,
+      "genres": [
+        "أكشن",
+        "إثارة"
+      ],
+      "poster": "https://image.tmdb.org/t/p/w500/sQHeDjwmBQba8E51Mkp5dvgkzeZ.jpg",
+      "trailer_key": "38-RBNi1ev0",
+      "trailer_url": "https://www.youtube.com/watch?v=38-RBNi1ev0",
+      "hashtags": "#MOVINS #أفلام #أكشن #إثارة #Zero_WOMAN_ＩＩ　警視庁０課の女",
+      "updated_at": "2026-09-20T22:26:20.766420+00:00"
     },
     {
       "id": 250307,
@@ -3710,7 +3906,7 @@
       "overview": "الحياة اليومية لمقدمي الرعاية الصحية في مستشفى بيتسبرغ في بنسلفانيا صراع، فهم يحاولون التوفيق بين الأزمات الشخصية وسياسات مكان العمل وتكلفة علاج المرضى المصابين بأمراض خطيرة، مما يكشف عن المرونة المطلوبة في دعوتهم النبيلة.",
       "rating": 8.7,
       "popularity": 126.1251,
-      "vote_count": 969,
+      "vote_count": 970,
       "genres": [
         "دراما"
       ],
@@ -3718,7 +3914,7 @@
       "trailer_key": "ufR_08V38sQ",
       "trailer_url": "https://www.youtube.com/watch?v=ufR_08V38sQ",
       "hashtags": "#MOVINS #مسلسلات #دراما #مستشفى_بيتسبرغ",
-      "updated_at": "2026-09-20T13:05:34.689506+00:00"
+      "updated_at": "2026-09-20T22:28:31.773111+00:00"
     },
     {
       "id": 2883,
@@ -3741,7 +3937,7 @@
       "trailer_key": "6TIWbe9iXXg",
       "trailer_url": "https://www.youtube.com/watch?v=6TIWbe9iXXg",
       "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #Dark_Shadows",
-      "updated_at": "2026-09-20T13:05:34.923188+00:00"
+      "updated_at": "2026-09-20T22:28:32.006704+00:00"
     },
     {
       "id": 4087,
@@ -3754,7 +3950,7 @@
       "overview": "الحقيقة تختبئ في مكان ما، ويطاردها عميلان بمكتب التحقيقات الفيدرالي في دراما خيال علمي وظواهر خارقة.",
       "rating": 8.4,
       "popularity": 125.28,
-      "vote_count": 3716,
+      "vote_count": 3717,
       "genres": [
         "غموض",
         "خيال علمي وفانتازيا",
@@ -3764,7 +3960,7 @@
       "trailer_key": "_HTByz4RlqI",
       "trailer_url": "https://www.youtube.com/watch?v=_HTByz4RlqI",
       "hashtags": "#MOVINS #مسلسلات #غموض #خيال_علمي #جريمة #ملفات_إكس",
-      "updated_at": "2026-09-20T13:05:35.174479+00:00"
+      "updated_at": "2026-09-20T22:28:32.246625+00:00"
     },
     {
       "id": 93449,
@@ -3786,7 +3982,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Tamron_Hall",
-      "updated_at": "2026-09-20T13:05:35.412323+00:00"
+      "updated_at": "2026-09-20T22:28:32.521313+00:00"
     },
     {
       "id": 4629,
@@ -3808,7 +4004,7 @@
       "trailer_key": "wSRS7c_UqaM",
       "trailer_url": "https://www.youtube.com/watch?v=wSRS7c_UqaM",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #أكشن #Stargate_SG_1",
-      "updated_at": "2026-09-20T13:05:35.708814+00:00"
+      "updated_at": "2026-09-20T22:28:32.749628+00:00"
     },
     {
       "id": 62650,
@@ -3829,7 +4025,7 @@
       "trailer_key": "U2NZ7G02e40",
       "trailer_url": "https://www.youtube.com/watch?v=U2NZ7G02e40",
       "hashtags": "#MOVINS #مسلسلات #دراما #Chicago_Med",
-      "updated_at": "2026-09-20T13:05:35.939194+00:00"
+      "updated_at": "2026-09-20T22:28:33.008739+00:00"
     },
     {
       "id": 71789,
@@ -3852,7 +4048,7 @@
       "trailer_key": "3k9o6y-wjMg",
       "trailer_url": "https://www.youtube.com/watch?v=3k9o6y-wjMg",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #SEAL_Team",
-      "updated_at": "2026-09-20T13:05:36.199491+00:00"
+      "updated_at": "2026-09-20T22:28:33.274285+00:00"
     },
     {
       "id": 841,
@@ -3873,7 +4069,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Newsnight",
-      "updated_at": "2026-09-20T13:05:36.458193+00:00"
+      "updated_at": "2026-09-20T22:28:33.500468+00:00"
     },
     {
       "id": 1323244,
@@ -3886,7 +4082,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 6.6,
       "popularity": 123.0926,
-      "vote_count": 156,
+      "vote_count": 157,
       "genres": [
         "أكشن",
         "خيال علمي",
@@ -3896,7 +4092,7 @@
       "trailer_key": "F5bYhuO2Rkg",
       "trailer_url": "https://www.youtube.com/watch?v=F5bYhuO2Rkg",
       "hashtags": "#MOVINS #أفلام #أكشن #خيال_علمي #إثارة #Rage_of_Stars",
-      "updated_at": "2026-09-20T13:03:20.222374+00:00"
+      "updated_at": "2026-09-20T22:26:20.995937+00:00"
     },
     {
       "id": 50895,
@@ -3918,7 +4114,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #Ordinace_v_růžové_zahradě",
-      "updated_at": "2026-09-20T13:05:36.750273+00:00"
+      "updated_at": "2026-09-20T22:28:33.728896+00:00"
     },
     {
       "id": 1415,
@@ -3931,7 +4127,7 @@
       "overview": "في العصر الحالي بمدينة نيويورك، يعيش المحقق شرلوك هولمز حياته اليومية بمتابعة وتولي أصعب تحقيقات القضايا، حيث يتلقى المساعدة من زميلته الدكتورة جون واتسون، ويخوض الثنائي العديد من المغامرات معًا.",
       "rating": 7.6,
       "popularity": 121.8682,
-      "vote_count": 1896,
+      "vote_count": 1898,
       "genres": [
         "دراما",
         "غموض",
@@ -3941,7 +4137,7 @@
       "trailer_key": "ff-XiZzJLxw",
       "trailer_url": "https://www.youtube.com/watch?v=ff-XiZzJLxw",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #جريمة #Elementary",
-      "updated_at": "2026-09-20T13:05:36.986916+00:00"
+      "updated_at": "2026-09-20T22:28:33.960189+00:00"
     },
     {
       "id": 1411,
@@ -3964,7 +4160,7 @@
       "trailer_key": "WYDWSNMTauQ",
       "trailer_url": "https://www.youtube.com/watch?v=WYDWSNMTauQ",
       "hashtags": "#MOVINS #مسلسلات #أكشن #جريمة #خيال_علمي #شخص_محل_إهتمام",
-      "updated_at": "2026-09-20T13:05:37.236995+00:00"
+      "updated_at": "2026-09-20T22:28:34.226952+00:00"
     },
     {
       "id": 76479,
@@ -3977,7 +4173,7 @@
       "overview": "يعيش هيوي كامبل حياة هادئة إلى أن يفقد الشخص الذي يحبه في حادث مأساوي يتسبب فيه أحد الأبطال الخارقين، فيكتشف أن أصحاب القدرات الخارقة ليسوا أبطالًا مثاليين كما يعتقد الناس. يلتقي هيوي ببيلي بوتشر، الذي يقوده إلى مجموعة سرية تُعرف باسم الرفاق، مهمتها كشف فساد الأبطال الخارقين ومحاسبتهم. وفي الجهة الأخرى، يواجه هوملاندر ضغوطًا متزايدة للحفاظ على صورته المثالية أمام الجمهور. ومع تصاعد المواجهة بين الطرفين، تنكشف أسرار خطيرة تهدد بتغيير عالم الأبطال الخارقين بالكامل.",
       "rating": 8.4,
       "popularity": 120.9985,
-      "vote_count": 13436,
+      "vote_count": 13439,
       "genres": [
         "خيال علمي وفانتازيا",
         "أكشن ومغامرة"
@@ -3986,7 +4182,7 @@
       "trailer_key": "tcrNsIaQkb4",
       "trailer_url": "https://www.youtube.com/watch?v=tcrNsIaQkb4",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #أكشن #الرفاق",
-      "updated_at": "2026-09-20T13:05:37.490988+00:00"
+      "updated_at": "2026-09-20T22:28:34.469949+00:00"
     },
     {
       "id": 5859,
@@ -4008,7 +4204,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #وثائقي #Vetenskapens_värld",
-      "updated_at": "2026-09-20T13:05:37.730891+00:00"
+      "updated_at": "2026-09-20T22:28:34.741435+00:00"
     },
     {
       "id": 57775,
@@ -4030,7 +4226,7 @@
       "trailer_key": "QhYZOyOiHKI",
       "trailer_url": "https://www.youtube.com/watch?v=QhYZOyOiHKI",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #ماروكو_الصغيرة",
-      "updated_at": "2026-09-20T13:05:37.962481+00:00"
+      "updated_at": "2026-09-20T22:28:34.972253+00:00"
     },
     {
       "id": 160,
@@ -4054,7 +4250,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #كوميديا #سلاحف_النينجا",
-      "updated_at": "2026-09-20T13:05:38.235731+00:00"
+      "updated_at": "2026-09-20T22:28:35.206988+00:00"
     },
     {
       "id": 1137844,
@@ -4067,7 +4263,7 @@
       "overview": "حين يجد طيار بالبحرية الأمريكية نفسه محاصراً وراء خطوط العدو في مهمة فائقة السرية إبان الحرب الباردة، تكون فرصته الوحيدة للنجاة هي تكوين تحالف مع عميل سابق للـ\"كاي جي بي\" غريب الأطوار.",
       "rating": 8.0,
       "popularity": 119.6787,
-      "vote_count": 704,
+      "vote_count": 715,
       "genres": [
         "أكشن",
         "كوميديا"
@@ -4076,7 +4272,7 @@
       "trailer_key": "om5Un9X720M",
       "trailer_url": "https://www.youtube.com/watch?v=om5Un9X720M",
       "hashtags": "#MOVINS #أفلام #أكشن #كوميديا #Mayday",
-      "updated_at": "2026-09-20T13:03:13.721485+00:00"
+      "updated_at": "2026-09-20T22:26:15.983159+00:00"
     },
     {
       "id": 121,
@@ -4099,7 +4295,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #أكشن #خيال_علمي #Doctor_Who",
-      "updated_at": "2026-09-20T13:05:38.466624+00:00"
+      "updated_at": "2026-09-20T22:28:35.493481+00:00"
     },
     {
       "id": 95479,
@@ -4122,7 +4318,7 @@
       "trailer_key": "VpO6APNqY1c",
       "trailer_url": "https://www.youtube.com/watch?v=VpO6APNqY1c",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #خيال_علمي #أكشن #JUJUTSU_KAISEN",
-      "updated_at": "2026-09-20T13:05:38.694239+00:00"
+      "updated_at": "2026-09-20T22:28:35.722556+00:00"
     },
     {
       "id": 48891,
@@ -4135,7 +4331,7 @@
       "overview": "يرصد المسلسل حياة المحقق جايك بيرالتا (آندي يامبيرج) حيث إنه موهوبٌ  بالفطرة ولا يتعين عليه العمل بشكلٍ شاق والالتزام بالقوانين. لدى جايك  سجلٌ مُشرفٌ من القضايا التي قام بحلها ،ولعله الأفضل من بين كل  زملائه. يحضر  قائد جديد يُدعى راي هولت (أندري براوير) لتنقلب الموزاين  تمامًا.يؤمن راي هولت بالقوانين والقواعد واللوائح وأهمية الالتزام بها،  بخلاف جايك وزملائه الذين ينقصهم الصرامة والقيادة، بالرغم من أنهم عباقرة.",
       "rating": 8.2,
       "popularity": 118.7864,
-      "vote_count": 4142,
+      "vote_count": 4143,
       "genres": [
         "كوميديا",
         "جريمة"
@@ -4144,7 +4340,7 @@
       "trailer_key": "icTOP9F17pU",
       "trailer_url": "https://www.youtube.com/watch?v=icTOP9F17pU",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #جريمة #بروكلين_ناين_ناين",
-      "updated_at": "2026-09-20T13:05:38.936727+00:00"
+      "updated_at": "2026-09-20T22:28:35.949718+00:00"
     },
     {
       "id": 1100,
@@ -4157,7 +4353,7 @@
       "overview": "يعيل \"تيد\" على استرجاع ذكريات الماضي ليروي بحثه الملحمي عن نصفه الآخر، وكشخص بالغ يروي \"تيد\" لأطفاله كيف التقى بأمهما.",
       "rating": 8.1,
       "popularity": 118.7003,
-      "vote_count": 5953,
+      "vote_count": 5958,
       "genres": [
         "كوميديا"
       ],
@@ -4165,7 +4361,7 @@
       "trailer_key": "cjJLEYMzpjc",
       "trailer_url": "https://www.youtube.com/watch?v=cjJLEYMzpjc",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #كيف_قابلت_امك",
-      "updated_at": "2026-09-20T13:05:39.180820+00:00"
+      "updated_at": "2026-09-20T22:28:36.223735+00:00"
     },
     {
       "id": 2595,
@@ -4187,7 +4383,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Knots_Landing",
-      "updated_at": "2026-09-20T13:05:39.418250+00:00"
+      "updated_at": "2026-09-20T22:28:36.453887+00:00"
     },
     {
       "id": 4177,
@@ -4210,7 +4406,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #غموض #دراما #جريمة #Perry_Mason",
-      "updated_at": "2026-09-20T13:05:39.658069+00:00"
+      "updated_at": "2026-09-20T22:28:36.680435+00:00"
     },
     {
       "id": 484,
@@ -4233,7 +4429,7 @@
       "trailer_key": "xq9D_wlTcuw",
       "trailer_url": "https://www.youtube.com/watch?v=xq9D_wlTcuw",
       "hashtags": "#MOVINS #مسلسلات #غموض #جريمة #دراما #Murder,_She_Wrote",
-      "updated_at": "2026-09-20T13:05:39.900108+00:00"
+      "updated_at": "2026-09-20T22:28:36.907245+00:00"
     },
     {
       "id": 1981,
@@ -4246,7 +4442,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 8.2,
       "popularity": 117.7924,
-      "vote_count": 2583,
+      "vote_count": 2584,
       "genres": [
         "كوميديا",
         "دراما",
@@ -4257,7 +4453,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #غموض #خيال_علمي #Charmed",
-      "updated_at": "2026-09-20T13:05:40.151020+00:00"
+      "updated_at": "2026-09-20T22:28:37.135555+00:00"
     },
     {
       "id": 1413,
@@ -4270,7 +4466,7 @@
       "overview": "سلسلة من القصص الدرامية المختارة التي تركز على شخصيات ومواقع مختلفة، بما في ذلك منزل له ماضٍ قاتل، ملجأ، ساحرة ، عرض غريب، فندق، مزرعة في روانوك وطائفة دينية.",
       "rating": 8.1,
       "popularity": 117.665,
-      "vote_count": 6171,
+      "vote_count": 6173,
       "genres": [
         "دراما",
         "غموض",
@@ -4280,7 +4476,7 @@
       "trailer_key": "nLJR2twdK00",
       "trailer_url": "https://www.youtube.com/watch?v=nLJR2twdK00",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #خيال_علمي #قصة_رعب_امريكية",
-      "updated_at": "2026-09-20T13:05:40.398911+00:00"
+      "updated_at": "2026-09-20T22:28:37.370994+00:00"
     },
     {
       "id": 4607,
@@ -4293,7 +4489,7 @@
       "overview": "تدور قصة المسلسل حول مجموعة ناجيين من حادثة طائرة على جزيرة استوائية مجهولة و غامضة في هذه الظروف الصعبة و المجهولة يحاول الناجون مساعدة بعضهم البعض للبقاء على قيد الحياة بهذه الجزيرة حتى تأتي إليهم النجدة و لكن بالطبع الامر ليس بهذه السهولة فهذه الجزيرة ليست طبيعية و ليست مجهولة تماماً المسلسل لا تستطيع ان تحدد له بطلاً أوحد بل كل شخصية بالمسلسل لها مساحتها و شخصيتها الفريدة الاحداث مزيج من المغامرة و الخيال مع لمحات عن تاريخ كل شخصية قبل حادث التحطم",
       "rating": 8.0,
       "popularity": 117.1639,
-      "vote_count": 5337,
+      "vote_count": 5341,
       "genres": [
         "غموض",
         "أكشن ومغامرة",
@@ -4303,7 +4499,7 @@
       "trailer_key": "KTu8iDynwNc",
       "trailer_url": "https://www.youtube.com/watch?v=KTu8iDynwNc",
       "hashtags": "#MOVINS #مسلسلات #غموض #أكشن #دراما #الضياع",
-      "updated_at": "2026-09-20T13:05:40.654354+00:00"
+      "updated_at": "2026-09-20T22:28:37.609601+00:00"
     },
     {
       "id": 12323,
@@ -4326,7 +4522,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #وثائقي #غموض #Beyond_Belief:_Fact_or_Fiction",
-      "updated_at": "2026-09-20T13:05:40.887482+00:00"
+      "updated_at": "2026-09-20T22:28:37.876438+00:00"
     },
     {
       "id": 3091,
@@ -4348,7 +4544,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Family_Affairs",
-      "updated_at": "2026-09-20T13:05:41.126406+00:00"
+      "updated_at": "2026-09-20T22:28:38.130579+00:00"
     },
     {
       "id": 11694,
@@ -4369,7 +4565,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #عائلي #Sale_of_the_Century",
-      "updated_at": "2026-09-20T13:05:41.357385+00:00"
+      "updated_at": "2026-09-20T22:28:38.358413+00:00"
     },
     {
       "id": 1393326,
@@ -4392,7 +4588,7 @@
       "trailer_key": "otL78_pk_A0",
       "trailer_url": "https://www.youtube.com/watch?v=otL78_pk_A0",
       "hashtags": "#MOVINS #أفلام #رعب #كوميديا #إثارة #Ghost_in_the_Cell",
-      "updated_at": "2026-09-20T13:03:19.988173+00:00"
+      "updated_at": "2026-09-20T22:26:21.339933+00:00"
     },
     {
       "id": 73870,
@@ -4414,7 +4610,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #عائلي #Génial!",
-      "updated_at": "2026-09-20T13:05:41.632643+00:00"
+      "updated_at": "2026-09-20T22:28:38.598605+00:00"
     },
     {
       "id": 14686,
@@ -4436,7 +4632,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Alles_was_zählt",
-      "updated_at": "2026-09-20T13:05:41.873793+00:00"
+      "updated_at": "2026-09-20T22:28:38.821876+00:00"
     },
     {
       "id": 655,
@@ -4449,7 +4645,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 8.4,
       "popularity": 114.7535,
-      "vote_count": 1853,
+      "vote_count": 1855,
       "genres": [
         "خيال علمي وفانتازيا",
         "أكشن ومغامرة",
@@ -4460,7 +4656,7 @@
       "trailer_key": "HnDtvZXYHgE",
       "trailer_url": "https://www.youtube.com/watch?v=HnDtvZXYHgE",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #أكشن #دراما #غموض #Star_Trek:_The_Next_Generation",
-      "updated_at": "2026-09-20T13:05:42.112600+00:00"
+      "updated_at": "2026-09-20T22:28:39.055020+00:00"
     },
     {
       "id": 39351,
@@ -4483,7 +4679,7 @@
       "trailer_key": "2rVy3RBJmNo",
       "trailer_url": "https://www.youtube.com/watch?v=2rVy3RBJmNo",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #خيال_علمي #جريم",
-      "updated_at": "2026-09-20T13:05:42.362450+00:00"
+      "updated_at": "2026-09-20T22:28:39.331728+00:00"
     },
     {
       "id": 1028,
@@ -4505,7 +4701,7 @@
       "trailer_key": "OpUcHXoYTMg",
       "trailer_url": "https://www.youtube.com/watch?v=OpUcHXoYTMg",
       "hashtags": "#MOVINS #مسلسلات #دراما #Holby_City",
-      "updated_at": "2026-09-20T13:05:42.598878+00:00"
+      "updated_at": "2026-09-20T22:28:39.564487+00:00"
     },
     {
       "id": 46260,
@@ -4518,7 +4714,7 @@
       "overview": "القرية المخفيّة في الورق هي موطن لأكثر النينجا خفّة وسريّة. لكن قبل اثنتي عشرة سنة، ظهر الثعلب الشيطان ذو التسعة ذيول وبعث الرعب في ساكنيها قبل أن يتمّ كبته وختم روحه في داخل جسد طفلٍ رضيع.",
       "rating": 8.4,
       "popularity": 113.3689,
-      "vote_count": 6121,
+      "vote_count": 6120,
       "genres": [
         "رسوم متحركة",
         "أكشن ومغامرة",
@@ -4528,7 +4724,7 @@
       "trailer_key": "-G9BqkgZXRA",
       "trailer_url": "https://www.youtube.com/watch?v=-G9BqkgZXRA",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #ناروتو",
-      "updated_at": "2026-09-20T13:05:42.835038+00:00"
+      "updated_at": "2026-09-20T22:28:39.795657+00:00"
     },
     {
       "id": 6809,
@@ -4550,7 +4746,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #El_hormiguero",
-      "updated_at": "2026-09-20T13:05:43.070668+00:00"
+      "updated_at": "2026-09-20T22:28:40.027212+00:00"
     },
     {
       "id": 49281,
@@ -4572,7 +4768,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #عائلي #CBeebies_Bedtime_Stories",
-      "updated_at": "2026-09-20T13:05:43.338057+00:00"
+      "updated_at": "2026-09-20T22:28:40.328085+00:00"
     },
     {
       "id": 1855,
@@ -4595,7 +4791,7 @@
       "trailer_key": "b1PX9E2RsgU",
       "trailer_url": "https://www.youtube.com/watch?v=b1PX9E2RsgU",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #أكشن #Star_Trek:_Voyager",
-      "updated_at": "2026-09-20T13:05:43.642366+00:00"
+      "updated_at": "2026-09-20T22:28:40.551097+00:00"
     },
     {
       "id": 615,
@@ -4618,7 +4814,7 @@
       "trailer_key": "dUHzt5md1x0",
       "trailer_url": "https://www.youtube.com/watch?v=dUHzt5md1x0",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #خيال_علمي #فيوتشراما",
-      "updated_at": "2026-09-20T13:04:56.635407+00:00"
+      "updated_at": "2026-09-20T22:28:40.858681+00:00"
     },
     {
       "id": 3022,
@@ -4642,7 +4838,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #عائلي #رسوم_متحركة #كوميديا #راغراتس",
-      "updated_at": "2026-09-20T13:05:43.957246+00:00"
+      "updated_at": "2026-09-20T22:28:41.081999+00:00"
     },
     {
       "id": 65942,
@@ -4666,7 +4862,7 @@
       "trailer_key": "P4l9d-rlD4o",
       "trailer_url": "https://www.youtube.com/watch?v=P4l9d-rlD4o",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #غموض #أكشن #خيال_علمي #الحياة_في_عالم_مختلف_من_الصفر",
-      "updated_at": "2026-09-20T13:05:44.202131+00:00"
+      "updated_at": "2026-09-20T22:28:41.315064+00:00"
     },
     {
       "id": 63174,
@@ -4688,7 +4884,7 @@
       "trailer_key": "X4bF_quwNtw",
       "trailer_url": "https://www.youtube.com/watch?v=X4bF_quwNtw",
       "hashtags": "#MOVINS #مسلسلات #جريمة #خيال_علمي #لوسيفر",
-      "updated_at": "2026-09-20T13:05:44.456328+00:00"
+      "updated_at": "2026-09-20T22:28:41.548479+00:00"
     },
     {
       "id": 73586,
@@ -4701,7 +4897,7 @@
       "overview": "تعيش عائلة (دوتون) كأكبر عائلة في الولايات المتحدة تدير أراضي زراعية، ولكنهم دائمًا يتعرضون لمضايقات من تجار الأراضي، حيث يتعين على العائلة التصدي لتعدي جديد على أرضهم.",
       "rating": 8.3,
       "popularity": 111.8783,
-      "vote_count": 3338,
+      "vote_count": 3341,
       "genres": [
         "غربي",
         "دراما"
@@ -4710,7 +4906,7 @@
       "trailer_key": "suobrMPBLlo",
       "trailer_url": "https://www.youtube.com/watch?v=suobrMPBLlo",
       "hashtags": "#MOVINS #مسلسلات #غربي #دراما #يلوستون",
-      "updated_at": "2026-09-20T13:05:44.703206+00:00"
+      "updated_at": "2026-09-20T22:28:41.823757+00:00"
     },
     {
       "id": 1447,
@@ -4733,7 +4929,7 @@
       "trailer_key": "pYvy-N8lNGQ",
       "trailer_url": "https://www.youtube.com/watch?v=pYvy-N8lNGQ",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #جريمة #Psych",
-      "updated_at": "2026-09-20T13:05:44.933256+00:00"
+      "updated_at": "2026-09-20T22:28:42.051784+00:00"
     },
     {
       "id": 2518,
@@ -4755,7 +4951,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Tonight_Show_with_Jay_Leno",
-      "updated_at": "2026-09-20T13:05:45.209264+00:00"
+      "updated_at": "2026-09-20T22:28:42.286908+00:00"
     },
     {
       "id": 33623,
@@ -4779,7 +4975,7 @@
       "trailer_key": "0oRwpy66NXc",
       "trailer_url": "https://www.youtube.com/watch?v=0oRwpy66NXc",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #خيال_علمي #عائلي #The_Avengers:_Earth's_Mightiest_Heroes",
-      "updated_at": "2026-09-20T13:05:45.443358+00:00"
+      "updated_at": "2026-09-20T22:28:42.548112+00:00"
     },
     {
       "id": 60694,
@@ -4802,7 +4998,7 @@
       "trailer_key": "PawUmci7JuU",
       "trailer_url": "https://www.youtube.com/watch?v=PawUmci7JuU",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #لأسبوع_الماضي_مع_جون_أوليفر",
-      "updated_at": "2026-09-20T13:05:45.672293+00:00"
+      "updated_at": "2026-09-20T22:28:42.821170+00:00"
     },
     {
       "id": 46298,
@@ -4825,7 +5021,7 @@
       "trailer_key": "D-51-3Dpio0",
       "trailer_url": "https://www.youtube.com/watch?v=D-51-3Dpio0",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #القناص",
-      "updated_at": "2026-09-20T13:05:45.916035+00:00"
+      "updated_at": "2026-09-20T22:28:43.050524+00:00"
     },
     {
       "id": 1920,
@@ -4847,7 +5043,7 @@
       "trailer_key": "rFuKtJjhBCQ",
       "trailer_url": "https://www.youtube.com/watch?v=rFuKtJjhBCQ",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #توين_بيكس",
-      "updated_at": "2026-09-20T13:05:46.163893+00:00"
+      "updated_at": "2026-09-20T22:28:43.280945+00:00"
     },
     {
       "id": 1533,
@@ -4868,7 +5064,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Caméra_Café",
-      "updated_at": "2026-09-20T13:05:46.497569+00:00"
+      "updated_at": "2026-09-20T22:28:43.505606+00:00"
     },
     {
       "id": 14743,
@@ -4889,7 +5085,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #El_cor_de_la_ciutat",
-      "updated_at": "2026-09-20T13:05:46.729602+00:00"
+      "updated_at": "2026-09-20T22:28:43.727206+00:00"
     },
     {
       "id": 1508,
@@ -4911,7 +5107,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #عائلي #Dancing_with_the_Stars",
-      "updated_at": "2026-09-20T13:05:47.067064+00:00"
+      "updated_at": "2026-09-20T22:28:43.953467+00:00"
     },
     {
       "id": 4018,
@@ -4934,7 +5130,7 @@
       "trailer_key": "aq-dzTREY4M",
       "trailer_url": "https://www.youtube.com/watch?v=aq-dzTREY4M",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #أكشن #دراما #Quantum_Leap",
-      "updated_at": "2026-09-20T13:05:47.336575+00:00"
+      "updated_at": "2026-09-20T22:28:44.187597+00:00"
     },
     {
       "id": 2710,
@@ -4947,7 +5143,7 @@
       "overview": "يحاول أربعة أصدقاء أنانيين يديرون حانة أيرلندية في فيلادلفيا شق طريقهم عبر عالم العمل والعلاقات للبالغين. ولسوء الحظ، فإن وجهات نظرهم المشوهة وأحكامهم الغريبه غالبًا ما تقودهم إلى المشاكل، مما يخلق عددًا لا يحصى من المواقف المربكة التي عادةً ما تزداد سوءًا قبل أن تتحسن.",
       "rating": 8.3,
       "popularity": 107.3774,
-      "vote_count": 1407,
+      "vote_count": 1409,
       "genres": [
         "كوميديا"
       ],
@@ -4955,7 +5151,7 @@
       "trailer_key": "blLAdGYPhiQ",
       "trailer_url": "https://www.youtube.com/watch?v=blLAdGYPhiQ",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #فيلادلفيا_دائِماً_مُشمِسة",
-      "updated_at": "2026-09-20T13:05:47.578775+00:00"
+      "updated_at": "2026-09-20T22:28:44.422745+00:00"
     },
     {
       "id": 15804,
@@ -4978,7 +5174,7 @@
       "trailer_key": "XoKsfyH6Jcw",
       "trailer_url": "https://www.youtube.com/watch?v=XoKsfyH6Jcw",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #باتمان_الجرأة_والشجاعة",
-      "updated_at": "2026-09-20T13:05:47.809182+00:00"
+      "updated_at": "2026-09-20T22:28:44.648234+00:00"
     },
     {
       "id": 1450,
@@ -5001,7 +5197,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #The_Closer",
-      "updated_at": "2026-09-20T13:05:48.049171+00:00"
+      "updated_at": "2026-09-20T22:28:44.880512+00:00"
     },
     {
       "id": 2384,
@@ -5024,7 +5220,7 @@
       "trailer_key": "jQfU1WIaukg",
       "trailer_url": "https://www.youtube.com/watch?v=jQfU1WIaukg",
       "hashtags": "#MOVINS #مسلسلات #أكشن #خيال_علمي #جريمة #Knight_Rider",
-      "updated_at": "2026-09-20T13:05:48.315545+00:00"
+      "updated_at": "2026-09-20T22:28:45.101457+00:00"
     },
     {
       "id": 1516698,
@@ -5046,7 +5242,7 @@
       "trailer_key": "NhI2UpkFAFw",
       "trailer_url": "https://www.youtube.com/watch?v=NhI2UpkFAFw",
       "hashtags": "#MOVINS #أفلام #رومانسي #دراما #الشروق_الأخير",
-      "updated_at": "2026-09-20T13:03:21.245243+00:00"
+      "updated_at": "2026-09-20T22:26:21.572132+00:00"
     },
     {
       "id": 4419,
@@ -5068,7 +5264,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #وقت_حقيقي_مع_بيل_ماهر",
-      "updated_at": "2026-09-20T13:05:48.555272+00:00"
+      "updated_at": "2026-09-20T22:28:45.327608+00:00"
     },
     {
       "id": 32726,
@@ -5081,7 +5277,7 @@
       "overview": "يروي مسلسل \"بوبز برغرز\" قصة بوب، صاحب مطعم من الجيل الثالث، وهو يدير مطعمه بمساعدة زوجته وأبنائه الثلاثة. لدى بوب وعائلته المميزة أفكار رائعة عن البرغر، لكنهم يفتقرون إلى الخدمة الراقية والذوق الرفيع. ورغم فوضى الطاولات، وسوء الموقع، وقلة الزبائن، فإن بوب وعائلته مصممون على إنجاح إعادة افتتاح مطعم \"بوبز برغرز\" للمرة الثانية",
       "rating": 7.8,
       "popularity": 106.0969,
-      "vote_count": 1137,
+      "vote_count": 1138,
       "genres": [
         "رسوم متحركة",
         "كوميديا"
@@ -5090,7 +5286,7 @@
       "trailer_key": "cCrZfBME9Gc",
       "trailer_url": "https://www.youtube.com/watch?v=cCrZfBME9Gc",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #بوبز_برغرز",
-      "updated_at": "2026-09-20T13:05:48.835235+00:00"
+      "updated_at": "2026-09-20T22:28:45.562884+00:00"
     },
     {
       "id": 25406,
@@ -5113,7 +5309,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #عائلي #أكشن #خيال_علمي #Jason_and_the_Argonauts",
-      "updated_at": "2026-09-20T13:05:49.067287+00:00"
+      "updated_at": "2026-09-20T22:28:45.798630+00:00"
     },
     {
       "id": 2625,
@@ -5137,7 +5333,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #عائلي #غموض #جريمة #Diagnosis:_Murder",
-      "updated_at": "2026-09-20T13:05:49.303645+00:00"
+      "updated_at": "2026-09-20T22:28:46.025776+00:00"
     },
     {
       "id": 688,
@@ -5150,7 +5346,7 @@
       "overview": "يُقدّم مسلسل \"الجناح الغربي\" لمحةً عن السياسة الرئاسية في العاصمة الأمريكية، إذ يروي قصص أعضاء إدارة رئاسية خيالية. تتميّز هذه الشخصيات بروح الدعابة والتفاني اللذين يُلامسان القلوب، بينما تتناول القضايا السياسية التي يناقشونها جوانب من الحياة اليومية",
       "rating": 8.3,
       "popularity": 104.7129,
-      "vote_count": 609,
+      "vote_count": 610,
       "genres": [
         "دراما"
       ],
@@ -5158,7 +5354,7 @@
       "trailer_key": "S1-ip47WYWc",
       "trailer_url": "https://www.youtube.com/watch?v=S1-ip47WYWc",
       "hashtags": "#MOVINS #مسلسلات #دراما #الجناح_الغربي",
-      "updated_at": "2026-09-20T13:05:49.532719+00:00"
+      "updated_at": "2026-09-20T22:28:46.246778+00:00"
     },
     {
       "id": 15260,
@@ -5171,7 +5367,7 @@
       "overview": "صبي يبلغ من العمر 12 عامًا وصديقه المقرب ، كلب حكيم يبلغ من العمر 28 عامًا يتمتع بقوى سحرية ، يخوضان سلسلة من المغامرات في مستقبل بعيد.",
       "rating": 8.5,
       "popularity": 104.6982,
-      "vote_count": 3214,
+      "vote_count": 3215,
       "genres": [
         "رسوم متحركة",
         "كوميديا",
@@ -5181,7 +5377,7 @@
       "trailer_key": "dQX4tS9JSj8",
       "trailer_url": "https://www.youtube.com/watch?v=dQX4tS9JSj8",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #خيال_علمي #وقت_المغامرة",
-      "updated_at": "2026-09-20T13:05:49.780165+00:00"
+      "updated_at": "2026-09-20T22:28:46.479619+00:00"
     },
     {
       "id": 27511,
@@ -5202,7 +5398,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #GMTV",
-      "updated_at": "2026-09-20T13:05:50.019148+00:00"
+      "updated_at": "2026-09-20T22:28:46.750870+00:00"
     },
     {
       "id": 120089,
@@ -5225,7 +5421,7 @@
       "trailer_key": "JP6vBnazpWI",
       "trailer_url": "https://www.youtube.com/watch?v=JP6vBnazpWI",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #كوميديا #عائلة_×_جاسوس",
-      "updated_at": "2026-09-20T13:05:50.261774+00:00"
+      "updated_at": "2026-09-20T22:28:46.981941+00:00"
     },
     {
       "id": 1409,
@@ -5238,7 +5434,7 @@
       "overview": "يعيش جاكس تيلر صراعاً ممزقاً بين ولائه لنادي دراجات نارية إجرامي أسسه والده وبين رغبته في حماية عائلته وتطهير النادي من تجارة الأسلحة، مدفوعاً بمذكرات والده التي تدعو لإنهاء العنف، مما يضعه في مواجهة مباشرة مع رئيس النادي \"كلاي\" وزوجته \"جيمّا\" التي تحاول فرض سيطرتها. تشهد الأحداث حروباً دموية ضد عصابات منافسة وتحقيقات فيدرالية، لتتحول القصة إلى مأساة عائلية تفرض على جاكس تضحيات مؤلمة لتأمين مستقبل أطفاله",
       "rating": 8.4,
       "popularity": 104.3962,
-      "vote_count": 3387,
+      "vote_count": 3388,
       "genres": [
         "جريمة",
         "دراما"
@@ -5247,7 +5443,7 @@
       "trailer_key": "paBZJJXUEtg",
       "trailer_url": "https://www.youtube.com/watch?v=paBZJJXUEtg",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #أبناء_الفوضى",
-      "updated_at": "2026-09-20T13:05:50.502024+00:00"
+      "updated_at": "2026-09-20T22:28:47.208252+00:00"
     },
     {
       "id": 1435,
@@ -5268,7 +5464,7 @@
       "trailer_key": "bybDgWgp-Vo",
       "trailer_url": "https://www.youtube.com/watch?v=bybDgWgp-Vo",
       "hashtags": "#MOVINS #مسلسلات #دراما #The_Good_Wife",
-      "updated_at": "2026-09-20T13:05:50.740937+00:00"
+      "updated_at": "2026-09-20T22:28:47.449506+00:00"
     },
     {
       "id": 29082,
@@ -5289,7 +5485,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #De_Wereld_Draait_Door",
-      "updated_at": "2026-09-20T13:05:50.981206+00:00"
+      "updated_at": "2026-09-20T22:28:47.713392+00:00"
     },
     {
       "id": 31991,
@@ -5312,7 +5508,7 @@
       "trailer_key": "c_hKd04nruM",
       "trailer_url": "https://www.youtube.com/watch?v=c_hKd04nruM",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #WWE_NXT",
-      "updated_at": "2026-09-20T13:05:51.211109+00:00"
+      "updated_at": "2026-09-20T22:28:47.941728+00:00"
     },
     {
       "id": 41956,
@@ -5336,7 +5532,7 @@
       "trailer_key": "f9B6dljC7ag",
       "trailer_url": "https://www.youtube.com/watch?v=f9B6dljC7ag",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #جريمة #دراما #غموض #Death_in_Paradise",
-      "updated_at": "2026-09-20T13:05:51.456342+00:00"
+      "updated_at": "2026-09-20T22:28:48.173127+00:00"
     },
     {
       "id": 1104,
@@ -5349,7 +5545,7 @@
       "overview": "مسلسل درامي يتناول حياة العاملين في وكالة إعلانات نيويورك خلال الستينيات. يركز على (دون درابر)، مدير إبداعي ناجح، ويستعرض التغيرات الاجتماعية والثقافية في تلك الحقبة، مع تسليط الضوء على صراعاته الشخصية والمهنية.",
       "rating": 8.1,
       "popularity": 102.7797,
-      "vote_count": 1595,
+      "vote_count": 1596,
       "genres": [
         "دراما"
       ],
@@ -5357,7 +5553,7 @@
       "trailer_key": "B8b0B2-hvhc",
       "trailer_url": "https://www.youtube.com/watch?v=B8b0B2-hvhc",
       "hashtags": "#MOVINS #مسلسلات #دراما #رجال_ماد",
-      "updated_at": "2026-09-20T13:05:51.689790+00:00"
+      "updated_at": "2026-09-20T22:28:48.405933+00:00"
     },
     {
       "id": 1514,
@@ -5378,7 +5574,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #The_One_Show",
-      "updated_at": "2026-09-20T13:05:51.941075+00:00"
+      "updated_at": "2026-09-20T22:28:48.634866+00:00"
     },
     {
       "id": 1185806,
@@ -5391,7 +5587,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.9,
       "popularity": 101.4491,
-      "vote_count": 124,
+      "vote_count": 125,
       "genres": [
         "رسوم متحركة",
         "مغامرة",
@@ -5403,7 +5599,7 @@
       "trailer_key": "xgI5iYmOf5Q",
       "trailer_url": "https://www.youtube.com/watch?v=xgI5iYmOf5Q",
       "hashtags": "#MOVINS #أفلام #رسوم_متحركة #مغامرة #عائلي #فانتازيا #PAW_Patrol:_The_Dino_Movie",
-      "updated_at": "2026-09-20T13:03:22.468827+00:00"
+      "updated_at": "2026-09-20T22:26:21.807766+00:00"
     },
     {
       "id": 60059,
@@ -5416,7 +5612,7 @@
       "overview": "جيمي ماكغيل محامٍ طموح يحاول شق طريقه في عالم المحاماة وإثبات نفسه بعيدًا عن ظل شقيقه الأكبر تشاك، لكنه يجد نفسه ممزقًا بين رغبته في أن يصبح محاميًا محترمًا وميله إلى الحيل والخداع. ومع تعقد حياته المهنية والشخصية، يبدأ جيمي في الاقتراب تدريجيًا من عالم الجريمة، ويتعرف على شخصيات خطيرة من بينها مايك إيرمنتراوت، بينما تتغير حياته وسمعته حتى يتحول شيئًا فشيئًا إلى المحامي المعروف باسم سول غودمان.",
       "rating": 8.7,
       "popularity": 100.8519,
-      "vote_count": 6883,
+      "vote_count": 6885,
       "genres": [
         "جريمة",
         "دراما"
@@ -5425,7 +5621,7 @@
       "trailer_key": "HN4oydykJFc",
       "trailer_url": "https://www.youtube.com/watch?v=HN4oydykJFc",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #Better_Call_Saul",
-      "updated_at": "2026-09-20T13:05:52.218152+00:00"
+      "updated_at": "2026-09-20T22:28:48.865295+00:00"
     },
     {
       "id": 1021,
@@ -5447,7 +5643,7 @@
       "trailer_key": "UEvB8-kNgVo",
       "trailer_url": "https://www.youtube.com/watch?v=UEvB8-kNgVo",
       "hashtags": "#MOVINS #مسلسلات #دراما #Casualty",
-      "updated_at": "2026-09-20T13:05:52.505525+00:00"
+      "updated_at": "2026-09-20T22:28:49.094889+00:00"
     },
     {
       "id": 4454,
@@ -5460,7 +5656,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 6.9,
       "popularity": 100.5729,
-      "vote_count": 592,
+      "vote_count": 593,
       "genres": [
         "كوميديا"
       ],
@@ -5468,7 +5664,7 @@
       "trailer_key": "PbmZ39kEwGM",
       "trailer_url": "https://www.youtube.com/watch?v=PbmZ39kEwGM",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Will_&_Grace",
-      "updated_at": "2026-09-20T13:05:52.776876+00:00"
+      "updated_at": "2026-09-20T22:28:49.328653+00:00"
     },
     {
       "id": 580,
@@ -5481,7 +5677,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.9,
       "popularity": 100.5544,
-      "vote_count": 1023,
+      "vote_count": 1024,
       "genres": [
         "خيال علمي وفانتازيا",
         "أكشن ومغامرة",
@@ -5491,7 +5687,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #أكشن #دراما #Star_Trek:_Deep_Space_Nine",
-      "updated_at": "2026-09-20T13:05:53.026801+00:00"
+      "updated_at": "2026-09-20T22:28:49.555626+00:00"
     },
     {
       "id": 1621552,
@@ -5504,7 +5700,7 @@
       "overview": "يجب على ضابطين مكسيكيين النجاة خلال الساعات الأخيرة من نوبتهما، بعدما تورطا في مواجهة زعيم كارتل لا يرحم، في دراما جريمة مستوحاة من أحداث حقيقية.",
       "rating": 8.8,
       "popularity": 100.3001,
-      "vote_count": 750,
+      "vote_count": 758,
       "genres": [
         "جريمة",
         "أكشن",
@@ -5514,7 +5710,7 @@
       "trailer_key": "Rk0efhpa-5Y",
       "trailer_url": "https://www.youtube.com/watch?v=Rk0efhpa-5Y",
       "hashtags": "#MOVINS #أفلام #جريمة #أكشن #إثارة #مواجهة_إل_تشابو",
-      "updated_at": "2026-09-20T13:03:21.516510+00:00"
+      "updated_at": "2026-09-20T22:26:22.079518+00:00"
     },
     {
       "id": 1506560,
@@ -5537,7 +5733,7 @@
       "trailer_key": "Tui9Jpmyb6Q",
       "trailer_url": "https://www.youtube.com/watch?v=Tui9Jpmyb6Q",
       "hashtags": "#MOVINS #أفلام #عائلي #أكشن #Clash_of_the_Thundermans",
-      "updated_at": "2026-09-20T13:03:21.006357+00:00"
+      "updated_at": "2026-09-20T22:26:22.307912+00:00"
     },
     {
       "id": 1058424,
@@ -5560,7 +5756,7 @@
       "trailer_key": "OFaJzL83y0Q",
       "trailer_url": "https://www.youtube.com/watch?v=OFaJzL83y0Q",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #غموض #أكشن #أمل",
-      "updated_at": "2026-09-20T13:03:15.392322+00:00"
+      "updated_at": "2026-09-20T22:26:16.211760+00:00"
     },
     {
       "id": 60574,
@@ -5573,7 +5769,7 @@
       "overview": "تركزت إنجلترا على عصابة قامت بخياطة شفرات الحلاقة في قمم قبعاتها، ورئيسها الشرس تومي شيلبي، الذي يريد الصعود إلى أعلى العالم.",
       "rating": 8.5,
       "popularity": 99.5639,
-      "vote_count": 11387,
+      "vote_count": 11389,
       "genres": [
         "دراما",
         "جريمة"
@@ -5582,7 +5778,7 @@
       "trailer_key": "EM12mcTEI88",
       "trailer_url": "https://www.youtube.com/watch?v=EM12mcTEI88",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #بيكي_بلايندرز",
-      "updated_at": "2026-09-20T13:05:53.265853+00:00"
+      "updated_at": "2026-09-20T22:28:49.794319+00:00"
     },
     {
       "id": 62643,
@@ -5605,7 +5801,7 @@
       "trailer_key": "_j_mEixBPMw",
       "trailer_url": "https://www.youtube.com/watch?v=_j_mEixBPMw",
       "hashtags": "#MOVINS #مسلسلات #أكشن #خيال_علمي #دراما #DC's_Legends_of_Tomorrow",
-      "updated_at": "2026-09-20T13:05:53.507165+00:00"
+      "updated_at": "2026-09-20T22:28:50.062929+00:00"
     },
     {
       "id": 46296,
@@ -5618,7 +5814,7 @@
       "overview": "يتناول المسلسل قصة أعظم مبارز ومجالد في التاريخ ألا وهو سبارتاكوس، والذي يقرر أن يحرر العبيد ويخلصهم من ماسأتهم بعد مذبحة شنيعة، فيقرر أن يكون جيشه الخاص.",
       "rating": 8.0,
       "popularity": 99.5487,
-      "vote_count": 3056,
+      "vote_count": 3057,
       "genres": [
         "دراما"
       ],
@@ -5626,7 +5822,7 @@
       "trailer_key": "yHxn8mTpAJU",
       "trailer_url": "https://www.youtube.com/watch?v=yHxn8mTpAJU",
       "hashtags": "#MOVINS #مسلسلات #دراما #سبارتاكوس",
-      "updated_at": "2026-09-20T13:05:53.762939+00:00"
+      "updated_at": "2026-09-20T22:28:50.283954+00:00"
     },
     {
       "id": 687163,
@@ -5639,7 +5835,7 @@
       "overview": "يستيقظ \"رايلاند غريس\"، مدرس العلوم، على متن مركبة فضائية تبعد سنوات ضوئية عن موطنه، فاقدًا للذاكرة تمامًا، لا يتذكر من هو ولا كيف وصل إلى هناك. ومع عودة ذاكرته تدريجيًا، يبدأ في اكتشاف مهمته: حل لغز المادة الغامضة التي تتسبب في انطفاء الشمس. عليه أن يستعين بمعرفته العلمية وأفكاره غير التقليدية لإنقاذ كل شيء على الأرض من الفناء... لكن صداقة غير متوقعة تعني أنه قد لا يضطر إلى القيام بذلك بمفرده.",
       "rating": 8.6,
       "popularity": 99.5429,
-      "vote_count": 7849,
+      "vote_count": 7858,
       "genres": [
         "خيال علمي",
         "مغامرة"
@@ -5648,7 +5844,7 @@
       "trailer_key": "NKYea63tQmI",
       "trailer_url": "https://www.youtube.com/watch?v=NKYea63tQmI",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #مغامرة #مشروع_هيل_ماري",
-      "updated_at": "2026-09-20T13:03:22.203500+00:00"
+      "updated_at": "2026-09-20T22:26:22.611856+00:00"
     },
     {
       "id": 1685,
@@ -5669,7 +5865,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Project_Runway",
-      "updated_at": "2026-09-20T13:05:53.986720+00:00"
+      "updated_at": "2026-09-20T22:28:50.546838+00:00"
     },
     {
       "id": 71494,
@@ -5691,7 +5887,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Golden_Globe_Awards",
-      "updated_at": "2026-09-20T13:05:54.223195+00:00"
+      "updated_at": "2026-09-20T22:28:50.815809+00:00"
     },
     {
       "id": 2072,
@@ -5713,7 +5909,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #The_Bill",
-      "updated_at": "2026-09-20T13:05:54.475114+00:00"
+      "updated_at": "2026-09-20T22:28:51.036699+00:00"
     },
     {
       "id": 67136,
@@ -5734,7 +5930,7 @@
       "trailer_key": "ViBgNO0FpmE",
       "trailer_url": "https://www.youtube.com/watch?v=ViBgNO0FpmE",
       "hashtags": "#MOVINS #مسلسلات #دراما #This_Is_Us",
-      "updated_at": "2026-09-20T13:05:54.724791+00:00"
+      "updated_at": "2026-09-20T22:28:51.268785+00:00"
     },
     {
       "id": 4496,
@@ -5756,7 +5952,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Meet_the_Press",
-      "updated_at": "2026-09-20T13:05:54.958697+00:00"
+      "updated_at": "2026-09-20T22:28:51.491541+00:00"
     },
     {
       "id": 4239,
@@ -5777,7 +5973,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Married..._with_Children",
-      "updated_at": "2026-09-20T13:05:55.191396+00:00"
+      "updated_at": "2026-09-20T22:28:51.717719+00:00"
     },
     {
       "id": 16281,
@@ -5800,7 +5996,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #WWE_Superstars",
-      "updated_at": "2026-09-20T13:05:55.432950+00:00"
+      "updated_at": "2026-09-20T22:28:52.018551+00:00"
     },
     {
       "id": 12225,
@@ -5822,7 +6018,7 @@
       "trailer_key": "1dLn60P4ncI",
       "trailer_url": "https://www.youtube.com/watch?v=1dLn60P4ncI",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #Peppa_Pig",
-      "updated_at": "2026-09-20T13:05:55.673602+00:00"
+      "updated_at": "2026-09-20T22:28:52.246005+00:00"
     },
     {
       "id": 45790,
@@ -5845,7 +6041,7 @@
       "trailer_key": "fOvrr5izejw",
       "trailer_url": "https://www.youtube.com/watch?v=fOvrr5izejw",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #مغامرات_جوجو_العجيبة",
-      "updated_at": "2026-09-20T13:05:55.952387+00:00"
+      "updated_at": "2026-09-20T22:28:52.516367+00:00"
     },
     {
       "id": 210081,
@@ -5866,7 +6062,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #The_Sherri_Shepherd_Show",
-      "updated_at": "2026-09-20T13:05:56.184188+00:00"
+      "updated_at": "2026-09-20T22:28:52.749626+00:00"
     },
     {
       "id": 41451,
@@ -5887,7 +6083,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #SOKO_Kitzbühel",
-      "updated_at": "2026-09-20T13:05:56.426667+00:00"
+      "updated_at": "2026-09-20T22:28:52.970505+00:00"
     },
     {
       "id": 212989,
@@ -5910,7 +6106,7 @@
       "trailer_key": "nTxmOgv11Ck",
       "trailer_url": "https://www.youtube.com/watch?v=nTxmOgv11Ck",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #LEGO_Ninjago:_Dragons_Rising",
-      "updated_at": "2026-09-20T13:05:56.672398+00:00"
+      "updated_at": "2026-09-20T22:28:53.207595+00:00"
     },
     {
       "id": 60622,
@@ -5923,7 +6119,7 @@
       "overview": "تبدأ القصة في بلدة هادئة بولاية مينيسوتا عندما يلتقي ليستر نايغارد برجل غامض يدعى لورن مالفو، فيقوده هذا اللقاء إلى سلسلة من الأحداث العنيفة والجرائم التي تقلب حياته رأسًا على عقب. ومع تصاعد الفوضى، تبدأ الشرطة في التحقيق في سلسلة من جرائم القتل، بينما تتشابك حياة المجرمين والسكان العاديين في صراعات غير متوقعة. وبين الطمع والخداع والعنف، يجد ليستر نفسه منجرفًا إلى عالم الجريمة، في حين يسعى المحققون لكشف الحقيقة وإيقاف الأشخاص المسؤولين عن هذه الجرائم.",
       "rating": 8.3,
       "popularity": 97.5972,
-      "vote_count": 3422,
+      "vote_count": 3425,
       "genres": [
         "جريمة",
         "دراما"
@@ -5932,7 +6128,7 @@
       "trailer_key": "FXIeYKlMA_0",
       "trailer_url": "https://www.youtube.com/watch?v=FXIeYKlMA_0",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #فارغو",
-      "updated_at": "2026-09-20T13:05:56.917943+00:00"
+      "updated_at": "2026-09-20T22:28:53.431734+00:00"
     },
     {
       "id": 755898,
@@ -5945,7 +6141,7 @@
       "overview": "تدور أحداث فيلم \"حرب العوالم \" 2025 في عالم يتعرض لغزو فضائي، لكن الهجوم لا يكون بالطريقة التقليدية. تعتمد الكائنات الفضائية على سرقة المعلومات الشخصية للبشر واستغلالها عبر البيانات. يكتشف شخصية تدعى \"رادفورد\" مؤامرة كبيرة تهدد الأمن القومي، ويدرك أن المعركة هذه المرة ليست بالأسلحة فقط، بل من خلال الفضاء الرقمي.",
       "rating": 4.0,
       "popularity": 97.4941,
-      "vote_count": 1141,
+      "vote_count": 1142,
       "genres": [
         "خيال علمي",
         "إثارة"
@@ -5954,7 +6150,7 @@
       "trailer_key": "d9erkpdh5o0",
       "trailer_url": "https://www.youtube.com/watch?v=d9erkpdh5o0",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #إثارة #حرب_العوالم",
-      "updated_at": "2026-09-20T13:03:22.942786+00:00"
+      "updated_at": "2026-09-20T22:26:22.861965+00:00"
     },
     {
       "id": 70824,
@@ -5977,7 +6173,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #وثائقي #دراما #أكشن #La_Niña",
-      "updated_at": "2026-09-20T13:05:57.196485+00:00"
+      "updated_at": "2026-09-20T22:28:53.660274+00:00"
     },
     {
       "id": 12971,
@@ -5990,7 +6186,7 @@
       "overview": "استمرار مغامرات غوكو وأصدقاؤة للدفاع ضد مجموعة متنوعة من الأشرار التي تسعى إلى تدمير أو حكم كوكب الأرض.",
       "rating": 8.4,
       "popularity": 97.2412,
-      "vote_count": 5009,
+      "vote_count": 5008,
       "genres": [
         "رسوم متحركة",
         "خيال علمي وفانتازيا",
@@ -6000,7 +6196,7 @@
       "trailer_key": "z_pKjQitI8o",
       "trailer_url": "https://www.youtube.com/watch?v=z_pKjQitI8o",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #خيال_علمي #أكشن #دراغون_بول_زد",
-      "updated_at": "2026-09-20T13:05:57.447259+00:00"
+      "updated_at": "2026-09-20T22:28:53.896630+00:00"
     },
     {
       "id": 45,
@@ -6013,7 +6209,7 @@
       "overview": "توب غير هو برنامج تلفازي بريطاني يهتم بالمركبات والسيارات، وهو برنامج الواقع الأكثر مشاهدة على الإطلاق. يمتاز البرنامج بطابعه المميز والفكاهي والمثير للجدل في بعض الأحيان. يقدم البرنامج جيرمي كلاركسون ورتشارد هاموند وجيمس ماي، وإلى جانبهم سائق التجارب الغامض ذا ستيغ.",
       "rating": 7.6,
       "popularity": 97.2098,
-      "vote_count": 910,
+      "vote_count": 911,
       "genres": [
         "واقعي",
         "حواري"
@@ -6022,7 +6218,7 @@
       "trailer_key": "BF-ZjLJiy5s",
       "trailer_url": "https://www.youtube.com/watch?v=BF-ZjLJiy5s",
       "hashtags": "#MOVINS #مسلسلات #توب_غير",
-      "updated_at": "2026-09-20T13:05:57.683028+00:00"
+      "updated_at": "2026-09-20T22:28:54.157442+00:00"
     },
     {
       "id": 6744,
@@ -6043,7 +6239,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #The_Merv_Griffin_Show",
-      "updated_at": "2026-09-20T13:05:57.910192+00:00"
+      "updated_at": "2026-09-20T22:28:54.378067+00:00"
     },
     {
       "id": 1127384,
@@ -6056,7 +6252,7 @@
       "overview": "مجموعة من المسافرين الدوليين على متن رحلة جوية من لوس أنجلوس إلى شنغهاي يضطرون للهبوط اضطرارياً في مياه تعجّ بأسماك القرش. يضطر هؤلاء المسافرون المذعورون إلى التعاون وتجاوز خلافاتهم إذا ما أرادوا النجاة من طائرتهم الغارقة ومن هجوم أسماك القرش التي تهاجم حطامها.",
       "rating": 7.3,
       "popularity": 96.799,
-      "vote_count": 566,
+      "vote_count": 568,
       "genres": [
         "رعب",
         "إثارة",
@@ -6066,7 +6262,7 @@
       "trailer_key": "f0ptq0Lzdh8",
       "trailer_url": "https://www.youtube.com/watch?v=f0ptq0Lzdh8",
       "hashtags": "#MOVINS #أفلام #رعب #إثارة #مغامرة #مياه_عميقة",
-      "updated_at": "2026-09-20T13:03:21.874760+00:00"
+      "updated_at": "2026-09-20T22:26:23.088065+00:00"
     },
     {
       "id": 1877,
@@ -6090,7 +6286,7 @@
       "trailer_key": "th9hxCGH_ms",
       "trailer_url": "https://www.youtube.com/watch?v=th9hxCGH_ms",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #عائلي #خيال_علمي #فارس_وفادي",
-      "updated_at": "2026-09-20T13:05:58.149002+00:00"
+      "updated_at": "2026-09-20T22:28:54.607614+00:00"
     },
     {
       "id": 8514,
@@ -6111,7 +6307,7 @@
       "trailer_key": "IhPdTI0Q25o",
       "trailer_url": "https://www.youtube.com/watch?v=IhPdTI0Q25o",
       "hashtags": "#MOVINS #مسلسلات #RuPaul's_Drag_Race",
-      "updated_at": "2026-09-20T13:05:58.398290+00:00"
+      "updated_at": "2026-09-20T22:28:54.840594+00:00"
     },
     {
       "id": 70558,
@@ -6130,7 +6326,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #NPR_Tiny_Desk_Concerts",
-      "updated_at": "2026-09-20T13:05:58.640811+00:00"
+      "updated_at": "2026-09-20T22:28:55.102289+00:00"
     },
     {
       "id": 111453,
@@ -6153,7 +6349,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #عائلي #حبيبتي_من_تكون",
-      "updated_at": "2026-09-20T13:05:58.882245+00:00"
+      "updated_at": "2026-09-20T22:28:55.327800+00:00"
     },
     {
       "id": 242965,
@@ -6175,7 +6371,7 @@
       "trailer_key": "CAIW3nGJ83A",
       "trailer_url": "https://www.youtube.com/watch?v=CAIW3nGJ83A",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #After_Midnight",
-      "updated_at": "2026-09-20T13:05:59.172863+00:00"
+      "updated_at": "2026-09-20T22:28:55.573597+00:00"
     },
     {
       "id": 31910,
@@ -6188,7 +6384,7 @@
       "overview": "اوزوماكي ناروتو اصبح الآن اكثر نضجا واكبر عمرا. يسعى لإنقاذ صديقه اوتشيها ساسكي من قبضة أوروتشيمارو. بعد عامين ونصف يعود نارتو أخيراً إلى قريته - كونوها - ويبدأ في وضع طموحاته للعمل، على الرغم من أنه لن يكون سهلاً، حيث أنه جمع عددًا من الأعداء (الأكثر خطورة) مثل الاكاتسكي.",
       "rating": 8.5,
       "popularity": 94.9347,
-      "vote_count": 8781,
+      "vote_count": 8780,
       "genres": [
         "رسوم متحركة",
         "أكشن ومغامرة",
@@ -6198,7 +6394,7 @@
       "trailer_key": "22R0j8UKRzY",
       "trailer_url": "https://www.youtube.com/watch?v=22R0j8UKRzY",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #ناروتو_شيبودن",
-      "updated_at": "2026-09-20T13:05:59.450254+00:00"
+      "updated_at": "2026-09-20T22:28:55.801745+00:00"
     },
     {
       "id": 258842,
@@ -6219,7 +6415,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Cochinas",
-      "updated_at": "2026-09-20T13:05:59.676582+00:00"
+      "updated_at": "2026-09-20T22:28:56.111214+00:00"
     },
     {
       "id": 831,
@@ -6240,7 +6436,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Loose_Women",
-      "updated_at": "2026-09-20T13:05:59.904775+00:00"
+      "updated_at": "2026-09-20T22:28:56.341877+00:00"
     },
     {
       "id": 36,
@@ -6264,7 +6460,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #خيال_علمي #Medium",
-      "updated_at": "2026-09-20T13:06:00.134060+00:00"
+      "updated_at": "2026-09-20T22:28:56.561871+00:00"
     },
     {
       "id": 1275779,
@@ -6277,7 +6473,7 @@
       "overview": "يصبح خبير في الأمن السيبراني مُبلغ عن المخالفات بعد اكتشافه أسرارًا عن كائنات فضائية، فتطاردُه إحدى الشركات. وفي نفس الوقت، تتعاون معه خبيرة أرصاد جوية تواجه ظواهر غريبة ليثبتا وجود حياة تتجاوز فهمنا.",
       "rating": 7.5,
       "popularity": 92.3818,
-      "vote_count": 3380,
+      "vote_count": 3385,
       "genres": [
         "خيال علمي",
         "إثارة"
@@ -6286,7 +6482,7 @@
       "trailer_key": "icDuEHSxE-w",
       "trailer_url": "https://www.youtube.com/watch?v=icDuEHSxE-w",
       "hashtags": "#MOVINS #أفلام #خيال_علمي #إثارة #يوم_الإفصاح",
-      "updated_at": "2026-09-20T13:03:17.512027+00:00"
+      "updated_at": "2026-09-20T22:26:23.320832+00:00"
     },
     {
       "id": 1407,
@@ -6299,7 +6495,7 @@
       "overview": "نيكولاس برودي هو رقيب في البحرية الأمريكية يعود إلى الوطن بعد ثماني سنوات من اختفائه في العراق. لكنه يصبح محط أنظار عميلة المخابرات الأمريكية كاري ماثيسون، التي تشتبه أنه قد يخطط لهجوم على الولايات المتحدة.",
       "rating": 7.6,
       "popularity": 92.1669,
-      "vote_count": 2701,
+      "vote_count": 2702,
       "genres": [
         "دراما",
         "حربي وسياسة",
@@ -6309,7 +6505,7 @@
       "trailer_key": "KyFmS3wRPCQ",
       "trailer_url": "https://www.youtube.com/watch?v=KyFmS3wRPCQ",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #أرض_الوطن",
-      "updated_at": "2026-09-20T13:06:00.406908+00:00"
+      "updated_at": "2026-09-20T22:28:56.804785+00:00"
     },
     {
       "id": 29,
@@ -6332,7 +6528,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #Mary_Hartman,_Mary_Hartman",
-      "updated_at": "2026-09-20T13:06:00.643966+00:00"
+      "updated_at": "2026-09-20T22:28:57.042920+00:00"
     },
     {
       "id": 1705,
@@ -6355,7 +6551,7 @@
       "trailer_key": "bkxJ0DojPJ4",
       "trailer_url": "https://www.youtube.com/watch?v=bkxJ0DojPJ4",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #غموض #هامشية",
-      "updated_at": "2026-09-20T13:06:00.887855+00:00"
+      "updated_at": "2026-09-20T22:28:57.312987+00:00"
     },
     {
       "id": 111979,
@@ -6376,7 +6572,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Leute_heute",
-      "updated_at": "2026-09-20T13:06:01.127946+00:00"
+      "updated_at": "2026-09-20T22:28:57.536060+00:00"
     },
     {
       "id": 62852,
@@ -6397,7 +6593,7 @@
       "trailer_key": "_raEUMLL-ZI",
       "trailer_url": "https://www.youtube.com/watch?v=_raEUMLL-ZI",
       "hashtags": "#MOVINS #مسلسلات #دراما #Billions",
-      "updated_at": "2026-09-20T13:06:01.441451+00:00"
+      "updated_at": "2026-09-20T22:28:57.771717+00:00"
     },
     {
       "id": 3172,
@@ -6418,7 +6614,7 @@
       "trailer_key": "mnNC9TSF5OY",
       "trailer_url": "https://www.youtube.com/watch?v=mnNC9TSF5OY",
       "hashtags": "#MOVINS #مسلسلات #دراما #Private_Practice",
-      "updated_at": "2026-09-20T13:06:01.677422+00:00"
+      "updated_at": "2026-09-20T22:28:58.039067+00:00"
     },
     {
       "id": 3050,
@@ -6439,7 +6635,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #The_Practice",
-      "updated_at": "2026-09-20T13:06:01.916822+00:00"
+      "updated_at": "2026-09-20T22:28:58.264839+00:00"
     },
     {
       "id": 33880,
@@ -6462,7 +6658,7 @@
       "trailer_key": "obb1e7fiGLw",
       "trailer_url": "https://www.youtube.com/watch?v=obb1e7fiGLw",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #أفاتار:_أسطورة_كورا",
-      "updated_at": "2026-09-20T13:06:02.173747+00:00"
+      "updated_at": "2026-09-20T22:28:58.526278+00:00"
     },
     {
       "id": 226285,
@@ -6485,7 +6681,7 @@
       "trailer_key": "1J-fCrWcF14",
       "trailer_url": "https://www.youtube.com/watch?v=1J-fCrWcF14",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #كوميديا #Elsbeth",
-      "updated_at": "2026-09-20T13:06:02.444817+00:00"
+      "updated_at": "2026-09-20T22:28:58.757148+00:00"
     },
     {
       "id": 37854,
@@ -6508,7 +6704,7 @@
       "trailer_key": "1KMcoJBMWE4",
       "trailer_url": "https://www.youtube.com/watch?v=1KMcoJBMWE4",
       "hashtags": "#MOVINS #مسلسلات #أكشن #كوميديا #رسوم_متحركة #ون_بيس",
-      "updated_at": "2026-09-20T13:04:57.602307+00:00"
+      "updated_at": "2026-09-20T22:27:52.635797+00:00"
     },
     {
       "id": 2875,
@@ -6531,7 +6727,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #أكشن #جريمة #MacGyver",
-      "updated_at": "2026-09-20T13:06:02.841947+00:00"
+      "updated_at": "2026-09-20T22:28:59.114942+00:00"
     },
     {
       "id": 56570,
@@ -6553,7 +6749,7 @@
       "trailer_key": "KAS01FFj1fQ",
       "trailer_url": "https://www.youtube.com/watch?v=KAS01FFj1fQ",
       "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #دخيلة",
-      "updated_at": "2026-09-20T13:06:03.088587+00:00"
+      "updated_at": "2026-09-20T22:28:59.356097+00:00"
     },
     {
       "id": 4546,
@@ -6574,7 +6770,7 @@
       "trailer_key": "ltY335eAbOA",
       "trailer_url": "https://www.youtube.com/watch?v=ltY335eAbOA",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #اكبح_حماسك",
-      "updated_at": "2026-09-20T13:06:03.331348+00:00"
+      "updated_at": "2026-09-20T22:28:59.595937+00:00"
     },
     {
       "id": 6467,
@@ -6596,7 +6792,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Chicago_Hope",
-      "updated_at": "2026-09-20T13:06:03.638968+00:00"
+      "updated_at": "2026-09-20T22:28:59.858985+00:00"
     },
     {
       "id": 980431,
@@ -6609,7 +6805,7 @@
       "overview": "ينغمس أفتار انغ آخر مسخّر هواء في العالم، في اكتشاف قوة قديمة يمكنها إنقاذ ثقافته من الانقراض. وبمساعدة أصدقائه، ينطلق في رحلة حول العالم للعثور عليها قبل أن تقع في الأيدي الخطأ، حيث قد تهدد بقلب السلام الذي ضحّوا بكل شيء لتحقيقه",
       "rating": 9.1,
       "popularity": 91.0249,
-      "vote_count": 1160,
+      "vote_count": 1161,
       "genres": [
         "رسوم متحركة",
         "مغامرة",
@@ -6620,7 +6816,7 @@
       "trailer_key": "7b20GRFZBFE",
       "trailer_url": "https://www.youtube.com/watch?v=7b20GRFZBFE",
       "hashtags": "#MOVINS #أفلام #رسوم_متحركة #مغامرة #فانتازيا #أكشن",
-      "updated_at": "2026-09-20T13:03:23.493638+00:00"
+      "updated_at": "2026-09-20T22:26:23.548240+00:00"
     },
     {
       "id": 85552,
@@ -6633,7 +6829,7 @@
       "overview": "دراما خاصة بالمراهقين تتبع مجموعة من طلاب المدارس الثانوية وهم يتنقلون في الحب والصداقات في عالم من المخدرات والجنس والصدمات ووسائل التواصل الاجتماعي.",
       "rating": 8.3,
       "popularity": 90.8944,
-      "vote_count": 11081,
+      "vote_count": 11080,
       "genres": [
         "دراما"
       ],
@@ -6641,7 +6837,7 @@
       "trailer_key": "UR4Pxgnm-GA",
       "trailer_url": "https://www.youtube.com/watch?v=UR4Pxgnm-GA",
       "hashtags": "#MOVINS #مسلسلات #دراما #نشوة",
-      "updated_at": "2026-09-20T13:06:03.923937+00:00"
+      "updated_at": "2026-09-20T22:29:00.086112+00:00"
     },
     {
       "id": 48866,
@@ -6665,7 +6861,7 @@
       "trailer_key": "aDrsItJ_HU4",
       "trailer_url": "https://www.youtube.com/watch?v=aDrsItJ_HU4",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #أكشن #دراما #جريمة #The_100",
-      "updated_at": "2026-09-20T13:06:04.187307+00:00"
+      "updated_at": "2026-09-20T22:29:00.318416+00:00"
     },
     {
       "id": 31732,
@@ -6689,7 +6885,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #وثائقي #Democracy_Now!",
-      "updated_at": "2026-09-20T13:06:04.435025+00:00"
+      "updated_at": "2026-09-20T22:29:00.546440+00:00"
     },
     {
       "id": 39269,
@@ -6710,7 +6906,7 @@
       "trailer_key": "PhOR6DIS_Ho",
       "trailer_url": "https://www.youtube.com/watch?v=PhOR6DIS_Ho",
       "hashtags": "#MOVINS #مسلسلات #دراما #Scandal",
-      "updated_at": "2026-09-20T13:06:04.695168+00:00"
+      "updated_at": "2026-09-20T22:29:00.813723+00:00"
     },
     {
       "id": 95,
@@ -6723,7 +6919,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 8.1,
       "popularity": 90.0932,
-      "vote_count": 2062,
+      "vote_count": 2063,
       "genres": [
         "كوميديا",
         "دراما",
@@ -6733,7 +6929,7 @@
       "trailer_key": "-1v_q6TWAL4",
       "trailer_url": "https://www.youtube.com/watch?v=-1v_q6TWAL4",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #خيال_علمي #Buffy_the_Vampire_Slayer",
-      "updated_at": "2026-09-20T13:06:04.935654+00:00"
+      "updated_at": "2026-09-20T22:29:01.049233+00:00"
     },
     {
       "id": 42009,
@@ -6746,7 +6942,7 @@
       "overview": "حكايات معقّدة تخرج عن السيطرة في مسلسل المختارات المذهل هذا الذي يكشف عن أسوأ صفات البشرية وأعظم ابتكاراتها والمزيد.",
       "rating": 8.3,
       "popularity": 89.8689,
-      "vote_count": 6520,
+      "vote_count": 6522,
       "genres": [
         "خيال علمي وفانتازيا",
         "دراما",
@@ -6756,7 +6952,7 @@
       "trailer_key": "1iqra1ojEvM",
       "trailer_url": "https://www.youtube.com/watch?v=1iqra1ojEvM",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #غموض #Black_Mirror",
-      "updated_at": "2026-09-20T13:06:05.197403+00:00"
+      "updated_at": "2026-09-20T22:29:01.274572+00:00"
     },
     {
       "id": 79917,
@@ -6779,7 +6975,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #وثائقي #Bares_für_Rares",
-      "updated_at": "2026-09-20T13:06:05.443025+00:00"
+      "updated_at": "2026-09-20T22:29:01.547927+00:00"
     },
     {
       "id": 69050,
@@ -6802,7 +6998,7 @@
       "trailer_key": "HxtLlByaYTc",
       "trailer_url": "https://www.youtube.com/watch?v=HxtLlByaYTc",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #ريفرديل",
-      "updated_at": "2026-09-20T13:06:05.690120+00:00"
+      "updated_at": "2026-09-20T22:29:01.785313+00:00"
     },
     {
       "id": 1083381,
@@ -6815,7 +7011,7 @@
       "overview": "يظهر مدخل غريب في الطابق السفلي من صالة عرض الأثاث",
       "rating": 7.0,
       "popularity": 89.4898,
-      "vote_count": 3344,
+      "vote_count": 3349,
       "genres": [
         "رعب",
         "غموض",
@@ -6825,7 +7021,7 @@
       "trailer_key": "0HjdiohVOik",
       "trailer_url": "https://www.youtube.com/watch?v=0HjdiohVOik",
       "hashtags": "#MOVINS #أفلام #رعب #غموض #خيال_علمي #الغرفة_الخلفية",
-      "updated_at": "2026-09-20T13:03:23.981808+00:00"
+      "updated_at": "2026-09-20T22:26:16.448339+00:00"
     },
     {
       "id": 299534,
@@ -6838,7 +7034,7 @@
       "overview": "بعد الأحداث المدمّرة لفيلم Avengers: Infinity War، أصبح الكون في حالة خراب بسبب أفعال الفضائي المجنون، ثانوس. وبمساعدة الحلفاء المتبقين، يجب على المنتقمين أن يجتمعوا مرة أخرى من أجل التراجع عن أفعال ثانوس وإعادة النظام إلى الكون مرة أخيرة، مهما كانت العواقب التي قد تنتظرهم.",
       "rating": 8.2,
       "popularity": 89.4584,
-      "vote_count": 28709,
+      "vote_count": 28712,
       "genres": [
         "مغامرة",
         "خيال علمي",
@@ -6848,7 +7044,7 @@
       "trailer_key": "L2NAh3CIdig",
       "trailer_url": "https://www.youtube.com/watch?v=L2NAh3CIdig",
       "hashtags": "#MOVINS #أفلام #مغامرة #خيال_علمي #أكشن #المنتقمون:_نهاية_اللعبة",
-      "updated_at": "2026-09-20T13:03:23.740921+00:00"
+      "updated_at": "2026-09-20T22:26:23.833674+00:00"
     },
     {
       "id": 299536,
@@ -6861,7 +7057,7 @@
       "overview": "مع استمرار المنتقمون وحلفائهم في حماية العالم من التهديدات التي لا يمكن لأي بطل لوحده التعامل معها، ظهر خطر جديد من الظلال الكوني - ثانوس -  مستبد من العار المجحف، هدفه هو جمع كل حجارة اللانهاية الستة، التي تحمل قوة لا يمكن تصورها، واستخدامها لإلحاق إرادته الملتوية على كل الواقع. لقد قادت كل الأمور التي كافحها المنتقمون حتى هذه اللحظة  - لم يكن مصير الأرض ووجودها أكثر غموضاً من ذي قبل.",
       "rating": 8.2,
       "popularity": 89.3548,
-      "vote_count": 32930,
+      "vote_count": 32933,
       "genres": [
         "مغامرة",
         "أكشن",
@@ -6871,7 +7067,7 @@
       "trailer_key": "QwievZ1Tx-8",
       "trailer_url": "https://www.youtube.com/watch?v=QwievZ1Tx-8",
       "hashtags": "#MOVINS #أفلام #مغامرة #أكشن #خيال_علمي #المنتقمون:_الحرب_الأبدية",
-      "updated_at": "2026-09-20T13:03:24.860120+00:00"
+      "updated_at": "2026-09-20T22:26:24.068607+00:00"
     },
     {
       "id": 141,
@@ -6884,7 +7080,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.6,
       "popularity": 89.0878,
-      "vote_count": 712,
+      "vote_count": 713,
       "genres": [
         "كوميديا"
       ],
@@ -6892,7 +7088,7 @@
       "trailer_key": "mLW-vr1-n7o",
       "trailer_url": "https://www.youtube.com/watch?v=mLW-vr1-n7o",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Cheers",
-      "updated_at": "2026-09-20T13:06:05.935283+00:00"
+      "updated_at": "2026-09-20T22:29:02.012416+00:00"
     },
     {
       "id": 1432,
@@ -6915,7 +7111,7 @@
       "trailer_key": "5KvBAa2PuVo",
       "trailer_url": "https://www.youtube.com/watch?v=5KvBAa2PuVo",
       "hashtags": "#MOVINS #مسلسلات #غموض #دراما #كوميديا #Veronica_Mars",
-      "updated_at": "2026-09-20T13:06:06.176836+00:00"
+      "updated_at": "2026-09-20T22:29:02.243339+00:00"
     },
     {
       "id": 57911,
@@ -6941,7 +7137,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #كوميديا #خيال_علمي #عبقور",
-      "updated_at": "2026-09-20T13:06:06.452760+00:00"
+      "updated_at": "2026-09-20T22:29:02.469807+00:00"
     },
     {
       "id": 4556,
@@ -6952,9 +7148,9 @@
       "original_language": "en",
       "year": "2001",
       "overview": "في مستشفى القلب المقدس في كاليفورنيا، يشق جون دوريان طريقه في عالم الطب، حيث يتلقى العون من أصدقائه وزملائه المبتدئين، بجانب طبيب متعجرف يعتبره مثله الأعلى.",
-      "rating": 8.2,
+      "rating": 8.1,
       "popularity": 88.7979,
-      "vote_count": 232,
+      "vote_count": 233,
       "genres": [
         "كوميديا"
       ],
@@ -6962,7 +7158,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Scrubs",
-      "updated_at": "2026-09-20T13:06:06.695133+00:00"
+      "updated_at": "2026-09-20T22:29:02.702766+00:00"
     },
     {
       "id": 31911,
@@ -6986,7 +7182,7 @@
       "trailer_key": "RNwNA1M8A94",
       "trailer_url": "https://www.youtube.com/watch?v=RNwNA1M8A94",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #خيال_علمي #دراما #الخيميائي_الفولاذي_:_الأخوَّة",
-      "updated_at": "2026-09-20T13:06:06.935092+00:00"
+      "updated_at": "2026-09-20T22:29:02.942284+00:00"
     },
     {
       "id": 790,
@@ -7009,7 +7205,7 @@
       "trailer_key": "_4ypEmJlfn8",
       "trailer_url": "https://www.youtube.com/watch?v=_4ypEmJlfn8",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #Agatha_Christie's_Poirot",
-      "updated_at": "2026-09-20T13:06:07.261126+00:00"
+      "updated_at": "2026-09-20T22:29:03.166240+00:00"
     },
     {
       "id": 64189,
@@ -7030,7 +7226,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #NDR_Talk_Show",
-      "updated_at": "2026-09-20T13:06:07.495217+00:00"
+      "updated_at": "2026-09-20T22:29:03.399364+00:00"
     },
     {
       "id": 3562,
@@ -7051,7 +7247,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #وثائقي #نوڤا",
-      "updated_at": "2026-09-20T13:06:07.727080+00:00"
+      "updated_at": "2026-09-20T22:29:03.703938+00:00"
     },
     {
       "id": 84773,
@@ -7064,7 +7260,7 @@
       "overview": "بدءا من وقت السلم النسبي ، نتابع مجموعة من الشخصيات وهم يواجهون عودة ظهور الشر إلى الأرض الوسطى. من أحلك أعماق الجبال الضبابية ، إلى غابات ليندون المهيبة ، إلى مملكة جزيرة نومينور الخلابة ، إلى أبعد مدى من الخريطة ، ستقوم هذه الممالك والشخصيات بنحت الموروثات التي تعيش لفترة طويلة بعد رحيلها.",
       "rating": 7.2,
       "popularity": 87.6991,
-      "vote_count": 3921,
+      "vote_count": 3923,
       "genres": [
         "أكشن ومغامرة",
         "دراما",
@@ -7074,7 +7270,7 @@
       "trailer_key": "x8UAUAuKNcU",
       "trailer_url": "https://www.youtube.com/watch?v=x8UAUAuKNcU",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #خيال_علمي #سيد_الخواتم:_خواتم_السلطة",
-      "updated_at": "2026-09-20T13:06:08.022712+00:00"
+      "updated_at": "2026-09-20T22:29:03.981274+00:00"
     },
     {
       "id": 49009,
@@ -7096,7 +7292,7 @@
       "trailer_key": "Q_BJzU0ulLE",
       "trailer_url": "https://www.youtube.com/watch?v=Q_BJzU0ulLE",
       "hashtags": "#MOVINS #مسلسلات #عائلي #كوميديا #The_Goldbergs",
-      "updated_at": "2026-09-20T13:06:08.265103+00:00"
+      "updated_at": "2026-09-20T22:29:04.213935+00:00"
     },
     {
       "id": 734,
@@ -7119,7 +7315,7 @@
       "trailer_key": "m9aGICK8TZ0",
       "trailer_url": "https://www.youtube.com/watch?v=m9aGICK8TZ0",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #Magnum,_P.I.",
-      "updated_at": "2026-09-20T13:06:08.532255+00:00"
+      "updated_at": "2026-09-20T22:29:04.441624+00:00"
     },
     {
       "id": 63247,
@@ -7132,7 +7328,7 @@
       "overview": "ملحمة مظلمة حول الوعي الاصطناعي وتطور الخطيئة. تقع أحداثه عند تقاطع المستقبل القريب والماضي المعاد تخيله ، وتستكشف عالما يمكن الانغماس فيه بكل شهوة بشرية، نبيلة أم فاسدة.",
       "rating": 8.0,
       "popularity": 87.6666,
-      "vote_count": 6382,
+      "vote_count": 6383,
       "genres": [
         "خيال علمي وفانتازيا",
         "غربي"
@@ -7141,7 +7337,7 @@
       "trailer_key": "kEkZdgWu7mM",
       "trailer_url": "https://www.youtube.com/watch?v=kEkZdgWu7mM",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #غربي #العَالَمُ_الغَربِي",
-      "updated_at": "2026-09-20T13:06:08.773516+00:00"
+      "updated_at": "2026-09-20T22:29:04.673895+00:00"
     },
     {
       "id": 153312,
@@ -7163,7 +7359,7 @@
       "trailer_key": "aaQSScwZPbA",
       "trailer_url": "https://www.youtube.com/watch?v=aaQSScwZPbA",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #ملك_تولسا",
-      "updated_at": "2026-09-20T13:06:09.001513+00:00"
+      "updated_at": "2026-09-20T22:29:04.901480+00:00"
     },
     {
       "id": 1639,
@@ -7185,7 +7381,7 @@
       "trailer_key": "9AX6aXFdTkc",
       "trailer_url": "https://www.youtube.com/watch?v=9AX6aXFdTkc",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #Heroes",
-      "updated_at": "2026-09-20T13:06:09.278299+00:00"
+      "updated_at": "2026-09-20T22:29:05.131761+00:00"
     },
     {
       "id": 953,
@@ -7207,7 +7403,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #غربي #Maverick",
-      "updated_at": "2026-09-20T13:06:09.513031+00:00"
+      "updated_at": "2026-09-20T22:29:05.354327+00:00"
     },
     {
       "id": 88033,
@@ -7231,7 +7427,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Les_Guignols_de_l'info",
-      "updated_at": "2026-09-20T13:06:09.784549+00:00"
+      "updated_at": "2026-09-20T22:29:05.633615+00:00"
     },
     {
       "id": 2140,
@@ -7252,7 +7448,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #Everybody_Loves_Raymond",
-      "updated_at": "2026-09-20T13:06:10.024403+00:00"
+      "updated_at": "2026-09-20T22:29:05.857775+00:00"
     },
     {
       "id": 1130948,
@@ -7275,7 +7471,7 @@
       "trailer_key": "rmHD9gZbF7A",
       "trailer_url": "https://www.youtube.com/watch?v=rmHD9gZbF7A",
       "hashtags": "#MOVINS #أفلام #كوميديا #دراما #إثارة #تقليم_شجيرة_الورد",
-      "updated_at": "2026-09-20T13:03:23.194589+00:00"
+      "updated_at": "2026-09-20T22:26:24.337637+00:00"
     },
     {
       "id": 1599993,
@@ -7297,7 +7493,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #أفلام #كوميديا #إثارة #Animales",
-      "updated_at": "2026-09-20T13:03:24.317054+00:00"
+      "updated_at": "2026-09-20T22:26:24.598177+00:00"
     },
     {
       "id": 2025,
@@ -7318,7 +7514,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Beverly_Hills,_90210",
-      "updated_at": "2026-09-20T13:06:10.264092+00:00"
+      "updated_at": "2026-09-20T22:29:06.090631+00:00"
     },
     {
       "id": 85077,
@@ -7331,7 +7527,7 @@
       "overview": "بفضل تعاليمه ومعجزاته، يجتذب \"يسوع\" ابن \"الناصرة\" تلاميذ وأتباعًا من مختلف الأطياف، غير أن السُّلطات الرومانية تبدأ بالشعور بالقلق.",
       "rating": 8.8,
       "popularity": 87.0312,
-      "vote_count": 987,
+      "vote_count": 988,
       "genres": [
         "أكشن ومغامرة",
         "عائلي",
@@ -7341,7 +7537,7 @@
       "trailer_key": "5CVj41dtkIA",
       "trailer_url": "https://www.youtube.com/watch?v=5CVj41dtkIA",
       "hashtags": "#MOVINS #مسلسلات #أكشن #عائلي #دراما #المختار",
-      "updated_at": "2026-09-20T13:06:10.513510+00:00"
+      "updated_at": "2026-09-20T22:29:06.364402+00:00"
     },
     {
       "id": 4194,
@@ -7364,7 +7560,7 @@
       "trailer_key": "ZLW2jkd6E7g",
       "trailer_url": "https://www.youtube.com/watch?v=ZLW2jkd6E7g",
       "hashtags": "#MOVINS #مسلسلات #أكشن #خيال_علمي #رسوم_متحركة #حرب_النجوم:_حروب_المستنسخين",
-      "updated_at": "2026-09-20T13:06:10.756508+00:00"
+      "updated_at": "2026-09-20T22:29:06.593155+00:00"
     },
     {
       "id": 37678,
@@ -7385,7 +7581,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #The_Voice",
-      "updated_at": "2026-09-20T13:06:11.062315+00:00"
+      "updated_at": "2026-09-20T22:29:06.838019+00:00"
     },
     {
       "id": 1606,
@@ -7408,7 +7604,7 @@
       "trailer_key": "OlWZ3epMaCk",
       "trailer_url": "https://www.youtube.com/watch?v=OlWZ3epMaCk",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #غموض #دراما #Ghost_Whisperer",
-      "updated_at": "2026-09-20T13:06:11.288353+00:00"
+      "updated_at": "2026-09-20T22:29:07.066456+00:00"
     },
     {
       "id": 1417,
@@ -7430,7 +7626,7 @@
       "trailer_key": "KGSRXwnp0aE",
       "trailer_url": "https://www.youtube.com/watch?v=KGSRXwnp0aE",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #دراما #Glee",
-      "updated_at": "2026-09-20T13:06:11.523268+00:00"
+      "updated_at": "2026-09-20T22:29:07.303673+00:00"
     },
     {
       "id": 1516,
@@ -7453,7 +7649,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #أكشن #كوميديا #جريمة #The_A_Team",
-      "updated_at": "2026-09-20T13:06:11.757578+00:00"
+      "updated_at": "2026-09-20T22:29:07.528697+00:00"
     },
     {
       "id": 46648,
@@ -7466,7 +7662,7 @@
       "overview": "مسلسل شرطة أمريكي من نوع الأنثولوجيا (كل موسم قصة وشخصيات مختلفة)، يستخدم خطوطًا زمنية متعددة، حيث يبدو أن التحقيقات تكشف أسرارًا شخصية ومهنية للأشخاص المتورطين، سواء كانوا من داخل القانون أو خارجه.",
       "rating": 8.3,
       "popularity": 86.0211,
-      "vote_count": 4363,
+      "vote_count": 4365,
       "genres": [
         "دراما",
         "غموض"
@@ -7475,7 +7671,7 @@
       "trailer_key": "fVQUcaO4AvE",
       "trailer_url": "https://www.youtube.com/watch?v=fVQUcaO4AvE",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #محقق_فذّ",
-      "updated_at": "2026-09-20T13:06:11.993008+00:00"
+      "updated_at": "2026-09-20T22:29:07.769743+00:00"
     },
     {
       "id": 1420,
@@ -7496,7 +7692,7 @@
       "trailer_key": "0U1v971lit8",
       "trailer_url": "https://www.youtube.com/watch?v=0U1v971lit8",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #New_Girl",
-      "updated_at": "2026-09-20T13:06:12.239903+00:00"
+      "updated_at": "2026-09-20T22:29:08.002425+00:00"
     },
     {
       "id": 62688,
@@ -7519,7 +7715,7 @@
       "trailer_key": "G3feO7J7U9E",
       "trailer_url": "https://www.youtube.com/watch?v=G3feO7J7U9E",
       "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #أكشن #الفتاة_الخارقة",
-      "updated_at": "2026-09-20T13:06:12.520563+00:00"
+      "updated_at": "2026-09-20T22:29:08.498326+00:00"
     },
     {
       "id": 286801,
@@ -7532,7 +7728,7 @@
       "overview": "القصة الواقعية الصادمة للقاتل سيئ الصيت واللص الخطير \"إد غين\"، الذي ألهم عددًا من أشهر شخصيات القتلة المتسلسلين في أفلام \"هوليوود\".",
       "rating": 7.3,
       "popularity": 85.5186,
-      "vote_count": 571,
+      "vote_count": 572,
       "genres": [
         "جريمة",
         "دراما"
@@ -7541,7 +7737,7 @@
       "trailer_key": "EDBmpfbnLGk",
       "trailer_url": "https://www.youtube.com/watch?v=EDBmpfbnLGk",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #الوحش:_قصة_إد_غين",
-      "updated_at": "2026-09-20T13:06:12.757204+00:00"
+      "updated_at": "2026-09-20T22:29:08.722971+00:00"
     },
     {
       "id": 209867,
@@ -7554,7 +7750,7 @@
       "overview": "هُزم الملك الشيطان، وعاد فريق الأبطال المنتصر إلى المنزل قبل أن يتفكك. الأربعة: الساحرة “فريرين“، والبطل “هيميل“، والكاهن “هايتر“، والمحارب “آيزن“. يتذكرون رحلتهم التي استمرت عقدًا من الزمان مع حلول لحظة وداع بعضهم البعض. لكن مرور الوقت يختلف بالنسبة للجان، وبالتالي تشهد “فريرين” رفاقها يموتون ببطء واحدًا تلو الآخر.",
       "rating": 8.8,
       "popularity": 85.4733,
-      "vote_count": 967,
+      "vote_count": 969,
       "genres": [
         "رسوم متحركة",
         "أكشن ومغامرة",
@@ -7565,7 +7761,7 @@
       "trailer_key": "01WEqntM1NI",
       "trailer_url": "https://www.youtube.com/watch?v=01WEqntM1NI",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #دراما #خيال_علمي #فريرن:_ما_وراء_نهاية_الرحلة",
-      "updated_at": "2026-09-20T13:06:13.001757+00:00"
+      "updated_at": "2026-09-20T22:29:08.977414+00:00"
     },
     {
       "id": 1228710,
@@ -7578,7 +7774,7 @@
       "overview": "سقطت الإمبراطورية الشريرة، لكن لا يزال قادة الحرب الإمبراطوريون متفرقين في أنحاء المجرة. وبينما تعمل الجمهورية الجديدة الناشئة على حماية كل ما قاتلت من أجله الثورة، تستعين بخدمات صائد الجوائز الماندالوري الأسطوري \"دين جارين\" ومتدربه الصغير \"غروغو\".",
       "rating": 7.5,
       "popularity": 85.2211,
-      "vote_count": 1668,
+      "vote_count": 1671,
       "genres": [
         "أكشن",
         "مغامرة",
@@ -7588,7 +7784,7 @@
       "trailer_key": "uwild1rw7Aw",
       "trailer_url": "https://www.youtube.com/watch?v=uwild1rw7Aw",
       "hashtags": "#MOVINS #أفلام #أكشن #مغامرة #خيال_علمي #المندالوري_وغروغو",
-      "updated_at": "2026-09-20T13:03:25.123221+00:00"
+      "updated_at": "2026-09-20T22:26:24.830962+00:00"
     },
     {
       "id": 155,
@@ -7612,7 +7808,7 @@
       "trailer_key": "EsEKp5ba0Dg",
       "trailer_url": "https://www.youtube.com/watch?v=EsEKp5ba0Dg",
       "hashtags": "#MOVINS #مسلسلات #عائلي #خيال_علمي #كوميديا #دراما #3rd_Rock_from_the_Sun",
-      "updated_at": "2026-09-20T13:06:13.242097+00:00"
+      "updated_at": "2026-09-20T22:29:09.205809+00:00"
     },
     {
       "id": 55273,
@@ -7634,7 +7830,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Nak_&_Æd",
-      "updated_at": "2026-09-20T13:06:13.493418+00:00"
+      "updated_at": "2026-09-20T22:29:09.436469+00:00"
     },
     {
       "id": 67584,
@@ -7655,7 +7851,7 @@
       "trailer_key": "Nl1_95iA7yQ",
       "trailer_url": "https://www.youtube.com/watch?v=Nl1_95iA7yQ",
       "hashtags": "#MOVINS #مسلسلات #VICE_News_Tonight",
-      "updated_at": "2026-09-20T13:06:13.731395+00:00"
+      "updated_at": "2026-09-20T22:29:09.702440+00:00"
     },
     {
       "id": 33217,
@@ -7678,7 +7874,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #خيال_علمي #أكشن #شباب_العدالة",
-      "updated_at": "2026-09-20T13:06:13.999898+00:00"
+      "updated_at": "2026-09-20T22:29:09.930933+00:00"
     },
     {
       "id": 4630,
@@ -7691,7 +7887,7 @@
       "overview": "الوالدان السحريان (بالإنجليزية: The Fairly Odd Parents)‏ (يلفظ: ذا فيرلي أود بارنتس) هو اسم مسلسل رسوم متحركة من تآليف بوتش هارتمان, ومن إنتاج نكلوديون. يعرض المسلسل في العالم العربي على قناة ديزني الشرق الأوسط. تم دبلجته إلى العربية وتحديداً باللهجة المصرية العامية بواسطة شركة Pro Production، كما دبلجت بعض الحلقات للغة العربية الفصحى من قبل الستوديو اللبناني فيلملي وعرض على قناة إم بي سي 3. كما قام مركز الزهرة أيضاً بدبلجته إلى اللغة العربية الفصحى وعُرض على سبيس تون باسم أحلام تيمي.",
       "rating": 7.6,
       "popularity": 84.7406,
-      "vote_count": 1142,
+      "vote_count": 1143,
       "genres": [
         "رسوم متحركة",
         "كوميديا",
@@ -7702,7 +7898,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #خيال_علمي #أحلام_تيمي",
-      "updated_at": "2026-09-20T13:06:14.282039+00:00"
+      "updated_at": "2026-09-20T22:29:10.169246+00:00"
     },
     {
       "id": 264980,
@@ -7723,7 +7919,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #أفلام #كوميديا #Das_Mädchen_mit_der_heißen_Masche",
-      "updated_at": "2026-09-20T13:03:22.706407+00:00"
+      "updated_at": "2026-09-20T22:26:25.052248+00:00"
     },
     {
       "id": 57706,
@@ -7747,7 +7943,7 @@
       "trailer_key": "ykQrD1J09ts",
       "trailer_url": "https://www.youtube.com/watch?v=ykQrD1J09ts",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #أكشن #رسوم_متحركة #خيال_علمي #رانما_½",
-      "updated_at": "2026-09-20T13:06:14.543426+00:00"
+      "updated_at": "2026-09-20T22:29:10.399111+00:00"
     },
     {
       "id": 69478,
@@ -7760,7 +7956,7 @@
       "overview": "استولت الأوتوقراطية المستندة بالدين على معظم الولايات المتحدة، وأعادت تسمية الدولة - جلعاد -  في هذا البلد النساء مواطنات من الدرجة الثانية. يعاقب أي شخص يحاول الهروب. أحد هؤلاء الأشخاص هي - جون -  الذي تُعتقل أثناء محاولتها للهرب مع زوجها وطفلها ويُحكم عليها بأن تكون جارية، وتحمل أطفالاً لمسؤولين حكوميين بلا أطفال. كخادمه، يتم تغيير اسمها إلى أوفريد، وهذه قصتها...",
       "rating": 8.2,
       "popularity": 84.1114,
-      "vote_count": 3439,
+      "vote_count": 3441,
       "genres": [
         "دراما",
         "خيال علمي وفانتازيا",
@@ -7770,7 +7966,7 @@
       "trailer_key": "81PyH5TH-NQ",
       "trailer_url": "https://www.youtube.com/watch?v=81PyH5TH-NQ",
       "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #أكشن #حكاية_الخادمة",
-      "updated_at": "2026-09-20T13:06:14.796071+00:00"
+      "updated_at": "2026-09-20T22:29:10.632639+00:00"
     },
     {
       "id": 55216,
@@ -7793,7 +7989,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #عائلي #Scènes_de_ménages",
-      "updated_at": "2026-09-20T13:06:15.040984+00:00"
+      "updated_at": "2026-09-20T22:29:10.865249+00:00"
     },
     {
       "id": 4588,
@@ -7814,7 +8010,7 @@
       "trailer_key": "q6Qgrb8lP4k",
       "trailer_url": "https://www.youtube.com/watch?v=q6Qgrb8lP4k",
       "hashtags": "#MOVINS #مسلسلات #دراما #ER",
-      "updated_at": "2026-09-20T13:06:15.276756+00:00"
+      "updated_at": "2026-09-20T22:29:11.098918+00:00"
     },
     {
       "id": 32895,
@@ -7838,7 +8034,7 @@
       "trailer_key": "XAFH3cs88ew",
       "trailer_url": "https://www.youtube.com/watch?v=XAFH3cs88ew",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #كوميديا #Rizzoli_&_Isles",
-      "updated_at": "2026-09-20T13:06:15.561811+00:00"
+      "updated_at": "2026-09-20T22:29:11.330744+00:00"
     },
     {
       "id": 253,
@@ -7860,7 +8056,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #خيال_علمي #دراما #Star_Trek",
-      "updated_at": "2026-09-20T13:06:15.795359+00:00"
+      "updated_at": "2026-09-20T22:29:11.564224+00:00"
     },
     {
       "id": 60708,
@@ -7883,7 +8079,7 @@
       "trailer_key": "0d1zpt6k5OI",
       "trailer_url": "https://www.youtube.com/watch?v=0d1zpt6k5OI",
       "hashtags": "#MOVINS #مسلسلات #دراما #جريمة #خيال_علمي #قوثام",
-      "updated_at": "2026-09-20T13:06:16.042442+00:00"
+      "updated_at": "2026-09-20T22:29:11.801123+00:00"
     },
     {
       "id": 61222,
@@ -7896,7 +8092,7 @@
       "overview": "التقِ بالحصان، بطل المسلسل الكوميدي الأكثر شعبية في التسعينيات، بعد مضي 20 عامًا. إنه متذمر بقلب ليس كالذهب، بل قريب من الذهب. كالنحاس؟",
       "rating": 8.5,
       "popularity": 83.3382,
-      "vote_count": 2969,
+      "vote_count": 2970,
       "genres": [
         "رسوم متحركة",
         "كوميديا",
@@ -7906,7 +8102,7 @@
       "trailer_key": "i1eJMig5Ik4",
       "trailer_url": "https://www.youtube.com/watch?v=i1eJMig5Ik4",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #دراما #BoJack_Horseman",
-      "updated_at": "2026-09-20T13:06:16.278784+00:00"
+      "updated_at": "2026-09-20T22:29:12.072724+00:00"
     },
     {
       "id": 308,
@@ -7929,7 +8125,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #كوميديا #Morangos_com_Açúcar",
-      "updated_at": "2026-09-20T13:06:16.534803+00:00"
+      "updated_at": "2026-09-20T22:29:12.295240+00:00"
     },
     {
       "id": 1781,
@@ -7952,7 +8148,7 @@
       "trailer_key": "3SFkrgW2i8U",
       "trailer_url": "https://www.youtube.com/watch?v=3SFkrgW2i8U",
       "hashtags": "#MOVINS #مسلسلات #غربي #دراما #عائلي #بيت_صغير_على_المرج",
-      "updated_at": "2026-09-20T13:06:16.772583+00:00"
+      "updated_at": "2026-09-20T22:29:12.528371+00:00"
     },
     {
       "id": 1422,
@@ -7973,7 +8169,7 @@
       "trailer_key": "77d1smyqkYA",
       "trailer_url": "https://www.youtube.com/watch?v=77d1smyqkYA",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Middle",
-      "updated_at": "2026-09-20T13:06:17.014805+00:00"
+      "updated_at": "2026-09-20T22:29:12.790252+00:00"
     },
     {
       "id": 95557,
@@ -7986,7 +8182,7 @@
       "overview": "مارك غرايسون مراهق عادي يبلغ من العمر 17 عامًا، لكن حياته تتغير عندما يرث قوى خارقة من والده نولان، المعروف باسم أومني مان، أحد أقوى الأبطال الخارقين على الأرض. يبدأ مارك في اكتشاف قدراته وتعلم كيفية استخدامها، بينما يحاول الموازنة بين حياته كطالب وعائلته ودوره الجديد كبطل خارق. ومع ظهور تهديدات خطيرة وكشف أسرار صادمة عن والده، يجد مارك نفسه أمام صراعات تتجاوز حدود الأرض، ويضطر إلى مواجهة أعداء أقوياء واختبار معنى أن يكون بطلًا حقيقيًا.",
       "rating": 8.6,
       "popularity": 83.0285,
-      "vote_count": 6076,
+      "vote_count": 6077,
       "genres": [
         "رسوم متحركة",
         "دراما",
@@ -7997,7 +8193,7 @@
       "trailer_key": "-bfAVpuko5o",
       "trailer_url": "https://www.youtube.com/watch?v=-bfAVpuko5o",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #دراما #خيال_علمي #أكشن #المنيع",
-      "updated_at": "2026-09-20T13:06:17.255930+00:00"
+      "updated_at": "2026-09-20T22:29:13.019225+00:00"
     },
     {
       "id": 4238,
@@ -8018,7 +8214,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_King_of_Queens",
-      "updated_at": "2026-09-20T13:06:17.494884+00:00"
+      "updated_at": "2026-09-20T22:29:13.247681+00:00"
     },
     {
       "id": 1549,
@@ -8039,7 +8235,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #WWE_Friday_Night_SmackDown",
-      "updated_at": "2026-09-20T13:06:17.724355+00:00"
+      "updated_at": "2026-09-20T22:29:13.472200+00:00"
     },
     {
       "id": 259140,
@@ -8062,7 +8258,7 @@
       "trailer_key": "GICvY-T6nKs",
       "trailer_url": "https://www.youtube.com/watch?v=GICvY-T6nKs",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #كوميديا #Ranma1/2",
-      "updated_at": "2026-09-20T13:06:18.001120+00:00"
+      "updated_at": "2026-09-20T22:29:13.741812+00:00"
     },
     {
       "id": 1908,
@@ -8084,7 +8280,7 @@
       "trailer_key": "gWQX0avgnlM",
       "trailer_url": "https://www.youtube.com/watch?v=gWQX0avgnlM",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #Miami_Vice",
-      "updated_at": "2026-09-20T13:06:18.269498+00:00"
+      "updated_at": "2026-09-20T22:29:13.971276+00:00"
     },
     {
       "id": 45247,
@@ -8106,7 +8302,7 @@
       "trailer_key": "Y8U-E8hldHk",
       "trailer_url": "https://www.youtube.com/watch?v=Y8U-E8hldHk",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #دراما #Chihayafuru",
-      "updated_at": "2026-09-20T13:06:18.515195+00:00"
+      "updated_at": "2026-09-20T22:29:14.200999+00:00"
     },
     {
       "id": 605,
@@ -8129,7 +8325,7 @@
       "trailer_key": "LwwSOH6dWUw",
       "trailer_url": "https://www.youtube.com/watch?v=LwwSOH6dWUw",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #عائلي #خيال_علمي #Sabrina,_the_Teenage_Witch",
-      "updated_at": "2026-09-20T13:06:18.753729+00:00"
+      "updated_at": "2026-09-20T22:29:14.429822+00:00"
     },
     {
       "id": 274556,
@@ -8152,7 +8348,7 @@
       "trailer_key": "9BAs4nDhJH8",
       "trailer_url": "https://www.youtube.com/watch?v=9BAs4nDhJH8",
       "hashtags": "#MOVINS #مسلسلات #دراما #عائلي #أكشن #المدينة_البعيدة",
-      "updated_at": "2026-09-20T13:06:18.990954+00:00"
+      "updated_at": "2026-09-20T22:29:14.695833+00:00"
     },
     {
       "id": 30981,
@@ -8165,7 +8361,7 @@
       "overview": "تتكلم القصة عن جرائم وشخص يقف وراها وطبيب يقع ضحيه اتهام الشرطه له بأرتكاب الجرائم الطبيب اخطأ بالماضي ولكنه لم يترك خطأه وحاول اصلاحه بعد مرور عدة سنين وافنى نفسه لكي يصلح ما اخطأ به ينجرف جرّاح أعصاب ياباني لامع في عالم الظلام حين يحاول حلّ ألغاز سلسلة من جرائم القتل تتضمّن مريضًا قد عالجه ذات يوم وأنقذ حياته.",
       "rating": 8.5,
       "popularity": 82.1142,
-      "vote_count": 840,
+      "vote_count": 841,
       "genres": [
         "رسوم متحركة",
         "دراما",
@@ -8176,7 +8372,7 @@
       "trailer_key": "9aS-EgdAq6U",
       "trailer_url": "https://www.youtube.com/watch?v=9aS-EgdAq6U",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #دراما #غموض #جريمة #الوحش",
-      "updated_at": "2026-09-20T13:06:19.227187+00:00"
+      "updated_at": "2026-09-20T22:29:14.927561+00:00"
     },
     {
       "id": 1018,
@@ -8200,7 +8396,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #غربي #أكشن #دراما #عائلي #Bonanza",
-      "updated_at": "2026-09-20T13:06:19.470131+00:00"
+      "updated_at": "2026-09-20T22:29:15.154086+00:00"
     },
     {
       "id": 81329,
@@ -8221,7 +8417,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Un_si_grand_soleil",
-      "updated_at": "2026-09-20T13:06:19.746459+00:00"
+      "updated_at": "2026-09-20T22:29:15.384424+00:00"
     },
     {
       "id": 4582,
@@ -8244,7 +8440,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #Ironside",
-      "updated_at": "2026-09-20T13:06:19.991931+00:00"
+      "updated_at": "2026-09-20T22:29:15.610825+00:00"
     },
     {
       "id": 61923,
@@ -8269,7 +8465,7 @@
       "trailer_key": "fnEDKISvZZ0",
       "trailer_url": "https://www.youtube.com/watch?v=fnEDKISvZZ0",
       "hashtags": "#MOVINS #مسلسلات #أكشن #رسوم_متحركة #كوميديا #خيال_علمي #Star_vs._the_Forces_of_Evil",
-      "updated_at": "2026-09-20T13:06:20.236834+00:00"
+      "updated_at": "2026-09-20T22:29:15.831248+00:00"
     },
     {
       "id": 31917,
@@ -8291,7 +8487,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #غموض #Pretty_Little_Liars",
-      "updated_at": "2026-09-20T13:06:20.474074+00:00"
+      "updated_at": "2026-09-20T22:29:16.100510+00:00"
     },
     {
       "id": 61056,
@@ -8304,7 +8500,7 @@
       "overview": "تتورط محامية الدفاع الجنائية اللامعة وأستاذة القانون \"أناليس كيتينغ\" وخمسة من طلابها في قضية قتل ملتوية.",
       "rating": 7.8,
       "popularity": 81.5497,
-      "vote_count": 1821,
+      "vote_count": 1822,
       "genres": [
         "جريمة",
         "دراما",
@@ -8314,7 +8510,7 @@
       "trailer_key": "VHKRO7rSbOs",
       "trailer_url": "https://www.youtube.com/watch?v=VHKRO7rSbOs",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #كيف_تفلت_بجريمة_قتل",
-      "updated_at": "2026-09-20T13:06:20.745338+00:00"
+      "updated_at": "2026-09-20T22:29:16.335450+00:00"
     },
     {
       "id": 3229,
@@ -8337,7 +8533,7 @@
       "trailer_key": "nXZ_Li_VEWQ",
       "trailer_url": "https://www.youtube.com/watch?v=nXZ_Li_VEWQ",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #جريمة #دراما #Number_96",
-      "updated_at": "2026-09-20T13:06:20.979023+00:00"
+      "updated_at": "2026-09-20T22:29:16.565164+00:00"
     },
     {
       "id": 100757,
@@ -8350,7 +8546,7 @@
       "overview": "على جزيرة في \"كارولينا الشمالية\" يقطنها الأغنياء والطبقة العاملة الكادحة، يعيش \"جون بي\" وفريقه المتكاتف من الأصدقاء أجواء الغموض والمغامرة خلال البحث عن كنز مفقود.",
       "rating": 8.2,
       "popularity": 81.2014,
-      "vote_count": 1277,
+      "vote_count": 1278,
       "genres": [
         "أكشن ومغامرة",
         "غموض"
@@ -8359,7 +8555,7 @@
       "trailer_key": "pfY3j-3uQhk",
       "trailer_url": "https://www.youtube.com/watch?v=pfY3j-3uQhk",
       "hashtags": "#MOVINS #مسلسلات #أكشن #غموض #ضفاف_كارولينا",
-      "updated_at": "2026-09-20T13:06:21.226041+00:00"
+      "updated_at": "2026-09-20T22:29:16.792684+00:00"
     },
     {
       "id": 91555,
@@ -8381,7 +8577,7 @@
       "trailer_key": "1Dm7VOhNQK8",
       "trailer_url": "https://www.youtube.com/watch?v=1Dm7VOhNQK8",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #All_Elite_Wrestling:_Dynamite",
-      "updated_at": "2026-09-20T13:06:21.469932+00:00"
+      "updated_at": "2026-09-20T22:29:17.024162+00:00"
     },
     {
       "id": 1419406,
@@ -8394,7 +8590,7 @@
       "overview": "يختفي طاقم من المجرمين العباقرة ومعهم مليارات، مهربين من القبض عليهم بتفوقهم على نظام المراقبة \"عين السماء\" الهائل. يائسين ومُتخاذلين، تستعين شرطة ماكاو بأسطورة - وونغ تاك تشونغ (جاكي شان)، خبير تعقب متقاعد. يُرشد وونغ الضابط المبتدئ هي تشيوغو (تشانغ زيفنغ)، ويُعيد بناء وحدة مراقبة النخبة. مهمتهم: تعقب \"ملك الذئاب\" المراوغ، فو لونغ شنغ (ليونغ كا فاي توني)، العقل المدبر وراء السرقة. مع اقتراب الشرطة، يُنصب اللصوص فخًا خاصًا بهم. تتصادم العقول، وتُختبر الولاءات، وتبدأ لعبة القط والفأر النهائية...",
       "rating": 8.3,
       "popularity": 81.0401,
-      "vote_count": 1436,
+      "vote_count": 1442,
       "genres": [
         "أكشن",
         "جريمة",
@@ -8405,7 +8601,7 @@
       "trailer_key": "xvmADAJOoCg",
       "trailer_url": "https://www.youtube.com/watch?v=xvmADAJOoCg",
       "hashtags": "#MOVINS #أفلام #أكشن #جريمة #دراما #إثارة #حافة_الظل",
-      "updated_at": "2026-09-20T13:03:26.323607+00:00"
+      "updated_at": "2026-09-20T22:26:25.284930+00:00"
     },
     {
       "id": 52,
@@ -8428,7 +8624,7 @@
       "trailer_key": "b1za7d3KvHw",
       "trailer_url": "https://www.youtube.com/watch?v=b1za7d3KvHw",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #عائلي #دراما #That_'70s_Show",
-      "updated_at": "2026-09-20T13:06:21.698353+00:00"
+      "updated_at": "2026-09-20T22:29:17.258687+00:00"
     },
     {
       "id": 1025,
@@ -8452,7 +8648,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #كوميديا #عائلي #The_Bullwinkle_Show",
-      "updated_at": "2026-09-20T13:06:21.929296+00:00"
+      "updated_at": "2026-09-20T22:29:17.486528+00:00"
     },
     {
       "id": 17362,
@@ -8473,7 +8669,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #Dr._Kildare",
-      "updated_at": "2026-09-20T13:06:22.189704+00:00"
+      "updated_at": "2026-09-20T22:29:17.715771+00:00"
     },
     {
       "id": 62710,
@@ -8496,7 +8692,7 @@
       "trailer_key": "jfcKn6BwIC4",
       "trailer_url": "https://www.youtube.com/watch?v=jfcKn6BwIC4",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #أكشن #Blindspot",
-      "updated_at": "2026-09-20T13:06:22.449618+00:00"
+      "updated_at": "2026-09-20T22:29:17.947531+00:00"
     },
     {
       "id": 37858,
@@ -8509,7 +8705,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 7.2,
       "popularity": 80.4312,
-      "vote_count": 253,
+      "vote_count": 254,
       "genres": [
         "رسوم متحركة",
         "خيال علمي وفانتازيا",
@@ -8519,7 +8715,7 @@
       "trailer_key": "aFyxNcwl3U0",
       "trailer_url": "https://www.youtube.com/watch?v=aFyxNcwl3U0",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #خيال_علمي #أكشن #Fate/stay_night",
-      "updated_at": "2026-09-20T13:06:22.700515+00:00"
+      "updated_at": "2026-09-20T22:29:18.171337+00:00"
     },
     {
       "id": 6435,
@@ -8532,7 +8728,7 @@
       "overview": "لا يوجد ملخص متوفر حاليًا.",
       "rating": 6.8,
       "popularity": 80.2363,
-      "vote_count": 1941,
+      "vote_count": 1949,
       "genres": [
         "رومانسي",
         "فانتازيا",
@@ -8542,7 +8738,7 @@
       "trailer_key": "R7uixLkpjPs",
       "trailer_url": "https://www.youtube.com/watch?v=R7uixLkpjPs",
       "hashtags": "#MOVINS #أفلام #رومانسي #فانتازيا #كوميديا #Practical_Magic",
-      "updated_at": "2026-09-20T13:03:25.601754+00:00"
+      "updated_at": "2026-09-20T22:26:25.584258+00:00"
     },
     {
       "id": 562,
@@ -8564,7 +8760,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #The_Ellen_DeGeneres_Show",
-      "updated_at": "2026-09-20T13:06:22.941658+00:00"
+      "updated_at": "2026-09-20T22:29:18.400644+00:00"
     },
     {
       "id": 40,
@@ -8587,7 +8783,7 @@
       "trailer_key": "vuvmYYrfkIo",
       "trailer_url": "https://www.youtube.com/watch?v=vuvmYYrfkIo",
       "hashtags": "#MOVINS #مسلسلات #دراما #عائلي #Dallas",
-      "updated_at": "2026-09-20T13:06:23.198968+00:00"
+      "updated_at": "2026-09-20T22:29:18.647079+00:00"
     },
     {
       "id": 732,
@@ -8609,7 +8805,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #دراما #L.A._Law",
-      "updated_at": "2026-09-20T13:06:23.440914+00:00"
+      "updated_at": "2026-09-20T22:29:18.878631+00:00"
     },
     {
       "id": 2458,
@@ -8632,7 +8828,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #جريمة #دراما #غموض #CSI:_NY",
-      "updated_at": "2026-09-20T13:06:23.670129+00:00"
+      "updated_at": "2026-09-20T22:29:19.141578+00:00"
     },
     {
       "id": 95603,
@@ -8655,7 +8851,7 @@
       "trailer_key": "iuIxhuKYod8",
       "trailer_url": "https://www.youtube.com/watch?v=iuIxhuKYod8",
       "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #المؤسس_عثمان",
-      "updated_at": "2026-09-20T13:06:23.900410+00:00"
+      "updated_at": "2026-09-20T22:29:19.374083+00:00"
     },
     {
       "id": 1084242,
@@ -8668,7 +8864,7 @@
       "overview": "ينطلق المحققان جودي وتيك في مطاردة مشوّقة بعدما يصل إلى زوتروبوليس زاحف غامض يُحدث فوضى عارمة ويقلب عالم الثدييات رأسًا على عقب.",
       "rating": 7.7,
       "popularity": 79.8051,
-      "vote_count": 3436,
+      "vote_count": 3441,
       "genres": [
         "رسوم متحركة",
         "مغامرة",
@@ -8680,7 +8876,7 @@
       "trailer_key": "sEgPQ7HKoBA",
       "trailer_url": "https://www.youtube.com/watch?v=sEgPQ7HKoBA",
       "hashtags": "#MOVINS #أفلام #رسوم_متحركة #مغامرة #كوميديا #غموض #زوتروبوليس_٢",
-      "updated_at": "2026-09-20T13:03:26.804202+00:00"
+      "updated_at": "2026-09-20T22:26:25.868272+00:00"
     },
     {
       "id": 14750,
@@ -8701,7 +8897,7 @@
       "trailer_key": "",
       "trailer_url": "",
       "hashtags": "#MOVINS #مسلسلات #Na_Wspólnej",
-      "updated_at": "2026-09-20T13:06:24.132546+00:00"
+      "updated_at": "2026-09-20T22:29:19.614051+00:00"
     },
     {
       "id": 131041,
@@ -8724,7 +8920,7 @@
       "trailer_key": "IVsII3dLbWc",
       "trailer_url": "https://www.youtube.com/watch?v=IVsII3dLbWc",
       "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أكشن #دراما #القفل_الأزرق",
-      "updated_at": "2026-09-20T13:06:24.409266+00:00"
+      "updated_at": "2026-09-20T22:29:19.837533+00:00"
     },
     {
       "id": 10029,
@@ -8747,211 +8943,7 @@
       "trailer_key": "O_ZmE_nH0Eo",
       "trailer_url": "https://www.youtube.com/watch?v=O_ZmE_nH0Eo",
       "hashtags": "#MOVINS #مسلسلات #كوميديا #وثائقي #دراما #Great_Performances",
-      "updated_at": "2026-09-20T13:06:24.636773+00:00"
-    },
-    {
-      "id": 71026,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل رسوم متحركة",
-      "title": "أجنحة الإنقاذ",
-      "original_title": "أجنحة الإنقاذ",
-      "original_language": "ko",
-      "year": "2014",
-      "overview": "طائرة نفاثة تُدعى جيت تجوب العالم لتوصيل الطرود للأطفال وحل المشاكل مع أصدقائه من فريق سوبر وينجز.",
-      "rating": 6.6,
-      "popularity": 79.5159,
-      "vote_count": 20,
-      "genres": [
-        "رسوم متحركة",
-        "أطفال"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/lu2DNsIQgn1Jb6djHvrqJSUQXXl.jpg",
-      "trailer_key": "",
-      "trailer_url": "",
-      "hashtags": "#MOVINS #مسلسلات #رسوم_متحركة #أجنحة_الإنقاذ",
-      "updated_at": "2026-09-20T13:06:24.871034+00:00"
-    },
-    {
-      "id": 2919,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن ومغامرة",
-      "title": "Burn Notice",
-      "original_title": "Burn Notice",
-      "original_language": "en",
-      "year": "2007",
-      "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 7.5,
-      "popularity": 79.4572,
-      "vote_count": 612,
-      "genres": [
-        "أكشن ومغامرة",
-        "دراما",
-        "جريمة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/o2fnD3SNiQjGVgA2C3ezaeh2HK.jpg",
-      "trailer_key": "oFtYEe39RUI",
-      "trailer_url": "https://www.youtube.com/watch?v=oFtYEe39RUI",
-      "hashtags": "#MOVINS #مسلسلات #أكشن #دراما #جريمة #Burn_Notice",
-      "updated_at": "2026-09-20T13:06:25.105092+00:00"
-    },
-    {
-      "id": 90,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل دراما",
-      "title": "تحقيقات الكوارث الجوية",
-      "original_title": "تحقيقات الكوارث الجوية",
-      "original_language": "en",
-      "year": "2003",
-      "overview": "برنامج تلفزيوني وثائقي من إنتاج Cineflix في كندا. وتم بثها على قناة ديسكفري وكندا، ومجلة ناشيونال جيوجرافيك. ويحقق هذا الفيلم الوثائقي في العديد من حوادث تحطم الطائرات في التاريخ الحديث بعد فحص الصندوق الأسود والاستماع لتسجيل الصندوقين الأسودين للطائرة. انه يكشف عن الأحداث التي أدت إلى كل من الكوارث، وأسباب الحوادث والتدابير الموصى بها في تقرير الهيئة القومية لسلامة الطيران، أو لمنع حدوث حادث مماثل مرة أخرى. انه ملامح لإعادة التشريعات، والمقابلات، والشهادات، وتوليد الصور الكمبيوتر، وبعض الحلقات، وقمرة القيادة وتسجيلات صوتية لإعادة تسلسل الأحداث إلى الجمهور.",
-      "rating": 8.2,
-      "popularity": 79.356,
-      "vote_count": 296,
-      "genres": [
-        "وثائقي",
-        "دراما",
-        "جريمة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/2uuVIAb4MtPmMNTpOyID5V8DzrU.jpg",
-      "trailer_key": "D1PRxyN3qf0",
-      "trailer_url": "https://www.youtube.com/watch?v=D1PRxyN3qf0",
-      "hashtags": "#MOVINS #مسلسلات #وثائقي #دراما #جريمة #تحقيقات_الكوارث_الجوية",
-      "updated_at": "2026-09-20T13:06:25.350237+00:00"
-    },
-    {
-      "id": 13859,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن ومغامرة",
-      "title": "The Rifleman",
-      "original_title": "The Rifleman",
-      "original_language": "en",
-      "year": "1958",
-      "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 7.1,
-      "popularity": 79.3047,
-      "vote_count": 54,
-      "genres": [
-        "أكشن ومغامرة",
-        "غربي",
-        "عائلي"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/tYf5Sc83chWG2nBlo5xKdpBBwlI.jpg",
-      "trailer_key": "lNeySEOXUcI",
-      "trailer_url": "https://www.youtube.com/watch?v=lNeySEOXUcI",
-      "hashtags": "#MOVINS #مسلسلات #أكشن #غربي #عائلي #The_Rifleman",
-      "updated_at": "2026-09-20T13:06:25.589482+00:00"
-    },
-    {
-      "id": 1403,
-      "type": "مسلسل",
-      "detailed_type": "مسلسل أكشن ومغامرة",
-      "title": "مارفيل: عملاء شيلد",
-      "original_title": "مارفيل: عملاء شيلد",
-      "original_language": "en",
-      "year": "2013",
-      "overview": "العميل فيل كولسون من S.H.I.E.L.D. (قسم التدخل الداخلي والإنفاذ واللوجستيات الاستراتيجي) يجمع فريقًا من العملاء للتحقيق في الجديد، الغريب والمجهول في جميع أنحاء العالم، يحمي العادي من غير العادي.",
-      "rating": 7.5,
-      "popularity": 79.269,
-      "vote_count": 3899,
-      "genres": [
-        "دراما",
-        "خيال علمي وفانتازيا",
-        "أكشن ومغامرة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/gHUCCMy1vvj58tzE3dZqeC9SXus.jpg",
-      "trailer_key": "T3T-evQZiQo",
-      "trailer_url": "https://www.youtube.com/watch?v=T3T-evQZiQo",
-      "hashtags": "#MOVINS #مسلسلات #دراما #خيال_علمي #أكشن #مارفيل:_عملاء_شيلد",
-      "updated_at": "2026-09-20T13:06:25.811460+00:00"
-    },
-    {
-      "id": 278,
-      "type": "فيلم",
-      "detailed_type": "فيلم دراما",
-      "title": "الخلاص من شاوشانك",
-      "original_title": "الخلاص من شاوشانك",
-      "original_language": "en",
-      "year": "1994",
-      "overview": "في أربعينيات القرن الماضي، يُدان المصرفي آندي دوفرين بجريمة قتل زوجته وعشيقها ويُزجّ به في سجن شاوشانك. داخل هذا العالم القاسي، يجد نفسه يعمل لصالح مدير فاسد مستغلًا مهاراته في المحاسبة. ومع مرور السنوات، يفرض آندي حضوره بين السجناء، ويكسب احترامهم — خصوصًا السجين رِد — بفضل ثباته ونزاهته وإصراره على التمسك بالأمل مهما اشتدت الظروف.",
-      "rating": 8.7,
-      "popularity": 78.5478,
-      "vote_count": 31360,
-      "genres": [
-        "دراما",
-        "جريمة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
-      "trailer_key": "PLl99DlL6b4",
-      "trailer_url": "https://www.youtube.com/watch?v=PLl99DlL6b4",
-      "hashtags": "#MOVINS #أفلام #دراما #جريمة #الخلاص_من_شاوشانك",
-      "updated_at": "2026-09-20T13:03:27.060400+00:00"
-    },
-    {
-      "id": 1228834,
-      "type": "فيلم",
-      "detailed_type": "فيلم أكشن",
-      "title": "The Fix",
-      "original_title": "The Fix",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "لا يوجد ملخص متوفر حاليًا.",
-      "rating": 7.2,
-      "popularity": 78.2818,
-      "vote_count": 13,
-      "genres": [
-        "أكشن",
-        "إثارة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/yopXjun3ICFfJci2ukcEzceZjUs.jpg",
-      "trailer_key": "l5Luvr9TRRc",
-      "trailer_url": "https://www.youtube.com/watch?v=l5Luvr9TRRc",
-      "hashtags": "#MOVINS #أفلام #أكشن #إثارة #The_Fix",
-      "updated_at": "2026-09-20T13:03:25.844873+00:00"
-    },
-    {
-      "id": 1514682,
-      "type": "فيلم",
-      "detailed_type": "فيلم إثارة",
-      "title": "Above & Below",
-      "original_title": "Above & Below",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "انطلقت مجموعة من الأصدقاء في عطلة لا تُنسى. ما بدأ كمغامرة مليئة بالحفلات والغوص سرعان ما تحول إلى كابوس عندما تعرضوا لهجوم من قبل مجرمين في المياه المفتوحة.",
-      "rating": 6.0,
-      "popularity": 78.0521,
-      "vote_count": 39,
-      "genres": [
-        "إثارة",
-        "جريمة"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/7bOuu1SRALGwsG2fLCTvRkCmQBj.jpg",
-      "trailer_key": "18wdUGRPUY4",
-      "trailer_url": "https://www.youtube.com/watch?v=18wdUGRPUY4",
-      "hashtags": "#MOVINS #أفلام #إثارة #جريمة #Above_&_Below",
-      "updated_at": "2026-09-20T13:03:24.605569+00:00"
-    },
-    {
-      "id": 1560520,
-      "type": "فيلم",
-      "detailed_type": "فيلم أكشن",
-      "title": "باتمان: سقوط الفارس الجزء ١: سقوط الفارس",
-      "original_title": "باتمان: سقوط الفارس الجزء ١: سقوط الفارس",
-      "original_language": "en",
-      "year": "2026",
-      "overview": "دُمِّرَ مصحّ أركام، وانطلق جميع نزلائه في مدينة غوثام. وبينما يسارع باتمان للقبض على بعضٍ من ألد أعدائه، يُدفع إلى أقصى حدود قدراته الجسدية والعقلية، ويخوض مواجهةً أخيرةً مع تهديدٍ جديد: الرجل الملقب بـ\"بين\".",
-      "rating": 9.2,
-      "popularity": 76.4791,
-      "vote_count": 345,
-      "genres": [
-        "رسوم متحركة",
-        "أكشن",
-        "مغامرة",
-        "خيال علمي"
-      ],
-      "poster": "https://image.tmdb.org/t/p/w500/360qdtu2hLnqMu8SVHMywn420w1.jpg",
-      "trailer_key": "90HAqMk7qv0",
-      "trailer_url": "https://www.youtube.com/watch?v=90HAqMk7qv0",
-      "hashtags": "#MOVINS #أفلام #رسوم_متحركة #أكشن #مغامرة #خيال_علمي #باتمان:_سقوط_الفارس_الجزء_١:_سقوط_الفارس",
-      "updated_at": "2026-09-20T13:03:26.551074+00:00"
+      "updated_at": "2026-09-20T22:29:20.066813+00:00"
     }
   ]
 }
