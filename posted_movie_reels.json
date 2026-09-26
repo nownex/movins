@@ -203,5 +203,15 @@
     "published_at": 1790367224,
     "movins_url": "https://nownex.github.io/movins/?movie=tv-59941",
     "facebook_success": true
+  },
+  {
+    "id": "94722",
+    "tmdb_id": "94722",
+    "title": "Tagesschau",
+    "type": "TV SERIES",
+    "video_id": "2568663446917117",
+    "published_at": 1790451129,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-94722",
+    "facebook_success": true
   }
 ]
