@@ -273,5 +273,15 @@
     "published_at": 1790975342,
     "movins_url": "https://nownex.github.io/movins/?movie=tv-2224",
     "facebook_success": true
+  },
+  {
+    "id": "1434",
+    "tmdb_id": "1434",
+    "title": "Family Guy",
+    "type": "TV SERIES",
+    "video_id": "987759427673570",
+    "published_at": 1791056415,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-1434",
+    "facebook_success": true
   }
 ]
