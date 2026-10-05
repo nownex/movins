@@ -293,5 +293,15 @@
     "published_at": 1791143630,
     "movins_url": "https://nownex.github.io/movins/?movie=tv-15226",
     "facebook_success": true
+  },
+  {
+    "id": "1228834",
+    "tmdb_id": "1228834",
+    "title": "The Fix",
+    "type": "MOVIE",
+    "video_id": "1121744796977265",
+    "published_at": 1791241405,
+    "movins_url": "https://nownex.github.io/movins/?movie=movie-1228834",
+    "facebook_success": true
   }
 ]
