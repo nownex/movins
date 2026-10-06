@@ -303,5 +303,15 @@
     "published_at": 1791241405,
     "movins_url": "https://nownex.github.io/movins/?movie=movie-1228834",
     "facebook_success": true
+  },
+  {
+    "id": "95350",
+    "tmdb_id": "95350",
+    "title": "Lanterns",
+    "type": "TV SERIES",
+    "video_id": "1414833670097342",
+    "published_at": 1791321996,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-95350",
+    "facebook_success": true
   }
 ]
