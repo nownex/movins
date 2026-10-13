@@ -373,5 +373,15 @@
     "published_at": 1791847579,
     "movins_url": "https://nownex.github.io/movins/?movie=movie-1148365",
     "facebook_success": true
+  },
+  {
+    "id": "288673",
+    "tmdb_id": "288673",
+    "title": "Carrie",
+    "type": "TV SERIES",
+    "video_id": "1508464061118695",
+    "published_at": 1791927756,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-288673",
+    "facebook_success": true
   }
 ]
