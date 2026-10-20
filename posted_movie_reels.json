@@ -443,5 +443,15 @@
     "published_at": 1792444804,
     "movins_url": "https://nownex.github.io/movins/?movie=tv-14424",
     "facebook_success": true
+  },
+  {
+    "id": "1396",
+    "tmdb_id": "1396",
+    "title": "Breaking Bad",
+    "type": "TV SERIES",
+    "video_id": "2634681503638525",
+    "published_at": 1792527369,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-1396",
+    "facebook_success": true
   }
 ]
