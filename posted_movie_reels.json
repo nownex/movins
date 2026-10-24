@@ -483,5 +483,15 @@
     "published_at": 1792786287,
     "movins_url": "https://nownex.github.io/movins/?movie=tv-1411",
     "facebook_success": true
+  },
+  {
+    "id": "1426",
+    "tmdb_id": "1426",
+    "title": "Luther",
+    "type": "TV SERIES",
+    "video_id": "1210921161286469",
+    "published_at": 1792869221,
+    "movins_url": "https://nownex.github.io/movins/?movie=tv-1426",
+    "facebook_success": true
   }
 ]
